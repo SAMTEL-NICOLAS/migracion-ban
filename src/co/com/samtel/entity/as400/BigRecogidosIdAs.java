@@ -1,4 +1,4 @@
-package co.com.samtel.entity.sql;
+package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class BigRecogidosId implements Serializable {
+public class BigRecogidosIdAs implements Serializable {
 
 	/**
 	 * 
@@ -51,7 +51,7 @@ public class BigRecogidosId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BigRecogidosId other = (BigRecogidosId) obj;
+		BigRecogidosIdAs other = (BigRecogidosIdAs) obj;
 		if (d_fecha_corte == null) {
 			if (other.d_fecha_corte != null)
 				return false;

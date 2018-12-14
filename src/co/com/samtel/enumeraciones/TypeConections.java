@@ -2,8 +2,8 @@ package co.com.samtel.enumeraciones;
 
 public enum TypeConections {
 
-	SQLSERVER("sqlserver", "SqlServerHibernate.cfg.xml"), AS400("as400", "As400Hibernate.cfg.xml");
-
+//	SQLSERVER("sqlserver", "SqlServerHibernate.cfg.xml"), AS400("as400", "As400Hibernate.cfg.xml");
+	SQLSERVER("sqlserver", "DestinoPostgresHibernate.cfg.xml"), AS400("as400", "OrigenPostgresHibernate.cfg.xml");
 	private String value;
 	private String config;
 

@@ -1,4 +1,4 @@
-package co.com.samtel.entity.sql;
+package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
 
@@ -9,21 +9,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="BIG_RECOGIDOS")
-public class BigRecogidos implements Serializable {
+public class BigRecogidosAs implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@EmbeddedId
-	private BigRecogidosId id;
+	private BigRecogidosIdAs id;
 	@Column(name="s_tipo_linea")
 	private String s_tipo_linea;
 	
-	public BigRecogidosId getId() {
+	public BigRecogidosIdAs getId() {
 		return id;
 	}
-	public void setId(BigRecogidosId id) {
+	public void setId(BigRecogidosIdAs id) {
 		this.id = id;
 	}
 	public String getS_tipo_linea() {

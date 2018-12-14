@@ -1,16 +1,22 @@
 package co.com.samtel.controller;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
 
-import co.com.samtel.service.IRoleService;
+import co.com.samtel.dao.IBigRecogidosAsDao;
+import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.migration.IGenerateMigration;
+import lombok.Getter;
+import lombok.Setter;
 
 @ManagedBean
+@Getter @Setter
 public class LoginMB {
 
 	private String usuario;
-	@Inject
-	private IRoleService roleService;
+	
+	@EJB(beanName="bigRecorridosMigrate")
+	IGenerateMigration bigRecorridosMigrate;
 
 	public String getUsuario() {
 		return usuario;
@@ -21,7 +27,9 @@ public class LoginMB {
 	}
 	
 	public void login() {
-		roleService.findAll();
+		
+		System.out.println(bigRecorridosMigrate.generateMigration());
+		//bigRecorridosAsDao.findBlockData(ini, fin)
 	}
 
 }

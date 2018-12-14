@@ -21,6 +21,7 @@ public class HibernateConnAs400 extends HibernateConnAbs implements IHibernateCo
 	 */
 	@PostConstruct
 	public void init() {
+		getLogger().info(".::. Inicio de conexion con AS 400 .::. ");
 		setTypeConections(TypeConections.AS400);
 		generateSession();
 	}

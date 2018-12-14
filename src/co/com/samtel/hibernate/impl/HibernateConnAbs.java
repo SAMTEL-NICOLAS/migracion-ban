@@ -26,6 +26,7 @@ public abstract class HibernateConnAbs {
 	}
 	
 	public SessionFactory getSessionFactory() {
+		getLogger().info(".:: Obteniendo conexion de ".concat(getTypeConections().getValue()).concat(" ::."));
 		return sessionFactory;
 	}
 
@@ -40,12 +41,14 @@ public abstract class HibernateConnAbs {
 		try {
 			if (getSessionFactory() == null) {
 				Configuration configuration = new Configuration();
+				getLogger().log(Level.INFO, ".::. Con el siguiente archivo de configuraciones: ".concat(getTypeConections().getConfig()).concat(" .::."));
 				configuration.configure(getTypeConections().getConfig());
 				StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
 				serviceRegistryBuilder.applySettings(configuration.getProperties());
 				ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
 				setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
 				getLogger().log(Level.INFO, ".::. Se genero correctamente la session de sql server .::.");
+				
 			}
 		} catch (Exception e) {
 			getLogger().log(Level.SEVERE, ".::. Error al generar la conexion con ".concat(getTypeConections().getValue()).concat(" .::. "), e);

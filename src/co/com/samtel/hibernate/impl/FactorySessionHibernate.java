@@ -33,7 +33,8 @@ public class FactorySessionHibernate implements IFactorySessionHibernate {
 
 	@Override
 	public void close(Session session, Transaction tx) {
-		tx.commit();
+		if(tx!=null)
+			tx.commit();
 		session.flush();
 		session.close();
 	}
