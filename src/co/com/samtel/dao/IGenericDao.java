@@ -27,4 +27,10 @@ public interface IGenericDao<T, PK extends Serializable> {
 	 * @param typeConections
 	 */
 	public void setTypeConection(TypeConections typeConections );
+	/**
+	 * Metodo con el cual persisto una lista de objetos
+	 * @param blockInformation
+	 * @return
+	 */
+	Boolean saveBlockInformation(List<T> blockInformation);
 }

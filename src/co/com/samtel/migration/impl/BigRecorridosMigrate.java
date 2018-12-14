@@ -1,5 +1,6 @@
 package co.com.samtel.migration.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,11 +55,14 @@ public class BigRecorridosMigrate implements IGenerateMigration {
 			for(int i = 0; i < records ; i += numRecords) {
 				int limit = i + numRecords.intValue();
 				List<BigRecogidosAs> listOrigen = origen.findBlockData(i, limit);
+				List<BigRecogidos> listDestino = null; 
 				//Mapeo el objeto de origen a destino
 				ModelMapper modelMapper = new ModelMapper();
 				BigRecogidos [] listaDestino = 	modelMapper.map(listOrigen, BigRecogidos[].class);
 				//visualizo la lista de destino
 				if(listaDestino.length != 0) {
+					listDestino = Arrays.asList(listaDestino);
+					destino.saveBlockInformation(listDestino);
 					System.out.println("Si llego");
 				}
 			}	

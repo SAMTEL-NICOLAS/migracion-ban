@@ -22,7 +22,7 @@
         <property name="hibernate.use_sql_comments">true</property>
         <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="hibernate.current_session_context_class">thread</property>
-		
+		<property name="hibernate.jdbc.batch_size">5</property>
 		<!--Here we are mapping Pojo class not hbm -->
 		<mapping class="co.com.samtel.entity.as400.BigRecogidosAs" />		
 	</session-factory>

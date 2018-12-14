@@ -83,5 +83,22 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 		}
 		return result;		
 	}
+	
+	@Override
+	public Boolean saveBlockInformation(List<T> blockInformation) {
+		Session session = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			for(T item : blockInformation) {
+				session.save(item);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			factorySessionHibernate.close(session, null);
+		}
+		return null;
+	}
+
 
 }
