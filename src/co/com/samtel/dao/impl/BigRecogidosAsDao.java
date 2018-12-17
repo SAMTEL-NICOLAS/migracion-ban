@@ -1,7 +1,5 @@
 package co.com.samtel.dao.impl;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 
 import co.com.samtel.dao.IBigRecogidosAsDao;

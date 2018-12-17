@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="BIG_RECOGIDOS")
+@Table(name="BIG_RECOGIDOSSQL")
 public class BigRecogidos implements Serializable {
 
 	/**

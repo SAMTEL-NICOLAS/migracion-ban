@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
@@ -32,8 +33,7 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 	IFactorySessionHibernate factorySessionHibernate;
 
 	/**
-	 * Metodo con el cual obtengo el class de la implementacion generica
-	 * 
+	 * Metodo con el cual obtengo la clase en la cual se esta implemento la clase abstracta
 	 * @return
 	 */
 	protected Class<T> initDomainClass() {
@@ -43,9 +43,7 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 		}
 		return domainClass;
 	}
-	/**
-	 * Metodo con el cual obtengo el numero de registos que tiene una tabla
-	 */
+	@Override
 	public void countRecordsTable() {
 		Session session = null;
 		try {
@@ -60,11 +58,7 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 			factorySessionHibernate.close(session, null);
 		}
 	}
-	/**
-	 * Metodo con el cual busco un segemento de informacion segmentado por bloques
-	 * @param ini
-	 * @param fin
-	 */
+	@Override
 	public List<T> findBlockData(Integer ini, Integer fin) {
 		Session session = null;
 		List<T> result = null;
@@ -87,15 +81,18 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 	@Override
 	public Boolean saveBlockInformation(List<T> blockInformation) {
 		Session session = null;
+		Transaction tx = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			tx = session.beginTransaction();
 			for(T item : blockInformation) {
 				session.save(item);
 			}
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 		} finally {
-			factorySessionHibernate.close(session, null);
+			factorySessionHibernate.close(session, tx);
 		}
 		return null;
 	}

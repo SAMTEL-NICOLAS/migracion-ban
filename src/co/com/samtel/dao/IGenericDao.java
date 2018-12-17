@@ -33,4 +33,9 @@ public interface IGenericDao<T, PK extends Serializable> {
 	 * @return
 	 */
 	Boolean saveBlockInformation(List<T> blockInformation);
+	/**
+	 * Metodo con el cual obtengo el numero de registros en la tabla
+	 * @return
+	 */
+	Long getNumRecordsTable();
 }
