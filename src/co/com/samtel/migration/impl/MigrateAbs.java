@@ -30,8 +30,7 @@ public abstract class MigrateAbs<T,U> {
 
 	abstract public void setDestino(IGenericDao destino);
 	
-	abstract public List<U> mappearOrigen(List<T> origen);
-	
+	abstract public List<U> mappearOrigen(List<T> origen);	
 
 	public void initializeMigration() {
 		getOrigen().setTypeConection(TypeConections.AS400);
