@@ -4,9 +4,9 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.0.172\CRMAURORA:1433;databaseName=BIGAURORA;</property>
-		<property name="hibernate.connection.username">trc_nelson.ferrucho</property>
-		<property name="hibernate.connection.password">Colombia88</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://192.165.30.51:1433;databaseName=BIGAURORA_DESTINO</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password">loco9412</property>
 		<property name="hibernate.connection.provider_disables_autocommit" >true</property>
 		<property name="show_sql">true</property>
 		<!-- c3p0 config http://www.hibernate.org/214.html -->
@@ -24,6 +24,6 @@
         <property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.jdbc.batch_size">5</property>
 		<!--Here we are mapping Pojo class not hbm -->
-		<mapping class="co.com.samtel.entity.sql.BigActivos" />		
+		<mapping class="co.com.samtel.entity.sql.BigRecogidos" />		
 	</session-factory>
 </hibernate-configuration>

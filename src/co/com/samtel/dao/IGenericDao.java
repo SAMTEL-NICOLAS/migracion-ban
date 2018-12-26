@@ -8,7 +8,7 @@ import javax.ejb.Local;
 import co.com.samtel.enumeraciones.TypeConections;
 
 @Local
-public interface IGenericDao<T, PK extends Serializable> {
+public interface IGenericDao<T, PK > {
 	
 	/**
 	 * Metodo con el cual extraigo un bloque de informacion

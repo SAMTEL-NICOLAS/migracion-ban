@@ -1,31 +1,34 @@
 package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "BIG_RECOGIDOS")
+@Table(name = "CRM1407F", schema = "DAMCYFILES")
 public class BigRecogidosAs implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@EmbeddedId
 	private BigRecogidosIdAs id;
-	@Column(name = "s_tipo_linea")
-	private String s_tipo_linea;
+	
+	@Column(name = "FECCORTE")
+	private Integer feccorte;
 
-	@Column(name = "d_fecha_prueba")
-	private Integer fechaPrueba;
-	@Transient
-	private Date fechaPruebaTra;
+	
+	@Column(name = "mumnewcred")
+	private long munewcred;
+	@Column(name = "ASESOR")
+	private String asesor;
+
+	
 
 	public BigRecogidosIdAs getId() {
 		return id;
@@ -35,28 +38,73 @@ public class BigRecogidosAs implements Serializable {
 		this.id = id;
 	}
 
-	public String getS_tipo_linea() {
-		return s_tipo_linea;
+	public long getMunewcred() {
+		return munewcred;
 	}
 
-	public void setS_tipo_linea(String s_tipo_linea) {
-		this.s_tipo_linea = s_tipo_linea;
+	public void setMunewcred(long munewcred) {
+		this.munewcred = munewcred;
 	}
 
-	public Integer getFechaPrueba() {
-		return fechaPrueba;
+	public String getAsesor() {
+		return asesor;
 	}
 
-	public void setFechaPrueba(Integer fechaPrueba) {
-		this.fechaPrueba = fechaPrueba;
+	public void setAsesor(String asesor) {
+		this.asesor = asesor;
 	}
 
-	public Date getFechaPruebaTra() {
-		return fechaPruebaTra;
+	public Integer getFeccorte() {
+		return feccorte;
 	}
 
-	public void setFechaPruebaTra(Date fechaPruebaTra) {
-		this.fechaPruebaTra = fechaPruebaTra;
+	public void setFeccorte(Integer feccorte) {
+		this.feccorte = feccorte;
 	}
+	
+	
+	
+	
+
+//	@Column(name = "fecapertur")
+//	private int fecapertur;
+//
+//	@Column(name = "valorgiro")
+//	private long valorgiro;
+//
+//	@Column(name = "numcredrec")
+//	private long numcredrec;
+//
+//	@Column(name = "feccancrec")
+//	private int feccancrec;
+//
+//	@Column(name = "saldcaprec")
+//	private long saldcaprec;
+//
+//	@Column(name = "asesor")
+//	private String asesor;
+//
+//	@Column(name = "codsucursa")
+//	private short codsucursa;
+//
+//	@Column(name = "regional")
+//	private String regional;
+//
+//	@Column(name = "modalidad")
+//	private String modalidad;
+//
+//	@Column(name = "lineacred")
+//	private String lineacred;
+//
+//	@Column(name = "tipolinea")
+//	private String tipolinea;
+//
+//	@Column(name = "feccorte")
+//	private short feccorte;
+//
+//	@Column(name = "zonacomerc")
+//	private String zonacomerc;
+	
+	
 
 }

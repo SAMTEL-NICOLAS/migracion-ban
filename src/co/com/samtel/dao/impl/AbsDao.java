@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<T, PK> {
+public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	private Class<T> domainClass = initDomainClass();
 	
@@ -65,7 +65,7 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session
 					.createCriteria(BigRecogidosAs.class)
-					.addOrder(Order.asc("id"))
+					//.addOrder(Order.asc("id"))
 					.setFirstResult(ini)
 					.setMaxResults(fin);
 			result = crit.list();
@@ -89,6 +89,7 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 			}
 		} catch (Exception e) {
 			tx.rollback();
+			factorySessionHibernate.close(session, tx);
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, tx);

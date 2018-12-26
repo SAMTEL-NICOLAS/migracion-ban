@@ -7,8 +7,6 @@ import javax.ejb.EJB;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.service.IParametrosService;
-import lombok.Getter;
-import lombok.Setter;
 
 public abstract class MigrateAbs<T,U> {
 
@@ -61,6 +59,7 @@ public abstract class MigrateAbs<T,U> {
 	 * @param ini
 	 * @param fin
 	 */
+	@SuppressWarnings("unchecked")
 	public void extractInformation(Integer ini, Integer fin) {
 		List<T> listOrigen = getOrigen().findBlockData(ini, fin);
 		persistInformation(listOrigen);
@@ -69,11 +68,15 @@ public abstract class MigrateAbs<T,U> {
 	/**
 	 * Metodo con el cual persisto la informacion
 	 */
+	@SuppressWarnings("unchecked")
 	public void persistInformation(List<T> origen) {
 		List<U> listDestino = mappearOrigen(origen);		
-		if (!listDestino.isEmpty()) {
+		if (!listDestino.isEmpty() && listDestino !=  null) {
 			getDestino().saveBlockInformation(listDestino);
+		}else {
+			System.out.println(".:: No records ::.");
 		}
+		
 	}
 
 	public IParametrosService getParametrosService() {

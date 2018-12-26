@@ -11,7 +11,7 @@ public class TransformationBigRecogidos implements ITransformation<BigRecogidosA
 
 	@Override
 	public BigRecogidos generateTransformation(BigRecogidosAs origen, BigRecogidos destino) {
-		destino.setFechaPruebaTra(transformDate(origen.getFechaPrueba()));
+		//destino.setFechaPruebaTra(transformDate(origen.getFechaPrueba()));
 		return destino;
 	}
 
