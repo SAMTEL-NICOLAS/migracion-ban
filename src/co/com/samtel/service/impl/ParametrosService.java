@@ -13,8 +13,6 @@ import co.com.samtel.service.IParametrosService;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Stateless
 public class ParametrosService implements IParametrosService{
 	
@@ -37,5 +35,31 @@ public class ParametrosService implements IParametrosService{
 		
 		
 	}
+
+	public Long getNumRecordsToProcess() {
+		return numRecordsToProcess;
+	}
+
+	public void setNumRecordsToProcess(Long numRecordsToProcess) {
+		this.numRecordsToProcess = numRecordsToProcess;
+	}
+
+	public InputStream getInputS() {
+		return inputS;
+	}
+
+	public void setInputS(InputStream inputS) {
+		this.inputS = inputS;
+	}
+
+	public Properties getProps() {
+		return props;
+	}
+
+	public void setProps(Properties props) {
+		this.props = props;
+	}
+	
+	
 
 }

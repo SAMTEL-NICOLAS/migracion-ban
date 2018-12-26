@@ -20,8 +20,6 @@ import co.com.samtel.migration.ITransformation;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Stateless(name = "bigRecorridosMigrate")
 public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos> implements IGenerateMigration {
 	
@@ -44,5 +42,31 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 		BigRecogidos [] listaDestino = 	modelMapper.map(origen, BigRecogidos[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	public IGenericDao getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(IGenericDao origen) {
+		this.origen = origen;
+	}
+
+	public IGenericDao getDestino() {
+		return destino;
+	}
+
+	public void setDestino(IGenericDao destino) {
+		this.destino = destino;
+	}
+
+	public ITransformation<BigRecogidosAs, BigRecogidos> getTransform() {
+		return transform;
+	}
+
+	public void setTransform(ITransformation<BigRecogidosAs, BigRecogidos> transform) {
+		this.transform = transform;
+	}
+	
+	
 
 }

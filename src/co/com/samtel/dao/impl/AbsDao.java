@@ -19,8 +19,7 @@ import co.com.samtel.hibernate.IFactorySessionHibernate;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<T, PK> {
 
 	private Class<T> domainClass = initDomainClass();
@@ -96,6 +95,32 @@ public abstract class AbsDao<T, PK extends Serializable> implements IGenericDao<
 		}
 		return null;
 	}
+	public Class<T> getDomainClass() {
+		return domainClass;
+	}
+	public void setDomainClass(Class<T> domainClass) {
+		this.domainClass = domainClass;
+	}
+	public TypeConections getTypeConection() {
+		return typeConection;
+	}
+	public void setTypeConection(TypeConections typeConection) {
+		this.typeConection = typeConection;
+	}
+	public Long getNumRecordsTable() {
+		return numRecordsTable;
+	}
+	public void setNumRecordsTable(Long numRecordsTable) {
+		this.numRecordsTable = numRecordsTable;
+	}
+	public IFactorySessionHibernate getFactorySessionHibernate() {
+		return factorySessionHibernate;
+	}
+	public void setFactorySessionHibernate(IFactorySessionHibernate factorySessionHibernate) {
+		this.factorySessionHibernate = factorySessionHibernate;
+	}
+	
+	
 
 
 }

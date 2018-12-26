@@ -10,8 +10,6 @@ import co.com.samtel.service.IParametrosService;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public abstract class MigrateAbs<T,U> {
 
 	@EJB
@@ -77,5 +75,31 @@ public abstract class MigrateAbs<T,U> {
 			getDestino().saveBlockInformation(listDestino);
 		}
 	}
+
+	public IParametrosService getParametrosService() {
+		return parametrosService;
+	}
+
+	public void setParametrosService(IParametrosService parametrosService) {
+		this.parametrosService = parametrosService;
+	}
+
+	public Long getNumRecords() {
+		return numRecords;
+	}
+
+	public void setNumRecords(Long numRecords) {
+		this.numRecords = numRecords;
+	}
+
+	public Long getNumRecBlock() {
+		return numRecBlock;
+	}
+
+	public void setNumRecBlock(Long numRecBlock) {
+		this.numRecBlock = numRecBlock;
+	}
+	
+	
 
 }
