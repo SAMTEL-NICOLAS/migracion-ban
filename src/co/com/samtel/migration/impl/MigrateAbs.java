@@ -36,7 +36,9 @@ public abstract class MigrateAbs<T,U> {
 	public void setStrPrimaryKey(String strPrimaryKey) {
 		this.strPrimaryKey = strPrimaryKey;
 	}
-
+	/**
+	 * Metodo con el cual inicializo la migracion
+	 */
 	public void initializeMigration() {
 		getOrigen().setTypeConection(TypeConections.AS400);
 		getDestino().setTypeConection(TypeConections.SQLSERVER);
@@ -47,12 +49,18 @@ public abstract class MigrateAbs<T,U> {
 		setNumRecBlock(parametrosService.getNumRecordsToProcess());
 	}
 
+	/**
+	 * Metodo con el cual genero la migracion
+	 * @return
+	 */
 	public Boolean generateMigration() {
 		initializeMigration();
 		try {
+			System.out.println(".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
 				extractInformation(getStrPrimaryKey(),i,getNumRecBlock().intValue() );
+				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::.") );
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,7 +85,7 @@ public abstract class MigrateAbs<T,U> {
 	 * Metodo con el cual persisto la informacion
 	 */
 	@SuppressWarnings("unchecked")
-	public void persistInformation(List<T> origen) {
+	public void persistInformation(List<T> origen) { 
 		List<U> listDestino = mappearOrigen(origen);		
 		if (!listDestino.isEmpty() && listDestino !=  null) {
 			getDestino().saveBlockInformation(listDestino);
@@ -111,6 +119,4 @@ public abstract class MigrateAbs<T,U> {
 		this.numRecBlock = numRecBlock;
 	}
 	
-	
-
 }

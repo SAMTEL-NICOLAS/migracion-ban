@@ -1,10 +1,12 @@
 package co.com.samtel.controller;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-import co.com.samtel.dao.IBigRecogidosAsDao;
-import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.enumeraciones.TypeMigration;
+import co.com.samtel.migration.IFactoryMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +17,8 @@ public class LoginMB {
 
 	private String usuario;
 	
-	@EJB(beanName="bigRecorridosMigrate")
-	IGenerateMigration bigRecorridosMigrate;
+	@EJB(beanName="factoryMigration")
+	IFactoryMigration factoryMigration;
 
 	public String getUsuario() {
 		return usuario;
@@ -27,9 +29,11 @@ public class LoginMB {
 	}
 	
 	public void login() {
-		
-		System.out.println(bigRecorridosMigrate.generateMigration());
-		//bigRecorridosAsDao.findBlockData(ini, fin)
+		List<IGenerateMigration> listTablesToMigrate = factoryMigration.setMigration(TypeMigration.PRUEBA).build();
+		//Metodo con el cual genero la migracion de las tablas dependenciendo el tipo de proceso que se realiza
+		for(IGenerateMigration item : listTablesToMigrate) {
+			System.out.println(item.generateMigration());
+		}
 	}
 
 }

@@ -29,7 +29,8 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" this_.numcliente ASC, 	this_.numcredrec ASC ");
+		//setStrPrimaryKey(" this_.numcliente ASC, 	this_.numcredrec ASC ");
+		setStrPrimaryKey(" numcliente ASC, numcredrec ASC ");
 	}
 
 	@Override
