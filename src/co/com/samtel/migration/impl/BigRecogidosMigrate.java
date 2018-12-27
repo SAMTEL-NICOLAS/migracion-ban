@@ -3,6 +3,7 @@ package co.com.samtel.migration.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -25,6 +26,11 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	
 	@EJB(name="transformationBigRecogidos")
 	ITransformation<BigRecogidosAs, BigRecogidos> transform;
+	
+	@PostConstruct
+	public void init() {
+		setStrPrimaryKey(" this_.numcliente ASC, 	this_.numcredrec ASC ");
+	}
 
 	@Override
 	public List<BigRecogidos> mappearOrigen(List<BigRecogidosAs> origen) {

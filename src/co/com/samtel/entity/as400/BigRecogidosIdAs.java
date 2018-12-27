@@ -9,14 +9,16 @@ import javax.persistence.Transient;
 
 @Embeddable
 public class BigRecogidosIdAs implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
 	@Column(name = "numcliente")
 	private Long i_identificacion_cliente;
+	
 	@Column(name = "numcredrec")
 	private Long i_numero_credito;
+	
+	
 	@Transient
 	private Date d_fecha_corte;
 	

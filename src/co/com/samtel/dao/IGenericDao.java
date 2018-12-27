@@ -16,7 +16,7 @@ public interface IGenericDao<T, PK > {
 	 * @param fin
 	 * @return
 	 */
-	public List<T> findBlockData(Integer ini, Integer fin);
+	public List<T> findBlockData(String idColum, Integer fin, Integer offset);
 	
 	/**
 	 * Metodo con el cual se cuenta cuantos registros hay en la tabla

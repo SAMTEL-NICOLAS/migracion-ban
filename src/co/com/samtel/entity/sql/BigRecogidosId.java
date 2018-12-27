@@ -8,18 +8,15 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class BigRecogidosId implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	@Column
-	private Long i_identificacion_cliente;
-	@Column
-	private Long i_numero_credito;
-	@Column
-	private Date d_fecha_corte;
 	
-	
+	@Column
+	private Long i_identificacion_cliente;	
+	@Column
+	private Long i_numero_credito;	
+	@Column
+	private Date d_fecha_corte;	
 
 	public BigRecogidosId(Long i_identificacion_cliente, Long i_numero_credito, Date d_fecha_corte) {
 		super();
@@ -93,7 +90,5 @@ public class BigRecogidosId implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }

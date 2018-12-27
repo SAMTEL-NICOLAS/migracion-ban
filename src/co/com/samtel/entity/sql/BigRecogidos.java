@@ -9,11 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BIG_RECOGIDOS" , schema="dmc")
-public class BigRecogidos implements Serializable {
+public class BigRecogidos implements Serializable {	
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -37,7 +34,4 @@ public class BigRecogidos implements Serializable {
 	public void setId(BigRecogidosId id) {
 		this.id = id;
 	}
-	
-	
-
 }

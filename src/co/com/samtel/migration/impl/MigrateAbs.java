@@ -17,6 +17,7 @@ public abstract class MigrateAbs<T,U> {
 
 	private Long numRecords;
 	private Long numRecBlock;
+	private String strPrimaryKey;
 
 	abstract public IGenericDao getOrigen();
 
@@ -26,7 +27,15 @@ public abstract class MigrateAbs<T,U> {
 
 	abstract public void setDestino(IGenericDao destino);
 	
-	abstract public List<U> mappearOrigen(List<T> origen);	
+	abstract public List<U> mappearOrigen(List<T> origen);
+
+	public String getStrPrimaryKey() {
+		return strPrimaryKey;
+	}
+
+	public void setStrPrimaryKey(String strPrimaryKey) {
+		this.strPrimaryKey = strPrimaryKey;
+	}
 
 	public void initializeMigration() {
 		getOrigen().setTypeConection(TypeConections.AS400);
@@ -42,9 +51,8 @@ public abstract class MigrateAbs<T,U> {
 		initializeMigration();
 		try {
 			// Itero las veces que sea necesario
-			for (int i = 0; i < getNumRecords(); i += getNumRecBlock()) {
-				int limit = i + getNumRecBlock().intValue();
-				extractInformation(i, limit);
+			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
+				extractInformation(getStrPrimaryKey(),i,getNumRecBlock().intValue() );
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,8 +68,8 @@ public abstract class MigrateAbs<T,U> {
 	 * @param fin
 	 */
 	@SuppressWarnings("unchecked")
-	public void extractInformation(Integer ini, Integer fin) {
-		List<T> listOrigen = getOrigen().findBlockData(ini, fin);
+	public void extractInformation(String idColum, Integer fin, Integer offset) {
+		List<T> listOrigen = getOrigen().findBlockData(idColum, fin, offset);
 		persistInformation(listOrigen);
 	}
 

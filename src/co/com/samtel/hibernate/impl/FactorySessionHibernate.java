@@ -16,9 +16,9 @@ import co.com.samtel.hibernate.IHibernateConnector;
 @Startup
 public class FactorySessionHibernate implements IFactorySessionHibernate {
 
-	@EJB(beanName="hibernateConnSqlServer")
+	@EJB(beanName = "hibernateConnSqlServer")
 	private IHibernateConnector HibernateConnSql;
-	@EJB(beanName="hibernateConnAs400")
+	@EJB(beanName = "hibernateConnAs400")
 	private IHibernateConnector HibernateConnAs400;
 
 	@Override
@@ -33,10 +33,23 @@ public class FactorySessionHibernate implements IFactorySessionHibernate {
 
 	@Override
 	public void close(Session session, Transaction tx) {
-		if(tx!=null)
-			tx.commit();
-		session.flush();
-		session.close();
+		try {
+			if (tx != null) {
+				tx.commit();
+			}
+		} catch (Exception e) {
+			System.err.println("..:: Error al cerrar la conexion Transaccion ::.".concat(e.getMessage()));
+		}
+		try {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+
+		} catch (Exception e) {
+			System.err.println("..:: Error al cerrar la conexion Session ::.".concat(e.getMessage()));
+		}
+
 	}
 
 	public IHibernateConnector getHibernateConnSql() {

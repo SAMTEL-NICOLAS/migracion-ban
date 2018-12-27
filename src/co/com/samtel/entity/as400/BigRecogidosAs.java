@@ -7,28 +7,28 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name = "CRM1407F", schema = "DAMCYFILES")
 public class BigRecogidosAs implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private BigRecogidosIdAs id;
-	
-	@Column(name = "FECCORTE")
+
+	@Column(name = "feccorte")
 	private Integer feccorte;
 
-	
 	@Column(name = "mumnewcred")
 	private long munewcred;
-	@Column(name = "ASESOR")
-	private String asesor;
 
+	@Column(name = "asesor")
+	private String asesor;
 	
+	@Formula(value=" ROW_NUMBER()over(ORDER BY 1 ASC) ")
+	private String contador;
 
 	public BigRecogidosIdAs getId() {
 		return id;
@@ -61,10 +61,14 @@ public class BigRecogidosAs implements Serializable {
 	public void setFeccorte(Integer feccorte) {
 		this.feccorte = feccorte;
 	}
-	
-	
-	
-	
+
+	public String getContador() {
+		return contador;
+	}
+
+	public void setContador(String contador) {
+		this.contador = contador;
+	}
 
 //	@Column(name = "fecapertur")
 //	private int fecapertur;
@@ -104,7 +108,5 @@ public class BigRecogidosAs implements Serializable {
 //
 //	@Column(name = "zonacomerc")
 //	private String zonacomerc;
-	
-	
 
 }
