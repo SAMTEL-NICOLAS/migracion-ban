@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigRecogidosAs;
 import co.com.samtel.entity.sql.BigRecogidos;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -27,6 +28,7 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" numcliente ASC, numcredrec ASC ");
+		setTableToMigrate(TableMigration.BIG_RECOGIDOS);
 	}
 
 	@Override

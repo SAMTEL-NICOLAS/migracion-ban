@@ -15,33 +15,33 @@ public class FactoryMigration implements IFactoryMigration {
 	
 	private TypeMigration typeMigration;
 	
-//	@EJB(beanName="bigRecorridosMigrate")
-//	IGenerateMigration bigRecorridosMigrate;
-//	
-//	@EJB(beanName="bigRecuperaCarteraCastigadaMigrate")
-//	IGenerateMigration bigRecuperaCarteraCastigadaMigrate;
-//	
-//	@EJB(beanName="bigClienteProductoMigrate")
-//	IGenerateMigration bigClienteProductoMigrate;
-//	
-//	@EJB(beanName="bigActividadEconomicaInterna")
-//	IGenerateMigration bigActividadEconomicaInterna;
-//	
+	@EJB(beanName="bigRecorridosMigrate")
+	IGenerateMigration bigRecorridosMigrate;
+	
+	@EJB(beanName="bigRecuperaCarteraCastigadaMigrate")
+	IGenerateMigration bigRecuperaCarteraCastigadaMigrate;
+	
+	/*@EJB(beanName="bigClienteProductoMigrate")
+	IGenerateMigration bigClienteProductoMigrate;*/
+	
+	@EJB(beanName="bigActividadEconomicaInternaMigrate")
+	IGenerateMigration bigActividadEconomicaInternaMigrate;
+	
 	@EJB(beanName="bigCiudadesMigrate")
 	IGenerateMigration bigCiudadesMigrate;
-//	
-//	@EJB(beanName="bigTipoIdentClientesMigrate")
-//	IGenerateMigration bigTipoIdentClientesMigrate;	
-//	
-//	@EJB(beanName="bigCodigosAbogadoMigrate")
-//	IGenerateMigration bigCodigosAbogadoMigrate;	
-//	
-//	@EJB(beanName="bigTipoTransaccionMigrate")
-//	IGenerateMigration bigTipoTransaccionMigrate;	
-//	
-//	@EJB(beanName="bigBarriosMigrate")
-//	IGenerateMigration bigBarriosMigrate;
-//	
+	
+	@EJB(beanName="bigTipoIdentClientesMigrate")
+	IGenerateMigration bigTipoIdentClientesMigrate;	
+	
+	@EJB(beanName="bigCodigosAbogadoMigrate")
+	IGenerateMigration bigCodigosAbogadoMigrate;	
+	
+	@EJB(beanName="bigTipoTransaccionMigrate")
+	IGenerateMigration bigTipoTransaccionMigrate;
+	
+	@EJB(beanName="bigBarriosMigrate")
+	IGenerateMigration bigBarriosMigrate;
+	
 //	
 //	@EJB(beanName="bigActivosMigrate")
 //	IGenerateMigration bigActivosMigrate;
@@ -55,17 +55,29 @@ public class FactoryMigration implements IFactoryMigration {
 	@Override
 	public List<IGenerateMigration> build() {
 		List<IGenerateMigration> listEjb = new ArrayList<>();
-		if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
-//			listEjb.add(bigRecorridosMigrate);
-//			listEjb.add(bigRecuperaCarteraCastigadaMigrate);
+	/*	if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
+			listEjb.add(bigRecorridosMigrate);
+			listEjb.add(bigRecuperaCarteraCastigadaMigrate);
 //			listEjb.add(bigClienteProductoMigrate);
-//			listEjb.add(bigActividadEconomicaInterna);
+			listEjb.add(bigActividadEconomicaInternaMigrate);
 			listEjb.add(bigCiudadesMigrate);
 //			listEjb.add(bigActivosMigrate);
-//			listEjb.add(bigTipoIdentClientesMigrate);
-//			listEjb.add(bigCodigosAbogadoMigrate);
-//			listEjb.add(bigTipoTransaccionMigrate);
-//			listEjb.add(bigBarriosMigrate);
+			listEjb.add(bigTipoIdentClientesMigrate);
+			listEjb.add(bigCodigosAbogadoMigrate);
+			listEjb.add(bigTipoTransaccionMigrate);
+//			listEjb.add(bigBarriosMigrate);*/
+		
+			if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
+//		listEjb.add(bigRecorridosMigrate);
+//		listEjb.add(bigRecuperaCarteraCastigadaMigrate);
+//		listEjb.add(bigClienteProductoMigrate);
+//		listEjb.add(bigActividadEconomicaInternaMigrate);
+//		listEjb.add(bigCiudadesMigrate);
+//		listEjb.add(bigActivosMigrate);
+//		listEjb.add(bigTipoIdentClientesMigrate);
+//		listEjb.add(bigCodigosAbogadoMigrate);
+		listEjb.add(bigTipoTransaccionMigrate);
+//		listEjb.add(bigBarriosMigrate);
 		}
 		return listEjb;
 	}

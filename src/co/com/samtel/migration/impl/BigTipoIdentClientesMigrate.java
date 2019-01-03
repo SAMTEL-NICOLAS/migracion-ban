@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigTipoIdentClientesAs;
 import co.com.samtel.entity.sql.BigCiudades;
 import co.com.samtel.entity.sql.BigTipoIdentClientes;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -28,6 +29,7 @@ public class BigTipoIdentClientesMigrate extends MigrateAbs<BigTipoIdentClientes
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" tipo_perso ASC, clase_tipo ASC");
+		setTableToMigrate(TableMigration.BIG_TIPO_IDENT_CLIENTES);
 	}
 	
 	@Override

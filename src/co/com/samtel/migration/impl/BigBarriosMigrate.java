@@ -11,9 +11,8 @@ import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigBarriosAs;
-import co.com.samtel.entity.as400.BigClienteProductoAs;
 import co.com.samtel.entity.sql.BigBarrios;
-import co.com.samtel.entity.sql.BigClienteProducto;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -29,6 +28,7 @@ public class BigBarriosMigrate  extends MigrateAbs<BigBarriosAs, BigBarrios> imp
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" cod_ciuurb ASC, cod_barrio ASC ");
+		setTableToMigrate(TableMigration.BIG_BARRIOS);
 	}
 	
 

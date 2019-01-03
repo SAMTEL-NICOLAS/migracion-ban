@@ -84,6 +84,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		Session session = null;
 		Transaction tx = null;
 		try {
+			System.out.println(".:: Tamanio de la lista a persistir ".concat(""+blockInformation.size()).concat("::.") );
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			for (T item : blockInformation) {
 				tx = session.beginTransaction();

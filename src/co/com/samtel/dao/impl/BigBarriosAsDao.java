@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import co.com.samtel.dao.IBigBarriosAsDao;
 import co.com.samtel.entity.as400.BigBarriosAs;
 import co.com.samtel.entity.as400.BigBarriosIdAs;
-@Stateless(name="BigBarriosAsDao")
+@Stateless(name="bigBarriosAsDao")
 public class BigBarriosAsDao  extends AbsDao<BigBarriosAs, BigBarriosIdAs> implements IBigBarriosAsDao {
 
 }

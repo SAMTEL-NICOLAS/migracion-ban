@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigRecuperaCarteraCastigadaAs;
 import co.com.samtel.entity.sql.BigRecuperaCarteraCastigada;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -27,6 +28,7 @@ public class BigRecuperaCarteraCastigadaMigrate extends MigrateAbs<BigRecuperaCa
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" F01DEAACC ASC, F01TRAACR ASC ");
+		setTableToMigrate(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA);
 	}
 
 	@Override

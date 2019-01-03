@@ -14,6 +14,7 @@ import co.com.samtel.entity.as400.BigClienteProductoAs;
 import co.com.samtel.entity.as400.BigTipoTransaccionAs;
 import co.com.samtel.entity.sql.BigClienteProducto;
 import co.com.samtel.entity.sql.BigTipoTransaccion;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -29,6 +30,7 @@ public class BigTipoTransaccionMigrate extends MigrateAbs<BigTipoTransaccionAs, 
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" cod_transa ASC");
+		setTableToMigrate(TableMigration.BIG_TIPO_TRANSACCION);
 	}
 	
 	@Override
