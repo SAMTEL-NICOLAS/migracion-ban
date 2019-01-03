@@ -1,10 +1,10 @@
 package co.com.samtel.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Local;
 
+import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.enumeraciones.TypeConections;
 
 @Local
@@ -38,4 +38,9 @@ public interface IGenericDao<T, PK > {
 	 * @return
 	 */
 	Long getNumRecordsTable();
+	/**
+	 * Metodo con el cual obtengo los errores que se generan en los accesos a datos
+	 * @return
+	 */
+	ErrorDto getError();
 }

@@ -12,9 +12,9 @@
 </h:head>
 <body>
 	<h:form>
-		nicolas
+		<p:growl autoUpdate="true" id="messagesApp" showDetail="true" showSummary="true"></p:growl>
 		<p:inputText value="nicolas"></p:inputText>
-		<p:commandButton value="nicolas" actionListener="#{loginMB.login}"></p:commandButton>
+		<p:commandButton value="nicolas" actionListener="#{loginMB.executeMigration}"></p:commandButton>
 	</h:form>
 </body>
 </html>

@@ -5,19 +5,27 @@ import java.util.List;
 import javax.ejb.EJB;
 
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.dto.ErrorDto;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.enumeraciones.TypeErrors;
+import co.com.samtel.exception.ControlledExeption;
+import co.com.samtel.exception.MapperException;
+import co.com.samtel.exception.NoRecordsFoundException;
 import co.com.samtel.service.IParametrosService;
 
-public abstract class MigrateAbs<T,U> {
+public abstract class MigrateAbs<T, U> {
 
 	@EJB
 	IParametrosService parametrosService;
-	
-
 
 	private Long numRecords;
 	private Long numRecBlock;
 	private String strPrimaryKey;
+	private TableMigration tableToMigrate;
+	private List<T> listOrigen;
+	private List<U> listDestino;
+	private ErrorDto error;
 
 	abstract public IGenericDao getOrigen();
 
@@ -26,8 +34,8 @@ public abstract class MigrateAbs<T,U> {
 	abstract public IGenericDao getDestino();
 
 	abstract public void setDestino(IGenericDao destino);
-	
-	abstract public List<U> mappearOrigen(List<T> origen);
+
+	abstract public List<U> mappearOrigen(List<T> origen) throws MapperException;
 
 	public String getStrPrimaryKey() {
 		return strPrimaryKey;
@@ -36,6 +44,7 @@ public abstract class MigrateAbs<T,U> {
 	public void setStrPrimaryKey(String strPrimaryKey) {
 		this.strPrimaryKey = strPrimaryKey;
 	}
+
 	/**
 	 * Metodo con el cual inicializo la migracion
 	 */
@@ -51,19 +60,31 @@ public abstract class MigrateAbs<T,U> {
 
 	/**
 	 * Metodo con el cual genero la migracion
+	 * 
 	 * @return
 	 */
 	public Boolean generateMigration() {
 		initializeMigration();
+		System.out.println(".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
 		try {
-			System.out.println(".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
-				extractInformation(getStrPrimaryKey(),i,getNumRecBlock().intValue() );
-				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::.") );
+				extractInformation(getStrPrimaryKey(), i, getNumRecBlock().intValue());
+				setListDestino(mappearOrigen(getListOrigen()));
+				persistInformation();
+				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::."));
 			}
-		} catch (Exception e) {
+		} catch (MapperException e) {
 			e.printStackTrace();
+			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.MAPPER_EROR, e.getMessage()));
+			return Boolean.FALSE;
+		} catch (NoRecordsFoundException e ) {
+			e.printStackTrace();
+			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.NO_RECORDSFOUND, e.getMessage()));
+			return Boolean.FALSE;
+		} catch (ControlledExeption  e) {
+			e.printStackTrace();
+			getError().setTable(getTableToMigrate());
 			return Boolean.FALSE;
 		}
 		return Boolean.TRUE;
@@ -77,22 +98,27 @@ public abstract class MigrateAbs<T,U> {
 	 */
 	@SuppressWarnings("unchecked")
 	public void extractInformation(String idColum, Integer fin, Integer offset) {
-		List<T> listOrigen = getOrigen().findBlockData(idColum, fin, offset);
-		persistInformation(listOrigen);
+		setListOrigen(getOrigen().findBlockData(idColum, fin, offset));
 	}
 
 	/**
 	 * Metodo con el cual persisto la informacion
+	 * 
+	 * @throws NoRecordsFoundException
+	 * 
+	 * @throws MapperException
 	 */
 	@SuppressWarnings("unchecked")
-	public void persistInformation(List<T> origen) { 
-		List<U> listDestino = mappearOrigen(origen);		
-		if (!listDestino.isEmpty() && listDestino !=  null) {
-			getDestino().saveBlockInformation(listDestino);
-		}else {
-			System.out.println(".:: No records ::.");
+	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
+		if (getListDestino() != null && !getListDestino().isEmpty()) {
+			if (!getDestino().saveBlockInformation(listDestino)) {
+				setError(getDestino().getError());
+				throw new ControlledExeption("Error al persistir");
+			}
+		} else {
+			throw new NoRecordsFoundException("Sin Registros de origen");
 		}
-		
+
 	}
 
 	public IParametrosService getParametrosService() {
@@ -118,5 +144,37 @@ public abstract class MigrateAbs<T,U> {
 	public void setNumRecBlock(Long numRecBlock) {
 		this.numRecBlock = numRecBlock;
 	}
-	
+
+	public TableMigration getTableToMigrate() {
+		return tableToMigrate;
+	}
+
+	public void setTableToMigrate(TableMigration tableToMigrate) {
+		this.tableToMigrate = tableToMigrate;
+	}
+
+	public List<T> getListOrigen() {
+		return listOrigen;
+	}
+
+	public void setListOrigen(List<T> listOrigen) {
+		this.listOrigen = listOrigen;
+	}
+
+	public List<U> getListDestino() {
+		return listDestino;
+	}
+
+	public void setListDestino(List<U> listDestino) {
+		this.listDestino = listDestino;
+	}
+
+	public ErrorDto getError() {
+		return error;
+	}
+
+	public void setError(ErrorDto error) {
+		this.error = error;
+	}
+
 }

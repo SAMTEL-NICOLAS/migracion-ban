@@ -1,25 +1,22 @@
 package co.com.samtel.dao.impl;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.as400.BigRecogidosAs;
+import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
-import lombok.Getter;
-import lombok.Setter;
 
 public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
@@ -28,6 +25,8 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	private TypeConections typeConection;
 
 	private Long numRecordsTable;
+	
+	private ErrorDto error;
 
 	@Inject
 	IFactorySessionHibernate factorySessionHibernate;
@@ -68,8 +67,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					.add(Restrictions.sqlRestriction(
-							" 1 = 1 ORDER BY "+idColum+" OFFSET "+fin+" ROWS "))
+					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET " + fin + " ROWS "))
 					.setMaxResults(offset);
 
 			result = crit.list();
@@ -93,6 +91,10 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 				tx.commit();
 			}
 			return Boolean.TRUE;
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Boolean.FALSE;
@@ -132,5 +134,15 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	public void setFactorySessionHibernate(IFactorySessionHibernate factorySessionHibernate) {
 		this.factorySessionHibernate = factorySessionHibernate;
 	}
+
+	public ErrorDto getError() {
+		return error;
+	}
+
+	public void setError(ErrorDto error) {
+		this.error = error;
+	}
+	
+	
 
 }

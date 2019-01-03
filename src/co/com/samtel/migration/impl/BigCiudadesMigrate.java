@@ -12,43 +12,52 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigCiudadesAs;
 import co.com.samtel.entity.sql.BigCiudades;
+import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
 @Stateless(name = "bigCiudadesMigrate")
-public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades> implements IGenerateMigration, ITransformation  {
+public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades>
+		implements IGenerateMigration, ITransformation {
 
-	@EJB(beanName="bigCiudadesAsDao")
+	@EJB(beanName = "bigCiudadesAsDao")
 	IGenericDao origen;
-	
-	@EJB(beanName="bigCiudadesDao")
+
+	@EJB(beanName = "bigCiudadesDao")
 	IGenericDao destino;
-	
+
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" cod_ciudad ASC");
+		setStrPrimaryKey(" cod_ciudad ASC,cod_depto ASC");
+		// Seteo el valor de la tabla que se va ha migrar
+		setTableToMigrate(TableMigration.BIG_CIUDADES);
 	}
 
 	@Override
-	public List<BigCiudades> mappearOrigen(List<BigCiudadesAs> origen) {
+	public List<BigCiudades> mappearOrigen(List<BigCiudadesAs> origen) throws MapperException {
+		BigCiudades[] listaDestino = null;
+
 		ModelMapper modelMapper = new ModelMapper();
-		//Mapeo 
-		/*for(BigCiudadesAs item : origen ) {
-		
-		}*/
-		BigCiudades [] listaDestino = 	modelMapper.map(origen, BigCiudades[].class);
+		// Mapeo
+		/*
+		 * for(BigCiudadesAs item : origen ) {
+		 * 
+		 * }
+		 */
+		listaDestino = modelMapper.map(origen, BigCiudades[].class);
 		return Arrays.asList(listaDestino);
 	}
 
 	@Override
-	public IGenericDao getOrigen() {	
+	public IGenericDao getOrigen() {
 		return origen;
 	}
 
 	@Override
 	public void setOrigen(IGenericDao origen) {
 		this.origen = origen;
-		
+
 	}
 
 	@Override
@@ -59,6 +68,6 @@ public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades> i
 	@Override
 	public void setDestino(IGenericDao destino) {
 		this.destino = destino;
-		
+
 	}
 }

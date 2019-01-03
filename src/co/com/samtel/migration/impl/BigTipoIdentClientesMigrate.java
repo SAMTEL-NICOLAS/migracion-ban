@@ -27,7 +27,7 @@ public class BigTipoIdentClientesMigrate extends MigrateAbs<BigTipoIdentClientes
 	
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" tipo_perso ASC");
+		setStrPrimaryKey(" tipo_perso ASC, clase_tipo ASC");
 	}
 	
 	@Override
