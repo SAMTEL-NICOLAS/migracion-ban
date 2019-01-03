@@ -1,0 +1,97 @@
+package co.com.samtel.entity.sql;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+@Embeddable
+public class BigClienteProductoId implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Column
+	private Long i_cod_producto;	
+
+	@Column
+	private Long s_cuenta_contable;
+	
+	@Column
+	private Date d_fecha_corte;
+
+	public BigClienteProductoId() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public BigClienteProductoId(Long i_cod_producto, Long s_cuenta_contable, Date d_fecha_corte) {
+		super();
+		this.i_cod_producto = i_cod_producto;
+		this.s_cuenta_contable = s_cuenta_contable;
+		this.d_fecha_corte = d_fecha_corte;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((d_fecha_corte == null) ? 0 : d_fecha_corte.hashCode());
+		result = prime * result + ((i_cod_producto == null) ? 0 : i_cod_producto.hashCode());
+		result = prime * result + ((s_cuenta_contable == null) ? 0 : s_cuenta_contable.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BigClienteProductoId other = (BigClienteProductoId) obj;
+		if (d_fecha_corte == null) {
+			if (other.d_fecha_corte != null)
+				return false;
+		} else if (!d_fecha_corte.equals(other.d_fecha_corte))
+			return false;
+		if (i_cod_producto == null) {
+			if (other.i_cod_producto != null)
+				return false;
+		} else if (!i_cod_producto.equals(other.i_cod_producto))
+			return false;
+		if (s_cuenta_contable == null) {
+			if (other.s_cuenta_contable != null)
+				return false;
+		} else if (!s_cuenta_contable.equals(other.s_cuenta_contable))
+			return false;
+		return true;
+	}
+
+	public Long getI_cod_producto() {
+		return i_cod_producto;
+	}
+
+	public void setI_cod_producto(Long i_cod_producto) {
+		this.i_cod_producto = i_cod_producto;
+	}
+
+	public Long getS_cuenta_contable() {
+		return s_cuenta_contable;
+	}
+
+	public void setS_cuenta_contable(Long s_cuenta_contable) {
+		this.s_cuenta_contable = s_cuenta_contable;
+	}
+
+	public Date getD_fecha_corte() {
+		return d_fecha_corte;
+	}
+
+	public void setD_fecha_corte(Date d_fecha_corte) {
+		this.d_fecha_corte = d_fecha_corte;
+	}
+	
+	
+
+}

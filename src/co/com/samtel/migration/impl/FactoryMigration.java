@@ -17,6 +17,34 @@ public class FactoryMigration implements IFactoryMigration {
 	
 	@EJB(beanName="bigRecorridosMigrate")
 	IGenerateMigration bigRecorridosMigrate;
+	
+	@EJB(beanName="bigRecuperaCarteraCastigadaMigrate")
+	IGenerateMigration bigRecuperaCarteraCastigadaMigrate;
+	
+	@EJB(beanName="bigClienteProductoMigrate")
+	IGenerateMigration bigClienteProductoMigrate;
+	
+	@EJB(beanName="bigActividadEconomicaInterna")
+	IGenerateMigration bigActividadEconomicaInterna;
+	
+	@EJB(beanName="bigCiudadesMigrate")
+	IGenerateMigration bigCiudadesMigrate;
+	
+	@EJB(beanName="bigTipoIdentClientesMigrate")
+	IGenerateMigration bigTipoIdentClientesMigrate;	
+	
+	@EJB(beanName="bigCodigosAbogadoMigrate")
+	IGenerateMigration bigCodigosAbogadoMigrate;	
+	
+	@EJB(beanName="bigTipoTransaccionMigrate")
+	IGenerateMigration bigTipoTransaccionMigrate;	
+	
+	@EJB(beanName="bigBarriosMigrate")
+	IGenerateMigration bigBarriosMigrate;
+	
+	
+	@EJB(beanName="bigActivosMigrate")
+	IGenerateMigration bigActivosMigrate;
 
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -29,6 +57,15 @@ public class FactoryMigration implements IFactoryMigration {
 		List<IGenerateMigration> listEjb = new ArrayList<>();
 		if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
 			listEjb.add(bigRecorridosMigrate);
+			listEjb.add(bigRecuperaCarteraCastigadaMigrate);
+			listEjb.add(bigClienteProductoMigrate);
+			listEjb.add(bigActividadEconomicaInterna);
+			listEjb.add(bigCiudadesMigrate);
+			listEjb.add(bigActivosMigrate);
+			listEjb.add(bigTipoIdentClientesMigrate);
+			listEjb.add(bigCodigosAbogadoMigrate);
+			listEjb.add(bigTipoTransaccionMigrate);
+			listEjb.add(bigBarriosMigrate);
 		}
 		return listEjb;
 	}

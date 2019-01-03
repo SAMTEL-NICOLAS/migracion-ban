@@ -16,7 +16,7 @@ import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
 @Stateless(name = "bigRecorridosMigrate")
-public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos> implements IGenerateMigration {
+public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos> implements IGenerateMigration, ITransformation {
 	
 	@EJB(beanName="bigRecogidosAsDao")
 	IGenericDao origen;
@@ -24,12 +24,8 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	@EJB(beanName="bigRecogidosDao")
 	IGenericDao destino;
 	
-	@EJB(name="transformationBigRecogidos")
-	ITransformation<BigRecogidosAs, BigRecogidos> transform;
-	
 	@PostConstruct
 	public void init() {
-		//setStrPrimaryKey(" this_.numcliente ASC, 	this_.numcredrec ASC ");
 		setStrPrimaryKey(" numcliente ASC, numcredrec ASC ");
 	}
 
@@ -38,7 +34,9 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 		ModelMapper modelMapper = new ModelMapper();
 		//Mapeo 
 		for(BigRecogidosAs item : origen ) {
-			item.getId().setD_fecha_corte(transform.transformDate(item.getFeccorte()));
+			item.getId().setD_fecha_corte(transformDate(item.getFeccorte()));
+			item.setFecapertur(transformDate(item.getFecaperturAux()));
+			item.setFeccancrec(transformDate(item.getFeccancrecAux()));
 		}
 		BigRecogidos [] listaDestino = 	modelMapper.map(origen, BigRecogidos[].class);
 		return Arrays.asList(listaDestino);
@@ -59,15 +57,4 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	public void setDestino(IGenericDao destino) {
 		this.destino = destino;
 	}
-
-	public ITransformation<BigRecogidosAs, BigRecogidos> getTransform() {
-		return transform;
-	}
-
-	public void setTransform(ITransformation<BigRecogidosAs, BigRecogidos> transform) {
-		this.transform = transform;
-	}
-	
-	
-
 }

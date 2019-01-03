@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.ejb.Local;
 
 @Local
-public interface ITransformation<T,U> {
+public interface ITransformation {
 	
 	public default Date transformDate(Integer date) {
 		if(date != null) {
@@ -30,12 +30,5 @@ public interface ITransformation<T,U> {
 		}
 		return null;
 	}
-	/**
-	 * Metodo con el cual genero todo tipo de transformaciones previas a la insercion de información
-	 * @param origen
-	 * @param destino
-	 * @return
-	 */
-	U generateTransformation(T origen, U destino);
 	
 }
