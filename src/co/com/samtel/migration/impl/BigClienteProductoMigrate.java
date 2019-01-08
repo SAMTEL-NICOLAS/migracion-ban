@@ -1,9 +1,6 @@
 package co.com.samtel.migration.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,9 +11,7 @@ import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigClienteProductoAs;
-import co.com.samtel.entity.as400.BigRecogidosAs;
 import co.com.samtel.entity.sql.BigClienteProducto;
-import co.com.samtel.entity.sql.BigRecogidos;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -32,6 +27,7 @@ public class BigClienteProductoMigrate extends MigrateAbs<BigClienteProductoAs, 
 	@PostConstruct
 	public void init() {
 		setStrPrimaryKey(" crnupr ASC, crctac ASC ");
+		
 	}
 	@Override
 	public List<BigClienteProducto> mappearOrigen(List<BigClienteProductoAs> origen) {

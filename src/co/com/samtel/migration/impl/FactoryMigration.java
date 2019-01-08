@@ -56,6 +56,10 @@ public class FactoryMigration implements IFactoryMigration {
 	
 	@EJB(beanName="bigOficinaMigrate")
 	IGenerateMigration bigOficinaMigrate;
+	
+	@EJB(beanName="bigActivoConsolidadoMigrate")
+	IGenerateMigration bigActivoConsolidadoMigrate;
+	
 
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -83,6 +87,7 @@ public class FactoryMigration implements IFactoryMigration {
 		//		listEjb.add(bigSubproductosMigrate);
 		//		listEjb.add(bigSubsegmentoClienteMigrate);
 				listEjb.add(bigOficinaMigrate);
+//				listEjb.add(bigActivoConsolidadoMigrate);
 		}
 		return listEjb;
 	}

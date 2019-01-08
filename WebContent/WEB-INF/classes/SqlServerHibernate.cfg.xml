@@ -39,6 +39,7 @@
 		<mapping class="co.com.samtel.entity.sql.BigSubproductos" />
 		<mapping class="co.com.samtel.entity.sql.BigSubsegmentoCliente" />
 		<mapping class="co.com.samtel.entity.sql.BigOficina" />
+		<mapping class="co.com.samtel.entity.sql.BigActivoConsolidado" />
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />

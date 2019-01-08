@@ -54,4 +54,10 @@ public interface IGenericDao<T, PK > {
 	 * @return
 	 */
 	Boolean saveEntity(T Entity);
+	/**
+	 * Metodo con el cual actualizo la entidad
+	 * @param entity
+	 * @return
+	 */
+	Boolean updateEntity(T entity);
 }

@@ -22,13 +22,13 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 
 	@Inject
 	IFactoryMigration factoryMigration;
-	
+
 	@Inject
-	IAuditDao auditDao; 
-	
+	IAuditDao auditDao;
+
 	@Inject
 	IDetailAudit detailAuditDao;
-	
+
 	private Long idAudit;
 
 	private ErrorDto errorMig;
@@ -40,9 +40,9 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	@Override
 	public Boolean generateMigration(TypeMigration typeMigration) {
 		setTypeMigration(typeMigration);
-		//Genero el registro padre de la uditoria	
+		// Genero el registro padre de la uditoria
 		Long idTable = auditDao.getMaxValue();
-		Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1) , "CAROLINA", new Date()));
+		Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1), "CAROLINA", new Date()));
 		setIdAudit(id);
 		System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 		// Llamo al proceso que genera la migración
@@ -58,18 +58,22 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		// de proceso que se realiza
 		for (IGenerateMigration item : listTablesToMigrate) {
 			DetailAudit detail = generateAuditMigration(item);
-			if (!item.generateMigration()) {
-				setErrorMig(item.getError());
-			}
-			generateAuditMigration(item,detail);
+			item.generateMigration();
+			setErrorMig(item.getError());
+			generateAuditMigration(item, detail);
 		}
 	}
+
 	/**
 	 * Metodo con el cual genero el registro inicial del detalle de la auditoria
 	 */
 	public DetailAudit generateAuditMigration(IGenerateMigration table) {
 		Long idTable = detailAuditDao.getMaxValue();
-		
+		if (idTable == null) {
+			new Exception("Imposible insertar detalle de auditoria");
+		} else {
+			idTable += 1;
+		}
 		DetailAudit detail = new DetailAudit();
 		detail.setIdAudit(getIdAudit());
 		detail.setId(idTable);
@@ -77,20 +81,21 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		detail.setRegOrigen(Long.valueOf(0));
 		detail.setTabla(table.getTableToMigrate().toString());
 		detail.setTraza("Sin Traza");
-		
+
 		detailAuditDao.saveEntity(detail);
 		return detail;
 	}
-	
 
-	
-	public void generateAuditMigration(IGenerateMigration table,DetailAudit detail ) {
-		
+	public void generateAuditMigration(IGenerateMigration table, DetailAudit detail) {
 		detail.setRegDestino(table.getNumRecords());
 		detail.setRegOrigen(table.getNumRecMig());
-		detail.setTraza("Ok");
-		
-		detailAuditDao.saveEntity(detail);
+		if (!getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
+			detail.setTraza("Tipo Error: " + getErrorMig().getTypeError() + " Mensaje: " + getErrorMig().getMessage());
+		} else {
+			detail.setTraza("Ok");
+		}
+
+		detailAuditDao.updateEntity(detail);
 	}
 
 	@Override

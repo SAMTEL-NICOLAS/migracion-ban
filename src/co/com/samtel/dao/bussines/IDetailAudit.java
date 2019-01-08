@@ -11,4 +11,6 @@ public interface IDetailAudit {
 	
 	Boolean saveEntity(DetailAudit entity);
 	
+	Boolean updateEntity(DetailAudit entity);
+	
 }

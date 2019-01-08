@@ -16,6 +16,7 @@ public class BigClienteProducto implements Serializable {
 
 	@EmbeddedId
 	private BigClienteProductoId id;
+	
 	@Column(name = "i_nui")
 	private BigDecimal crcnui;
 

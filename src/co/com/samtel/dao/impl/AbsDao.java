@@ -99,7 +99,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
 			session.save(entity);
-			return Boolean.TRUE;
+			tx.commit();
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
 			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
@@ -110,6 +110,29 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		} finally {
 			factorySessionHibernate.close(session, tx);
 		}
+		return Boolean.TRUE;
+	}
+	
+	@Override
+	public Boolean updateEntity(T entity) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			tx = session.beginTransaction();
+			session.update(entity);
+			tx.commit();
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		} finally {
+			factorySessionHibernate.close(session, tx);
+		}
+		return Boolean.TRUE;
 	}
 
 	@Override
