@@ -36,7 +36,7 @@ public class LoginMB {
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (result) {
 			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Migracion culminada con éxito"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Migracion culminada con éxito, Id generado: ".concat(executeMigration.getIdAudit().toString()) ));
 		} else {
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",

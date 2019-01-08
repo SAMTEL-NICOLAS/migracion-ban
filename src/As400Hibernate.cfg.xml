@@ -40,5 +40,9 @@
         <mapping class="co.com.samtel.entity.as400.BigCodigosAbogadoAs" />
 		<mapping class="co.com.samtel.entity.as400.BigTipoTransaccionAs" />
 		<mapping class="co.com.samtel.entity.as400.BigBarriosAs" />
+		<mapping class="co.com.samtel.entity.as400.BigEstadoCarpetasAs" />
+		<mapping class="co.com.samtel.entity.as400.BigSubproductosAs" />
+		<mapping class="co.com.samtel.entity.as400.BigSubsegmentoClienteAs" />
+		<mapping class="co.com.samtel.entity.as400.BigOficinaAs" />
 	</session-factory>
 </hibernate-configuration>

@@ -25,7 +25,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	private TypeConections typeConection;
 
 	private Long numRecordsTable;
-	
+
 	private ErrorDto error;
 
 	@Inject
@@ -81,16 +81,24 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	@Override
 	public Boolean saveBlockInformation(List<T> blockInformation) {
+			System.out
+					.println(".:: Tamanio de la lista a persistir ".concat("" + blockInformation.size()).concat("::."));
+			for (T item : blockInformation) {
+				if(!saveEntity(item)) {
+					return Boolean.FALSE;
+				}
+			}
+			return Boolean.TRUE;
+	}
+
+	@Override
+	public Boolean saveEntity(T entity) {
 		Session session = null;
 		Transaction tx = null;
 		try {
-			System.out.println(".:: Tamanio de la lista a persistir ".concat(""+blockInformation.size()).concat("::.") );
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
-			for (T item : blockInformation) {
-				tx = session.beginTransaction();
-				session.save(item);
-				tx.commit();
-			}
+			tx = session.beginTransaction();
+			session.save(entity);
 			return Boolean.TRUE;
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
@@ -102,6 +110,26 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		} finally {
 			factorySessionHibernate.close(session, tx);
 		}
+	}
+
+	@Override
+	public Long getMaxValue() {
+		Long maxRecords = Long.valueOf("0");
+		Session session = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			Criteria crit = session.createCriteria(getDomainClass()).setProjection(Projections.max("id"));
+			maxRecords = (Long) crit.uniqueResult();
+			if (maxRecords == null) {
+				maxRecords = Long.valueOf("0");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			maxRecords = Long.valueOf("0");
+		} finally {
+			factorySessionHibernate.close(session, null);
+		}
+		return maxRecords;
 	}
 
 	public Class<T> getDomainClass() {
@@ -143,7 +171,5 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	public void setError(ErrorDto error) {
 		this.error = error;
 	}
-	
-	
 
 }

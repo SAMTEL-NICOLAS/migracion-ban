@@ -10,8 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import co.com.samtel.service.IParametrosService;
-import lombok.Getter;
-import lombok.Setter;
 
 @Stateless
 public class ParametrosService implements IParametrosService{

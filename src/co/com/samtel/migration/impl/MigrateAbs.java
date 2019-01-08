@@ -18,9 +18,13 @@ public abstract class MigrateAbs<T, U> {
 
 	@EJB
 	IParametrosService parametrosService;
-
+	// Numero de registros a migrar
 	private Long numRecords;
+	// Numero de registros migrados
+	private Long numRecMig;
+	// Numero de registros que se migrarar (bloque de información)
 	private Long numRecBlock;
+
 	private String strPrimaryKey;
 	private TableMigration tableToMigrate;
 	private List<T> listOrigen;
@@ -56,6 +60,8 @@ public abstract class MigrateAbs<T, U> {
 		setNumRecords(getOrigen().getNumRecordsTable());
 		// Obtengo el numero de registros que se desean por bloque
 		setNumRecBlock(parametrosService.getNumRecordsToProcess());
+		//Inicializo el valor para registros que se migraran
+		setNumRecMig(Long.valueOf("0"));
 	}
 
 	/**
@@ -65,7 +71,8 @@ public abstract class MigrateAbs<T, U> {
 	 */
 	public Boolean generateMigration() {
 		initializeMigration();
-		System.out.println(".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
+		System.out.println(
+				".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
 		try {
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
@@ -78,11 +85,11 @@ public abstract class MigrateAbs<T, U> {
 			e.printStackTrace();
 			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.MAPPER_EROR, e.getMessage()));
 			return Boolean.FALSE;
-		} catch (NoRecordsFoundException e ) {
+		} catch (NoRecordsFoundException e) {
 			e.printStackTrace();
 			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.NO_RECORDSFOUND, e.getMessage()));
 			return Boolean.FALSE;
-		} catch (ControlledExeption  e) {
+		} catch (ControlledExeption e) {
 			e.printStackTrace();
 			getError().setTable(getTableToMigrate());
 			return Boolean.FALSE;
@@ -111,9 +118,13 @@ public abstract class MigrateAbs<T, U> {
 	@SuppressWarnings("unchecked")
 	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
 		if (getListDestino() != null && !getListDestino().isEmpty()) {
-			if (!getDestino().saveBlockInformation(listDestino)) {
-				setError(getDestino().getError());
-				throw new ControlledExeption("Error al persistir");
+			for (U item : getListDestino()) {
+				if (!getDestino().saveEntity(item)) {
+					setError(getDestino().getError());
+					throw new ControlledExeption("Error al persistir");
+				}else {
+					setNumRecMig(getNumRecMig() + 1);
+				}
 			}
 		} else {
 			throw new NoRecordsFoundException("Sin Registros de origen");
@@ -175,6 +186,14 @@ public abstract class MigrateAbs<T, U> {
 
 	public void setError(ErrorDto error) {
 		this.error = error;
+	}
+
+	public Long getNumRecMig() {
+		return numRecMig;
+	}
+
+	public void setNumRecMig(Long numRecMig) {
+		this.numRecMig = numRecMig;
 	}
 
 }

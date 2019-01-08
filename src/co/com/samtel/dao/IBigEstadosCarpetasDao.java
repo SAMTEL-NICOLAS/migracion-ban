@@ -1,5 +1,7 @@
 package co.com.samtel.dao;
 
-public interface IBigEstadosCarpetasDao {
+import co.com.samtel.entity.sql.BigEstadoCarpetas;
+
+public interface IBigEstadosCarpetasDao extends IGenericDao<BigEstadoCarpetas, String> {
 
 }

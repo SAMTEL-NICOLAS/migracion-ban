@@ -42,9 +42,20 @@ public class FactoryMigration implements IFactoryMigration {
 	@EJB(beanName="bigBarriosMigrate")
 	IGenerateMigration bigBarriosMigrate;
 	
+	@EJB(beanName="bigEstadoCarpetasMigrate")
+	IGenerateMigration bigEstadoCarpetasMigrate;
 //	
 //	@EJB(beanName="bigActivosMigrate")
 //	IGenerateMigration bigActivosMigrate;
+	
+	@EJB(beanName="bigSubproductosMigrate")
+	IGenerateMigration bigSubproductosMigrate;
+	
+	@EJB(beanName="bigSubsegmentoClienteMigrate")
+	IGenerateMigration bigSubsegmentoClienteMigrate;
+	
+	@EJB(beanName="bigOficinaMigrate")
+	IGenerateMigration bigOficinaMigrate;
 
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -55,29 +66,23 @@ public class FactoryMigration implements IFactoryMigration {
 	@Override
 	public List<IGenerateMigration> build() {
 		List<IGenerateMigration> listEjb = new ArrayList<>();
-	/*	if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
-			listEjb.add(bigRecorridosMigrate);
-			listEjb.add(bigRecuperaCarteraCastigadaMigrate);
-//			listEjb.add(bigClienteProductoMigrate);
-			listEjb.add(bigActividadEconomicaInternaMigrate);
-			listEjb.add(bigCiudadesMigrate);
-//			listEjb.add(bigActivosMigrate);
-			listEjb.add(bigTipoIdentClientesMigrate);
-			listEjb.add(bigCodigosAbogadoMigrate);
-			listEjb.add(bigTipoTransaccionMigrate);
-//			listEjb.add(bigBarriosMigrate);*/
+
 		
 			if(getTypeMigration().equals(TypeMigration.PRUEBA)) {
-//		listEjb.add(bigRecorridosMigrate);
-//		listEjb.add(bigRecuperaCarteraCastigadaMigrate);
-//		listEjb.add(bigClienteProductoMigrate);
-//		listEjb.add(bigActividadEconomicaInternaMigrate);
-//		listEjb.add(bigCiudadesMigrate);
-//		listEjb.add(bigActivosMigrate);
-//		listEjb.add(bigTipoIdentClientesMigrate);
-//		listEjb.add(bigCodigosAbogadoMigrate);
-		listEjb.add(bigTipoTransaccionMigrate);
-//		listEjb.add(bigBarriosMigrate);
+		//		listEjb.add(bigRecorridosMigrate);
+		//		listEjb.add(bigRecuperaCarteraCastigadaMigrate);
+		//		listEjb.add(bigClienteProductoMigrate);
+		//		listEjb.add(bigActividadEconomicaInternaMigrate);
+		//		listEjb.add(bigCiudadesMigrate);
+		//		listEjb.add(bigActivosMigrate);
+		//		listEjb.add(bigTipoIdentClientesMigrate);
+		//		listEjb.add(bigCodigosAbogadoMigrate);
+		//		listEjb.add(bigTipoTransaccionMigrate);
+		//		listEjb.add(bigBarriosMigrate);
+		//		listEjb.add(bigEstadoCarpetasMigrate);
+		//		listEjb.add(bigSubproductosMigrate);
+		//		listEjb.add(bigSubsegmentoClienteMigrate);
+				listEjb.add(bigOficinaMigrate);
 		}
 		return listEjb;
 	}

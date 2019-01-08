@@ -43,4 +43,15 @@ public interface IGenericDao<T, PK > {
 	 * @return
 	 */
 	ErrorDto getError();
+	/**
+	 * Metodo con el cual  obtengo el valor maximo del id de la tabla
+	 * @return
+	 */
+	Long getMaxValue();
+	/**
+	 * Metodo con el cual se persiste una entidad
+	 * @param Entity
+	 * @return
+	 */
+	Boolean saveEntity(T Entity);
 }

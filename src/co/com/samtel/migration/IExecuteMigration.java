@@ -19,5 +19,10 @@ public interface IExecuteMigration {
 	 * @return
 	 */
 	ErrorDto getMessageError();
+	/**
+	 * Obtengo el id de la auditoria
+	 * @return
+	 */
+	Long getIdAudit();
 
 }

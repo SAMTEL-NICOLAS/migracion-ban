@@ -27,6 +27,9 @@ public abstract class HibernateConnAbs {
 	
 	public SessionFactory getSessionFactory() {
 		getLogger().info(".:: Obteniendo conexion de ".concat(getTypeConections().getValue()).concat(" ::."));
+		if(sessionFactory == null) {
+			generateSession();
+		}
 		return sessionFactory;
 	}
 
@@ -39,7 +42,7 @@ public abstract class HibernateConnAbs {
 	 */
 	public void generateSession() {
 		try {
-			if (getSessionFactory() == null) {
+			if (sessionFactory == null) {
 				Configuration configuration = new Configuration();
 				getLogger().log(Level.INFO, ".::. Con el siguiente archivo de configuraciones: ".concat(getTypeConections().getConfig()).concat(" .::."));
 				configuration.configure(getTypeConections().getConfig());

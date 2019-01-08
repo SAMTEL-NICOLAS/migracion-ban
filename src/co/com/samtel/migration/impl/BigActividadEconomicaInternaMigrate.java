@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigActividadEconomicaInternaAs;
 import co.com.samtel.entity.sql.BigActividadEconomicaInterna;
-import co.com.samtel.entity.sql.BigCiudades;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;

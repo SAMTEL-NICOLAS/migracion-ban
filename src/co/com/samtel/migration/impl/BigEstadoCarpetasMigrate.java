@@ -10,40 +10,36 @@ import javax.ejb.Stateless;
 import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.as400.BigCodigosAbogadoAs;
-import co.com.samtel.entity.sql.BigCodigosAbogado;
+import co.com.samtel.entity.as400.BigEstadoCarpetasAs;
+import co.com.samtel.entity.sql.BigEstadoCarpetas;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
-@Stateless(name = "bigCodigosAbogadoMigrate")
-public class BigCodigosAbogadoMigrate extends MigrateAbs<BigCodigosAbogadoAs, BigCodigosAbogado> implements IGenerateMigration, ITransformation {
+@Stateless(name = "bigEstadoCarpetasMigrate")
+public class BigEstadoCarpetasMigrate extends MigrateAbs<BigEstadoCarpetasAs, BigEstadoCarpetas> implements IGenerateMigration, ITransformation {
 	
-	@EJB(beanName="bigCodigosAbogadoAsDao")
+	@EJB(beanName="bigEstadosCarpetasAsDao")
 	IGenericDao origen;
 	
-	@EJB(beanName="bigCodigosAbogadoDao")
+	@EJB(beanName="bigEstadosCarpetasDao")
 	IGenericDao destino;
 	
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" cod_ente ASC");
-		setTableToMigrate(TableMigration.BIG_CODIGOS_ABOGADO);
+		setStrPrimaryKey(" codigo_est ASC");
+		setTableToMigrate(TableMigration.BIG_ESTADOS_CARPETAS);
 	}
-	
 	@Override
-	public List<BigCodigosAbogado> mappearOrigen(List<BigCodigosAbogadoAs> origen) {
+	public List<BigEstadoCarpetas> mappearOrigen(List<BigEstadoCarpetasAs> origen) throws MapperException {
 		ModelMapper modelMapper = new ModelMapper();
-		//Mapeo 
-		/*for(BigCiudadesAs item : origen ) {
-		
-		}*/
-		BigCodigosAbogado [] listaDestino = 	modelMapper.map(origen, BigCodigosAbogado[].class);
+		BigEstadoCarpetas [] listaDestino = 	modelMapper.map(origen, BigEstadoCarpetas[].class);
 		return Arrays.asList(listaDestino);
 	}
 
 	@Override
-	public IGenericDao getOrigen() {		
+	public IGenericDao getOrigen() {
 		return origen;
 	}
 
@@ -59,8 +55,7 @@ public class BigCodigosAbogadoMigrate extends MigrateAbs<BigCodigosAbogadoAs, Bi
 
 	@Override
 	public void setDestino(IGenericDao destino) {
-		this.destino = destino;		
+		this.destino = destino;			
 	}
-
-
+	
 }

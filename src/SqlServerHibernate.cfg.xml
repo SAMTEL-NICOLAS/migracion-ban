@@ -35,8 +35,12 @@
 		<mapping class="co.com.samtel.entity.sql.BigCodigosAbogado" />
 		<mapping class="co.com.samtel.entity.sql.BigTipoTransaccion" />
 		<mapping class="co.com.samtel.entity.sql.BigBarrios" />
-<!-- 		<mapping class="co.com.samtel.entity.as400.BigActivos" /> -->
+		<mapping class="co.com.samtel.entity.sql.BigEstadoCarpetas" />
+		<mapping class="co.com.samtel.entity.sql.BigSubproductos" />
+		<mapping class="co.com.samtel.entity.sql.BigSubsegmentoCliente" />
+		<mapping class="co.com.samtel.entity.sql.BigOficina" />
 		
-		
+		<mapping class="co.com.samtel.entity.business.Auditoria" />
+		<mapping class="co.com.samtel.entity.business.DetailAudit" />
 	</session-factory>
 </hibernate-configuration>
