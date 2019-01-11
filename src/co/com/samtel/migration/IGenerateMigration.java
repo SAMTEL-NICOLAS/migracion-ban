@@ -3,6 +3,7 @@ package co.com.samtel.migration;
 import javax.ejb.Local;
 
 import co.com.samtel.dto.ErrorDto;
+import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TableMigration;
 
 @Local
@@ -32,4 +33,8 @@ public interface IGenerateMigration {
 	 * @return
 	 */
 	Long getNumRecMig();
+	
+	LogActivador getLogActivador();
+
+	void setLogActivador(LogActivador logActivador);
 }

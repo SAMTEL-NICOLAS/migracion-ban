@@ -1,11 +1,8 @@
 package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -14,28 +11,15 @@ public class BigTipoTransaccionAs implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id		
-	private String cod_transa;	
+	@EmbeddedId
+	private BigTipoTransaccionIdAs id;
 
-	@Column(name = "des_transa")
-	private String des_transa;
-
-	public String getCod_transa() {
-		return cod_transa;
+	public BigTipoTransaccionIdAs getId() {
+		return id;
 	}
 
-	public void setCod_transa(String cod_transa) {
-		this.cod_transa = cod_transa;
-	}
-
-	public String getDes_transa() {
-		return des_transa;
-	}
-
-	public void setDes_transa(String des_transa) {
-		this.des_transa = des_transa;
+	public void setId(BigTipoTransaccionIdAs id) {
+		this.id = id;
 	}	
-	
-	
 
 }

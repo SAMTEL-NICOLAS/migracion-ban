@@ -57,7 +57,7 @@ public class BigRecuperaCarteraCastigadaAs implements Serializable {
 	private BigDecimal f01morcor;
 	
 	@Column(name = "f01accfun")
-	private BigDecimal f01accfun;
+	private Short f01accfun;
 	//---	
 	
 	@Column(name = "f01mipyme")
@@ -158,10 +158,11 @@ public class BigRecuperaCarteraCastigadaAs implements Serializable {
 	public void setF01morcor(BigDecimal f01morcor) {
 		this.f01morcor = f01morcor;
 	}
-	public BigDecimal getF01accfun() {
+
+	public Short getF01accfun() {
 		return f01accfun;
 	}
-	public void setF01accfun(BigDecimal f01accfun) {
+	public void setF01accfun(Short f01accfun) {
 		this.f01accfun = f01accfun;
 	}
 	public BigDecimal getF01mipyme() {

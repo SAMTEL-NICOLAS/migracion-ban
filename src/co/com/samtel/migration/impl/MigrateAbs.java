@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dto.ErrorDto;
+import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.enumeraciones.TypeErrors;
@@ -30,6 +31,9 @@ public abstract class MigrateAbs<T, U> {
 	private List<T> listOrigen;
 	private List<U> listDestino;
 	private ErrorDto error;
+	
+	//Objeto con el cual se actualizara el log de As400 al culminar el proceso de migracion
+	private LogActivador logActivador;
 
 	abstract public IGenericDao getOrigen();
 
@@ -197,5 +201,14 @@ public abstract class MigrateAbs<T, U> {
 	public void setNumRecMig(Long numRecMig) {
 		this.numRecMig = numRecMig;
 	}
+
+	public LogActivador getLogActivador() {
+		return logActivador;
+	}
+
+	public void setLogActivador(LogActivador logActivador) {
+		this.logActivador = logActivador;
+	}
+	
 
 }

@@ -19,6 +19,7 @@ public class BigClienteProductoAs implements Serializable {
 
 	@Column(name = "crfecc")
 	private Integer crfeccAux;
+	
 	@Column(name = "CRCNUI")
 	private BigDecimal crcnui;
 

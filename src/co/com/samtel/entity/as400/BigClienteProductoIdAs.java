@@ -21,8 +21,7 @@ public class BigClienteProductoIdAs implements Serializable {
 	private Date d_fecha_corte;
 
 	public BigClienteProductoIdAs() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
 	public BigClienteProductoIdAs(Long i_cod_producto, Long s_cuenta_contable, Date d_fecha_corte) {

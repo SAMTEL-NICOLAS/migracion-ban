@@ -13,13 +13,8 @@ import javax.persistence.Table;
 public class BigTipoIdentClientes implements Serializable {
 
 	@EmbeddedId
-	private BigTipoIdentClientesId id;
+	private BigTipoIdentClientesId id;	
 	
-	/*@Id
-	@Column(name = "i_tipo_persona")
-	private String tipo_perso;	*/
-	
-
 	@Column(name = "s_nombre_tipo")
 	private String nombre_tip;
 

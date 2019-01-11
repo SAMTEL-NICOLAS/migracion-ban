@@ -1,6 +1,7 @@
 package co.com.samtel.entity.sql;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -26,25 +27,25 @@ public class BigActivoConsolidado implements Serializable {
 	private Integer otorga_mes;	
 	
 	@Column(name = "m_monto_otorgado")
-	private Long monto_otrg;
+	private BigDecimal monto_otrg;
 	
 	@Column(name = "m_cupo_otrogado")
-	private Long monto_cupo;
+	private BigDecimal monto_cupo;
 	
 	@Column(name = "m_saldo_corte")
-	private Long saldo_cort;
+	private BigDecimal saldo_cort;
 	
 	@Column(name = "i_cancelados_mes")
 	private Integer nr_can_mes;
 	
 	@Column(name = "m_tasa_int_corr_actual")
-	private Long tasa_int;
+	private BigDecimal tasa_int;
 	
 	@Column(name = "i_castigos_mes")
 	private Integer nro_cast_m;
 	
 	@Column(name = "m_plazo_prom_cred_vigente")
-	private Integer plazo_prom;
+	private BigDecimal plazo_prom;
 	
 	@Column(name = "i_credito_vencido_dia")
 	private Short nro_cred_v;
@@ -89,45 +90,13 @@ public class BigActivoConsolidado implements Serializable {
 	public void setOtorga_mes(Integer otorga_mes) {
 		this.otorga_mes = otorga_mes;
 	}
-
-	public Long getMonto_otrg() {
-		return monto_otrg;
-	}
-
-	public void setMonto_otrg(Long monto_otrg) {
-		this.monto_otrg = monto_otrg;
-	}
-
-	public Long getMonto_cupo() {
-		return monto_cupo;
-	}
-
-	public void setMonto_cupo(Long monto_cupo) {
-		this.monto_cupo = monto_cupo;
-	}
-
-	public Long getSaldo_cort() {
-		return saldo_cort;
-	}
-
-	public void setSaldo_cort(Long saldo_cort) {
-		this.saldo_cort = saldo_cort;
-	}
-
+	
 	public Integer getNr_can_mes() {
 		return nr_can_mes;
 	}
 
 	public void setNr_can_mes(Integer nr_can_mes) {
 		this.nr_can_mes = nr_can_mes;
-	}
-
-	public Long getTasa_int() {
-		return tasa_int;
-	}
-
-	public void setTasa_int(Long tasa_int) {
-		this.tasa_int = tasa_int;
 	}
 
 	public Integer getNro_cast_m() {
@@ -138,13 +107,6 @@ public class BigActivoConsolidado implements Serializable {
 		this.nro_cast_m = nro_cast_m;
 	}
 
-	public Integer getPlazo_prom() {
-		return plazo_prom;
-	}
-
-	public void setPlazo_prom(Integer plazo_prom) {
-		this.plazo_prom = plazo_prom;
-	}
 
 	public Short getNro_cred_v() {
 		return nro_cred_v;
@@ -176,6 +138,47 @@ public class BigActivoConsolidado implements Serializable {
 
 	public void setNro_cred_r(Integer nro_cred_r) {
 		this.nro_cred_r = nro_cred_r;
+	}
+
+	public BigDecimal getMonto_otrg() {
+		return monto_otrg;
+	}
+
+	public void setMonto_otrg(BigDecimal monto_otrg) {
+		this.monto_otrg = monto_otrg;
+	}
+
+	public BigDecimal getMonto_cupo() {
+		return monto_cupo;
+	}
+
+	public void setMonto_cupo(BigDecimal monto_cupo) {
+		this.monto_cupo = monto_cupo;
+	}
+
+	public BigDecimal getSaldo_cort() {
+		return saldo_cort;
+	}
+
+	public void setSaldo_cort(BigDecimal saldo_cort) {
+		this.saldo_cort = saldo_cort;
+	}
+
+	public BigDecimal getTasa_int() {
+		return tasa_int;
+	}
+
+	public void setTasa_int(BigDecimal tasa_int) {
+		this.tasa_int = tasa_int;
+	}
+
+	public BigDecimal getPlazo_prom() {
+		return plazo_prom;
+	}
+
+	public void setPlazo_prom(BigDecimal plazo_prom) {
+		this.plazo_prom = plazo_prom;
 	}	
+	
 	
 }

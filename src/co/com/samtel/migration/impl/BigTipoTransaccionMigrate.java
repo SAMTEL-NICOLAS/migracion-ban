@@ -10,9 +10,7 @@ import javax.ejb.Stateless;
 import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.as400.BigClienteProductoAs;
 import co.com.samtel.entity.as400.BigTipoTransaccionAs;
-import co.com.samtel.entity.sql.BigClienteProducto;
 import co.com.samtel.entity.sql.BigTipoTransaccion;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
@@ -29,36 +27,29 @@ public class BigTipoTransaccionMigrate extends MigrateAbs<BigTipoTransaccionAs, 
 
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" cod_transa ASC");
+		setStrPrimaryKey(" cod_transa ASC,des_transa ASC, llave_iva ASC");
 		setTableToMigrate(TableMigration.BIG_TIPO_TRANSACCION);
 	}
 	
 	@Override
 	public List<BigTipoTransaccion> mappearOrigen(List<BigTipoTransaccionAs> origen) {
-		ModelMapper modelMapper = new ModelMapper();
-		//Mapeo 
-		/*for(BigTipoTransaccionAs item : origen ) {
-		
-		}*/
+		ModelMapper modelMapper = new ModelMapper();		
 		BigTipoTransaccion [] listaDestino = 	modelMapper.map(origen, BigTipoTransaccion[].class);
 		return Arrays.asList(listaDestino);
 	}
 
 	@Override
-	public IGenericDao getOrigen() {
-		// TODO Auto-generated method stub
+	public IGenericDao getOrigen() {		
 		return origen;
 	}
 
 	@Override
 	public void setOrigen(IGenericDao origen) {
-		this.origen = origen;
-		
+		this.origen = origen;		
 	}
 
 	@Override
-	public IGenericDao getDestino() {
-		// TODO Auto-generated method stub
+	public IGenericDao getDestino() {	
 		return destino;
 	}
 

@@ -40,6 +40,15 @@
 		<mapping class="co.com.samtel.entity.sql.BigSubsegmentoCliente" />
 		<mapping class="co.com.samtel.entity.sql.BigOficina" />
 		<mapping class="co.com.samtel.entity.sql.BigActivoConsolidado" />
+		<mapping class="co.com.samtel.entity.sql.BigCupoRotativo" />
+		<mapping class="co.com.samtel.entity.sql.BigClientes" />
+		<mapping class="co.com.samtel.entity.sql.BigDireccion" />
+		<mapping class="co.com.samtel.entity.sql.BigCredipremium" />
+		<mapping class="co.com.samtel.entity.sql.BigLocalidad" />
+		<mapping class="co.com.samtel.entity.sql.BigParametrosConsolidados" />	
+		<mapping class="co.com.samtel.entity.sql.BigPasivosCdt" />	
+		<mapping class="co.com.samtel.entity.sql.BigPasivosAh" />		
+		<mapping class="co.com.samtel.entity.sql.BigPasivosConsolidado" />	
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />

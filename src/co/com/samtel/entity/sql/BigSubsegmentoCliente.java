@@ -1,8 +1,6 @@
 package co.com.samtel.entity.sql;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,6 +9,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BIG_SUBSEGMENTO_CLIENTE", schema = "dbo")
 public class BigSubsegmentoCliente implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private BigSubsegmentoClienteId id;

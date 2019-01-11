@@ -1,8 +1,7 @@
-package co.com.samtel.entity.sql;
+ package co.com.samtel.entity.sql;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable

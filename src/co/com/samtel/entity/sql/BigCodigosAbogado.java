@@ -1,15 +1,17 @@
 package co.com.samtel.entity.sql;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "BIG_CODIGOS_ABOGADO", schema = "dbo")
 public class BigCodigosAbogado implements Serializable  {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id	
 	@Column(name = "i_codigo_ente")
 	private String cod_ente;

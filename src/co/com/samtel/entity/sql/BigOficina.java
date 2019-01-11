@@ -15,7 +15,7 @@ public class BigOficina implements Serializable{
 
 	@Id	
 	@Column(name = "i_codigo_oficina")
-	private String codofc;
+	private Short codofc;
 	
 	@Column(name = "s_nombre_oficina")
 	private String nmeofc;
@@ -30,13 +30,13 @@ public class BigOficina implements Serializable{
 	private String codzon;
 	
 	@Column(name = "i_codigo_departamento")
-	private String coddep;
+	private String coddep;	
 
-	public String getCodofc() {
+	public Short getCodofc() {
 		return codofc;
 	}
 
-	public void setCodofc(String codofc) {
+	public void setCodofc(Short codofc) {
 		this.codofc = codofc;
 	}
 
