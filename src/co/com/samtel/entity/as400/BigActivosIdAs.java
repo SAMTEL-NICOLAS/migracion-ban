@@ -2,25 +2,26 @@ package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
+
 @Embeddable
 public class BigActivosIdAs implements Serializable {
 	
-	@Column(name = "cod_identi")
-	private String i_nro_credito;
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "num_creotr")
+	private Long i_nro_credito;	
 	
 	@Transient
 	private Date d_fecha_corte;
 
 	public BigActivosIdAs() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
-	public BigActivosIdAs(String i_nro_credito, Date d_fecha_corte) {
+	public BigActivosIdAs(Long i_nro_credito, Date d_fecha_corte) {
 		super();
 		this.i_nro_credito = i_nro_credito;
 		this.d_fecha_corte = d_fecha_corte;
@@ -57,11 +58,11 @@ public class BigActivosIdAs implements Serializable {
 		return true;
 	}
 
-	public String getI_nro_credito() {
+	public Long getI_nro_credito() {
 		return i_nro_credito;
 	}
 
-	public void setI_nro_credito(String i_nro_credito) {
+	public void setI_nro_credito(Long i_nro_credito) {
 		this.i_nro_credito = i_nro_credito;
 	}
 
@@ -71,6 +72,7 @@ public class BigActivosIdAs implements Serializable {
 
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
-	}
+	}	
+
 }
 

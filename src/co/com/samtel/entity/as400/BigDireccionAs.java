@@ -64,13 +64,13 @@ public class BigDireccionAs implements Serializable {
 	private String ref_direcc;
 	
 	@Column(name = "telef_fijo")
-	private String telef_fijo;
+	private Long telef_fijo;
 	
 	@Column(name = "tel_celula")
 	private Long tel_celula;
 	
 	@Column(name = "direc_prin")
-	private Long direc_prin;
+	private String direc_prin;
 	
 	@Column(name = "cc_zona_ge")
 	private String cc_zona_ge;
@@ -214,11 +214,11 @@ public class BigDireccionAs implements Serializable {
 		this.ref_direcc = ref_direcc;
 	}
 
-	public String getTelef_fijo() {
+	public Long getTelef_fijo() {
 		return telef_fijo;
 	}
 
-	public void setTelef_fijo(String telef_fijo) {
+	public void setTelef_fijo(Long telef_fijo) {
 		this.telef_fijo = telef_fijo;
 	}
 
@@ -230,11 +230,11 @@ public class BigDireccionAs implements Serializable {
 		this.tel_celula = tel_celula;
 	}
 
-	public Long getDirec_prin() {
+	public String getDirec_prin() {
 		return direc_prin;
 	}
 
-	public void setDirec_prin(Long direc_prin) {
+	public void setDirec_prin(String direc_prin) {
 		this.direc_prin = direc_prin;
 	}
 
@@ -252,5 +252,8 @@ public class BigDireccionAs implements Serializable {
 
 	public void setCc_subzona(String cc_subzona) {
 		this.cc_subzona = cc_subzona;
-	}	
+	}
+
+
+	
 }

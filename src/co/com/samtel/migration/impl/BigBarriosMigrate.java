@@ -34,13 +34,7 @@ public class BigBarriosMigrate  extends MigrateAbs<BigBarriosAs, BigBarrios> imp
 
 	@Override
 	public List<BigBarrios> mappearOrigen(List<BigBarriosAs> origen) {
-		ModelMapper modelMapper = new ModelMapper();
-		//Mapeo 
-		/*for(BigClienteProductoAs item : origen ) {
-		                  
-			item.getId().setD_fecha_corte(transformDate(item.getCrfeccAux()));	
-
-		}*/
+		ModelMapper modelMapper = new ModelMapper();		
 		BigBarrios [] listaDestino = 	modelMapper.map(origen, BigBarrios[].class);
 		return Arrays.asList(listaDestino);
 	}

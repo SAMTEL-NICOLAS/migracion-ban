@@ -56,9 +56,9 @@ public class FactoryMigration implements IFactoryMigration {
 
 	@EJB(beanName = "bigEstadoCarpetasMigrate")
 	IGenerateMigration bigEstadoCarpetasMigrate;
-//	
-//	@EJB(beanName="bigActivosMigrate")
-//	IGenerateMigration bigActivosMigrate;
+	
+	@EJB(beanName="bigActivosMigrate")
+	IGenerateMigration bigActivosMigrate;
 
 	@EJB(beanName = "bigSubproductosMigrate")
 	IGenerateMigration bigSubproductosMigrate;
@@ -156,12 +156,12 @@ public class FactoryMigration implements IFactoryMigration {
 	 * @return
 	 */
 	public IGenerateMigration findEjb(LogActivador item) {
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
-//			return bigRecorridosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
-//			return bigRecuperaCarteraCastigadaMigrate;
-//		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
+			return bigRecorridosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
+			return bigRecuperaCarteraCastigadaMigrate;
+		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVIDAD_ECONOMICA_INTERNA.getNameAs())) {
 //			return bigActividadEconomicaInternaMigrate;
 //		} 
@@ -211,10 +211,21 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
 //		return bigTipoTransaccionMigrate;
 //	}
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CONSOLIDADO.getNameAs())) {
-			return bigParametrosConsolidadosMigrate;
-		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CONSOLIDADO.getNameAs())) {
+//			return bigPasivosConsolidadoMigrate;
+//		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_BARRIOS.getNameAs())) {
+//			return bigBarriosMigrate;
+//		}
 		
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_DIRECCION.getNameAs())) {
+//			return bigDireccionMigrate;
+//		}
+//		
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVOS.getNameAs())) {
+//			return bigActivosMigrate;
+//		}
+//		
 		return null;
 	}
 

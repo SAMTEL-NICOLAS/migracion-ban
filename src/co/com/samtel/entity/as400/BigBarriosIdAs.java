@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
 @Embeddable
-public class BigBarriosIdAs implements Serializable {
-	
+public class BigBarriosIdAs implements Serializable {	
 
 private static final long serialVersionUID = 1L;
 	
@@ -17,8 +17,7 @@ private static final long serialVersionUID = 1L;
 	private String i_cod_barrio;
 
 	public BigBarriosIdAs() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();	
 	}
 
 	public BigBarriosIdAs(String i_cod_ciudad, String i_cod_barrio) {
@@ -71,8 +70,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setI_cod_barrio(String i_cod_barrio) {
 		this.i_cod_barrio = i_cod_barrio;
-	}
-
-	
+	}	
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "BIG_CREDIPREMIUM", schema = "dbo")
@@ -17,10 +18,10 @@ public class BigCredipremium implements Serializable  {
 
 	@Id	
 	@Column(name = "i_codigo_cliente")
-	private String crcnui;
+	private Long crcnui;
 	
 	@Column(name = "i_mora_maxima_cliente")
-	private Long crcmmc;
+	private Long crcmmc; // short -- long
 	
 	@Column(name = "s_peor_calif_riesgo")
 	private String crcpcr;
@@ -68,10 +69,10 @@ public class BigCredipremium implements Serializable  {
 	private Short crcpic;
 	
 	@Column(name = "i_mora_prome_clte")
-	private Integer crcmpl;
+	private Integer crcmpl; // short a int
 	
 	@Column(name = "i_mora_maxim_clte")
-	private Integer crcmml;
+	private Short crcmml;// short a int
 	
 	@Column(name = "i_actividad_econo")
 	private String crcace;
@@ -85,10 +86,10 @@ public class BigCredipremium implements Serializable  {
 	@Column(name = "i_resultado_otorg")
 	private String crcrso;
 	
-	@Column(name = "d_fecha_prim_cred")
+	@Column(name = "d_fecha_prim_cred")	
 	private Date crcfpc;
 	
-	@Column(name = "d_fecha_cred_rec")
+	@Column(name = "d_fecha_cred_rec")	
 	private Date crcfcr;
 	
 	@Column(name = "m_monto_desem_cred_ult")
@@ -101,10 +102,10 @@ public class BigCredipremium implements Serializable  {
 	private String crcpar;
 	
 	@Column(name = "i_endeuda_modalidad")
-	private BigDecimal crcenm;
+	private Long crcenm; // integer - Long
 	
 	@Column(name = "i_behavescore_segui")
-	private String crcscs;  /* ------ de short -string */ 
+	private Short crcscs;
 	
 	@Column(name = "i_probabilidad_incum")
 	private BigDecimal crcpin;
@@ -139,8 +140,8 @@ public class BigCredipremium implements Serializable  {
 	@Column(name = "i_nro_condonac")
 	private Short crcnco;
 	
-	@Column(name = "i_nro_cred_selecc") /*bigint*/
-	private Long crcacc;
+	@Column(name = "i_nro_cred_selecc")
+	private Long crcacc; // long - long(bigint)
 	
 	@Column(name = "i_codigo_ejec_act")
 	private String  crcase;
@@ -151,17 +152,17 @@ public class BigCredipremium implements Serializable  {
 	@Column(name = "i_cuotas_vencidas")
 	private Short crccuv;
 	
-	@Column(name = "s_periodo_pago") /*char - numeric*/
-	private String crcpep;
+	@Column(name = "s_periodo_pago")
+	private Short crcpep; // String - short
 	
 	@Column(name = "s_tipo_garantia")
 	private String crcgar;
 
-	public String getCrcnui() {
+	public Long getCrcnui() {
 		return crcnui;
 	}
 
-	public void setCrcnui(String crcnui) {
+	public void setCrcnui(Long crcnui) {
 		this.crcnui = crcnui;
 	}
 
@@ -301,11 +302,11 @@ public class BigCredipremium implements Serializable  {
 		this.crcmpl = crcmpl;
 	}
 
-	public Integer getCrcmml() {
+	public Short getCrcmml() {
 		return crcmml;
 	}
 
-	public void setCrcmml(Integer crcmml) {
+	public void setCrcmml(Short crcmml) {
 		this.crcmml = crcmml;
 	}
 
@@ -381,19 +382,19 @@ public class BigCredipremium implements Serializable  {
 		this.crcpar = crcpar;
 	}
 
-	public BigDecimal getCrcenm() {
+	public Long getCrcenm() {
 		return crcenm;
 	}
 
-	public void setCrcenm(BigDecimal crcenm) {
+	public void setCrcenm(Long crcenm) {
 		this.crcenm = crcenm;
 	}
 
-	public String getCrcscs() {
+	public Short getCrcscs() {
 		return crcscs;
 	}
 
-	public void setCrcscs(String crcscs) {
+	public void setCrcscs(Short crcscs) {
 		this.crcscs = crcscs;
 	}
 
@@ -517,11 +518,11 @@ public class BigCredipremium implements Serializable  {
 		this.crccuv = crccuv;
 	}
 
-	public String getCrcpep() {
+	public Short getCrcpep() {
 		return crcpep;
 	}
 
-	public void setCrcpep(String crcpep) {
+	public void setCrcpep(Short crcpep) {
 		this.crcpep = crcpep;
 	}
 
@@ -531,6 +532,7 @@ public class BigCredipremium implements Serializable  {
 
 	public void setCrcgar(String crcgar) {
 		this.crcgar = crcgar;
-	}	
-
+	}
+	
+	
 }

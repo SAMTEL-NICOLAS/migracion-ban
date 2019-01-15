@@ -11,9 +11,6 @@ import javax.persistence.Table;
 @Table(name = "LOGACTIVA", schema = "DAMCYFILES")
 public class LogActivador implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "LOGCON")

@@ -54,6 +54,7 @@
 		<mapping class="co.com.samtel.entity.as400.BigPasivosCdtAs" />
 		<mapping class="co.com.samtel.entity.as400.BigPasivosAhAs" />
 		<mapping class="co.com.samtel.entity.as400.BigPasivosConsolidadoAs" />
+
 		
 		<mapping class="co.com.samtel.entity.business.LogActivador" />
 	</session-factory>

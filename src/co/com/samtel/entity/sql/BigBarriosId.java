@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
 @Embeddable
 public class BigBarriosId implements Serializable{
 	
@@ -16,8 +17,7 @@ public class BigBarriosId implements Serializable{
 	private String i_cod_barrio;
 
 	public BigBarriosId() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
 	public BigBarriosId(String i_cod_ciudad, String i_cod_barrio) {
@@ -71,7 +71,6 @@ public class BigBarriosId implements Serializable{
 
 	public void setI_cod_barrio(String i_cod_barrio) {
 		this.i_cod_barrio = i_cod_barrio;
-	}
-	
+	}	
 
 }

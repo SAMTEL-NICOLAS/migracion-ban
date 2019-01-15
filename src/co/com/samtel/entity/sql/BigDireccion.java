@@ -6,7 +6,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "BIG_DIRECCION", schema = "dbo")
 public class BigDireccion  implements Serializable {
@@ -65,7 +64,7 @@ public class BigDireccion  implements Serializable {
 	private String ref_direcc;
 	
 	@Column(name = "s_telefono_fijo")
-	private String telef_fijo;
+	private Long telef_fijo;
 	
 	@Column(name = "s_telefono_celular")
 	private Long tel_celula;
@@ -215,11 +214,11 @@ public class BigDireccion  implements Serializable {
 		this.ref_direcc = ref_direcc;
 	}
 
-	public String getTelef_fijo() {
+	public Long getTelef_fijo() {
 		return telef_fijo;
 	}
 
-	public void setTelef_fijo(String telef_fijo) {
+	public void setTelef_fijo(Long telef_fijo) {
 		this.telef_fijo = telef_fijo;
 	}
 

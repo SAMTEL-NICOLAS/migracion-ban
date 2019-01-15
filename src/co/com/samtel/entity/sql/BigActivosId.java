@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
+
 @Embeddable
 public class BigActivosId implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class BigActivosId implements Serializable{
 
 	public BigActivosId() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public BigActivosId(String i_nro_credito, Date d_fecha_corte) {

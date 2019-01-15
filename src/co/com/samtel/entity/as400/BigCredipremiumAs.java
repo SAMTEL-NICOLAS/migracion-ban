@@ -109,7 +109,7 @@ public class BigCredipremiumAs implements Serializable  {
 	private String crcpar;
 	
 	@Column(name = "crcenm")
-	private BigDecimal crcenm;
+	private Integer crcenm;
 	
 	@Column(name = "crcscs")
 	private Short crcscs;
@@ -421,11 +421,11 @@ public class BigCredipremiumAs implements Serializable  {
 		this.crcpar = crcpar;
 	}
 
-	public BigDecimal getCrcenm() {
+	public Integer getCrcenm() {
 		return crcenm;
 	}
 
-	public void setCrcenm(BigDecimal crcenm) {
+	public void setCrcenm(Integer crcenm) {
 		this.crcenm = crcenm;
 	}
 
