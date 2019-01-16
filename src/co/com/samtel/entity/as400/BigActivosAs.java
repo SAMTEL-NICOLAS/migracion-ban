@@ -211,7 +211,7 @@ public class BigActivosAs  implements Serializable{
 	
 	@Column(name = "credreestr")
 	private String credreestr;
-	
+	// ----------------------------
 	@Column(name = "secpertcli")
 	private String secpertcli;
 	
@@ -227,7 +227,7 @@ public class BigActivosAs  implements Serializable{
 	@Column(name = "tipoempres")
 	private String tipoempres;
 	
-	@Column(name = "clasclient")
+	@Column(name = "clasclient") // ok
 	private String clasclient;
 	
 	@Column(name = "fechinimor")
@@ -272,7 +272,7 @@ public class BigActivosAs  implements Serializable{
 	private String calriesgba;
 	
 	@Column(name = "salcapcupe")
-	private BigDecimal salcapcupe;
+	private BigDecimal salcapcupe; 
 		
 	@Column(name = "sacapv1_30")
 	private BigDecimal sacapv1_30;
@@ -372,7 +372,7 @@ public class BigActivosAs  implements Serializable{
 	@Column(name = "provsegcic")
 	private BigDecimal provsegcic;
 	
-	@Column(name = "provotrcic")
+	@Column(name = "provotrcic") 
 	private BigDecimal provotrcic;
 		
 	@Column(name = "provcumcic")
@@ -477,7 +477,7 @@ public class BigActivosAs  implements Serializable{
 	@Column(name = "vencicredi")
 	private Long vencicredi;
 	
-	@Column(name = "codiasesor")
+	@Column(name = "numecuotas")
 	private Integer numecuotas;
 	
 	@Column(name = "porccclipc")
@@ -503,6 +503,768 @@ public class BigActivosAs  implements Serializable{
 
 	public void setFeccigeinf(Integer feccigeinf) {
 		this.feccigeinf = feccigeinf;
+	}
+
+	public Long getNumctaacre() {
+		return numctaacre;
+	}
+
+	public void setNumctaacre(Long numctaacre) {
+		this.numctaacre = numctaacre;
+	}
+
+	public Long getVencicredi() {
+		return vencicredi;
+	}
+
+	public void setVencicredi(Long vencicredi) {
+		this.vencicredi = vencicredi;
+	}
+
+	public Integer getNumecuotas() {
+		return numecuotas;
+	}
+
+	public void setNumecuotas(Integer numecuotas) {
+		this.numecuotas = numecuotas;
+	}
+
+	public BigDecimal getPorccclipc() {
+		return porccclipc;
+	}
+
+	public void setPorccclipc(BigDecimal porccclipc) {
+		this.porccclipc = porccclipc;
+	}
+
+	public BigDecimal getPortcllipc() {
+		return portcllipc;
+	}
+
+	public void setPortcllipc(BigDecimal portcllipc) {
+		this.portcllipc = portcllipc;
+	}
+
+	public String getNumgonbase() {
+		return numgonbase;
+	}
+
+	public void setNumgonbase(String numgonbase) {
+		this.numgonbase = numgonbase;
+	}
+
+	public BigDecimal getVacanfngeg() {
+		return vacanfngeg;
+	}
+
+	public void setVacanfngeg(BigDecimal vacanfngeg) {
+		this.vacanfngeg = vacanfngeg;
+	}
+
+	public Integer getFeccafngegAux() {
+		return feccafngegAux;
+	}
+
+	public void setFeccafngegAux(Integer feccafngegAux) {
+		this.feccafngegAux = feccafngegAux;
+	}
+
+	public Date getFeccafngeg() {
+		return feccafngeg;
+	}
+
+	public void setFeccafngeg(Date feccafngeg) {
+		this.feccafngeg = feccafngeg;
+	}
+
+	public BigDecimal getValpprxccl() {
+		return valpprxccl;
+	}
+
+	public void setValpprxccl(BigDecimal valpprxccl) {
+		this.valpprxccl = valpprxccl;
+	}
+
+	public String getCodiasesor() {
+		return codiasesor;
+	}
+
+	public void setCodiasesor(String codiasesor) {
+		this.codiasesor = codiasesor;
+	}
+
+	public Short getCodsucursa() {
+		return codsucursa;
+	}
+
+	public void setCodsucursa(Short codsucursa) {
+		this.codsucursa = codsucursa;
+	}
+
+	public String getCodfuercom() {
+		return codfuercom;
+	}
+
+	public void setCodfuercom(String codfuercom) {
+		this.codfuercom = codfuercom;
+	}
+
+	public Short getCodpagacon() {
+		return codpagacon;
+	}
+
+	public void setCodpagacon(Short codpagacon) {
+		this.codpagacon = codpagacon;
+	}
+
+	public BigDecimal getValgafagga() {
+		return valgafagga;
+	}
+
+	public void setValgafagga(BigDecimal valgafagga) {
+		this.valgafagga = valgafagga;
+	}
+
+	public BigDecimal getTacreefanu() {
+		return tacreefanu;
+	}
+
+	public void setTacreefanu(BigDecimal tacreefanu) {
+		this.tacreefanu = tacreefanu;
+	}
+
+	public BigDecimal getCredintdtf() {
+		return credintdtf;
+	}
+
+	public void setCredintdtf(BigDecimal credintdtf) {
+		this.credintdtf = credintdtf;
+	}
+
+	public BigDecimal getTasbaindtf() {
+		return tasbaindtf;
+	}
+
+	public void setTasbaindtf(BigDecimal tasbaindtf) {
+		this.tasbaindtf = tasbaindtf;
+	}
+
+	public BigDecimal getTasdtfindc() {
+		return tasdtfindc;
+	}
+
+	public void setTasdtfindc(BigDecimal tasdtfindc) {
+		this.tasdtfindc = tasdtfindc;
+	}
+
+	public BigDecimal getMontsegcsc() {
+		return montsegcsc;
+	}
+
+	public void setMontsegcsc(BigDecimal montsegcsc) {
+		this.montsegcsc = montsegcsc;
+	}
+
+	public Integer getFeccredcasAux() {
+		return feccredcasAux;
+	}
+
+	public void setFeccredcasAux(Integer feccredcasAux) {
+		this.feccredcasAux = feccredcasAux;
+	}
+
+	public Date getFeccredcas() {
+		return feccredcas;
+	}
+
+	public void setFeccredcas(Date feccredcas) {
+		this.feccredcas = feccredcas;
+	}
+
+	public Long getCredredesc() {
+		return credredesc;
+	}
+
+	public void setCredredesc(Long credredesc) {
+		this.credredesc = credredesc;
+	}
+
+	public Short getCredirenov() {
+		return credirenov;
+	}
+
+	public void setCredirenov(Short credirenov) {
+		this.credirenov = credirenov;
+	}
+
+	public Long getIdentgaran() {
+		return identgaran;
+	}
+
+	public void setIdentgaran(Long identgaran) {
+		this.identgaran = identgaran;
+	}
+
+	public BigDecimal getValgarfnga() {
+		return valgarfnga;
+	}
+
+	public void setValgarfnga(BigDecimal valgarfnga) {
+		this.valgarfnga = valgarfnga;
+	}
+
+	public BigDecimal getProvotrcic() {
+		return provotrcic;
+	}
+
+	public void setProvotrcic(BigDecimal provotrcic) {
+		this.provotrcic = provotrcic;
+	}
+
+	public BigDecimal getProvcumcic() {
+		return provcumcic;
+	}
+
+	public void setProvcumcic(BigDecimal provcumcic) {
+		this.provcumcic = provcumcic;
+	}
+
+	public BigDecimal getProivaccic() {
+		return proivaccic;
+	}
+
+	public void setProivaccic(BigDecimal proivaccic) {
+		this.proivaccic = proivaccic;
+	}
+
+	public BigDecimal getMoncomcfag() {
+		return moncomcfag;
+	}
+
+	public void setMoncomcfag(BigDecimal moncomcfag) {
+		this.moncomcfag = moncomcfag;
+	}
+
+	public BigDecimal getIvacomcfag() {
+		return ivacomcfag;
+	}
+
+	public void setIvacomcfag(BigDecimal ivacomcfag) {
+		this.ivacomcfag = ivacomcfag;
+	}
+
+	public BigDecimal getMcomcfagsc() {
+		return mcomcfagsc;
+	}
+
+	public void setMcomcfagsc(BigDecimal mcomcfagsc) {
+		this.mcomcfagsc = mcomcfagsc;
+	}
+
+	public BigDecimal getIcomcfagsc() {
+		return icomcfagsc;
+	}
+
+	public void setIcomcfagsc(BigDecimal icomcfagsc) {
+		this.icomcfagsc = icomcfagsc;
+	}
+
+	public BigDecimal getProcomcfag() {
+		return procomcfag;
+	}
+
+	public void setProcomcfag(BigDecimal procomcfag) {
+		this.procomcfag = procomcfag;
+	}
+
+	public BigDecimal getProivacfag() {
+		return proivacfag;
+	}
+
+	public void setProivacfag(BigDecimal proivacfag) {
+		this.proivacfag = proivacfag;
+	}
+
+	public BigDecimal getProvccicfa() {
+		return provccicfa;
+	}
+
+	public void setProvccicfa(BigDecimal provccicfa) {
+		this.provccicfa = provccicfa;
+	}
+
+	public BigDecimal getProivaccfa() {
+		return proivaccfa;
+	}
+
+	public void setProivaccfa(BigDecimal proivaccfa) {
+		this.proivaccfa = proivaccfa;
+	}
+
+	public Integer getFecproxpcrAux() {
+		return fecproxpcrAux;
+	}
+
+	public void setFecproxpcrAux(Integer fecproxpcrAux) {
+		this.fecproxpcrAux = fecproxpcrAux;
+	}
+
+	public Date getFecproxpcr() {
+		return fecproxpcr;
+	}
+
+	public void setFecproxpcr(Date fecproxpcr) {
+		this.fecproxpcr = fecproxpcr;
+	}
+
+	public String getNumconacre() {
+		return numconacre;
+	}
+
+	public void setNumconacre(String numconacre) {
+		this.numconacre = numconacre;
+	}
+
+	public BigDecimal getSalcapcupe() {
+		return salcapcupe;
+	}
+
+	public void setSalcapcupe(BigDecimal salcapcupe) {
+		this.salcapcupe = salcapcupe;
+	}
+
+	public BigDecimal getSacapv1_30() {
+		return sacapv1_30;
+	}
+
+	public void setSacapv1_30(BigDecimal sacapv1_30) {
+		this.sacapv1_30 = sacapv1_30;
+	}
+
+	public BigDecimal getScapv31_90() {
+		return scapv31_90;
+	}
+
+	public void setScapv31_90(BigDecimal scapv31_90) {
+		this.scapv31_90 = scapv31_90;
+	}
+
+	public BigDecimal getScav91_180() {
+		return scav91_180;
+	}
+
+	public void setScav91_180(BigDecimal scav91_180) {
+		this.scav91_180 = scav91_180;
+	}
+
+	public BigDecimal getScv181_360() {
+		return scv181_360;
+	}
+
+	public void setScv181_360(BigDecimal scv181_360) {
+		this.scv181_360 = scv181_360;
+	}
+
+	public BigDecimal getSacapvm360() {
+		return sacapvm360;
+	}
+
+	public void setSacapvm360(BigDecimal sacapvm360) {
+		this.sacapvm360 = sacapvm360;
+	}
+
+	public BigDecimal getNumcuotcan() {
+		return numcuotcan;
+	}
+
+	public void setNumcuotcan(BigDecimal numcuotcan) {
+		this.numcuotcan = numcuotcan;
+	}
+
+	public BigDecimal getNumcuomora() {
+		return numcuomora;
+	}
+
+	public void setNumcuomora(BigDecimal numcuomora) {
+		this.numcuomora = numcuomora;
+	}
+
+	public BigDecimal getValtcomipy() {
+		return valtcomipy;
+	}
+
+	public void setValtcomipy(BigDecimal valtcomipy) {
+		this.valtcomipy = valtcomipy;
+	}
+
+	public BigDecimal getCommipytcr() {
+		return commipytcr;
+	}
+
+	public void setCommipytcr(BigDecimal commipytcr) {
+		this.commipytcr = commipytcr;
+	}
+
+	public BigDecimal getValtivamip() {
+		return valtivamip;
+	}
+
+	public void setValtivamip(BigDecimal valtivamip) {
+		this.valtivamip = valtivamip;
+	}
+
+	public BigDecimal getIvamipytcr() {
+		return ivamipytcr;
+	}
+
+	public void setIvamipytcr(BigDecimal ivamipytcr) {
+		this.ivamipytcr = ivamipytcr;
+	}
+
+	public BigDecimal getValpenmipy() {
+		return valpenmipy;
+	}
+
+	public void setValpenmipy(BigDecimal valpenmipy) {
+		this.valpenmipy = valpenmipy;
+	}
+
+	public BigDecimal getIVAPENMIPY() {
+		return IVAPENMIPY;
+	}
+
+	public void setIVAPENMIPY(BigDecimal iVAPENMIPY) {
+		IVAPENMIPY = iVAPENMIPY;
+	}
+
+	public Long getCanrefclcr() {
+		return canrefclcr;
+	}
+
+	public void setCanrefclcr(Long canrefclcr) {
+		this.canrefclcr = canrefclcr;
+	}
+
+	public String getNombcatccr() {
+		return nombcatccr;
+	}
+
+	public void setNombcatccr(String nombcatccr) {
+		this.nombcatccr = nombcatccr;
+	}
+
+	public BigDecimal getCtasccrota() {
+		return ctasccrota;
+	}
+
+	public void setCtasccrota(BigDecimal ctasccrota) {
+		this.ctasccrota = ctasccrota;
+	}
+
+	public BigDecimal getProctacrot() {
+		return proctacrot;
+	}
+
+	public void setProctacrot(BigDecimal proctacrot) {
+		this.proctacrot = proctacrot;
+	}
+
+	public BigDecimal getContccrota() {
+		return contccrota;
+	}
+
+	public void setContccrota(BigDecimal contccrota) {
+		this.contccrota = contccrota;
+	}
+
+	public BigDecimal getCtascivaro() {
+		return ctascivaro;
+	}
+
+	public void setCtascivaro(BigDecimal ctascivaro) {
+		this.ctascivaro = ctascivaro;
+	}
+
+	public BigDecimal getProvivacro() {
+		return provivacro;
+	}
+
+	public void setProvivacro(BigDecimal provivacro) {
+		this.provivacro = provivacro;
+	}
+
+	public BigDecimal getContivaccr() {
+		return contivaccr;
+	}
+
+	public void setContivaccr(BigDecimal contivaccr) {
+		this.contivaccr = contivaccr;
+	}
+
+	public BigDecimal getTasacoloca() {
+		return tasacoloca;
+	}
+
+	public void setTasacoloca(BigDecimal tasacoloca) {
+		this.tasacoloca = tasacoloca;
+	}
+
+	public String getInterescre() {
+		return interescre;
+	}
+
+	public void setInterescre(String interescre) {
+		this.interescre = interescre;
+	}
+
+	public Integer getFecintcredAux() {
+		return fecintcredAux;
+	}
+
+	public void setFecintcredAux(Integer fecintcredAux) {
+		this.fecintcredAux = fecintcredAux;
+	}
+
+	public Date getFecintcred() {
+		return fecintcred;
+	}
+
+	public void setFecintcred(Date fecintcred) {
+		this.fecintcred = fecintcred;
+	}
+
+	public BigDecimal getProvcacicl() {
+		return provcacicl;
+	}
+
+	public void setProvcacicl(BigDecimal provcacicl) {
+		this.provcacicl = provcacicl;
+	}
+
+	public BigDecimal getProvintcic() {
+		return provintcic;
+	}
+
+	public void setProvintcic(BigDecimal provintcic) {
+		this.provintcic = provintcic;
+	}
+
+	public BigDecimal getProvmorcic() {
+		return provmorcic;
+	}
+
+	public void setProvmorcic(BigDecimal provmorcic) {
+		this.provmorcic = provmorcic;
+	}
+
+	public BigDecimal getProvmipyci() {
+		return provmipyci;
+	}
+
+	public void setProvmipyci(BigDecimal provmipyci) {
+		this.provmipyci = provmipyci;
+	}
+
+	public BigDecimal getProvinmici() {
+		return provinmici;
+	}
+
+	public void setProvinmici(BigDecimal provinmici) {
+		this.provinmici = provinmici;
+	}
+
+	public BigDecimal getProvfngcic() {
+		return provfngcic;
+	}
+
+	public void setProvfngcic(BigDecimal provfngcic) {
+		this.provfngcic = provfngcic;
+	}
+
+	public BigDecimal getPrivafngci() {
+		return privafngci;
+	}
+
+	public void setPrivafngci(BigDecimal privafngci) {
+		this.privafngci = privafngci;
+	}
+
+	public BigDecimal getProvsegcic() {
+		return provsegcic;
+	}
+
+	public void setProvsegcic(BigDecimal provsegcic) {
+		this.provsegcic = provsegcic;
+	}
+
+
+
+	public BigDecimal getMorcobracl() {
+		return morcobracl;
+	}
+
+	public void setMorcobracl(BigDecimal morcobracl) {
+		this.morcobracl = morcobracl;
+	}
+
+	public BigDecimal getValfngefga() {
+		return valfngefga;
+	}
+
+	public void setValfngefga(BigDecimal valfngefga) {
+		this.valfngefga = valfngefga;
+	}
+
+	public Integer getFecfngefgaAux() {
+		return fecfngefgaAux;
+	}
+
+	public void setFecfngefgaAux(Integer fecfngefgaAux) {
+		this.fecfngefgaAux = fecfngefgaAux;
+	}
+
+	public Date getFecfngefga() {
+		return fecfngefga;
+	}
+
+	public void setFecfngefga(Date fecfngefga) {
+		this.fecfngefga = fecfngefga;
+	}
+
+	public BigDecimal getValusaefga() {
+		return valusaefga;
+	}
+
+	public void setValusaefga(BigDecimal valusaefga) {
+		this.valusaefga = valusaefga;
+	}
+
+	public Integer getFecusaefgaAux() {
+		return fecusaefgaAux;
+	}
+
+	public void setFecusaefgaAux(Integer fecusaefgaAux) {
+		this.fecusaefgaAux = fecusaefgaAux;
+	}
+
+	public Date getFecusaefga() {
+		return fecusaefga;
+	}
+
+	public void setFecusaefga(Date fecusaefga) {
+		this.fecusaefga = fecusaefga;
+	}
+
+	public BigDecimal getValcadinco() {
+		return valcadinco;
+	}
+
+	public void setValcadinco(BigDecimal valcadinco) {
+		this.valcadinco = valcadinco;
+	}
+
+	public BigDecimal getValcadinmo() {
+		return valcadinmo;
+	}
+
+	public void setValcadinmo(BigDecimal valcadinmo) {
+		this.valcadinmo = valcadinmo;
+	}
+
+	public String getCalifriesg() {
+		return califriesg;
+	}
+
+	public void setCalifriesg(String califriesg) {
+		this.califriesg = califriesg;
+	}
+
+	public String getCalriesgba() {
+		return calriesgba;
+	}
+
+	public void setCalriesgba(String calriesgba) {
+		this.calriesgba = calriesgba;
+	}
+
+	public String getClasclient() {
+		return clasclient;
+	}
+
+	public void setClasclient(String clasclient) {
+		this.clasclient = clasclient;
+	}
+
+	public Integer getFechinimorAux() {
+		return fechinimorAux;
+	}
+
+	public void setFechinimorAux(Integer fechinimorAux) {
+		this.fechinimorAux = fechinimorAux;
+	}
+
+	public Date getFechinimor() {
+		return fechinimor;
+	}
+
+	public void setFechinimor(Date fechinimor) {
+		this.fechinimor = fechinimor;
+	}
+
+	public Integer getFechapagucAux() {
+		return fechapagucAux;
+	}
+
+	public void setFechapagucAux(Integer fechapagucAux) {
+		this.fechapagucAux = fechapagucAux;
+	}
+
+	public Date getFechapaguc() {
+		return fechapaguc;
+	}
+
+	public void setFechapaguc(Date fechapaguc) {
+		this.fechapaguc = fechapaguc;
+	}
+
+	public String getSecpertcli() {
+		return secpertcli;
+	}
+
+	public void setSecpertcli(String secpertcli) {
+		this.secpertcli = secpertcli;
+	}
+
+	public String getCodactintc() {
+		return codactintc;
+	}
+
+	public void setCodactintc(String codactintc) {
+		this.codactintc = codactintc;
+	}
+
+	public String getNomabogado() {
+		return nomabogado;
+	}
+
+	public void setNomabogado(String nomabogado) {
+		this.nomabogado = nomabogado;
+	}
+
+	public String getTipoclient() {
+		return tipoclient;
+	}
+
+	public void setTipoclient(String tipoclient) {
+		this.tipoclient = tipoclient;
+	}
+
+	public String getTipoempres() {
+		return tipoempres;
+	}
+
+	public void setTipoempres(String tipoempres) {
+		this.tipoempres = tipoempres;
 	}
 
 	public String getLine_credi() {
@@ -1025,764 +1787,6 @@ public class BigActivosAs  implements Serializable{
 		this.credreestr = credreestr;
 	}
 
-	public String getSecpertcli() {
-		return secpertcli;
-	}
 
-	public void setSecpertcli(String secpertcli) {
-		this.secpertcli = secpertcli;
-	}
-
-	public String getCodactintc() {
-		return codactintc;
-	}
-
-	public void setCodactintc(String codactintc) {
-		this.codactintc = codactintc;
-	}
-
-	public String getNomabogado() {
-		return nomabogado;
-	}
-
-	public void setNomabogado(String nomabogado) {
-		this.nomabogado = nomabogado;
-	}
-
-	public String getTipoclient() {
-		return tipoclient;
-	}
-
-	public void setTipoclient(String tipoclient) {
-		this.tipoclient = tipoclient;
-	}
-
-	public String getTipoempres() {
-		return tipoempres;
-	}
-
-	public void setTipoempres(String tipoempres) {
-		this.tipoempres = tipoempres;
-	}
-
-	public String getClasclient() {
-		return clasclient;
-	}
-
-	public void setClasclient(String clasclient) {
-		this.clasclient = clasclient;
-	}
-
-	public Integer getFechinimorAux() {
-		return fechinimorAux;
-	}
-
-	public void setFechinimorAux(Integer fechinimorAux) {
-		this.fechinimorAux = fechinimorAux;
-	}
-
-	public Date getFechinimor() {
-		return fechinimor;
-	}
-
-	public void setFechinimor(Date fechinimor) {
-		this.fechinimor = fechinimor;
-	}
-
-	public Integer getFechapagucAux() {
-		return fechapagucAux;
-	}
-
-	public void setFechapagucAux(Integer fechapagucAux) {
-		this.fechapagucAux = fechapagucAux;
-	}
-
-	public Date getFechapaguc() {
-		return fechapaguc;
-	}
-
-	public void setFechapaguc(Date fechapaguc) {
-		this.fechapaguc = fechapaguc;
-	}
-
-	public BigDecimal getMorcobracl() {
-		return morcobracl;
-	}
-
-	public void setMorcobracl(BigDecimal morcobracl) {
-		this.morcobracl = morcobracl;
-	}
-
-	public BigDecimal getValfngefga() {
-		return valfngefga;
-	}
-
-	public void setValfngefga(BigDecimal valfngefga) {
-		this.valfngefga = valfngefga;
-	}
-
-	public Integer getFecfngefgaAux() {
-		return fecfngefgaAux;
-	}
-
-	public void setFecfngefgaAux(Integer fecfngefgaAux) {
-		this.fecfngefgaAux = fecfngefgaAux;
-	}
-
-	public Date getFecfngefga() {
-		return fecfngefga;
-	}
-
-	public void setFecfngefga(Date fecfngefga) {
-		this.fecfngefga = fecfngefga;
-	}
-
-	public BigDecimal getValusaefga() {
-		return valusaefga;
-	}
-
-	public void setValusaefga(BigDecimal valusaefga) {
-		this.valusaefga = valusaefga;
-	}
-
-	public Integer getFecusaefgaAux() {
-		return fecusaefgaAux;
-	}
-
-	public void setFecusaefgaAux(Integer fecusaefgaAux) {
-		this.fecusaefgaAux = fecusaefgaAux;
-	}
-
-	public Date getFecusaefga() {
-		return fecusaefga;
-	}
-
-	public void setFecusaefga(Date fecusaefga) {
-		this.fecusaefga = fecusaefga;
-	}
-
-	public BigDecimal getValcadinco() {
-		return valcadinco;
-	}
-
-	public void setValcadinco(BigDecimal valcadinco) {
-		this.valcadinco = valcadinco;
-	}
-
-	public BigDecimal getValcadinmo() {
-		return valcadinmo;
-	}
-
-	public void setValcadinmo(BigDecimal valcadinmo) {
-		this.valcadinmo = valcadinmo;
-	}
-
-	public String getCalifriesg() {
-		return califriesg;
-	}
-
-	public void setCalifriesg(String califriesg) {
-		this.califriesg = califriesg;
-	}
-
-	public String getCalriesgba() {
-		return calriesgba;
-	}
-
-	public void setCalriesgba(String calriesgba) {
-		this.calriesgba = calriesgba;
-	}
-
-	public BigDecimal getSalcapcupe() {
-		return salcapcupe;
-	}
-
-	public void setSalcapcupe(BigDecimal salcapcupe) {
-		this.salcapcupe = salcapcupe;
-	}
-
-	public BigDecimal getSacapv1_30() {
-		return sacapv1_30;
-	}
-
-	public void setSacapv1_30(BigDecimal sacapv1_30) {
-		this.sacapv1_30 = sacapv1_30;
-	}
-
-	public BigDecimal getScapv31_90() {
-		return scapv31_90;
-	}
-
-	public void setScapv31_90(BigDecimal scapv31_90) {
-		this.scapv31_90 = scapv31_90;
-	}
-
-	public BigDecimal getScav91_180() {
-		return scav91_180;
-	}
-
-	public void setScav91_180(BigDecimal scav91_180) {
-		this.scav91_180 = scav91_180;
-	}
-
-	public BigDecimal getScv181_360() {
-		return scv181_360;
-	}
-
-	public void setScv181_360(BigDecimal scv181_360) {
-		this.scv181_360 = scv181_360;
-	}
-
-	public BigDecimal getSacapvm360() {
-		return sacapvm360;
-	}
-
-	public void setSacapvm360(BigDecimal sacapvm360) {
-		this.sacapvm360 = sacapvm360;
-	}
-
-	public BigDecimal getNumcuotcan() {
-		return numcuotcan;
-	}
-
-	public void setNumcuotcan(BigDecimal numcuotcan) {
-		this.numcuotcan = numcuotcan;
-	}
-
-	public BigDecimal getNumcuomora() {
-		return numcuomora;
-	}
-
-	public void setNumcuomora(BigDecimal numcuomora) {
-		this.numcuomora = numcuomora;
-	}
-
-	public BigDecimal getValtcomipy() {
-		return valtcomipy;
-	}
-
-	public void setValtcomipy(BigDecimal valtcomipy) {
-		this.valtcomipy = valtcomipy;
-	}
-
-	public BigDecimal getCommipytcr() {
-		return commipytcr;
-	}
-
-	public void setCommipytcr(BigDecimal commipytcr) {
-		this.commipytcr = commipytcr;
-	}
-
-	public BigDecimal getValtivamip() {
-		return valtivamip;
-	}
-
-	public void setValtivamip(BigDecimal valtivamip) {
-		this.valtivamip = valtivamip;
-	}
-
-	public BigDecimal getIvamipytcr() {
-		return ivamipytcr;
-	}
-
-	public void setIvamipytcr(BigDecimal ivamipytcr) {
-		this.ivamipytcr = ivamipytcr;
-	}
-
-	public BigDecimal getValpenmipy() {
-		return valpenmipy;
-	}
-
-	public void setValpenmipy(BigDecimal valpenmipy) {
-		this.valpenmipy = valpenmipy;
-	}
-
-	public BigDecimal getIVAPENMIPY() {
-		return IVAPENMIPY;
-	}
-
-	public void setIVAPENMIPY(BigDecimal iVAPENMIPY) {
-		IVAPENMIPY = iVAPENMIPY;
-	}
-
-	public Long getCanrefclcr() {
-		return canrefclcr;
-	}
-
-	public void setCanrefclcr(Long canrefclcr) {
-		this.canrefclcr = canrefclcr;
-	}
-
-	public String getNombcatccr() {
-		return nombcatccr;
-	}
-
-	public void setNombcatccr(String nombcatccr) {
-		this.nombcatccr = nombcatccr;
-	}
-
-	public BigDecimal getCtasccrota() {
-		return ctasccrota;
-	}
-
-	public void setCtasccrota(BigDecimal ctasccrota) {
-		this.ctasccrota = ctasccrota;
-	}
-
-	public BigDecimal getProctacrot() {
-		return proctacrot;
-	}
-
-	public void setProctacrot(BigDecimal proctacrot) {
-		this.proctacrot = proctacrot;
-	}
-
-	public BigDecimal getContccrota() {
-		return contccrota;
-	}
-
-	public void setContccrota(BigDecimal contccrota) {
-		this.contccrota = contccrota;
-	}
-
-	public BigDecimal getCtascivaro() {
-		return ctascivaro;
-	}
-
-	public void setCtascivaro(BigDecimal ctascivaro) {
-		this.ctascivaro = ctascivaro;
-	}
-
-	public BigDecimal getProvivacro() {
-		return provivacro;
-	}
-
-	public void setProvivacro(BigDecimal provivacro) {
-		this.provivacro = provivacro;
-	}
-
-	public BigDecimal getContivaccr() {
-		return contivaccr;
-	}
-
-	public void setContivaccr(BigDecimal contivaccr) {
-		this.contivaccr = contivaccr;
-	}
-
-	public BigDecimal getTasacoloca() {
-		return tasacoloca;
-	}
-
-	public void setTasacoloca(BigDecimal tasacoloca) {
-		this.tasacoloca = tasacoloca;
-	}
-
-	public String getInterescre() {
-		return interescre;
-	}
-
-	public void setInterescre(String interescre) {
-		this.interescre = interescre;
-	}
-
-	public Integer getFecintcredAux() {
-		return fecintcredAux;
-	}
-
-	public void setFecintcredAux(Integer fecintcredAux) {
-		this.fecintcredAux = fecintcredAux;
-	}
-
-	public Date getFecintcred() {
-		return fecintcred;
-	}
-
-	public void setFecintcred(Date fecintcred) {
-		this.fecintcred = fecintcred;
-	}
-
-	public BigDecimal getProvcacicl() {
-		return provcacicl;
-	}
-
-	public void setProvcacicl(BigDecimal provcacicl) {
-		this.provcacicl = provcacicl;
-	}
-
-	public BigDecimal getProvintcic() {
-		return provintcic;
-	}
-
-	public void setProvintcic(BigDecimal provintcic) {
-		this.provintcic = provintcic;
-	}
-
-	public BigDecimal getProvmorcic() {
-		return provmorcic;
-	}
-
-	public void setProvmorcic(BigDecimal provmorcic) {
-		this.provmorcic = provmorcic;
-	}
-
-	public BigDecimal getProvmipyci() {
-		return provmipyci;
-	}
-
-	public void setProvmipyci(BigDecimal provmipyci) {
-		this.provmipyci = provmipyci;
-	}
-
-	public BigDecimal getProvinmici() {
-		return provinmici;
-	}
-
-	public void setProvinmici(BigDecimal provinmici) {
-		this.provinmici = provinmici;
-	}
-
-	public BigDecimal getProvfngcic() {
-		return provfngcic;
-	}
-
-	public void setProvfngcic(BigDecimal provfngcic) {
-		this.provfngcic = provfngcic;
-	}
-
-	public BigDecimal getPrivafngci() {
-		return privafngci;
-	}
-
-	public void setPrivafngci(BigDecimal privafngci) {
-		this.privafngci = privafngci;
-	}
-
-	public BigDecimal getProvsegcic() {
-		return provsegcic;
-	}
-
-	public void setProvsegcic(BigDecimal provsegcic) {
-		this.provsegcic = provsegcic;
-	}
-
-	public BigDecimal getProvotrcic() {
-		return provotrcic;
-	}
-
-	public void setProvotrcic(BigDecimal provotrcic) {
-		this.provotrcic = provotrcic;
-	}
-
-	public BigDecimal getProvcumcic() {
-		return provcumcic;
-	}
-
-	public void setProvcumcic(BigDecimal provcumcic) {
-		this.provcumcic = provcumcic;
-	}
-
-	public BigDecimal getProivaccic() {
-		return proivaccic;
-	}
-
-	public void setProivaccic(BigDecimal proivaccic) {
-		this.proivaccic = proivaccic;
-	}
-
-	public BigDecimal getMoncomcfag() {
-		return moncomcfag;
-	}
-
-	public void setMoncomcfag(BigDecimal moncomcfag) {
-		this.moncomcfag = moncomcfag;
-	}
-
-	public BigDecimal getIvacomcfag() {
-		return ivacomcfag;
-	}
-
-	public void setIvacomcfag(BigDecimal ivacomcfag) {
-		this.ivacomcfag = ivacomcfag;
-	}
-
-	public BigDecimal getMcomcfagsc() {
-		return mcomcfagsc;
-	}
-
-	public void setMcomcfagsc(BigDecimal mcomcfagsc) {
-		this.mcomcfagsc = mcomcfagsc;
-	}
-
-	public BigDecimal getIcomcfagsc() {
-		return icomcfagsc;
-	}
-
-	public void setIcomcfagsc(BigDecimal icomcfagsc) {
-		this.icomcfagsc = icomcfagsc;
-	}
-
-	public BigDecimal getProcomcfag() {
-		return procomcfag;
-	}
-
-	public void setProcomcfag(BigDecimal procomcfag) {
-		this.procomcfag = procomcfag;
-	}
-
-	public BigDecimal getProivacfag() {
-		return proivacfag;
-	}
-
-	public void setProivacfag(BigDecimal proivacfag) {
-		this.proivacfag = proivacfag;
-	}
-
-	public BigDecimal getProvccicfa() {
-		return provccicfa;
-	}
-
-	public void setProvccicfa(BigDecimal provccicfa) {
-		this.provccicfa = provccicfa;
-	}
-
-	public BigDecimal getProivaccfa() {
-		return proivaccfa;
-	}
-
-	public void setProivaccfa(BigDecimal proivaccfa) {
-		this.proivaccfa = proivaccfa;
-	}
-
-	public Integer getFecproxpcrAux() {
-		return fecproxpcrAux;
-	}
-
-	public void setFecproxpcrAux(Integer fecproxpcrAux) {
-		this.fecproxpcrAux = fecproxpcrAux;
-	}
-
-	public Date getFecproxpcr() {
-		return fecproxpcr;
-	}
-
-	public void setFecproxpcr(Date fecproxpcr) {
-		this.fecproxpcr = fecproxpcr;
-	}
-
-	public String getNumconacre() {
-		return numconacre;
-	}
-
-	public void setNumconacre(String numconacre) {
-		this.numconacre = numconacre;
-	}
-
-	public Short getCodpagacon() {
-		return codpagacon;
-	}
-
-	public void setCodpagacon(Short codpagacon) {
-		this.codpagacon = codpagacon;
-	}
-
-	public BigDecimal getValgafagga() {
-		return valgafagga;
-	}
-
-	public void setValgafagga(BigDecimal valgafagga) {
-		this.valgafagga = valgafagga;
-	}
-
-	public BigDecimal getTacreefanu() {
-		return tacreefanu;
-	}
-
-	public void setTacreefanu(BigDecimal tacreefanu) {
-		this.tacreefanu = tacreefanu;
-	}
-
-	public BigDecimal getCredintdtf() {
-		return credintdtf;
-	}
-
-	public void setCredintdtf(BigDecimal credintdtf) {
-		this.credintdtf = credintdtf;
-	}
-
-	public BigDecimal getTasbaindtf() {
-		return tasbaindtf;
-	}
-
-	public void setTasbaindtf(BigDecimal tasbaindtf) {
-		this.tasbaindtf = tasbaindtf;
-	}
-
-	public BigDecimal getTasdtfindc() {
-		return tasdtfindc;
-	}
-
-	public void setTasdtfindc(BigDecimal tasdtfindc) {
-		this.tasdtfindc = tasdtfindc;
-	}
-
-	public BigDecimal getMontsegcsc() {
-		return montsegcsc;
-	}
-
-	public void setMontsegcsc(BigDecimal montsegcsc) {
-		this.montsegcsc = montsegcsc;
-	}
-
-	public Integer getFeccredcasAux() {
-		return feccredcasAux;
-	}
-
-	public void setFeccredcasAux(Integer feccredcasAux) {
-		this.feccredcasAux = feccredcasAux;
-	}
-
-	public Date getFeccredcas() {
-		return feccredcas;
-	}
-
-	public void setFeccredcas(Date feccredcas) {
-		this.feccredcas = feccredcas;
-	}
-
-	public Long getCredredesc() {
-		return credredesc;
-	}
-
-	public void setCredredesc(Long credredesc) {
-		this.credredesc = credredesc;
-	}
-
-	public Short getCredirenov() {
-		return credirenov;
-	}
-
-	public void setCredirenov(Short credirenov) {
-		this.credirenov = credirenov;
-	}
-
-	public Long getIdentgaran() {
-		return identgaran;
-	}
-
-	public void setIdentgaran(Long identgaran) {
-		this.identgaran = identgaran;
-	}
-
-	public BigDecimal getValgarfnga() {
-		return valgarfnga;
-	}
-
-	public void setValgarfnga(BigDecimal valgarfnga) {
-		this.valgarfnga = valgarfnga;
-	}
-
-	public BigDecimal getVacanfngeg() {
-		return vacanfngeg;
-	}
-
-	public void setVacanfngeg(BigDecimal vacanfngeg) {
-		this.vacanfngeg = vacanfngeg;
-	}
-
-	public Integer getFeccafngegAux() {
-		return feccafngegAux;
-	}
-
-	public void setFeccafngegAux(Integer feccafngegAux) {
-		this.feccafngegAux = feccafngegAux;
-	}
-
-	public Date getFeccafngeg() {
-		return feccafngeg;
-	}
-
-	public void setFeccafngeg(Date feccafngeg) {
-		this.feccafngeg = feccafngeg;
-	}
-
-	public BigDecimal getValpprxccl() {
-		return valpprxccl;
-	}
-
-	public void setValpprxccl(BigDecimal valpprxccl) {
-		this.valpprxccl = valpprxccl;
-	}
-
-	public String getCodiasesor() {
-		return codiasesor;
-	}
-
-	public void setCodiasesor(String codiasesor) {
-		this.codiasesor = codiasesor;
-	}
-
-	public Short getCodsucursa() {
-		return codsucursa;
-	}
-
-	public void setCodsucursa(Short codsucursa) {
-		this.codsucursa = codsucursa;
-	}
-
-	public String getCodfuercom() {
-		return codfuercom;
-	}
-
-	public void setCodfuercom(String codfuercom) {
-		this.codfuercom = codfuercom;
-	}
-
-	public Long getNumctaacre() {
-		return numctaacre;
-	}
-
-	public void setNumctaacre(Long numctaacre) {
-		this.numctaacre = numctaacre;
-	}
-
-	public Long getVencicredi() {
-		return vencicredi;
-	}
-
-	public void setVencicredi(Long vencicredi) {
-		this.vencicredi = vencicredi;
-	}
-
-	public Integer getNumecuotas() {
-		return numecuotas;
-	}
-
-	public void setNumecuotas(Integer numecuotas) {
-		this.numecuotas = numecuotas;
-	}
-
-	public BigDecimal getPorccclipc() {
-		return porccclipc;
-	}
-
-	public void setPorccclipc(BigDecimal porccclipc) {
-		this.porccclipc = porccclipc;
-	}
-
-	public BigDecimal getPortcllipc() {
-		return portcllipc;
-	}
-
-	public void setPortcllipc(BigDecimal portcllipc) {
-		this.portcllipc = portcllipc;
-	}
-
-	public String getNumgonbase() {
-		return numgonbase;
-	}
-
-	public void setNumgonbase(String numgonbase) {
-		this.numgonbase = numgonbase;
-	}
 		
 }

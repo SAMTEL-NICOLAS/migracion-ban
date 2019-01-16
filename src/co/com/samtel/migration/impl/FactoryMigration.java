@@ -99,6 +99,15 @@ public class FactoryMigration implements IFactoryMigration {
 	@EJB(beanName = "bigPasivosConsolidadoMigrate")
 	IGenerateMigration bigPasivosConsolidadoMigrate;
 	
+	@EJB(beanName = "bigActualizaDatosMigrate")
+	IGenerateMigration bigActualizaDatosMigrate;
+	
+	@EJB(beanName = "bigClienteEstadosMigrate")
+	IGenerateMigration bigClienteEstadosMigrate;
+	
+	@EJB(beanName = "bigNotaInternaMigrate")
+	IGenerateMigration bigNotaInternaMigrate;
+	
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
 		this.typeMigration = typeMigration;
@@ -156,12 +165,12 @@ public class FactoryMigration implements IFactoryMigration {
 	 * @return
 	 */
 	public IGenerateMigration findEjb(LogActivador item) {
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
-			return bigRecorridosMigrate;
-		}
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
-			return bigRecuperaCarteraCastigadaMigrate;
-		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
+//			return bigRecorridosMigrate;
+//		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
+//			return bigRecuperaCarteraCastigadaMigrate;
+//		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVIDAD_ECONOMICA_INTERNA.getNameAs())) {
 //			return bigActividadEconomicaInternaMigrate;
 //		} 
@@ -225,7 +234,13 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVOS.getNameAs())) {
 //			return bigActivosMigrate;
 //		}
-//		
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTE_ESTADOS.getNameAs())) {
+//			return bigClienteEstadosMigrate;
+//		}
+		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_NOTA_INTERNA.getNameAs())) {
+			return bigNotaInternaMigrate;
+		}
 		return null;
 	}
 

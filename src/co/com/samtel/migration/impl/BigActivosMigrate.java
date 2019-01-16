@@ -68,7 +68,7 @@ public class BigActivosMigrate extends MigrateAbs<BigActivosAs, BigActivos> impl
 		item.setFecintcred(transformDate(item.getFecintcredAux()));
 		item.setFecproxpcr(transformDate(item.getFecproxpcrAux()));
 		item.setFeccredcas(transformDate(item.getFeccredcasAux()));
-		item.setFeccafngeg(transformDate(item.getFeccafngegAux()));
+		item.setFeccafngeg(transformDate(item.getFeccafngegAux())); 
 		
 		}
 		BigActivos [] listaDestino = 	modelMapper.map(origen, BigActivos[].class);

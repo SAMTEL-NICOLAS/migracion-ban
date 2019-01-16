@@ -4,9 +4,9 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://;serverName=192.168.0.172\CRMAURORA;databaseName=BIGAURORA</property>
-		<property name="hibernate.connection.username">trc_alexander.gabel</property>
-		<property name="hibernate.connection.password">Banco2019</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://;serverName=192.165.30.51;databaseName=BIGAURORA_DESTINO</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password">loco9412</property>
 		<property name="hibernate.connection.provider_disables_autocommit" >true</property>
 		<property name="hibernate.use_sql_comments">true</property>
 		<property name="show_sql">true</property>
@@ -49,8 +49,11 @@
 		<mapping class="co.com.samtel.entity.sql.BigPasivosCdt" />	
 		<mapping class="co.com.samtel.entity.sql.BigPasivosAh" />		
 		<mapping class="co.com.samtel.entity.sql.BigPasivosConsolidado" />	
-
-		
+		<mapping class="co.com.samtel.entity.sql.BigActivos" />	
+		<mapping class="co.com.samtel.entity.sql.BigActualizaDatos" />	
+		<mapping class="co.com.samtel.entity.sql.BigClienteEstados" />
+		<mapping class="co.com.samtel.entity.sql.BigNotaInterna" />
+			
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />
 	</session-factory>

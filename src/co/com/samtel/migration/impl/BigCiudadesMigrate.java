@@ -37,14 +37,7 @@ public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades>
 	@Override
 	public List<BigCiudades> mappearOrigen(List<BigCiudadesAs> origen) throws MapperException {
 		BigCiudades[] listaDestino = null;
-
-		ModelMapper modelMapper = new ModelMapper();
-		// Mapeo
-		/*
-		 * for(BigCiudadesAs item : origen ) {
-		 * 
-		 * }
-		 */
+		ModelMapper modelMapper = new ModelMapper();	
 		listaDestino = modelMapper.map(origen, BigCiudades[].class);
 		return Arrays.asList(listaDestino);
 	}

@@ -54,8 +54,10 @@
 		<mapping class="co.com.samtel.entity.as400.BigPasivosCdtAs" />
 		<mapping class="co.com.samtel.entity.as400.BigPasivosAhAs" />
 		<mapping class="co.com.samtel.entity.as400.BigPasivosConsolidadoAs" />
-
-		
+		<mapping class="co.com.samtel.entity.as400.BigActivosAs" />
+		<mapping class="co.com.samtel.entity.as400.BigActualizaDatosAs" />
+		<mapping class="co.com.samtel.entity.as400.BigClienteEstadosAs" />
+		<mapping class="co.com.samtel.entity.as400.BigNotaInternaAs" />
 		<mapping class="co.com.samtel.entity.business.LogActivador" />
 	</session-factory>
 </hibernate-configuration>

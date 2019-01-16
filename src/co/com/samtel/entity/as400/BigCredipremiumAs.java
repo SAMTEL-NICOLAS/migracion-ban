@@ -159,8 +159,8 @@ public class BigCredipremiumAs implements Serializable  {
 	@Column(name = "crccuv")
 	private Short crccuv;
 	
-	@Column(name = "crcpep")
-	private String crcpep;
+//	@Column(name = "crcpep")
+//	private String crcpep;
 	
 	@Column(name = "crcgar")
 	private String crcgar;
@@ -557,13 +557,13 @@ public class BigCredipremiumAs implements Serializable  {
 		this.crccuv = crccuv;
 	}
 
-	public String getCrcpep() {
-		return crcpep;
-	}
-
-	public void setCrcpep(String crcpep) {
-		this.crcpep = crcpep;
-	}
+//	public String getCrcpep() {
+//		return crcpep;
+//	}
+//
+//	public void setCrcpep(String crcpep) {
+//		this.crcpep = crcpep;
+//	}
 
 	public String getCrcgar() {
 		return crcgar;

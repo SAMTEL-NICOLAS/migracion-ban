@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "BIG_CREDIPREMIUM", schema = "dbo")
@@ -152,8 +151,8 @@ public class BigCredipremium implements Serializable  {
 	@Column(name = "i_cuotas_vencidas")
 	private Short crccuv;
 	
-	@Column(name = "s_periodo_pago")
-	private Short crcpep; // String - short
+//	@Column(name = "s_periodo_pago")
+//	private Short crcpep; // String - short
 	
 	@Column(name = "s_tipo_garantia")
 	private String crcgar;
@@ -518,17 +517,17 @@ public class BigCredipremium implements Serializable  {
 		this.crccuv = crccuv;
 	}
 
-	public Short getCrcpep() {
-		return crcpep;
-	}
+//	public Short getCrcpep() {
+//		return crcpep;
+//	}
 
-	public void setCrcpep(Short crcpep) {
-		this.crcpep = crcpep;
-	}
-
-	public String getCrcgar() {
-		return crcgar;
-	}
+//	public void setCrcpep(Short crcpep) {
+//		this.crcpep = crcpep;
+//	}
+//
+//	public String getCrcgar() {
+//		return crcgar;
+//	}
 
 	public void setCrcgar(String crcgar) {
 		this.crcgar = crcgar;
