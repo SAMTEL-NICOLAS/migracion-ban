@@ -7,13 +7,13 @@ import javax.inject.Inject;
 
 import co.com.samtel.enumeraciones.TypeMigration;
 import co.com.samtel.migration.IExecuteMigration;
-import lombok.Getter;
-import lombok.Setter;
+//import lombok.Getter;
+//import lombok.Setter;
 
 
 @ManagedBean
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class LoginMB {
 
 	private String usuario;

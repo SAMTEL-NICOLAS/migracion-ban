@@ -53,7 +53,8 @@
 		<mapping class="co.com.samtel.entity.sql.BigActualizaDatos" />	
 		<mapping class="co.com.samtel.entity.sql.BigClienteEstados" />
 		<mapping class="co.com.samtel.entity.sql.BigNotaInterna" />
-			
+		<mapping class="co.com.samtel.entity.sql.BigInfoAdicionalClientes" />
+		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />
 	</session-factory>

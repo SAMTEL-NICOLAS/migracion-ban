@@ -2,9 +2,9 @@ package co.com.samtel.entity.sql;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 
 @Embeddable
 public class BigActualizaDatosId implements Serializable{
@@ -14,7 +14,7 @@ public class BigActualizaDatosId implements Serializable{
 	@Column
 	private Long i_codigo_cliente;	
 	
-	@Transient
+	@Column
 	private Date d_fecha_carga;
 
 	public BigActualizaDatosId() {

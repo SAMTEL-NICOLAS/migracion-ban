@@ -2,12 +2,13 @@ package co.com.samtel.hibernate.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+//import org.hibernate.boot.registry.StandardServiceRegistryBuilder; 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+ 
 import co.com.samtel.enumeraciones.TypeConections;
 
 public abstract class HibernateConnAbs {
@@ -16,7 +17,8 @@ public abstract class HibernateConnAbs {
 	
 	private TypeConections typeConections;
 	private SessionFactory sessionFactory;
-
+	private static ServiceRegistry serviceRegistry;
+	
 	public TypeConections getTypeConections() {
 		return typeConections;
 	}
@@ -46,11 +48,19 @@ public abstract class HibernateConnAbs {
 				Configuration configuration = new Configuration();
 				getLogger().log(Level.INFO, ".::. Con el siguiente archivo de configuraciones: ".concat(getTypeConections().getConfig()).concat(" .::."));
 				configuration.configure(getTypeConections().getConfig());
-				StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-				serviceRegistryBuilder.applySettings(configuration.getProperties());
-				ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-				setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
+				/*StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();			
+				serviceRegistryBuilder.applySettings(configuration.getProperties());				
+				ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();		
+				setSessionFactory(configuration.buildSessionFactory(serviceRegistry));*/
+				
+				serviceRegistry = new ServiceRegistryBuilder().applySettings(
+	                    configuration.getProperties()).buildServiceRegistry();
+	            //sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	            setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
+	         
 				getLogger().log(Level.INFO, ".::. Se genero correctamente la session de sql server .::.");
+				
+			
 				
 			}
 		} catch (Exception e) {
