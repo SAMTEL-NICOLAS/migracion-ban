@@ -45,11 +45,16 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	@Override
 	public Boolean generateMigration(TypeMigration typeMigration) {
 		setTypeMigration(typeMigration);
-		// Genero el registro padre de la uditoria
-		Long idTable = auditDao.getMaxValue();
-		Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1), "CAROLINA", new Date()));
-		setIdAudit(id);
-		System.out.println("Este es el id de la auditoria ".concat(id.toString()));
+		try {
+			// Genero el registro padre de la uditoria
+			Long idTable = auditDao.getMaxValue();
+			Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1), "CAROLINA", new Date()));
+			setIdAudit(id);
+			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// Llamo al proceso que genera la migración
 		hilo = new Thread(this);
 		hilo.start();
