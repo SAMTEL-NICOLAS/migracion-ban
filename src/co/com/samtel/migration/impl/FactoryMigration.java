@@ -109,7 +109,14 @@ public class FactoryMigration implements IFactoryMigration {
 	IGenerateMigration bigNotaInternaMigrate;
 	
 	@EJB(beanName = "bigInfoAdicionalClientesMigrate")
-	IGenerateMigration bigInfoAdicionalClientesMigrate;
+	IGenerateMigration bigInfoAdicionalClientesMigrate;	
+	
+	@EJB(beanName = "bigConsCentralesMigrate")
+	IGenerateMigration bigConsCentralesMigrate;
+	
+	@EJB(beanName = "bigCanalesMigrate")
+	IGenerateMigration bigCanalesMigrate;
+	
 	
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -195,9 +202,9 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBPRODUCTOS.getNameAs())) {
 //			return bigSubproductosMigrate;
 //		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
-//			return bigOficinaMigrate;
-//		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
+			return bigOficinaMigrate;
+		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVO_CONSOLIDADO.getNameAs())) {
 //			return bigActivoConsolidadoMigrate;
 //		}
@@ -250,6 +257,12 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTUALIZA_DATOS.getNameAs())) {
 //			return bigActualizaDatosMigrate;
 //		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CONS_CENTRALES.getNameAs())) {
+//		return bigConsCentralesMigrate;
+//	}	
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CANALES.getNameAs())) {
+//		return bigCanalesMigrate;
+//	}
 		return null;
 	}
 

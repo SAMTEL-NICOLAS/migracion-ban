@@ -59,6 +59,8 @@
 		<mapping class="co.com.samtel.entity.as400.BigClienteEstadosAs" />
 		<mapping class="co.com.samtel.entity.as400.BigNotaInternaAs" />
 		<mapping class="co.com.samtel.entity.as400.BigInfoAdicionalClientesAs" />
+		<mapping class="co.com.samtel.entity.as400.BigConsCentralesAs" />
+	<!--	<mapping class="co.com.samtel.entity.as400.BigCanalesAs" /> -->
 		
 		<mapping class="co.com.samtel.entity.business.LogActivador" />
 	</session-factory>

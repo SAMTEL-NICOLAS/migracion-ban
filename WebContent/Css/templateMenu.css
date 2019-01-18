@@ -1,0 +1,59 @@
+/* 
+    Created on : 18/01/2019, 09:32:38 AM
+    Author     : Jeferson
+*/
+
+.topBanerLogo{
+    min-height: 62px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    background-color: #d0122d;
+    padding-top: 30px;
+}
+
+.divContenedorLogo{
+    max-width: 1850px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.menuPrincipal{
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.contenedorMenu{
+    width: 100%;
+    height: 40px;
+    background-color: #d0122d;
+}
+
+ul {
+    list-style-type: none;  
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a{
+    text-transform: uppercase;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-family: 'Fira Sans',sans-serif;
+}
+
+li :hover {
+    background-color: white;
+    color: #bfd144;
+}
+
+

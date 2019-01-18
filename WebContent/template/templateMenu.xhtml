@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="/migracion-ban/Css/templateMenu.css"></link>
+</h:head>
+<h:body>
+	<header id="cabecera"> <!--Top Baner Logo-->
+	<div id="topBanerLogo" class="topBanerLogo">
+		<div id="divContenedorLogo" class="divContenedorLogo">
+			<img src="Imagenes/bancompartir.png" id="imgLogo" class="imgLogo" />
+		</div>
+
+		<!--Menu-->
+		<div id="contenedorMenu" class="contenedorMenu">
+			<div id="menuPrincipal" class="menuPrincipal">
+
+				<ul id="ulMenu" class="ulMenu" style="list-style: none">
+					<li><h:link>
+							<h:outputText value="#{menuMB.casa}" />
+						</h:link></li>
+					<li><h:link>
+							<h:outputText value="#{menuMB.cargueMigracion}" />
+						</h:link></li>
+					<li><h:link>
+							<h:outputText value="#{menuMB.auditoriaAs400}" />
+						</h:link></li>
+					<li><h:link>
+							<h:outputText value="#{menuMB.cargueExcel}" />
+						</h:link></li>
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+	
+	<h:form>
+		<p:growl autoUpdate="true" id="messagesApp" showDetail="true"
+			showSummary="true"></p:growl>
+		<p:commandButton value="Realizar Migración"
+			actionListener="#{loginMB.executeMigration}"></p:commandButton>
+	</h:form>
+	</header>
+</h:body>
+</html>

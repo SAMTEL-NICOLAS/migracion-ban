@@ -1,20 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+	<title>Login</title>
+
+	<link rel="stylesheet" type="text/css" href="Css/loginBanCompartir.css"></link>
 </h:head>
-<body>
+<h:body>
 	<h:form>
-		<p:growl autoUpdate="true" id="messagesApp" showDetail="true" showSummary="true"></p:growl>
-		<p:inputText value="nicolas"></p:inputText>
-		<p:commandButton value="nicolas" actionListener="#{loginMB.executeMigration}"></p:commandButton>
+		<div id="divContenido" class="divContenido">
+			<!--Top Baner Logo-->
+			<div id="topBanerLogo" class="topBanerLogo">
+				<div id="divContenedorLogo" class="divContenedorLogo">
+					<img src="Imagenes/bancompartir.png" id="imgLogo" class="imgLogo" />
+				</div>
+			</div>
+			<br /> <br /> <br /> <br />
+			<!--Top Baner Background-->
+			<div id="topBanerBackground" class="topBanerBackground">
+				<div id="imgFondo" class="imgFondo">
+
+					<!--Logo 2-->
+					<br />
+					<div id="divContenedorLogo2" class="divContenedorLogo2">
+						<img src="Imagenes/logo_1.png" id="imgLogo2" class="imgLogo2" />
+					</div>
+
+					<!--Contenedor del Login-->
+					<br />
+					<div id="contenedorLogin" class="contenedorLogin">
+						<div id="divCabeceraLogin" class="divCabeceraLogin">
+							<h:outputLabel value="LOGIN" id="txtLogin" />
+						</div>
+
+						<div id="divLbUsuario" class="divLbUsuario">
+							<h:outputLabel value="Usuario" id="lbUsuario"
+								style="margin-left: 30px;" />
+						</div>
+						<div id="divInpUsuario" class="divInpUsuario">
+							<h:inputText id="txtUsuario" class="txtUsuario"
+								value="#{loginMB.usuario}" />
+						</div>
+
+						<div id="divLbContrasena" class="divLbContrasena">
+							<h:outputLabel value="Contraseña" id="lbContrasena"
+								style="margin-left: 30px;" />
+						</div>
+						<div id="divInpContrasena" class="divInpContrasena">
+							<h:inputSecret id="txtContrasena" class="txtContrasena"
+								value="#{loginMB.contrasena}" />
+						</div>
+
+						<div id="divBoton" class="divBoton">
+							<h:commandButton value="Ingresar" id="btnIngresar"
+								class="btnIngresar" action="#{loginMB.validaDatosSesion()}" />
+						</div>
+					</div>
+				</div>
+				<br />
+				<div id="border" class="border"></div>
+
+			</div>
+		</div>
 	</h:form>
-</body>
+</h:body>
 </html>
+
