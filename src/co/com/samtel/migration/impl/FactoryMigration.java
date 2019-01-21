@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import co.com.samtel.dao.bussines.ILogActivadorDao;
 import co.com.samtel.entity.business.LogActivador;
@@ -18,7 +17,7 @@ import co.com.samtel.migration.IGenerateMigration;
 public class FactoryMigration implements IFactoryMigration {
 
 	// Objeto para la consulta de tablas listas para migrar
-	@Inject
+	@EJB(beanName="logActivadorDao")
 	ILogActivadorDao logActivadorDao;
 
 	List<LogActivador> tablesToMigrate;
