@@ -46,13 +46,13 @@ public class LoginMB {
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (result) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
-					"Migracion culminada con éxito, Id generado: ".concat(executeMigration.getIdAudit().toString())));
+					"Migracion culminada con ï¿½xito, Id generado: ".concat(executeMigration.getIdAudit().toString())));
 		} else {
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
 							"Se ha generado un error al migrar la tabla "
 									.concat(executeMigration.getMessageError().getTable().toString()).concat(" ")
-									.concat(", Con la siguiente excepción: ")
+									.concat(", Con la siguiente excepciï¿½n: ")
 									.concat(executeMigration.getMessageError().getMessage())));
 		}
 

@@ -260,9 +260,7 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CONS_CENTRALES.getNameAs())) {
 //		return bigConsCentralesMigrate;
 //	}	
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CANALES.getNameAs())) {
-//		return bigCanalesMigrate;
-//	}
+	
 		return null;
 	}
 
