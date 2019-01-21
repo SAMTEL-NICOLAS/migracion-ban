@@ -1,8 +1,8 @@
 package co.com.samtel.dao.bussines.impl;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,7 +17,7 @@ import co.com.samtel.hibernate.IFactorySessionHibernate;
 public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 	
 	
-	@Inject
+	@EJB(beanName="")
 	IFactorySessionHibernate factorySessionHibernate;
 	
 	@PostConstruct

@@ -1,5 +1,6 @@
 package co.com.samtel.controller;
 
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -18,7 +19,7 @@ public class LoginMB {
 	private String usuario;
 	private String contrasena;
 
-	@Inject
+	@EJB(beanName="executeMigration")
 	IExecuteMigration executeMigration;
 
 	public String validaDatosSesion() {

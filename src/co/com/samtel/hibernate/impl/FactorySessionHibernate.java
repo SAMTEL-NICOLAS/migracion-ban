@@ -12,7 +12,7 @@ import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
 import co.com.samtel.hibernate.IHibernateConnector;
 
-@Singleton
+@Singleton(name="factorySessionHibernate")
 @Startup
 public class FactorySessionHibernate implements IFactorySessionHibernate {
 
