@@ -3,8 +3,8 @@ package co.com.samtel.migration.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import co.com.samtel.dao.bussines.IAuditDao;
 import co.com.samtel.dao.bussines.IDetailAudit;
@@ -21,17 +21,17 @@ import co.com.samtel.migration.IGenerateMigration;
 @Stateless(name = "executeMigration")
 public class ExecuteMigration implements IExecuteMigration, Runnable {
 
-	@Inject
+	@EJB
 	IFactoryMigration factoryMigration;
 
 	// Objeto para la consulta de tablas listas para migrar
-	@Inject
+	@EJB
 	ILogActivadorDao logActivadorDao;
 
-	@Inject
+	@EJB
 	IAuditDao auditDao;
 
-	@Inject
+	@EJB
 	IDetailAudit detailAuditDao;
 
 	private Long idAudit;

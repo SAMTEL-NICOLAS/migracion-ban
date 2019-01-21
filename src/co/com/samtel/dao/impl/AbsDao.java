@@ -3,7 +3,7 @@ package co.com.samtel.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -28,7 +28,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	private ErrorDto error;
 
-	@Inject
+	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
 
 	/**

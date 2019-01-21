@@ -2,13 +2,13 @@ package co.com.samtel.hibernate.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.hibernate.SessionFactory;
 //import org.hibernate.boot.registry.StandardServiceRegistryBuilder; 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
- 
+
 import co.com.samtel.enumeraciones.TypeConections;
 
 public abstract class HibernateConnAbs {

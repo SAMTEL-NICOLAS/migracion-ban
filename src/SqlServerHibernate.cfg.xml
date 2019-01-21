@@ -55,7 +55,7 @@
 		<mapping class="co.com.samtel.entity.sql.BigNotaInterna" />
 		<mapping class="co.com.samtel.entity.sql.BigInfoAdicionalClientes" />
 		<mapping class="co.com.samtel.entity.sql.BigConsCentrales" />
-	<!--	<mapping class="co.com.samtel.entity.sql.BigCanales" /> -->
+
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />
