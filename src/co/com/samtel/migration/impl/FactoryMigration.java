@@ -264,9 +264,9 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_EJECUTIVO.getNameAs())) {
 //		return bigEjecutivoMigrate;
 //	}	
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
-//		return bigRangoMoraMigrate;
-//	}	
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
+		return bigRangoMoraMigrate;
+	}	
 	
 		return null;
 	}

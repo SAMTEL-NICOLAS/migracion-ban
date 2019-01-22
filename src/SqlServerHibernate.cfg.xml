@@ -56,6 +56,7 @@
 		<mapping class="co.com.samtel.entity.sql.BigInfoAdicionalClientes" />
 		<mapping class="co.com.samtel.entity.sql.BigConsCentrales" />
 		<mapping class="co.com.samtel.entity.sql.BigEjecutivo" />
+		<mapping class="co.com.samtel.entity.sql.BigRangoMora" />
 
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
