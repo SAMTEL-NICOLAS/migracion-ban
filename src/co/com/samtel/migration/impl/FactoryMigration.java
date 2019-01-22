@@ -113,9 +113,11 @@ public class FactoryMigration implements IFactoryMigration {
 	@EJB(beanName = "bigConsCentralesMigrate")
 	IGenerateMigration bigConsCentralesMigrate;
 	
-	@EJB(beanName = "bigCanalesMigrate")
-	IGenerateMigration bigCanalesMigrate;
+	@EJB(beanName = "bigEjecutivoMigrate")
+	IGenerateMigration bigEjecutivoMigrate;
 	
+	@EJB(beanName = "bigRangoMoraMigrate")
+	IGenerateMigration bigRangoMoraMigrate;
 	
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -174,9 +176,9 @@ public class FactoryMigration implements IFactoryMigration {
 	 * @return
 	 */
 	public IGenerateMigration findEjb(LogActivador item) {
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
-			return bigRecorridosMigrate;
-		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
+//			return bigRecorridosMigrate;
+//		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
 //			return bigRecuperaCarteraCastigadaMigrate;
 //		}
@@ -188,7 +190,7 @@ public class FactoryMigration implements IFactoryMigration {
 //		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_IDENT_CLIENTES.getNameAs())) {
 //			return bigTipoIdentClientesMigrate;
-//		}
+//		}|
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CODIGOS_ABOGADO.getNameAs())) {
 //			return bigCodigosAbogadoMigrate;
 //		}
@@ -201,9 +203,9 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBPRODUCTOS.getNameAs())) {
 //			return bigSubproductosMigrate;
 //		}
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
-			return bigOficinaMigrate;
-		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
+//			return bigOficinaMigrate;
+//		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVO_CONSOLIDADO.getNameAs())) {
 //			return bigActivoConsolidadoMigrate;
 //		}
@@ -258,6 +260,12 @@ public class FactoryMigration implements IFactoryMigration {
 //		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CONS_CENTRALES.getNameAs())) {
 //		return bigConsCentralesMigrate;
+//	}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_EJECUTIVO.getNameAs())) {
+//		return bigEjecutivoMigrate;
+//	}	
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
+//		return bigRangoMoraMigrate;
 //	}	
 	
 		return null;
