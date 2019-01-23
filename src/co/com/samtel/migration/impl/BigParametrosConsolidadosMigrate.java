@@ -54,4 +54,9 @@ public class BigParametrosConsolidadosMigrate extends MigrateAbs< BigParametrosC
 		BigParametrosConsolidados [] listaDestino = 	modelMapper.map(origen, BigParametrosConsolidados[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigParametrosConsolidadosAs> getClassOrigin() {
+		return BigParametrosConsolidadosAs.class;
+	}
 }

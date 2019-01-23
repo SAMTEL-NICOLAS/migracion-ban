@@ -52,4 +52,43 @@ public class BigLocalidadIdAs implements Serializable {
 	public void setI_cod_localidad(String i_cod_localidad) {
 		this.i_cod_localidad = i_cod_localidad;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((i_cod_depto == null) ? 0 : i_cod_depto.hashCode());
+		result = prime * result + ((i_cod_localidad == null) ? 0 : i_cod_localidad.hashCode());
+		result = prime * result + ((s_cod_ciudad == null) ? 0 : s_cod_ciudad.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BigLocalidadIdAs other = (BigLocalidadIdAs) obj;
+		if (i_cod_depto == null) {
+			if (other.i_cod_depto != null)
+				return false;
+		} else if (!i_cod_depto.equals(other.i_cod_depto))
+			return false;
+		if (i_cod_localidad == null) {
+			if (other.i_cod_localidad != null)
+				return false;
+		} else if (!i_cod_localidad.equals(other.i_cod_localidad))
+			return false;
+		if (s_cod_ciudad == null) {
+			if (other.s_cod_ciudad != null)
+				return false;
+		} else if (!s_cod_ciudad.equals(other.s_cod_ciudad))
+			return false;
+		return true;
+	}
+	
+	
 }

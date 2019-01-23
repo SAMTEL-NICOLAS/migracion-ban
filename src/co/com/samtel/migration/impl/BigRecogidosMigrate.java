@@ -59,4 +59,10 @@ public class BigRecogidosMigrate extends MigrateAbs<BigRecogidosAs, BigRecogidos
 	public void setDestino(IGenericDao destino) {
 		this.destino = destino;
 	}
+
+	@Override
+	public Class<BigRecogidosAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigRecogidosAs.class;
+	}
 }

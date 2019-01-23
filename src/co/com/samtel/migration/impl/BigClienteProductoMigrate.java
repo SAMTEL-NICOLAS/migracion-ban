@@ -65,6 +65,10 @@ public class BigClienteProductoMigrate extends MigrateAbs<BigClienteProductoAs, 
 		this.destino = destino;
 		
 	}
+	@Override
+	public Class<BigClienteProductoAs> getClassOrigin() {
+		return BigClienteProductoAs.class;
+	}
 
 	
 }

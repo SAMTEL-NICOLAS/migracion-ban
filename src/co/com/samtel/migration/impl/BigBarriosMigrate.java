@@ -61,4 +61,11 @@ public class BigBarriosMigrate  extends MigrateAbs<BigBarriosAs, BigBarrios> imp
 		
 	}
 
+
+	@Override
+	public Class<BigBarriosAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigBarriosAs.class;
+	}
+
 }

@@ -55,4 +55,10 @@ public class BigDireccionMigrate extends MigrateAbs< BigDireccionAs,  BigDirecci
 		BigDireccion [] listaDestino = 	modelMapper.map(origen, BigDireccion[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigDireccionAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigDireccionAs.class;
+	}
 }

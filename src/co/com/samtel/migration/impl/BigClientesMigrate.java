@@ -61,4 +61,10 @@ public class BigClientesMigrate extends MigrateAbs< BigClientesAs,  BigClientes>
 		BigClientes [] listaDestino = 	modelMapper.map(origen, BigClientes[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigClientesAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigClientesAs.class;
+	}
 }

@@ -59,4 +59,10 @@ public class BigSubsegmentoClienteMigrate extends MigrateAbs<BigSubsegmentoClien
 		BigSubsegmentoCliente [] listaDestino = 	modelMapper.map(origen, BigSubsegmentoCliente[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigSubsegmentoClienteAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigSubsegmentoClienteAs.class;
+	}
 }

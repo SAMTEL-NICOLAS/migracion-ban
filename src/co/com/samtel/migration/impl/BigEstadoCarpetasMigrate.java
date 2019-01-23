@@ -57,5 +57,10 @@ public class BigEstadoCarpetasMigrate extends MigrateAbs<BigEstadoCarpetasAs, Bi
 	public void setDestino(IGenericDao destino) {
 		this.destino = destino;			
 	}
+	@Override
+	public Class<BigEstadoCarpetasAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigEstadoCarpetasAs.class;
+	}
 	
 }

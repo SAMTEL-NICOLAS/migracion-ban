@@ -60,4 +60,10 @@ public class BigNotaInternaMigrate extends MigrateAbs<BigNotaInternaAs, BigNotaI
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigNotaInternaAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigNotaInternaAs.class;
+	}
+
 }

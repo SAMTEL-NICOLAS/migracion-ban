@@ -64,4 +64,10 @@ public class BigPasivosCdtMigrate extends MigrateAbs< BigPasivosCdtAs,  BigPasiv
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigPasivosCdtAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigPasivosCdtAs.class;
+	}
+
 }

@@ -67,4 +67,9 @@ public class BigActividadEconomicaInternaMigrate extends MigrateAbs<BigActividad
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigActividadEconomicaInternaAs> getClassOrigin() {
+		return BigActividadEconomicaInternaAs.class;
+	}
+
 }

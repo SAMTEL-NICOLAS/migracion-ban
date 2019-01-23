@@ -4,6 +4,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -37,6 +39,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("all")
 	protected Class<T> initDomainClass() {
 		if (domainClass == null) {
 			ParameterizedType thisType = (ParameterizedType) getClass().getGenericSuperclass();
@@ -58,7 +61,6 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			factorySessionHibernate.close(session, null);
 		}
 	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findBlockData(String idColum, Integer fin, Integer offset) {
@@ -67,6 +69,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
+					.add(Restrictions.isNull("migrado"))
 					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET " + fin + " ROWS "))
 					.setMaxResults(offset);
 
@@ -121,6 +124,30 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
 			session.update(entity);
+			tx.commit();
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		} finally {
+			factorySessionHibernate.close(session, tx);
+		}
+		return Boolean.TRUE;
+	}
+	
+	@Override
+	public Boolean updateListEntity(List<T> listEntity) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			tx = session.beginTransaction();
+			for(T item : listEntity) {
+				session.update(item);
+			}
 			tx.commit();
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();

@@ -116,8 +116,8 @@ public class FactoryMigration implements IFactoryMigration {
 	@EJB(beanName = "bigEjecutivoMigrate")
 	IGenerateMigration bigEjecutivoMigrate;
 	
-	@EJB(beanName = "bigRangoMoraMigrate")
-	IGenerateMigration bigRangoMoraMigrate;
+//	@EJB(beanName = "bigRangoMoraMigrate")
+//	IGenerateMigration bigRangoMoraMigrate;
 	
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
@@ -225,9 +225,9 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_AH.getNameAs())) {
 //			return bigPasivosAhMigrate;
 //		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
-//			return bigParametrosConsolidadosMigrate;
-//		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
+			return bigParametrosConsolidadosMigrate;
+		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
 //		return bigTipoTransaccionMigrate;
 //	}

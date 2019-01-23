@@ -33,6 +33,35 @@ public class BigTipoIdentClientesId implements Serializable {
 	public void setI_clase_tipo(String i_clase_tipo) {
 		this.i_clase_tipo = i_clase_tipo;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((i_clase_tipo == null) ? 0 : i_clase_tipo.hashCode());
+		result = prime * result + ((i_tipo_persona == null) ? 0 : i_tipo_persona.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BigTipoIdentClientesId other = (BigTipoIdentClientesId) obj;
+		if (i_clase_tipo == null) {
+			if (other.i_clase_tipo != null)
+				return false;
+		} else if (!i_clase_tipo.equals(other.i_clase_tipo))
+			return false;
+		if (i_tipo_persona == null) {
+			if (other.i_tipo_persona != null)
+				return false;
+		} else if (!i_tipo_persona.equals(other.i_tipo_persona))
+			return false;
+		return true;
+	}
 	
 	
 

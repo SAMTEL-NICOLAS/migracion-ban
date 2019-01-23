@@ -1,8 +1,11 @@
 package co.com.samtel.migration.impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.transaction.TransactionRolledbackException;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dto.ErrorDto;
@@ -16,6 +19,9 @@ import co.com.samtel.exception.NoRecordsFoundException;
 import co.com.samtel.service.IParametrosService;
 
 public abstract class MigrateAbs<T, U> {
+
+	private Class<T> typeOrigin;
+	private T origin;
 
 	@EJB
 	IParametrosService parametrosService;
@@ -31,8 +37,9 @@ public abstract class MigrateAbs<T, U> {
 	private List<T> listOrigen;
 	private List<U> listDestino;
 	private ErrorDto error;
-	
-	//Objeto con el cual se actualizara el log de As400 al culminar el proceso de migracion
+
+	// Objeto con el cual se actualizara el log de As400 al culminar el proceso de
+	// migracion
 	private LogActivador logActivador;
 
 	abstract public IGenericDao getOrigen();
@@ -44,6 +51,8 @@ public abstract class MigrateAbs<T, U> {
 	abstract public void setDestino(IGenericDao destino);
 
 	abstract public List<U> mappearOrigen(List<T> origen) throws MapperException;
+	
+	abstract public Class<T> getClassOrigin();
 
 	public String getStrPrimaryKey() {
 		return strPrimaryKey;
@@ -64,7 +73,7 @@ public abstract class MigrateAbs<T, U> {
 		setNumRecords(getOrigen().getNumRecordsTable());
 		// Obtengo el numero de registros que se desean por bloque
 		setNumRecBlock(parametrosService.getNumRecordsToProcess());
-		//Inicializo el valor para registros que se migraran
+		// Inicializo el valor para registros que se migraran
 		setNumRecMig(Long.valueOf("0"));
 	}
 
@@ -77,12 +86,21 @@ public abstract class MigrateAbs<T, U> {
 		initializeMigration();
 		System.out.println(
 				".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
+		//Inicio contador para medir tiempo de la transacción
+		long startTime = System.currentTimeMillis();
 		try {
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
+				//Calculo tiempo que lleva la operación de migración
+				long endTime = System.currentTimeMillis() - startTime;
+				//Superior a un minuto
+				if(endTime > 60000 ) {
+					throw new ControlledExeption("Time Out Superado");
+				}
 				extractInformation(getStrPrimaryKey(), i, getNumRecBlock().intValue());
 				setListDestino(mappearOrigen(getListOrigen()));
 				persistInformation();
+				updateMigrateOrigin();
 				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::."));
 			}
 		} catch (MapperException e) {
@@ -126,16 +144,55 @@ public abstract class MigrateAbs<T, U> {
 				if (!getDestino().saveEntity(item)) {
 					setError(getDestino().getError());
 					throw new ControlledExeption("Error al persistir");
-				}else {
+				} else {
 					setNumRecMig(getNumRecMig() + 1);
 				}
 			}
-		}else if(getNumRecords().equals(numRecMig)){
+		} else if (getNumRecords().equals(numRecMig)) {
 			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));
 		} else {
 			throw new NoRecordsFoundException("Sin Registros de origen");
 		}
 
+	}
+
+	/**
+	 * Metodo con el cual marco los registros migrados
+	 * 
+	 * @throws ControlledExeption
+	 */
+	@SuppressWarnings("all")
+	public void updateMigrateOrigin() throws ControlledExeption {
+		if (getListOrigen() != null && !getListOrigen().isEmpty()) {
+			for (T item : getListOrigen()) {
+				item = adicionoParametroMigrate(item);
+			}
+			if (! getOrigen().updateListEntity(getListOrigen())) {
+				setError(getDestino().getError());
+				throw new ControlledExeption("Error al actualizar a migrado el origen");
+			} else {
+				setNumRecMig(getNumRecMig() + 1);
+			}
+		}
+	}
+
+	/**
+	 * Metodo con el cual cambio el estado del registro
+	 */
+	public T adicionoParametroMigrate(T item) {
+		try {
+			Method method = getClassOrigin().getMethod("setMigrado", String.class);
+			method.invoke(item, "S");
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		return item;
 	}
 
 	public IParametrosService getParametrosService() {
@@ -209,6 +266,5 @@ public abstract class MigrateAbs<T, U> {
 	public void setLogActivador(LogActivador logActivador) {
 		this.logActivador = logActivador;
 	}
-	
 
 }

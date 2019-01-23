@@ -58,4 +58,10 @@ public class BigRangoMoraMigrate extends MigrateAbs<BigRangoMoraAs, BigRangoMora
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigRangoMoraAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigRangoMoraAs.class;
+	}
+
 }

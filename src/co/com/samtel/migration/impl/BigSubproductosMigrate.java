@@ -59,4 +59,10 @@ public class BigSubproductosMigrate extends MigrateAbs< BigSubproductosAs,  BigS
 		BigSubproductos [] listaDestino = 	modelMapper.map(origen, BigSubproductos[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigSubproductosAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigSubproductosAs.class;
+	}
 }

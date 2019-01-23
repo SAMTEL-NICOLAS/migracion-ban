@@ -59,4 +59,10 @@ public class BigTipoTransaccionMigrate extends MigrateAbs<BigTipoTransaccionAs, 
 		
 	}
 
+	@Override
+	public Class<BigTipoTransaccionAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigTipoTransaccionAs.class;
+	}
+
 }

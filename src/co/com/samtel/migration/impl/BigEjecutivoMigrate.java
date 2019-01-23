@@ -57,4 +57,10 @@ public class BigEjecutivoMigrate extends MigrateAbs<BigEjecutivoAs, BigEjecutivo
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigEjecutivoAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigEjecutivoAs.class;
+	}
+
 }

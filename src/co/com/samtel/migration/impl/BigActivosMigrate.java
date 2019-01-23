@@ -75,4 +75,9 @@ public class BigActivosMigrate extends MigrateAbs<BigActivosAs, BigActivos> impl
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigActivosAs> getClassOrigin() {
+		return BigActivosAs.class;
+	}
+
 }
