@@ -59,4 +59,10 @@ public class BigPasivosConsolidadoMigrate extends MigrateAbs<  BigPasivosConsoli
 		BigPasivosConsolidado [] listaDestino = 	modelMapper.map(origen, BigPasivosConsolidado[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigPasivosConsolidadoAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigPasivosConsolidadoAs.class;
+	}
 }

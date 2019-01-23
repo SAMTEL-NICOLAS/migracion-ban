@@ -55,4 +55,10 @@ public class BigOficinaMigrate extends MigrateAbs<BigOficinaAs, BigOficina> impl
 		BigOficina [] listaDestino = 	modelMapper.map(origen, BigOficina[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigOficinaAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigOficinaAs.class;
+	}
 }

@@ -62,4 +62,10 @@ public class BigTipoIdentClientesMigrate extends MigrateAbs<BigTipoIdentClientes
 	public void setDestino(IGenericDao destino) {
 		this.destino = destino;		
 	}
+
+	@Override
+	public Class<BigTipoIdentClientesAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigTipoIdentClientesAs.class;
+	}
 }

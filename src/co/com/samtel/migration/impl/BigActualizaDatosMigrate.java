@@ -62,4 +62,9 @@ public class BigActualizaDatosMigrate extends MigrateAbs<BigActualizaDatosAs, Bi
 		BigActualizaDatos [] listaDestino = 	modelMapper.map(origen, BigActualizaDatos[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigActualizaDatosAs> getClassOrigin() {
+		return BigActualizaDatosAs.class;
+	}
 }

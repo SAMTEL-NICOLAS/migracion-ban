@@ -70,4 +70,10 @@ public class BigPasivosAhMigrate extends MigrateAbs< BigPasivosAhAs,  BigPasivos
 		BigPasivosAh [] listaDestino = 	modelMapper.map(origen, BigPasivosAh[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigPasivosAhAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigPasivosAhAs.class;
+	}
 }

@@ -63,4 +63,9 @@ public class BigCredipremiumMigrate extends MigrateAbs<BigCredipremiumAs, BigCre
 		BigCredipremium [] listaDestino = 	modelMapper.map(origen, BigCredipremium[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigCredipremiumAs> getClassOrigin() {		
+		return BigCredipremiumAs.class;
+	}
 }

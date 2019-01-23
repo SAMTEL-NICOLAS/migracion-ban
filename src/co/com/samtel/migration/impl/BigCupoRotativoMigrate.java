@@ -70,4 +70,10 @@ public class BigCupoRotativoMigrate extends MigrateAbs<BigCupoRotativoAs, BigCup
 		BigCupoRotativo [] listaDestino = 	modelMapper.map(origen, BigCupoRotativo[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigCupoRotativoAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigCupoRotativoAs.class;
+	}
 }

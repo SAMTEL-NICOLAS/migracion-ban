@@ -34,7 +34,7 @@ public class FactorySessionHibernate implements IFactorySessionHibernate {
 	@Override
 	public void close(Session session, Transaction tx) {
 		try {
-			if (tx != null) {
+			if (tx != null && !tx.wasCommitted() ) {
 				tx.commit();
 			}
 		} catch (Exception e) {

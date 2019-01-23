@@ -59,5 +59,11 @@ public interface IGenericDao<T, PK > {
 	 * @param entity
 	 * @return
 	 */
-	Boolean updateEntity(T entity);
+	Boolean updateEntity(T listEntity);
+	/**
+	 * Metodo con el cual actualizo en masa un bloque de registros
+	 * @param listEntity
+	 * @return
+	 */
+	Boolean updateListEntity(List<T> listEntity);
 }

@@ -17,6 +17,9 @@ public class BigParametrosConsolidadosAs implements Serializable {
 
 	@Column(name = "cod_descri")
 	private String cod_descri;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigParametrosConsolidadosIdAs getId() {
 		return id;
@@ -32,6 +35,14 @@ public class BigParametrosConsolidadosAs implements Serializable {
 
 	public void setCod_descri(String cod_descri) {
 		this.cod_descri = cod_descri;
-	}	
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
 
 }

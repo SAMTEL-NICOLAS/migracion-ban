@@ -62,5 +62,10 @@ public class BigCodigosAbogadoMigrate extends MigrateAbs<BigCodigosAbogadoAs, Bi
 		this.destino = destino;		
 	}
 
+	@Override
+	public Class<BigCodigosAbogadoAs> getClassOrigin() {
+		return BigCodigosAbogadoAs.class;
+	}
+
 
 }

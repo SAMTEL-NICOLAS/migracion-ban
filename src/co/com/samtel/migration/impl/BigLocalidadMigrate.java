@@ -58,4 +58,10 @@ public class BigLocalidadMigrate extends MigrateAbs<BigLocalidadAs, BigLocalidad
 		BigLocalidad [] listaDestino = 	modelMapper.map(origen, BigLocalidad[].class);
 		return Arrays.asList(listaDestino);
 	}
+
+	@Override
+	public Class<BigLocalidadAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigLocalidadAs.class;
+	}
 }

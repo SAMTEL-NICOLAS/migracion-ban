@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.TransactionRolledbackException;
 
 import co.com.samtel.dao.bussines.IAuditDao;
 import co.com.samtel.dao.bussines.IDetailAudit;
@@ -51,7 +52,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1), "CAROLINA", new Date()));
 			setIdAudit(id);
 			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,15 +68,16 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		// Metodo con el cual genero la migracion de las tablas dependendiendo el tipo
 		// de proceso que se realiza
 		for (IGenerateMigration item : listTablesToMigrate) {
-			//Genera el registro inicial del log
+			// Genera el registro inicial del log
 			DetailAudit detail = generateAuditMigration(item);
-			//Realiza la migracion de la tabla
+
 			item.generateMigration();
-			//Extrae el error de la migracion
+
+			// Extrae el error de la migracion
 			setErrorMig(item.getError());
-			//Genera el detalle de la migracion
+			// Genera el detalle de la migracion
 			generateAuditMigration(item, detail);
-			//Cambia el estado del log Activador marcandola como migrada
+			// Cambia el estado del log Activador marcandola como migrada
 			changeLogActivador(item);
 		}
 	}
@@ -117,7 +119,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	public void changeLogActivador(IGenerateMigration table) {
 		Date nowDate = new Date();
 		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
-			//Quiere decir que la tabla se migro correctamente
+			// Quiere decir que la tabla se migro correctamente
 			table.getLogActivador().setEstado("1");
 			table.getLogActivador().setRegMig(table.getNumRecords());
 		} else {
@@ -126,7 +128,8 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
 		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()));
 		table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
-		table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));;
+		table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
+		;
 		logActivadorDao.updateEntity(table.getLogActivador());
 	}
 
@@ -169,4 +172,3 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	}
 
 }
-

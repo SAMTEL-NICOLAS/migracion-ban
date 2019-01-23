@@ -63,4 +63,9 @@ public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades>
 		this.destino = destino;
 
 	}
+
+	@Override
+	public Class<BigCiudadesAs> getClassOrigin() {
+		return BigCiudadesAs.class;
+	}
 }

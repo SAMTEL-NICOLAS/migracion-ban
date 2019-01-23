@@ -63,4 +63,10 @@ public class BigConsCentralesMigrate extends MigrateAbs<BigConsCentralesAs, BigC
 		return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigConsCentralesAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigConsCentralesAs.class;
+	}
+
 }

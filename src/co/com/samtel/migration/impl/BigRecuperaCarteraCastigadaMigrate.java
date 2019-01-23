@@ -64,6 +64,12 @@ public class BigRecuperaCarteraCastigadaMigrate extends MigrateAbs<BigRecuperaCa
 		this.destino = destino;
 	}
 
+	@Override
+	public Class<BigRecuperaCarteraCastigadaAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigRecuperaCarteraCastigadaAs.class;
+	}
+
 
 
 }

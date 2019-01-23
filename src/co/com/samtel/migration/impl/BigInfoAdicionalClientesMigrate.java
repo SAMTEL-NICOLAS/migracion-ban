@@ -69,4 +69,10 @@ public class BigInfoAdicionalClientesMigrate extends MigrateAbs<BigInfoAdicional
 	return Arrays.asList(listaDestino);
 	}
 
+	@Override
+	public Class<BigInfoAdicionalClientesAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigInfoAdicionalClientesAs.class;
+	}
+
 }

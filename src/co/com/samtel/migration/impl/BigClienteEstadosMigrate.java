@@ -64,4 +64,9 @@ public List<BigClienteEstados> mappearOrigen(List<BigClienteEstadosAs> origen) t
 	return Arrays.asList(listaDestino);
 }
 
+@Override
+public Class<BigClienteEstadosAs> getClassOrigin() {
+	return BigClienteEstadosAs.class;
+}
+
 }
