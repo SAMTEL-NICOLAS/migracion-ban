@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "i_id_rango", schema = "dbo")
+@Table(name = "BIG_RANGO_MORA", schema = "dbo")
 public class BigRangoMora implements Serializable {
 
 	private static final long serialVersionUID = 1L;
