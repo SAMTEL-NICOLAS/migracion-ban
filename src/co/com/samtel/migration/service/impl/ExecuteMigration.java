@@ -69,18 +69,28 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		for (IGenerateMigration item : listTablesToMigrate) {
 			// Genera el registro inicial del log
 			DetailAudit detail = generateAuditMigration(item);
-
-			item.generateMigration();
-
-			// Extrae el error de la migracion
-			setErrorMig(item.getError());
-			if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)){
-				callMigration();
-			}
+			executeMigration(item , Long.valueOf("0"));
 			// Genera el detalle de la migracion
 			generateAuditMigration(item, detail);
 			// Cambia el estado del log Activador marcandola como migrada
 			changeLogActivador(item);
+		}
+	}
+	/**
+	 * Metodo con el cual ejecuto la migracion
+	 * @param item
+	 * @param migrados
+	 */
+	public void executeMigration(IGenerateMigration item, Long migrados) {
+		//Seteamos el numero de registros que ha migrado
+		item.setNumRecMig(migrados);
+		item.generateMigration();
+
+		// Extrae el error de la migracion
+		setErrorMig(item.getError());
+		
+		if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)){
+			executeMigration(item, item.getNumRecMig());
 		}
 	}
 
@@ -155,7 +165,6 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	@Override
 	public void run() {
 		callMigration();
-
 	}
 
 	public TypeMigration getTypeMigration() {

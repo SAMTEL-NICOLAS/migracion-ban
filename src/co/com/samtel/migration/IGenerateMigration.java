@@ -1,7 +1,6 @@
 package co.com.samtel.migration;
 
 import javax.ejb.Local;
-import javax.transaction.TransactionRolledbackException;
 
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.LogActivador;
@@ -38,4 +37,6 @@ public interface IGenerateMigration {
 	LogActivador getLogActivador();
 
 	void setLogActivador(LogActivador logActivador);
+	
+	void setNumRecMig(Long valor);
 }

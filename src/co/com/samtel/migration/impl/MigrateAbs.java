@@ -73,8 +73,6 @@ public abstract class MigrateAbs<T, U> {
 		setNumRecords(getOrigen().getNumRecordsTable());
 		// Obtengo el numero de registros que se desean por bloque
 		setNumRecBlock(parametrosService.getNumRecordsToProcess());
-		// Inicializo el valor para registros que se migraran
-		setNumRecMig(Long.valueOf("0"));
 	}
 
 	/**
@@ -173,8 +171,6 @@ public abstract class MigrateAbs<T, U> {
 			if (! getOrigen().updateListEntity(getListOrigen())) {
 				setError(getDestino().getError());
 				throw new ControlledExeption("Error al actualizar a migrado el origen");
-			} else {
-				setNumRecMig(getNumRecMig() + 1);
 			}
 		}
 	}
