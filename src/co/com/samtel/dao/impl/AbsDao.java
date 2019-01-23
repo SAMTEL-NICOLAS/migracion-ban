@@ -4,8 +4,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -63,14 +61,14 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findBlockData(String idColum, Integer fin, Integer offset) {
+	public List<T> findBlockData(String idColum, Integer offset) {
 		Session session = null;
 		List<T> result = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
 					.add(Restrictions.isNull("migrado"))
-					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET " + fin + " ROWS "))
+					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET 0 ROWS "))
 					.setMaxResults(offset);
 
 			result = crit.list();

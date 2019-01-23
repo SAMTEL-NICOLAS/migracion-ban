@@ -124,14 +124,15 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			// Quiere decir que la tabla se migro correctamente
 			table.getLogActivador().setEstado("1");
 			table.getLogActivador().setRegMig(table.getNumRecords());
-		} else {
+		} else if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM) ){
+			table.getLogActivador().setEstado("-3");
+		}else {
 			table.getLogActivador().setEstado("-2");
 		}
 		table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
 		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()));
 		table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
 		table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
-		;
 		logActivadorDao.updateEntity(table.getLogActivador());
 	}
 

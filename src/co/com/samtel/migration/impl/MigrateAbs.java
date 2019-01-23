@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.transaction.TransactionRolledbackException;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dto.ErrorDto;
@@ -98,7 +97,7 @@ public abstract class MigrateAbs<T, U> {
 				if(endTime > 60000 ) {
 						throw new TimeOutCustomException("Time Out Superado: 60000 ms");
 				}
-				extractInformation(getStrPrimaryKey(), i, getNumRecBlock().intValue());
+				extractInformation(getStrPrimaryKey(), getNumRecBlock().intValue());
 				setListDestino(mappearOrigen(getListOrigen()));
 				persistInformation();
 				updateMigrateOrigin();
@@ -130,8 +129,8 @@ public abstract class MigrateAbs<T, U> {
 	 * @param fin
 	 */
 	@SuppressWarnings("unchecked")
-	public void extractInformation(String idColum, Integer fin, Integer offset) {
-		setListOrigen(getOrigen().findBlockData(idColum, fin, offset));
+	public void extractInformation(String idColum, Integer offset) {
+		setListOrigen(getOrigen().findBlockData(idColum,  offset));
 	}
 
 	/**

@@ -29,7 +29,7 @@ public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogA
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					.add(Restrictions.eq("estado", "0"));
+					.add(Restrictions.in("estado", new  String[] {"0","-3"}));
 
 			result = crit.list();
 		} catch (Exception e) {
