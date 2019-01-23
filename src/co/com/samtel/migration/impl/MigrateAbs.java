@@ -16,6 +16,7 @@ import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.exception.MapperException;
 import co.com.samtel.exception.NoRecordsFoundException;
+import co.com.samtel.exception.TimeOutCustomException;
 import co.com.samtel.service.IParametrosService;
 
 public abstract class MigrateAbs<T, U> {
@@ -95,7 +96,7 @@ public abstract class MigrateAbs<T, U> {
 				long endTime = System.currentTimeMillis() - startTime;
 				//Superior a un minuto
 				if(endTime > 60000 ) {
-					throw new ControlledExeption("Time Out Superado");
+						throw new TimeOutCustomException("Time Out Superado: 60000 ms");
 				}
 				extractInformation(getStrPrimaryKey(), i, getNumRecBlock().intValue());
 				setListDestino(mappearOrigen(getListOrigen()));
@@ -115,6 +116,9 @@ public abstract class MigrateAbs<T, U> {
 			e.printStackTrace();
 			getError().setTable(getTableToMigrate());
 			return Boolean.FALSE;
+		} catch (TimeOutCustomException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.TIME_OUT_CUSTOM, e.getMessage()));
 		}
 		return Boolean.TRUE;
 	}

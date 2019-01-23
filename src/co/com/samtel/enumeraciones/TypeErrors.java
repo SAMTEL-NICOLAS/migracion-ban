@@ -2,7 +2,11 @@ package co.com.samtel.enumeraciones;
 
 public enum TypeErrors {
 	
-	CONSTRAINT_VIOLATION("001","HIBERNATE"), SUCCESS("000", "APLICACION"), NO_RECORDSFOUND("002", "ORIGEN"), MAPPER_EROR("003", "CAROLINA");
+	SUCCESS("000", "APLICACION"), 
+	CONSTRAINT_VIOLATION("001","HIBERNATE"), 
+	NO_RECORDSFOUND("002", "ORIGEN"), 
+	MAPPER_EROR("003", "CAROLINA"),
+	TIME_OUT_CUSTOM("004", "TIME_OUT");
 
 	private String code;
 	private String type;

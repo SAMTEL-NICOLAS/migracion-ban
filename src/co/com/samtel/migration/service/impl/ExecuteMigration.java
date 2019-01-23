@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.transaction.TransactionRolledbackException;
 
 import co.com.samtel.dao.bussines.IAuditDao;
 import co.com.samtel.dao.bussines.IDetailAudit;
@@ -75,6 +74,9 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 
 			// Extrae el error de la migracion
 			setErrorMig(item.getError());
+			if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)){
+				callMigration();
+			}
 			// Genera el detalle de la migracion
 			generateAuditMigration(item, detail);
 			// Cambia el estado del log Activador marcandola como migrada
