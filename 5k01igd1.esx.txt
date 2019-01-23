@@ -1,0 +1,21 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes to be committed:
+#	modified:   .classpath
+#	new file:   .settings/com.ibm.etools.common.migration.prefs
+#	modified:   WebContent/WEB-INF/classes/As400Hibernate.cfg.xml
+#	modified:   WebContent/WEB-INF/classes/SqlServerHibernate.cfg.xml
+#	modified:   src/As400Hibernate.cfg.xml
+#	modified:   src/SqlServerHibernate.cfg.xml
+#	modified:   src/co/com/samtel/entity/as400/BigCalificacionCarteraAs.java
+#	modified:   src/co/com/samtel/enumeraciones/TableMigration.java
+#	new file:   src/co/com/samtel/migration/impl/BigCalificacionCarteraMigrate.java
+#	modified:   src/co/com/samtel/migration/impl/FactoryMigration.java
+#
+

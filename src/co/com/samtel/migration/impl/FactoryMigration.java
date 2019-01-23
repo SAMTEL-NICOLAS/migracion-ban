@@ -17,7 +17,7 @@ import co.com.samtel.migration.IGenerateMigration;
 public class FactoryMigration implements IFactoryMigration {
 
 	// Objeto para la consulta de tablas listas para migrar
-	@EJB(beanName = "logActivadorDao")
+	@EJB(beanName="logActivadorDao")
 	ILogActivadorDao logActivadorDao;
 
 	List<LogActivador> tablesToMigrate;
@@ -55,8 +55,8 @@ public class FactoryMigration implements IFactoryMigration {
 
 	@EJB(beanName = "bigEstadoCarpetasMigrate")
 	IGenerateMigration bigEstadoCarpetasMigrate;
-
-	@EJB(beanName = "bigActivosMigrate")
+	
+	@EJB(beanName="bigActivosMigrate")
 	IGenerateMigration bigActivosMigrate;
 
 	@EJB(beanName = "bigSubproductosMigrate")
@@ -76,49 +76,52 @@ public class FactoryMigration implements IFactoryMigration {
 
 	@EJB(beanName = "bigClientesMigrate")
 	IGenerateMigration bigClientesMigrate;
-
+	
 	@EJB(beanName = "bigDireccionMigrate")
 	IGenerateMigration bigDireccionMigrate;
-
+	
 	@EJB(beanName = "bigCredipremiumMigrate")
 	IGenerateMigration bigCredipremiumMigrate;
-
+	
 	@EJB(beanName = "bigLocalidadMigrate")
 	IGenerateMigration bigLocalidadMigrate;
-
+	
 	@EJB(beanName = "bigParametrosConsolidadosMigrate")
 	IGenerateMigration bigParametrosConsolidadosMigrate;
-
+	
 	@EJB(beanName = "bigPasivosCdtMigrate")
 	IGenerateMigration bigPasivosCdtMigrate;
-
+	
 	@EJB(beanName = "bigPasivosAhMigrate")
 	IGenerateMigration bigPasivosAhMigrate;
-
+	
 	@EJB(beanName = "bigPasivosConsolidadoMigrate")
 	IGenerateMigration bigPasivosConsolidadoMigrate;
-
+	
 	@EJB(beanName = "bigActualizaDatosMigrate")
 	IGenerateMigration bigActualizaDatosMigrate;
-
+	
 	@EJB(beanName = "bigClienteEstadosMigrate")
 	IGenerateMigration bigClienteEstadosMigrate;
-
+	
 	@EJB(beanName = "bigNotaInternaMigrate")
 	IGenerateMigration bigNotaInternaMigrate;
-
+	
 	@EJB(beanName = "bigInfoAdicionalClientesMigrate")
-	IGenerateMigration bigInfoAdicionalClientesMigrate;
-
+	IGenerateMigration bigInfoAdicionalClientesMigrate;	
+	
 	@EJB(beanName = "bigConsCentralesMigrate")
 	IGenerateMigration bigConsCentralesMigrate;
-
+	
 	@EJB(beanName = "bigEjecutivoMigrate")
 	IGenerateMigration bigEjecutivoMigrate;
-
+	
 	@EJB(beanName = "bigRangoMoraMigrate")
 	IGenerateMigration bigRangoMoraMigrate;
-
+	
+	@EJB(beanName = "bigCalificacionCarteraMigrate")
+	IGenerateMigration bigCalificacionCarteraMigrate;
+	
 	@Override
 	public IFactoryMigration setMigration(TypeMigration typeMigration) {
 		this.typeMigration = typeMigration;
@@ -136,8 +139,8 @@ public class FactoryMigration implements IFactoryMigration {
 					if (aux != null) {
 						aux.setLogActivador(item);
 						listEjb.add(aux);
-
-					}
+						
+					}	
 				}
 			}
 		}
@@ -209,7 +212,7 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVO_CONSOLIDADO.getNameAs())) {
 //			return bigActivoConsolidadoMigrate;
 //		}
-
+		
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CUPO_ROTATIVO.getNameAs())) {
 //			return bigCupoRotativoMigrate;
 //		}
@@ -225,9 +228,9 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_AH.getNameAs())) {
 //			return bigPasivosAhMigrate;
 //		}
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
-			return bigParametrosConsolidadosMigrate;
-		}
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
+//			return bigParametrosConsolidadosMigrate;
+//		}
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
 //		return bigTipoTransaccionMigrate;
 //	}
@@ -237,7 +240,7 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_BARRIOS.getNameAs())) {
 //			return bigBarriosMigrate;
 //		}
-
+		
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_DIRECCION.getNameAs())) {
 //			return bigDireccionMigrate;
 //		}
@@ -248,7 +251,7 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTE_ESTADOS.getNameAs())) {
 //			return bigClienteEstadosMigrate;
 //		}
-
+		 
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_NOTA_INTERNA.getNameAs())) {
 //			return bigNotaInternaMigrate;
 ////		}		
@@ -264,10 +267,13 @@ public class FactoryMigration implements IFactoryMigration {
 //		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_EJECUTIVO.getNameAs())) {
 //		return bigEjecutivoMigrate;
 //	}	
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
-			return bigRangoMoraMigrate;
-		}
-
+//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
+//		return bigRangoMoraMigrate;
+//	}	
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CALIFICACION_CARTERA.getNameAs())) {
+			return bigCalificacionCarteraMigrate;
+		}	
+	
 		return null;
 	}
 
