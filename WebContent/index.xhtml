@@ -5,7 +5,7 @@
 <h:head>
 	<title>Login</title>
 
-	<link rel="stylesheet" type="text/css" href="Css/loginBanCompartir.css"></link>
+	<h:outputStylesheet library="Css" name="loginBanCompartir.css"/>
 </h:head>
 <h:body>
 	<h:form>
@@ -13,18 +13,22 @@
 			<!--Top Baner Logo-->
 			<div id="topBanerLogo" class="topBanerLogo">
 				<div id="divContenedorLogo" class="divContenedorLogo">
-					<img src="Imagenes/bancompartir.png" id="imgLogo" class="imgLogo" />
+					<h:graphicImage library="Imagenes" name="bancompartir.png"
+						styleClass="imgLogo" id="imgLogo" />
 				</div>
 			</div>
 			<br /> <br /> <br /> <br />
 			<!--Top Baner Background-->
 			<div id="topBanerBackground" class="topBanerBackground">
 				<div id="imgFondo" class="imgFondo">
-
+					<h:graphicImage library="Imagenes" name="collage_1.png" />
+				</div>
+				<div id="sobreImage" class="sobreImage">
 					<!--Logo 2-->
 					<br />
 					<div id="divContenedorLogo2" class="divContenedorLogo2">
-						<img src="Imagenes/logo_1.png" id="imgLogo2" class="imgLogo2" />
+						<h:graphicImage library="Imagenes" name="logo_1.png"
+							styleClass="imgLogo2" id="imgLogo2" />
 					</div>
 
 					<!--Contenedor del Login-->
@@ -56,11 +60,14 @@
 							<h:commandButton value="Ingresar" id="btnIngresar"
 								class="btnIngresar" action="#{loginMB.validaDatosSesion()}" />
 						</div>
+						
 					</div>
-				</div>
-				<br />
-				<div id="border" class="border"></div>
 
+					<br />
+
+					<hr />
+
+				</div>
 			</div>
 		</div>
 	</h:form>
