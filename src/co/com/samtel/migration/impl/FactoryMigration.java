@@ -180,99 +180,102 @@ public class FactoryMigration implements IFactoryMigration {
 	 * @return
 	 */
 	public IGenerateMigration findEjb(LogActivador item) {
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
-//			return bigRecorridosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
-//			return bigRecuperaCarteraCastigadaMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVIDAD_ECONOMICA_INTERNA.getNameAs())) {
-//			return bigActividadEconomicaInternaMigrate;
-//		} 
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CIUDADES.getNameAs())) {
-//			return bigCiudadesMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_IDENT_CLIENTES.getNameAs())) {
-//			return bigTipoIdentClientesMigrate;
-//		}|
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CODIGOS_ABOGADO.getNameAs())) {
-//			return bigCodigosAbogadoMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ESTADOS_CARPETAS.getNameAs())) {
-//			return bigEstadoCarpetasMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBSEGMENTO_CLIENTE.getNameAs())) {
-//			return bigSubsegmentoClienteMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBPRODUCTOS.getNameAs())) {
-//			return bigSubproductosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
-//			return bigOficinaMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVO_CONSOLIDADO.getNameAs())) {
-//			return bigActivoConsolidadoMigrate;
-//		}		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CUPO_ROTATIVO.getNameAs())) {
-//			return bigCupoRotativoMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTES.getNameAs())) {
-//			return bigClientesMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_LOCALIDAD.getNameAs())) {
-//		return bigLocalidadMigrate;
-//	}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CDT.getNameAs())) {
-//			return bigPasivosCdtMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_AH.getNameAs())) {
-//			return bigPasivosAhMigrate;
-//		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
-//			return bigParametrosConsolidadosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
-//		return bigTipoTransaccionMigrate;
-//	}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CONSOLIDADO.getNameAs())) {
-//			return bigPasivosConsolidadoMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_BARRIOS.getNameAs())) {
-//			return bigBarriosMigrate;
-//		}
-		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_DIRECCION.getNameAs())) {
-//			return bigDireccionMigrate;
-//		}
-//		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVOS.getNameAs())) {
-//			return bigActivosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTE_ESTADOS.getNameAs())) {
-//			return bigClienteEstadosMigrate;
-//		}		 
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_NOTA_INTERNA.getNameAs())) {
-//			return bigNotaInternaMigrate;
-//		}		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_INFO_ADICIONAL_CLIENTE.getNameAs())) {
-//		return bigInfoAdicionalClientesMigrate;
-//	}		
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTUALIZA_DATOS.getNameAs())) {
-//			return bigActualizaDatosMigrate;
-//		}
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CONS_CENTRALES.getNameAs())) {
-//		return bigConsCentralesMigrate;
-//	}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECOGIDOS.getNameAs())) {
+			return bigRecorridosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RECUPERA_CARTERA_CASTIGADA.getNameAs())) {
+			return bigRecuperaCarteraCastigadaMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVIDAD_ECONOMICA_INTERNA.getNameAs())) {
+			return bigActividadEconomicaInternaMigrate;
+		} 
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CIUDADES.getNameAs())) {
+			return bigCiudadesMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_IDENT_CLIENTES.getNameAs())) {
+			return bigTipoIdentClientesMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CODIGOS_ABOGADO.getNameAs())) {
+			return bigCodigosAbogadoMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ESTADOS_CARPETAS.getNameAs())) {
+			return bigEstadoCarpetasMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBSEGMENTO_CLIENTE.getNameAs())) {
+			return bigSubsegmentoClienteMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_SUBPRODUCTOS.getNameAs())) {
+			return bigSubproductosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_OFICINA.getNameAs())) {
+			return bigOficinaMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVO_CONSOLIDADO.getNameAs())) {
+			return bigActivoConsolidadoMigrate;
+		}		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CUPO_ROTATIVO.getNameAs())) {
+			return bigCupoRotativoMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTES.getNameAs())) {
+			return bigClientesMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_LOCALIDAD.getNameAs())) {
+			return bigLocalidadMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CDT.getNameAs())) {
+			return bigPasivosCdtMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_AH.getNameAs())) {
+			return bigPasivosAhMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
+			return bigParametrosConsolidadosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
+			return bigTipoTransaccionMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_CONSOLIDADO.getNameAs())) {
+			return bigPasivosConsolidadoMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_BARRIOS.getNameAs())) {
+			return bigBarriosMigrate;
+		}		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_DIRECCION.getNameAs())) {
+			return bigDireccionMigrate;
+		}		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTIVOS.getNameAs())) {
+			return bigActivosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTE_ESTADOS.getNameAs())) {
+			return bigClienteEstadosMigrate;
+		}		 
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_NOTA_INTERNA.getNameAs())) {
+			return bigNotaInternaMigrate;
+		}		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_INFO_ADICIONAL_CLIENTE.getNameAs())) {
+			return bigInfoAdicionalClientesMigrate;
+		}		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_ACTUALIZA_DATOS.getNameAs())) {
+			return bigActualizaDatosMigrate;
+		}
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CONS_CENTRALES.getNameAs())) {
+			return bigConsCentralesMigrate;
+		}
 		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_EJECUTIVO.getNameAs())) {
-		return bigEjecutivoMigrate;
-	}	
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
-//		return bigRangoMoraMigrate;
-//	}	
-//		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CALIFICACION_CARTERA.getNameAs())) {
-//		return bigCalificacionCarteraMigrate;
-//	}	
-	
+			return bigEjecutivoMigrate;
+		}	
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_RANGO_MORA.getNameAs())) {
+			return bigRangoMoraMigrate;
+		}	
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CALIFICACION_CARTERA.getNameAs())) {
+			return bigCalificacionCarteraMigrate;
+		}			
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CANALES.getNameAs())) {
+			return bigCanalesMigrate;
+		}	
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CREDIPREMIUM.getNameAs())) {
+			return bigCredipremiumMigrate;
+		}
 	
 		return null;
 	}

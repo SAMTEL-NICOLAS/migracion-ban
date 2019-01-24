@@ -61,6 +61,9 @@ public class BigActivoConsolidadoAs implements Serializable  {
 	@Column(name = "nro_cred_r")
 	private Integer nro_cred_r;
 
+	@Column(name = "migrado")
+	private String migrado;
+	
 	public BigActivoConsolidadoIdAs getId() {
 		return id;
 	}
@@ -189,6 +192,14 @@ public class BigActivoConsolidadoAs implements Serializable  {
 
 	public void setTasa_int(BigDecimal tasa_int) {
 		this.tasa_int = tasa_int;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 }

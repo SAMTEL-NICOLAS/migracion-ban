@@ -488,6 +488,9 @@ public class BigActivosAs  implements Serializable{
 	
 	@Column(name = "numgonbase")
 	private String numgonbase;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigActivosIdAs getId() {
 		return id;
@@ -1785,6 +1788,14 @@ public class BigActivosAs  implements Serializable{
 
 	public void setCredreestr(String credreestr) {
 		this.credreestr = credreestr;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 
 
