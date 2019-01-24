@@ -51,7 +51,7 @@ public abstract class MigrateAbs<T, U> {
 	abstract public void setDestino(IGenericDao destino);
 
 	abstract public List<U> mappearOrigen(List<T> origen) throws MapperException;
-	
+
 	abstract public Class<T> getClassOrigin();
 
 	public String getStrPrimaryKey() {
@@ -84,16 +84,16 @@ public abstract class MigrateAbs<T, U> {
 		initializeMigration();
 		System.out.println(
 				".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
-		//Inicio contador para medir tiempo de la transacción
+		// Inicio contador para medir tiempo de la transacción
 		long startTime = System.currentTimeMillis();
 		try {
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
-				//Calculo tiempo que lleva la operación de migración
+				// Calculo tiempo que lleva la operación de migración
 				long endTime = System.currentTimeMillis() - startTime;
-				//Superior a un minuto
-				if(endTime > 60000 ) {
-						throw new TimeOutCustomException("Time Out Superado: 60000 ms");
+				// Superior a un minuto
+				if (endTime > 60000) {
+					throw new TimeOutCustomException("Time Out Superado: 60000 ms");
 				}
 				extractInformation(getStrPrimaryKey(), getNumRecBlock().intValue());
 				setListDestino(mappearOrigen(getListOrigen()));
@@ -128,7 +128,7 @@ public abstract class MigrateAbs<T, U> {
 	 */
 	@SuppressWarnings("unchecked")
 	public void extractInformation(String idColum, Integer offset) {
-		setListOrigen(getOrigen().findBlockData(idColum,  offset));
+		setListOrigen(getOrigen().findBlockData(idColum, offset));
 	}
 
 	/**
@@ -143,8 +143,12 @@ public abstract class MigrateAbs<T, U> {
 		if (getListDestino() != null && !getListDestino().isEmpty()) {
 			for (U item : getListDestino()) {
 				if (!getDestino().saveEntity(item)) {
-					setError(getDestino().getError());
-					throw new ControlledExeption("Error al persistir");
+					if (!getDestino().getError().getTypeError().equals(TypeErrors.CONSTRAINT_VIOLATION)
+							|| (getDestino().getError().getTypeError().equals(TypeErrors.CONSTRAINT_VIOLATION)
+									&& !getDestino().updateEntity(item))) {
+						setError(getDestino().getError());
+						throw new ControlledExeption("Error al persistir");
+					}
 				} else {
 					setNumRecMig(getNumRecMig() + 1);
 				}
@@ -168,7 +172,7 @@ public abstract class MigrateAbs<T, U> {
 			for (T item : getListOrigen()) {
 				item = adicionoParametroMigrate(item);
 			}
-			if (! getOrigen().updateListEntity(getListOrigen())) {
+			if (!getOrigen().updateListEntity(getListOrigen())) {
 				setError(getDestino().getError());
 				throw new ControlledExeption("Error al actualizar a migrado el origen");
 			}
