@@ -2,111 +2,113 @@
     Created on : 17/01/2019, 04:36:52 PM
     Author     : Jeferson
 */
-
-.divContenido{
-    display: initial;
-    height: 100%;
-    margin: 0 auto;
-    width: 100%;
+.divContenido {
+	display: initial;
+	height: 100%;
+	margin: 0 auto;
+	width: 100%;
 }
 
-.topBanerLogo{
-    min-height: 62px;
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    background-color: #d0122d;
-    padding-top: 30px;
+.topBanerLogo {
+	min-height: 62px;
+	margin: 0 auto;
+	position: relative;
+	width: 100%;
+	background-color: #d0122d;
+	padding-top: 30px;
 }
 
-.divContenedorLogo{
-    max-width: 1850px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
+.divContenedorLogo {
+	margin-left: 1%;
 }
 
-.topBanerBackground{
-    /*background-color:  whitesmoke;*/
-    width: 657px;
-    height: 445px;
-    position: relative;
-    margin: 0 auto;
+.topBanerBackground {
+	/*background-color:  whitesmoke;*/
+	width: 657px;
+	height: 445px;
+	position: relative;
+	margin: 0 auto;
 }
 
-.imgFondo{
-    background-image: url("../Imagenes/collage_1.png");
-    /*opacity: 0.5;*/
+.imgFondo {
+	position: relative;
+	opacity: 0.5;
 }
 
-.imgLogo2{
-    width: 180px;
-    height: 161px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.sobreImage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
 }
 
-.contenedorLogin{
-    /*background: #ffffff;*/
-    width: 480px;
-    height: 200px;
-    position: relative;
-    margin: 0 auto;
+.imgLogo2 {
+	width: 180px;
+	height: 161px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
-.divCabeceraLogin{
-    background: #dbdbdb;
-    width: 480px;
-    height: 30px;
-    font: bold 13pt arial; 
-    text-align: center;
-    color: #d0122d;
-    padding-top: 10px;
-    padding-bottom: 0px;
+.contenedorLogin {
+	background: #ffffff;
+	width: 480px;
+	height: 200px;
+	position: relative;
+	margin: 0 auto;
 }
 
-.divLbUsuario, .divLbContrasena{
-    width: 130px;
-    height: 30px;
-    padding-top: 20px;
-    padding-bottom: 0px;
-    background: #ffffff;
-    float: left;
-    font: 11pt arial regular; 
-    color: #474747;
+.divCabeceraLogin {
+	background: #dbdbdb;
+	width: 480px;
+	height: 30px;
+	font: bold 13pt arial;
+	text-align: center;
+	color: #d0122d;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 
-.divInpUsuario, .divInpContrasena{
-    width: 350px;
-    height: 30px;
-    padding-top: 20px;
-    padding-bottom: 0px;
-    float: right;
-    background: #ffffff;
+.divLbUsuario, .divLbContrasena {
+	width: 130px;
+	height: 30px;
+	padding-top: 20px;
+	padding-bottom: 0px;
+	background: #ffffff;
+	float: left;
+	font: 11pt arial regular;
+	color: #474747;
 }
 
-.divBoton{
-    background: #ffffff;
+.divInpUsuario, .divInpContrasena {
+	width: 350px;
+	height: 30px;
+	padding-top: 20px;
+	padding-bottom: 0px;
+	float: right;
+	background: #ffffff;
 }
 
-.txtUsuario, .txtContrasena{
-    padding: 2pt 25px;
+.divBoton {
+	background: #ffffff;
 }
 
-.btnIngresar{
-    margin-top: 15px;
-    margin-left: 130px;
-    padding: 3pt 64pt;
-    background: #d0122d;
-    color: #ffffff;
-    font: bold 10pt arial; 
-    border: 0;
+.txtUsuario, .txtContrasena {
+	padding: 2pt 25px;
 }
 
-.border{
-    border: #d0122d 1px solid;
-    width: 657px;
-    position: relative;
-    margin: 0 auto;
+.btnIngresar {
+	margin-top: 15px;
+	margin-left: 130px;
+	padding: 3pt 64pt;
+	background: #d0122d;
+	color: #ffffff;
+	font: bold 10pt arial;
+	border: 0;
+}
+
+hr {
+	margin-top: 7%;
+	color: #d0122d;
 }
