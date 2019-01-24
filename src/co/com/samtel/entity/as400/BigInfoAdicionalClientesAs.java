@@ -79,6 +79,9 @@ public class BigInfoAdicionalClientesAs implements Serializable {
 	
 	@Column(name = "crpdba")
 	private String crpdba;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigInfoAdicionalClientesIdAs getId() {
 		return id;
@@ -255,7 +258,13 @@ public class BigInfoAdicionalClientesAs implements Serializable {
 	public void setCrpdba(String crpdba) {
 		this.crpdba = crpdba;
 	}
-	
 
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
 
 }

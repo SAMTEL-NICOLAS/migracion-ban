@@ -58,6 +58,7 @@
 		<mapping class="co.com.samtel.entity.sql.BigEjecutivo" />
 		<mapping class="co.com.samtel.entity.sql.BigRangoMora" />
 		<mapping class="co.com.samtel.entity.sql.BigCalificacionCartera" />
+		<mapping class="co.com.samtel.entity.sql.BigCanales" />
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />

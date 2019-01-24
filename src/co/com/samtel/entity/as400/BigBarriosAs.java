@@ -20,6 +20,9 @@ public class BigBarriosAs implements Serializable{
 	
 	@Column(name = "nom_ciurba")
 	private String nom_ciurba;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigBarriosIdAs getId() {
 		return id;
@@ -43,6 +46,14 @@ public class BigBarriosAs implements Serializable{
 
 	public void setNom_ciurba(String nom_ciurba) {
 		this.nom_ciurba = nom_ciurba;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 	
 }

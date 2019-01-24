@@ -29,6 +29,9 @@ public class BigOficinaAs implements Serializable{
 	
 	@Column(name = "coddep")
 	private String coddep;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public Short getCodofc() {
 		return codofc;
@@ -77,4 +80,13 @@ public class BigOficinaAs implements Serializable{
 	public void setCoddep(String coddep) {
 		this.coddep = coddep;
 	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
+	
 }

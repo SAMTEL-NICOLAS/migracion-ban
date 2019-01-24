@@ -51,6 +51,10 @@ public class BigActualizaDatosAs implements Serializable{
 	private Integer f01fecactAux;
 	@Transient
 	private Date f01fecact;
+	
+	@Column(name = "migrado")
+	private String migrado;
+	
 	public BigActualizaDatosIdAs getId() {
 		return id;
 	}
@@ -128,6 +132,12 @@ public class BigActualizaDatosAs implements Serializable{
 	}
 	public void setF01fecact(Date f01fecact) {
 		this.f01fecact = f01fecact;
+	}
+	public String getMigrado() {
+		return migrado;
+	}
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 }

@@ -63,7 +63,7 @@
 		<mapping class="co.com.samtel.entity.as400.BigEjecutivoAs" />
 		<mapping class="co.com.samtel.entity.as400.BigRangoMoraAs" />
 		<mapping class="co.com.samtel.entity.as400.BigCalificacionCarteraAs" />
-		
+		<mapping class="co.com.samtel.entity.as400.BigCanalesAs" />
 		<mapping class="co.com.samtel.entity.business.LogActivador" />
 	</session-factory>
 </hibernate-configuration>

@@ -89,6 +89,9 @@ public class BigRecuperaCarteraCastigadaAs implements Serializable {
 	
 	@Column(name = "f01fcorte")
 	private Integer f01fcorte;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigRecuperaCarteraCastigadaIdAs getId() {
 		return id;
@@ -230,6 +233,12 @@ public class BigRecuperaCarteraCastigadaAs implements Serializable {
 	}
 	public void setF01feccas(Date f01feccas) {
 		this.f01feccas = f01feccas;
+	}
+	public String getMigrado() {
+		return migrado;
+	}
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 

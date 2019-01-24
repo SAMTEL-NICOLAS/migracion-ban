@@ -73,6 +73,10 @@ public class BigConsCentralesAs implements Serializable {
 	
 	@Column(name = "crcevi")
 	private String crcevi;
+	
+	@Column(name = "migrado")
+	private String migrado;
+	
 
 	public BigConsCentralesIdAs getId() {
 		return id;
@@ -232,6 +236,14 @@ public class BigConsCentralesAs implements Serializable {
 
 	public void setCrcevi(String crcevi) {
 		this.crcevi = crcevi;
-	}	
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}		
 
 }

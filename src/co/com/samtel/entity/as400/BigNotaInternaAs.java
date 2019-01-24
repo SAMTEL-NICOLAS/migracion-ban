@@ -20,6 +20,9 @@ public class BigNotaInternaAs implements Serializable {
 	
 	@Column(name = "feccorte")
 	private Integer feccorte;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigNotaInternaIdAs getId() {
 		return id;
@@ -44,6 +47,13 @@ public class BigNotaInternaAs implements Serializable {
 	public void setFeccorte(Integer feccorte) {
 		this.feccorte = feccorte;
 	}
-	
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}	
 	
 }

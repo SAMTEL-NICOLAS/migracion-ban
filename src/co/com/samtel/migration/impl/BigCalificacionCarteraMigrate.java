@@ -59,4 +59,10 @@ public class BigCalificacionCarteraMigrate extends MigrateAbs<BigCalificacionCar
 	
 	}
 
+	@Override
+	public Class<BigCalificacionCarteraAs> getClassOrigin() {
+		// TODO Auto-generated method stub
+		return BigCalificacionCarteraAs.class;
+	}
+
 }

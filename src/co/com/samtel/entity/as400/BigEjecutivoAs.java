@@ -32,6 +32,9 @@ public class BigEjecutivoAs implements Serializable {
 	
 	@Column(name = "categoria")
 	private String categoria;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigEjecutivoIdAs getId() {
 		return id;
@@ -88,4 +91,12 @@ public class BigEjecutivoAs implements Serializable {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}	
 }

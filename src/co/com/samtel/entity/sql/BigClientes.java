@@ -296,6 +296,8 @@ public class BigClientes implements Serializable {
 	
 	@Column(name = "i_nro_filiales_grupo_endeu")
 	private Short nrofilgren;
+	
+	
 
 	public Long getNui() {
 		return nui;
@@ -1047,6 +1049,7 @@ public class BigClientes implements Serializable {
 
 	public void setNrofilgren(Short nrofilgren) {
 		this.nrofilgren = nrofilgren;
-	}	
+	}
+
 	
 }

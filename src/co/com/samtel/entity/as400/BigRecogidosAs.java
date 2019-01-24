@@ -64,6 +64,9 @@ public class BigRecogidosAs implements Serializable {
 	@Column(name="numcredrec")
 	private Long numcredcanc;
 	
+	@Column(name = "migrado")
+	private String migrado;
+	
 	@Formula(value=" ROW_NUMBER()over(ORDER BY 1 ASC) ")
 	private String contador;
 
@@ -213,6 +216,12 @@ public class BigRecogidosAs implements Serializable {
 	public void setNumcredcanc(Long numcredcanc) {
 		this.numcredcanc = numcredcanc;
 	}
-	
-	
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}	
 }

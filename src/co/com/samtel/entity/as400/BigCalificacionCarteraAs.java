@@ -20,6 +20,9 @@ public class BigCalificacionCarteraAs implements Serializable  {
 	
 	@Column(name = "des_califi")
 	private String des_califi;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public Long getI_cod_cali() {
 		return i_cod_cali;
@@ -44,4 +47,13 @@ public class BigCalificacionCarteraAs implements Serializable  {
 	public void setDes_califi(String des_califi) {
 		this.des_califi = des_califi;
 	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
+	
 }

@@ -36,6 +36,9 @@ public class BigClienteEstadosAs implements Serializable  {
 	
 	@Column(name = "estado_ibs")
 	private String estado_ibs;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigClienteEstadosIdAs getId() {
 		return id;
@@ -100,6 +103,13 @@ public class BigClienteEstadosAs implements Serializable  {
 	public void setEstado_ibs(String estado_ibs) {
 		this.estado_ibs = estado_ibs;
 	}
-	
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}	
 	
 }

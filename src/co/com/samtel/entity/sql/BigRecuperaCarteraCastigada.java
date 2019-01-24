@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "BIG_RECUPERA_CARTERA_CASTIGADA", schema="dmc")
+@Table(name = "BIG_RECUPERA_CARTERA_CASTIGADA", schema="dbo")
 public class BigRecuperaCarteraCastigada implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -75,6 +75,7 @@ public class BigRecuperaCarteraCastigada implements Serializable {
 	
 	@Column(name = "m_vlr_gestion")
 	private BigDecimal f01valges;
+		
 
 	public BigRecuperaCarteraCastigadaId getId() {
 		return id;
@@ -235,6 +236,7 @@ public class BigRecuperaCarteraCastigada implements Serializable {
 	public void setF01valges(BigDecimal f01valges) {
 		this.f01valges = f01valges;
 	}
+
 	
 	
 }

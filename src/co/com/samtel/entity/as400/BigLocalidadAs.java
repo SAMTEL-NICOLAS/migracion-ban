@@ -16,6 +16,10 @@ public class BigLocalidadAs  implements Serializable {
 
 	@Column(name = "nombre_r")
 	private String nombre_r;
+	
+	@Column(name = "migrado")
+	private String migrado;
+
 
 	public BigLocalidadIdAs getId() {
 		return id;
@@ -31,6 +35,14 @@ public class BigLocalidadAs  implements Serializable {
 
 	public void setNombre_r(String nombre_r) {
 		this.nombre_r = nombre_r;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 
 }

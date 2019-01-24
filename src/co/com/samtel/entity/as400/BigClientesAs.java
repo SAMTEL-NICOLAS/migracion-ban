@@ -306,6 +306,9 @@ public class BigClientesAs  implements Serializable {
 	
 	@Column(name = "nrofilgren")
 	private Short nrofilgren;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public Long getNui() {
 		return nui;
@@ -1099,5 +1102,14 @@ public class BigClientesAs  implements Serializable {
 
 	public void setFechanacim(Date fechanacim) {
 		this.fechanacim = fechanacim;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
+	
 }

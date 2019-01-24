@@ -109,6 +109,11 @@ public class BigPasivosCdtAs implements Serializable {
 	
 	@Column(name = "estado_cli")
 	private String estado_cli;
+	
+	@Column(name = "migrado")
+	private String migrado;
+
+	
 
 	public BigPasivosCdtIdAs getId() {
 		return id;
@@ -364,6 +369,14 @@ public class BigPasivosCdtAs implements Serializable {
 
 	public void setEstado_cli(String estado_cli) {
 		this.estado_cli = estado_cli;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 
 }

@@ -49,6 +49,9 @@ public class BigPasivosConsolidadoAs implements Serializable {
 	
 	@Column(name = "crntrj")
 	private Short crntrj;
+	
+	@Column(name = "migrado")
+	private String migrado;
 
 	public BigPasivosConsolidadoIdAs getId() {
 		return id;
@@ -144,6 +147,14 @@ public class BigPasivosConsolidadoAs implements Serializable {
 
 	public void setCrntrj(Short crntrj) {
 		this.crntrj = crntrj;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 
 }

@@ -84,6 +84,10 @@ public class BigCupoRotativoAs  implements Serializable{
 	
 	@Column(name = "porprm")
 	private BigDecimal porprm;
+	
+	@Column(name = "migrado")
+	private String migrado;
+
 
 	public BigCupoRotativoIdAs getId() {
 		return id;
@@ -275,6 +279,14 @@ public class BigCupoRotativoAs  implements Serializable{
 
 	public void setPorprm(BigDecimal porprm) {
 		this.porprm = porprm;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 

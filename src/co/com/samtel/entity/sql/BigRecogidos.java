@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BIG_RECOGIDOS", schema = "dmc")
+@Table(name = "BIG_RECOGIDOS", schema = "dbo")
 public class BigRecogidos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
