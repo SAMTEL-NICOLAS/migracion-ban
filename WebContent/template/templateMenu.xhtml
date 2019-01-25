@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="/migracion-ban/Css/templateMenu.css"></link>
@@ -37,13 +36,8 @@
 		</div>
 
 	</div>
-	
-	<h:form>
-		<p:growl autoUpdate="true" id="messagesApp" showDetail="true"
-			showSummary="true"></p:growl>
-		<p:commandButton value="Realizar Migración"
-			actionListener="#{loginMB.executeMigration}"></p:commandButton>
-	</h:form>
-	</header>
+	<ui:insert name="contenido">
+		Contenido por defecto para que no quede en blanco...    
+	</ui:insert> </header>
 </h:body>
 </html>

@@ -1,8 +1,9 @@
 package co.com.samtel.cargue.enumeraciones;
 
 public enum TypeFile {
-	//BIG_DESENDEUDESE(3,"BIG_DESENDEUDESE"), BIG_METAS_FUERZA_COMERCIAL(2,"BIG_METAS_FUERZA_COMERCIAL");
-	BIG_DESENDEUDESE(96,"BIG_DESENDEUDESE");
+
+	BIG_DESENDEUDESE(3,"BIG_DESENDEUDESE"), BIG_METAS_FUERZA_COMERCIAL(2,"BIG_METAS_FUERZA_COMERCIAL");
+
 	private Integer numColumns;
 	private String nombreArchivo;
 	
