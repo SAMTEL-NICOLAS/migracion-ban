@@ -8,12 +8,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CRM1410F", schema = "DAMCYFILES")
-public class BigParametrosConsolidadosAs implements Serializable {
+public class BigEstGeneralListaAs implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private BigParametrosConsolidadosIdAs id;
+	private BigEstGeneralListaIdAs id;
 
 	@Column(name = "cod_descri")
 	private String cod_descri;
@@ -21,11 +21,11 @@ public class BigParametrosConsolidadosAs implements Serializable {
 	@Column(name = "migrado")
 	private String migrado;
 
-	public BigParametrosConsolidadosIdAs getId() {
+	public BigEstGeneralListaIdAs getId() {
 		return id;
 	}
 
-	public void setId(BigParametrosConsolidadosIdAs id) {
+	public void setId(BigEstGeneralListaIdAs id) {
 		this.id = id;
 	}
 

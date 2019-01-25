@@ -11,7 +11,7 @@ class BigInfoFinancieraId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column
-	private Integer i_cod_oficina;
+	private String i_cod_oficina;
 	
 	@Column
 	private Date d_fecha_corte;
@@ -20,7 +20,7 @@ class BigInfoFinancieraId implements Serializable {
 		super();		
 	}
 
-	public BigInfoFinancieraId(Integer i_cod_oficina, Date d_fecha_corte) {
+	public BigInfoFinancieraId(String i_cod_oficina, Date d_fecha_corte) {
 		super();
 		this.i_cod_oficina = i_cod_oficina;
 		this.d_fecha_corte = d_fecha_corte;
@@ -57,11 +57,11 @@ class BigInfoFinancieraId implements Serializable {
 		return true;
 	}
 
-	public Integer getI_cod_oficina() {
+	public String getI_cod_oficina() {
 		return i_cod_oficina;
 	}
 
-	public void setI_cod_oficina(Integer i_cod_oficina) {
+	public void setI_cod_oficina(String i_cod_oficina) {
 		this.i_cod_oficina = i_cod_oficina;
 	}
 

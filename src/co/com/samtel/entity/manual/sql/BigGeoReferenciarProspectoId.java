@@ -11,7 +11,7 @@ public class BigGeoReferenciarProspectoId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column
-	private Integer i_tipo_persona;
+	private String i_tipo_persona;
 	
 	@Column
 	private String s_codigo_persona;
@@ -23,7 +23,7 @@ public class BigGeoReferenciarProspectoId implements Serializable {
 		super();		
 	}
 
-	public BigGeoReferenciarProspectoId(Integer i_tipo_persona, String s_codigo_persona, Date d_fecha_corte) {
+	public BigGeoReferenciarProspectoId(String i_tipo_persona, String s_codigo_persona, Date d_fecha_corte) {
 		super();
 		this.i_tipo_persona = i_tipo_persona;
 		this.s_codigo_persona = s_codigo_persona;
@@ -67,11 +67,11 @@ public class BigGeoReferenciarProspectoId implements Serializable {
 		return true;
 	}
 
-	public Integer getI_tipo_persona() {
+	public String getI_tipo_persona() {
 		return i_tipo_persona;
 	}
 
-	public void setI_tipo_persona(Integer i_tipo_persona) {
+	public void setI_tipo_persona(String i_tipo_persona) {
 		this.i_tipo_persona = i_tipo_persona;
 	}
 

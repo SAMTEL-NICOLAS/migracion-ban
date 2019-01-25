@@ -84,8 +84,8 @@ public class FactoryMigration implements IFactoryMigration {
 	@EJB(beanName = "bigLocalidadMigrate")
 	IGenerateMigration bigLocalidadMigrate;
 	
-	@EJB(beanName = "bigParametrosConsolidadosMigrate")
-	IGenerateMigration bigParametrosConsolidadosMigrate;
+	@EJB(beanName = "bigEstGeneralListaMigrate")
+	IGenerateMigration bigEstGeneralListaMigrate;
 	
 	@EJB(beanName = "bigPasivosCdtMigrate")
 	IGenerateMigration bigPasivosCdtMigrate;
@@ -228,8 +228,8 @@ public class FactoryMigration implements IFactoryMigration {
 		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PASIVOS_AH.getNameAs())) {
 			return bigPasivosAhMigrate;
 		}
-		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_PARAMETROS_CONSOLIDADOS.getNameAs())) {
-			return bigParametrosConsolidadosMigrate;
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_EST_GENERAL_LISTA.getNameAs())) {
+			return bigEstGeneralListaMigrate;
 		}
 		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_TIPO_TRANSACCION.getNameAs())) {
 			return bigTipoTransaccionMigrate;
