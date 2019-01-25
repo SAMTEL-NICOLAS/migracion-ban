@@ -7,22 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BIG_PARAMETROS_CONSOLIDADOS", schema = "dbo")
-public class BigParametrosConsolidados  implements Serializable {
+@Table(name = "BIG_EST_GENERAL_LISTA", schema = "dbo")
+public class BigEstGeneralLista  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private BigParametrosConsolidadosId id;
+	private BigEstGeneralListaId id;
 		
 	@Column(name = "s_descripcion")
 	private String cod_descri;
 
-	public BigParametrosConsolidadosId getId() {
+	public BigEstGeneralListaId getId() {
 		return id;
 	}
 
-	public void setId(BigParametrosConsolidadosId id) {
+	public void setId(BigEstGeneralListaId id) {
 		this.id = id;
 	}
 

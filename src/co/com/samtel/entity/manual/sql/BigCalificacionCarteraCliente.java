@@ -21,13 +21,13 @@ public class BigCalificacionCarteraCliente implements Serializable {
 	private String s_identificacion_cliente;	
 	
 	@Column(name = "i_tipo_identificacion")
-	private Integer i_tipo_identificacion;	
+	private String i_tipo_identificacion;	
 	
 	@Column(name = "i_fuerza_comercial")
-	private Integer i_fuerza_comercial;	
+	private String i_fuerza_comercial;	
 	
 	@Column(name = "i_oficina")
-	private Integer i_oficina;	
+	private String i_oficina;	
 	
 	@Column(name = "s_descripcion_linea")
 	private String s_descripcion_linea;	
@@ -67,31 +67,7 @@ public class BigCalificacionCarteraCliente implements Serializable {
 
 	public void setS_identificacion_cliente(String s_identificacion_cliente) {
 		this.s_identificacion_cliente = s_identificacion_cliente;
-	}
-
-	public Integer getI_tipo_identificacion() {
-		return i_tipo_identificacion;
-	}
-
-	public void setI_tipo_identificacion(Integer i_tipo_identificacion) {
-		this.i_tipo_identificacion = i_tipo_identificacion;
-	}
-
-	public Integer getI_fuerza_comercial() {
-		return i_fuerza_comercial;
-	}
-
-	public void setI_fuerza_comercial(Integer i_fuerza_comercial) {
-		this.i_fuerza_comercial = i_fuerza_comercial;
-	}
-
-	public Integer getI_oficina() {
-		return i_oficina;
-	}
-
-	public void setI_oficina(Integer i_oficina) {
-		this.i_oficina = i_oficina;
-	}
+	}	
 
 	public String getS_descripcion_linea() {
 		return s_descripcion_linea;
@@ -155,6 +131,31 @@ public class BigCalificacionCarteraCliente implements Serializable {
 
 	public void setI_re_estado(Integer i_re_estado) {
 		this.i_re_estado = i_re_estado;
+	}
+
+	public String getI_tipo_identificacion() {
+		return i_tipo_identificacion;
+	}
+
+	public void setI_tipo_identificacion(String i_tipo_identificacion) {
+		this.i_tipo_identificacion = i_tipo_identificacion;
+	}
+
+	public String getI_fuerza_comercial() {
+		return i_fuerza_comercial;
+	}
+
+	public void setI_fuerza_comercial(String i_fuerza_comercial) {
+		this.i_fuerza_comercial = i_fuerza_comercial;
+	}
+
+	public String getI_oficina() {
+		return i_oficina;
+	}
+
+	public void setI_oficina(String i_oficina) {
+		this.i_oficina = i_oficina;
 	}		
+	
 
 }

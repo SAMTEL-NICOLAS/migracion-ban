@@ -7,25 +7,25 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.modelmapper.ModelMapper;
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.as400.BigParametrosConsolidadosAs;
-import co.com.samtel.entity.sql.BigParametrosConsolidados;
+import co.com.samtel.entity.as400.BigEstGeneralListaAs;
+import co.com.samtel.entity.sql.BigEstGeneralLista;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
-@Stateless(name = "bigParametrosConsolidadosMigrate")
-public class BigParametrosConsolidadosMigrate extends MigrateAbs< BigParametrosConsolidadosAs,  BigParametrosConsolidados> implements IGenerateMigration, ITransformation {
+@Stateless(name = "bigEstGeneralListaMigrate")
+public class BigEstGeneralListaMigrate extends MigrateAbs< BigEstGeneralListaAs,  BigEstGeneralLista> implements IGenerateMigration, ITransformation {
 	
-	@EJB(beanName="bigParametrosConsolidadoAsDao")
+	@EJB(beanName="bigEstGeneralListaAsDao")
 	IGenericDao origen;
 	
-	@EJB(beanName="bigParametrosConsolidadoDao")
+	@EJB(beanName="bigEstGeneralListaDao")
 	IGenericDao destino;
 
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" cod_bander ASC, cod_refenc ASC,llave_iva ASC ");
-		setTableToMigrate(TableMigration.BIG_PARAMETROS_CONSOLIDADOS);
+		setStrPrimaryKey(" cod_bander ASC, cod_refenc ASC");
+		setTableToMigrate(TableMigration.BIG_EST_GENERAL_LISTA);
 	}
 
 	@Override
@@ -49,14 +49,14 @@ public class BigParametrosConsolidadosMigrate extends MigrateAbs< BigParametrosC
 	}
 
 	@Override
-	public List<BigParametrosConsolidados> mappearOrigen(List<BigParametrosConsolidadosAs> origen){
+	public List<BigEstGeneralLista> mappearOrigen(List<BigEstGeneralListaAs> origen){
 		ModelMapper modelMapper = new ModelMapper();	
-		BigParametrosConsolidados [] listaDestino = 	modelMapper.map(origen, BigParametrosConsolidados[].class);
+		BigEstGeneralLista [] listaDestino = 	modelMapper.map(origen, BigEstGeneralLista[].class);
 		return Arrays.asList(listaDestino);
 	}
 
 	@Override
-	public Class<BigParametrosConsolidadosAs> getClassOrigin() {
-		return BigParametrosConsolidadosAs.class;
+	public Class<BigEstGeneralListaAs> getClassOrigin() {
+		return BigEstGeneralListaAs.class;
 	}
 }

@@ -27,13 +27,13 @@ public class BigProspectos implements Serializable {
 	private Integer i_posecion_negocio_mes;
 	
 	@Column(name = "i_cod_fuerza_comercial")
-	private Integer i_cod_fuerza_comercial;
+	private String i_cod_fuerza_comercial;
 	
 	@Column(name = "i_codigo_ejecutivo")
-	private Integer i_codigo_ejecutivo;
+	private String i_codigo_ejecutivo;
 	
 	@Column(name = "i_codigo_asesor_geo")
-	private Integer i_codigo_asesor_geo;
+	private String i_codigo_asesor_geo;
 	
 	@Column(name = "s_cod_sector_economico")
 	private String s_cod_sector_economico;	
@@ -42,13 +42,13 @@ public class BigProspectos implements Serializable {
 	private String s_cod_interno_actividad_economica;
 	
 	@Column(name = "i_agencia_creacion")
-	private Integer i_agencia_creacion;
+	private String i_agencia_creacion;
 	
 	@Column(name = "i_codigo_segmento")
-	private Integer i_codigo_segmento;
+	private String i_codigo_segmento;
 	
 	@Column(name = "i_codigo_sub_segmento")
-	private Integer i_codigo_sub_segmento;
+	private String i_codigo_sub_segmento;
 	
 	@Column(name = "s_telefono_movil")
 	private String s_telefono_movil;
@@ -72,13 +72,13 @@ public class BigProspectos implements Serializable {
 	private String i_cod_clasifica_direccion;
 	
 	@Column(name = "i_cod_departamento_cap")
-	private Integer i_cod_departamento_cap;
+	private String i_cod_departamento_cap;
 	
 	@Column(name = "i_cod_municipio_cap")
-	private Integer i_cod_municipio_cap;
+	private String i_cod_municipio_cap;
 	
 	@Column(name = "i_cod_barrio_cap")
-	private Long i_cod_barrio_cap;
+	private String i_cod_barrio_cap;
 
 	@Column(name = "s_direccion_predio_cap")
 	private String s_direccion_predio_cap;
@@ -90,7 +90,7 @@ public class BigProspectos implements Serializable {
 	private String s_direccion_predio_geo;
 	
 	@Column(name = "i_cod_localidad")
-	private Integer i_cod_localidad;
+	private String i_cod_localidad;
 	
 	@Column(name = "i_cod_barrio_geo")
 	private Long i_cod_barrio_geo;
@@ -160,29 +160,7 @@ public class BigProspectos implements Serializable {
 		this.i_posecion_negocio_mes = i_posecion_negocio_mes;
 	}
 
-	public Integer getI_cod_fuerza_comercial() {
-		return i_cod_fuerza_comercial;
-	}
 
-	public void setI_cod_fuerza_comercial(Integer i_cod_fuerza_comercial) {
-		this.i_cod_fuerza_comercial = i_cod_fuerza_comercial;
-	}
-
-	public Integer getI_codigo_ejecutivo() {
-		return i_codigo_ejecutivo;
-	}
-
-	public void setI_codigo_ejecutivo(Integer i_codigo_ejecutivo) {
-		this.i_codigo_ejecutivo = i_codigo_ejecutivo;
-	}
-
-	public Integer getI_codigo_asesor_geo() {
-		return i_codigo_asesor_geo;
-	}
-
-	public void setI_codigo_asesor_geo(Integer i_codigo_asesor_geo) {
-		this.i_codigo_asesor_geo = i_codigo_asesor_geo;
-	}
 
 	public String getS_cod_sector_economico() {
 		return s_cod_sector_economico;
@@ -199,31 +177,6 @@ public class BigProspectos implements Serializable {
 	public void setS_cod_interno_actividad_economica(String s_cod_interno_actividad_economica) {
 		this.s_cod_interno_actividad_economica = s_cod_interno_actividad_economica;
 	}
-
-	public Integer getI_agencia_creacion() {
-		return i_agencia_creacion;
-	}
-
-	public void setI_agencia_creacion(Integer i_agencia_creacion) {
-		this.i_agencia_creacion = i_agencia_creacion;
-	}
-
-	public Integer getI_codigo_segmento() {
-		return i_codigo_segmento;
-	}
-
-	public void setI_codigo_segmento(Integer i_codigo_segmento) {
-		this.i_codigo_segmento = i_codigo_segmento;
-	}
-
-	public Integer getI_codigo_sub_segmento() {
-		return i_codigo_sub_segmento;
-	}
-
-	public void setI_codigo_sub_segmento(Integer i_codigo_sub_segmento) {
-		this.i_codigo_sub_segmento = i_codigo_sub_segmento;
-	}
-
 	public String getS_telefono_movil() {
 		return s_telefono_movil;
 	}
@@ -278,31 +231,7 @@ public class BigProspectos implements Serializable {
 
 	public void setI_cod_clasifica_direccion(String i_cod_clasifica_direccion) {
 		this.i_cod_clasifica_direccion = i_cod_clasifica_direccion;
-	}
-
-	public Integer getI_cod_departamento_cap() {
-		return i_cod_departamento_cap;
-	}
-
-	public void setI_cod_departamento_cap(Integer i_cod_departamento_cap) {
-		this.i_cod_departamento_cap = i_cod_departamento_cap;
-	}
-
-	public Integer getI_cod_municipio_cap() {
-		return i_cod_municipio_cap;
-	}
-
-	public void setI_cod_municipio_cap(Integer i_cod_municipio_cap) {
-		this.i_cod_municipio_cap = i_cod_municipio_cap;
-	}
-
-	public Long getI_cod_barrio_cap() {
-		return i_cod_barrio_cap;
-	}
-
-	public void setI_cod_barrio_cap(Long i_cod_barrio_cap) {
-		this.i_cod_barrio_cap = i_cod_barrio_cap;
-	}
+	}	
 
 	public String getS_direccion_predio_cap() {
 		return s_direccion_predio_cap;
@@ -326,15 +255,7 @@ public class BigProspectos implements Serializable {
 
 	public void setS_direccion_predio_geo(String s_direccion_predio_geo) {
 		this.s_direccion_predio_geo = s_direccion_predio_geo;
-	}
-
-	public Integer getI_cod_localidad() {
-		return i_cod_localidad;
-	}
-
-	public void setI_cod_localidad(Integer i_cod_localidad) {
-		this.i_cod_localidad = i_cod_localidad;
-	}
+	}	
 
 	public Long getI_cod_barrio_geo() {
 		return i_cod_barrio_geo;
@@ -430,6 +351,86 @@ public class BigProspectos implements Serializable {
 
 	public void setS_producto(String s_producto) {
 		this.s_producto = s_producto;
+	}
+
+	public String getI_cod_fuerza_comercial() {
+		return i_cod_fuerza_comercial;
+	}
+
+	public void setI_cod_fuerza_comercial(String i_cod_fuerza_comercial) {
+		this.i_cod_fuerza_comercial = i_cod_fuerza_comercial;
+	}
+
+	public String getI_codigo_ejecutivo() {
+		return i_codigo_ejecutivo;
+	}
+
+	public void setI_codigo_ejecutivo(String i_codigo_ejecutivo) {
+		this.i_codigo_ejecutivo = i_codigo_ejecutivo;
+	}
+
+	public String getI_codigo_asesor_geo() {
+		return i_codigo_asesor_geo;
+	}
+
+	public void setI_codigo_asesor_geo(String i_codigo_asesor_geo) {
+		this.i_codigo_asesor_geo = i_codigo_asesor_geo;
+	}
+
+	public String getI_agencia_creacion() {
+		return i_agencia_creacion;
+	}
+
+	public void setI_agencia_creacion(String i_agencia_creacion) {
+		this.i_agencia_creacion = i_agencia_creacion;
+	}
+
+	public String getI_codigo_segmento() {
+		return i_codigo_segmento;
+	}
+
+	public void setI_codigo_segmento(String i_codigo_segmento) {
+		this.i_codigo_segmento = i_codigo_segmento;
+	}
+
+	public String getI_codigo_sub_segmento() {
+		return i_codigo_sub_segmento;
+	}
+
+	public void setI_codigo_sub_segmento(String i_codigo_sub_segmento) {
+		this.i_codigo_sub_segmento = i_codigo_sub_segmento;
+	}
+
+	public String getI_cod_departamento_cap() {
+		return i_cod_departamento_cap;
+	}
+
+	public void setI_cod_departamento_cap(String i_cod_departamento_cap) {
+		this.i_cod_departamento_cap = i_cod_departamento_cap;
+	}
+
+	public String getI_cod_municipio_cap() {
+		return i_cod_municipio_cap;
+	}
+
+	public void setI_cod_municipio_cap(String i_cod_municipio_cap) {
+		this.i_cod_municipio_cap = i_cod_municipio_cap;
+	}
+
+	public String getI_cod_barrio_cap() {
+		return i_cod_barrio_cap;
+	}
+
+	public void setI_cod_barrio_cap(String i_cod_barrio_cap) {
+		this.i_cod_barrio_cap = i_cod_barrio_cap;
+	}
+
+	public String getI_cod_localidad() {
+		return i_cod_localidad;
+	}
+
+	public void setI_cod_localidad(String i_cod_localidad) {
+		this.i_cod_localidad = i_cod_localidad;
 	}
 	
 	
