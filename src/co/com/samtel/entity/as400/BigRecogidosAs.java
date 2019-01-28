@@ -64,7 +64,7 @@ public class BigRecogidosAs implements Serializable {
 	@Column(name="numcredrec")
 	private Long numcredcanc;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 	
 	@Formula(value=" ROW_NUMBER()over(ORDER BY 1 ASC) ")

@@ -18,7 +18,7 @@ public class BigEstGeneralListaAs implements Serializable {
 	@Column(name = "cod_descri")
 	private String cod_descri;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigEstGeneralListaIdAs getId() {

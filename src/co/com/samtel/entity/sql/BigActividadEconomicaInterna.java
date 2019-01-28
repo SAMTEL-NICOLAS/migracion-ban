@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Table(name = "BIG_ACTIVIDAD_ECONOMICA_INTERNA", schema = "dbo")
 public class BigActividadEconomicaInterna implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "i_codigo_interno")
 	private String codigo_int;	

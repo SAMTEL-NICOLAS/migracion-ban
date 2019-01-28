@@ -21,7 +21,7 @@ public class BigBarriosAs implements Serializable{
 	@Column(name = "nom_ciurba")
 	private String nom_ciurba;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigBarriosIdAs getId() {

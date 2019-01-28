@@ -15,18 +15,25 @@ public class LogActivador implements Serializable {
 	@Id
 	@Column(name = "LOGCON")
 	private Long id;
+	
 	@Column(name = "LOGNUM")
 	private String nombreTabla;
+	
 	@Column(name = "LOGSTS")
 	private String estado;
+	
 	@Column(name = "LOGCRJ")
 	private Long regMig;
+	
 	@Column(name = "LOGDDJ")
 	private Long dia;
+	
 	@Column(name = "LOGMMJ")
 	private Long mes;
+	
 	@Column(name = "LOGAAJ")
 	private Long anio;
+	
 	@Column(name = "LOGHOJ")
 	private Long hora;
 

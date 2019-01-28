@@ -50,7 +50,7 @@ public class BigPasivosConsolidadoAs implements Serializable {
 	@Column(name = "crntrj")
 	private Short crntrj;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigPasivosConsolidadoIdAs getId() {

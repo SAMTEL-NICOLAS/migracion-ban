@@ -30,7 +30,7 @@ public class BigOficinaAs implements Serializable{
 	@Column(name = "coddep")
 	private String coddep;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public Short getCodofc() {

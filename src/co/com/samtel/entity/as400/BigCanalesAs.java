@@ -41,7 +41,7 @@ public class BigCanalesAs implements Serializable {
 	@Transient
 	private Date fecha_cort;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 	
 	public BigCanalesIdAs getId() {

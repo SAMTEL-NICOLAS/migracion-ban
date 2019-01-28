@@ -74,7 +74,7 @@ public class BigConsCentralesAs implements Serializable {
 	@Column(name = "crcevi")
 	private String crcevi;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 	
 

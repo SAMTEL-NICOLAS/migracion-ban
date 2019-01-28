@@ -110,7 +110,7 @@ public class BigPasivosCdtAs implements Serializable {
 	@Column(name = "estado_cli")
 	private String estado_cli;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	

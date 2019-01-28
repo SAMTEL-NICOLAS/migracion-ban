@@ -10,6 +10,8 @@ import javax.persistence.Table;
 @Table(name = "CRM1411FS3", schema = "DAMCYFILES")
 public class BigActividadEconomicaInternaAs implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id	
 	private String codigo_int;
 	
@@ -21,6 +23,9 @@ public class BigActividadEconomicaInternaAs implements Serializable{
 	
 	@Column(name = "des_act_in")
 	private String des_act_in;
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public String getCodigo_int() {
 		return codigo_int;
@@ -52,6 +57,14 @@ public class BigActividadEconomicaInternaAs implements Serializable{
 
 	public void setDes_act_in(String des_act_in) {
 		this.des_act_in = des_act_in;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 	

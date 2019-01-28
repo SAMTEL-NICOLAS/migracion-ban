@@ -80,7 +80,7 @@ public class BigInfoAdicionalClientesAs implements Serializable {
 	@Column(name = "crpdba")
 	private String crpdba;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigInfoAdicionalClientesIdAs getId() {

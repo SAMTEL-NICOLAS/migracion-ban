@@ -1,5 +1,6 @@
 package co.com.samtel.migration.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -138,11 +139,16 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			table.getLogActivador().setEstado("-3");
 		}else {
 			table.getLogActivador().setEstado("-2");
-		}
-		table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
-		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()));
+		}		
+		
+		table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));	
+		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));
+		int mes = nowDate.getMonth()+1;
+		String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
 		table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
+		int dee = nowDate.getDay();
 		table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
+		int deee = nowDate.getHours() ;
 		logActivadorDao.updateEntity(table.getLogActivador());
 	}
 

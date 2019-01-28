@@ -21,6 +21,9 @@ public class BigSubproductosAs implements Serializable  {
 	
 	@Column(name = "nom_subpro")
 	private String nom_subpro;
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public String getCod_subpro() {
 		return cod_subpro;
@@ -44,6 +47,14 @@ public class BigSubproductosAs implements Serializable  {
 
 	public void setNom_subpro(String nom_subpro) {
 		this.nom_subpro = nom_subpro;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 
 }

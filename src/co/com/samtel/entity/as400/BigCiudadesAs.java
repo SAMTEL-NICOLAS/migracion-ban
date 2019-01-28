@@ -18,6 +18,9 @@ public class BigCiudadesAs implements Serializable {
 	
 	@Column(name = "nombre_ciu")
 	private String nombre_ciu;	
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public String getNombre_ciu() {
 		return nombre_ciu;
@@ -33,5 +36,14 @@ public class BigCiudadesAs implements Serializable {
 
 	public void setId(BigCiudadesIdAs id) {
 		this.id = id;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
+	
 }

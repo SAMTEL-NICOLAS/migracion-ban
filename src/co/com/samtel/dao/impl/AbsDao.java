@@ -67,7 +67,8 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					.add(Restrictions.isNull("migrado"))
+					//.add(Restrictions.isNull("migrado"))
+					.add(Restrictions.sqlRestriction(" migrar = ' ' "))
 					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET 0 ROWS "))
 					.setMaxResults(offset);
 

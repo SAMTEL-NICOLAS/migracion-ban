@@ -489,7 +489,7 @@ public class BigActivosAs  implements Serializable{
 	@Column(name = "numgonbase")
 	private String numgonbase;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigActivosIdAs getId() {

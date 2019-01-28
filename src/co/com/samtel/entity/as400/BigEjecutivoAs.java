@@ -33,7 +33,7 @@ public class BigEjecutivoAs implements Serializable {
 	@Column(name = "categoria")
 	private String categoria;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigEjecutivoIdAs getId() {

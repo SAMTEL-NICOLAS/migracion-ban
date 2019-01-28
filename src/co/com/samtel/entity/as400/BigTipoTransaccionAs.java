@@ -1,6 +1,8 @@
 package co.com.samtel.entity.as400;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,6 +15,9 @@ public class BigTipoTransaccionAs implements Serializable {
 	
 	@EmbeddedId
 	private BigTipoTransaccionIdAs id;
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public BigTipoTransaccionIdAs getId() {
 		return id;
@@ -20,6 +25,14 @@ public class BigTipoTransaccionAs implements Serializable {
 
 	public void setId(BigTipoTransaccionIdAs id) {
 		this.id = id;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 
 }

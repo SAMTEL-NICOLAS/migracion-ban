@@ -32,6 +32,9 @@ public class BigCodigosAbogadoAs  implements Serializable  {
 	
 	@Column(name = "segu_ape")
 	private String segu_ape;
+		
+	@Column(name = "migrar")
+	private String migrado;
 
 	public String getCod_ente() {
 		return cod_ente;
@@ -87,6 +90,14 @@ public class BigCodigosAbogadoAs  implements Serializable  {
 
 	public void setSegu_ape(String segu_ape) {
 		this.segu_ape = segu_ape;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}
 	
 	

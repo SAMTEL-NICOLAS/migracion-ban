@@ -27,7 +27,7 @@ public class BigTipoTransaccionMigrate extends MigrateAbs<BigTipoTransaccionAs, 
 
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" cod_transa ASC,des_transa ASC, llave_iva ASC");
+		setStrPrimaryKey(" cod_transa ASC,des_transa ASC");
 		setTableToMigrate(TableMigration.BIG_TIPO_TRANSACCION);
 	}
 	

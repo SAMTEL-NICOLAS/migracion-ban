@@ -27,6 +27,9 @@ public class BigRangoMoraAs  implements Serializable  {
 	
 	@Column(name = "s_nom_rang")
 	private String s_nom_rang;
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public Short getI_id_rango() {
 		return i_id_rango;
@@ -67,4 +70,12 @@ public class BigRangoMoraAs  implements Serializable  {
 	public void setS_nom_rang(String s_nom_rang) {
 		this.s_nom_rang = s_nom_rang;
 	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}	
 }

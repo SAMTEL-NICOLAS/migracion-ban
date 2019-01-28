@@ -27,11 +27,9 @@ public class FactoryMigration implements IFactoryMigration {
 
 	@EJB(beanName = "bigRecuperaCarteraCastigadaMigrate")
 	IGenerateMigration bigRecuperaCarteraCastigadaMigrate;
-
-	/*
-	 * @EJB(beanName="bigClienteProductoMigrate") IGenerateMigration
-	 * bigClienteProductoMigrate;
-	 */
+	
+	@EJB(beanName="bigClienteProductoMigrate") 
+	IGenerateMigration bigClienteProductoMigrate;	
 
 	@EJB(beanName = "bigActividadEconomicaInternaMigrate")
 	IGenerateMigration bigActividadEconomicaInternaMigrate;
@@ -275,6 +273,10 @@ public class FactoryMigration implements IFactoryMigration {
 		}	
 		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CREDIPREMIUM.getNameAs())) {
 			return bigCredipremiumMigrate;
+		}
+		
+		if (item.getNombreTabla().trim().equalsIgnoreCase(TableMigration.BIG_CLIENTE_PRODUCTO.getNameAs())) {
+			return bigClienteProductoMigrate;
 		}
 	
 		return null;

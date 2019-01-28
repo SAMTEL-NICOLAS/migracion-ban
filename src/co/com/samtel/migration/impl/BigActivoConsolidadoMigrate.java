@@ -11,9 +11,7 @@ import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigActivoConsolidadoAs;
-import co.com.samtel.entity.as400.BigClienteProductoAs;
 import co.com.samtel.entity.sql.BigActivoConsolidado;
-import co.com.samtel.entity.sql.BigClienteProducto;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;

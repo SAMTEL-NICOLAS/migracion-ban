@@ -61,7 +61,7 @@ public class BigActivoConsolidadoAs implements Serializable  {
 	@Column(name = "nro_cred_r")
 	private Integer nro_cred_r;
 
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 	
 	public BigActivoConsolidadoIdAs getId() {

@@ -11,6 +11,9 @@ import javax.persistence.Table;
 @Table(name = "BIG_ESTADOS_CARPETAS", schema = "dbo")
 public class BigEstadoCarpetas implements Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id	
 	@Column(name = "s_codigo_estado")
 	private String codigo_est;

@@ -90,7 +90,7 @@ public class BigRecuperaCarteraCastigadaAs implements Serializable {
 	@Column(name = "f01fcorte")
 	private Integer f01fcorte;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigRecuperaCarteraCastigadaIdAs getId() {

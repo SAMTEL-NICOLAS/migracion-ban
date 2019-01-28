@@ -128,7 +128,7 @@ public class BigPasivosAhAs implements Serializable {
 	@Column(name = "codproduc")
 	private String codproduc;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigPasivosAhIdAs getId() {

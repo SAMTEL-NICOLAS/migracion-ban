@@ -307,7 +307,7 @@ public class BigClientesAs  implements Serializable {
 	@Column(name = "nrofilgren")
 	private Short nrofilgren;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public Long getNui() {

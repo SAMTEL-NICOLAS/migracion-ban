@@ -15,19 +15,17 @@ public class BigTipoTransaccionIdAs implements Serializable {
 	@Column(name = "des_transa")
 	private String s_descripcion_transaccion;
 
-	@Column(name = "llave_iva")
-	private String s_llave_iva;
 
 	public BigTipoTransaccionIdAs() {
 		super();
 	
 	}
 	
-	public BigTipoTransaccionIdAs(String i_codigo_transaccion, String s_descripcion_transaccion, String s_llave_iva) {
+	public BigTipoTransaccionIdAs(String i_codigo_transaccion, String s_descripcion_transaccion) {
 		super();
 		this.i_codigo_transaccion = i_codigo_transaccion;
 		this.s_descripcion_transaccion = s_descripcion_transaccion;
-		this.s_llave_iva = s_llave_iva;
+	
 	}
 
 	@Override
@@ -36,7 +34,7 @@ public class BigTipoTransaccionIdAs implements Serializable {
 		int result = 1;
 		result = prime * result + ((i_codigo_transaccion == null) ? 0 : i_codigo_transaccion.hashCode());
 		result = prime * result + ((s_descripcion_transaccion == null) ? 0 : s_descripcion_transaccion.hashCode());
-		result = prime * result + ((s_llave_iva == null) ? 0 : s_llave_iva.hashCode());
+	
 		return result;
 	}
 
@@ -58,12 +56,7 @@ public class BigTipoTransaccionIdAs implements Serializable {
 			if (other.s_descripcion_transaccion != null)
 				return false;
 		} else if (!s_descripcion_transaccion.equals(other.s_descripcion_transaccion))
-			return false;
-		if (s_llave_iva == null) {
-			if (other.s_llave_iva != null)
-				return false;
-		} else if (!s_llave_iva.equals(other.s_llave_iva))
-			return false;
+			return false;		
 		return true;
 	}
 
@@ -83,12 +76,6 @@ public class BigTipoTransaccionIdAs implements Serializable {
 		this.s_descripcion_transaccion = s_descripcion_transaccion;
 	}
 
-	public String getS_llave_iva() {
-		return s_llave_iva;
-	}
 
-	public void setS_llave_iva(String s_llave_iva) {
-		this.s_llave_iva = s_llave_iva;
-	}
 	
 }

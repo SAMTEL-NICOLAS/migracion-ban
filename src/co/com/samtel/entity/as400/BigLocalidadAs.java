@@ -17,7 +17,7 @@ public class BigLocalidadAs  implements Serializable {
 	@Column(name = "nombre_r")
 	private String nombre_r;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 

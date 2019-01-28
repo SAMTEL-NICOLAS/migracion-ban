@@ -21,7 +21,7 @@ public class BigCalificacionCarteraAs implements Serializable  {
 	@Column(name = "des_califi")
 	private String des_califi;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public Long getI_cod_cali() {

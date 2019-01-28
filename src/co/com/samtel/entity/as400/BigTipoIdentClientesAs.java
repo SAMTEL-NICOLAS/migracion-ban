@@ -14,7 +14,10 @@ public class BigTipoIdentClientesAs implements Serializable {
 	private BigTipoIdentClientesIdAs id;
 			
 	@Column(name = "nombre_tip")
-	private String nombre_tip;
+	private String nombre_tip;	
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	
 	public String getNombre_tip() {
@@ -31,6 +34,14 @@ public class BigTipoIdentClientesAs implements Serializable {
 
 	public void setId(BigTipoIdentClientesIdAs id) {
 		this.id = id;
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
 	}	
 	
 }

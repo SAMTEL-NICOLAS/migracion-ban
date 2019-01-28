@@ -166,7 +166,7 @@ public class BigCredipremiumAs implements Serializable  {
 	private String crcgar;
 	
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public Long getCrcnui() {

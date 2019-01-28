@@ -52,7 +52,7 @@ public class BigActualizaDatosAs implements Serializable{
 	@Transient
 	private Date f01fecact;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 	
 	public BigActualizaDatosIdAs getId() {

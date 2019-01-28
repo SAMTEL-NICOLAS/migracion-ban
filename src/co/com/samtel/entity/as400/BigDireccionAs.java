@@ -78,7 +78,7 @@ public class BigDireccionAs implements Serializable {
 	@Column(name = "cc_subzona")
 	private String cc_subzona;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigDireccionIdAs getId() {

@@ -11,6 +11,9 @@ import javax.persistence.Table;
 @Table(name = "CRM1411FCE", schema = "DAMCYFILES")
 public class BigEstadoCarpetasAs implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id	
 	private String codigo_est;
 	
@@ -19,6 +22,10 @@ public class BigEstadoCarpetasAs implements Serializable {
 	
 	@Column(name = "cierre_car")
 	private String cierre_car;
+	
+	@Column(name = "migrar")
+	private String migrado;
+	
 
 	public String getCodigo_est() {
 		return codigo_est;
@@ -43,4 +50,13 @@ public class BigEstadoCarpetasAs implements Serializable {
 	public void setCierre_car(String cierre_car) {
 		this.cierre_car = cierre_car;
 	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
+	
 }

@@ -10,9 +10,7 @@ import javax.ejb.Stateless;
 import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.as400.BigClienteProductoAs;
 import co.com.samtel.entity.as400.BigCupoRotativoAs;
-import co.com.samtel.entity.sql.BigClienteProducto;
 import co.com.samtel.entity.sql.BigCupoRotativo;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.exception.MapperException;

@@ -85,7 +85,7 @@ public class BigCupoRotativoAs  implements Serializable{
 	@Column(name = "porprm")
 	private BigDecimal porprm;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 

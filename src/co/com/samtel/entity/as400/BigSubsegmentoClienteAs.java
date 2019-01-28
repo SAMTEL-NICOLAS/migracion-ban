@@ -14,6 +14,9 @@ public class BigSubsegmentoClienteAs {
 	
 	@Column(name = "des_nicho")
 	private String des_nicho;
+	
+	@Column(name = "migrar")
+	private String migrado;
 
 	public BigSubsegmentoClienteIdAs getId() {
 		return id;
@@ -29,5 +32,14 @@ public class BigSubsegmentoClienteAs {
 
 	public void setDes_nicho(String des_nicho) {
 		this.des_nicho = des_nicho;
-	}	
+	}
+
+	public String getMigrado() {
+		return migrado;
+	}
+
+	public void setMigrado(String migrado) {
+		this.migrado = migrado;
+	}
+	
 }

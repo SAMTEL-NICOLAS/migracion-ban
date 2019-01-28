@@ -21,7 +21,7 @@ public class BigNotaInternaAs implements Serializable {
 	@Column(name = "feccorte")
 	private Integer feccorte;
 	
-	@Column(name = "migrado")
+	@Column(name = "migrar")
 	private String migrado;
 
 	public BigNotaInternaIdAs getId() {
