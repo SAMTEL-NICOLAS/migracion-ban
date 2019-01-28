@@ -130,7 +130,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	}
 
 	public void changeLogActivador(IGenerateMigration table) {
-		Date nowDate = new Date();
+		//Date nowDate = new Date();
 		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
 			// Quiere decir que la tabla se migro correctamente
 			table.getLogActivador().setEstado("1");
@@ -139,17 +139,30 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			table.getLogActivador().setEstado("-3");
 		}else {
 			table.getLogActivador().setEstado("-2");
-		}		
-		
-		table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));	
-		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));
-		int mes = nowDate.getMonth()+1;
-		String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		}			
+	
+		Calendar fecha = Calendar.getInstance();
+        int anio = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minutos = fecha.get(Calendar.MINUTE);
+        int segundos = fecha.get(Calendar.SECOND);
+               
+    	table.getLogActivador().setAnio(Long.valueOf(anio));	
+		table.getLogActivador().setMes(Long.valueOf(mes));			
+		table.getLogActivador().setDia(Long.valueOf(dia));
+	    //table.getLogActivador().setHora(Long.valueOf(hora+ ":" + minutos + ":" + segundos));
+	    table.getLogActivador().setHora(Long.valueOf(hora));
+	    
+    	/*table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));	
+		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));			
 		table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
-		int dee = nowDate.getDay();
-		table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
-		int deee = nowDate.getHours() ;
+	   table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));*/
+        
 		logActivadorDao.updateEntity(table.getLogActivador());
+		
+	
 	}
 
 	@Override
