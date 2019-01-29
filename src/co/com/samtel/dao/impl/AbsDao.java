@@ -51,8 +51,12 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		Session session = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
-			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount())
-					.uniqueResult());
+			setNumRecordsTable((Long) 
+					session.createCriteria(getDomainClass())
+					.setProjection(Projections.rowCount())
+					.add(Restrictions.eq("migrado", " "))
+					.uniqueResult()
+				);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -68,7 +72,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
 					//.add(Restrictions.isNull("migrado"))
-					.add(Restrictions.sqlRestriction(" migrar = ' ' "))
+					.add(Restrictions.eq("migrado", " "))
 					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET 0 ROWS "))
 					.setMaxResults(offset);
 
@@ -103,7 +107,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session.save(entity);
 			tx.commit();
 		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
+			System.out.println("Error controlado debe actualizar");
 			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
 			return Boolean.FALSE;
 		} catch (Exception e) {
