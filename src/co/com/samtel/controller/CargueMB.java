@@ -27,8 +27,6 @@ public class CargueMB implements IManagedBean {
 
 	private UploadedFile uploadedFile;
 
-	private String pruebaNicolas;
-
 	@PostConstruct
 	public void init() {
 		setListDelimiters(new HashMap<>());
@@ -81,14 +79,6 @@ public class CargueMB implements IManagedBean {
 
 	public void setListDelimiters(HashMap<String, String> listDelimiters) {
 		this.listDelimiters = listDelimiters;
-	}
-
-	public String getPruebaNicolas() {
-		return pruebaNicolas;
-	}
-
-	public void setPruebaNicolas(String pruebaNicolas) {
-		this.pruebaNicolas = pruebaNicolas;
 	}
 
 }
