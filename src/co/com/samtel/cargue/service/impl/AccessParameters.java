@@ -6,9 +6,7 @@ import javax.ejb.Stateless;
 import co.com.samtel.cargue.service.IAccessParameters;
 
 @Stateless(name = "accessParameters")
-public class AccessParameters implements IAccessParameters {
-
-	
+public class AccessParameters implements IAccessParameters {	
 
 	public String url;
 	public String typeFile;

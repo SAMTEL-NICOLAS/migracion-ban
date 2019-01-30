@@ -40,9 +40,4 @@ public class CsvRead extends AbsRead implements IReadResource{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-
 }
