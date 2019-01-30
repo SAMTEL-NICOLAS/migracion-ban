@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 @SuppressWarnings("all")
 public enum TypeBigDesendeudeseColumn implements IColumn {
 
-<<<<<<< HEAD
+
 	I_TIPO_DOCUMENTO(0,"I_tipo_documento",String.class),
 	S_IDENTIFICACION_CLIENTE(1,"S_identificacion_cliente",String.class),
 	I_CODIGO_CLIENTE(2,"I_codigo_cliente",String.class),
@@ -102,12 +102,7 @@ public enum TypeBigDesendeudeseColumn implements IColumn {
 	M_CUOT_PAG_VLR_RECOGER(93,"M_cuot_pag_vlr_recoger",BigDecimal.class),
 	M_CUOTA_PAG_VS_CUOT_ACT_REC(94,"M_cuota_pag_vs_cuot_act_rec",BigDecimal.class),
 	D_FECHA_CORTE(95,"D_fecha_corte",BigDecimal.class);	
-=======
-	TIPO_DOCUMENTO(0, "I_tipo_documento", String.class), 
-	IDENTIFICACION_CLIENTE(1, "IdentificacionCliente", String.class),
-	CODIGO_CLIENTE(2, "CodigoCliente", String.class);
 
->>>>>>> 9e9d15d20a5229ecd17cd8c5ab44ba886742b596
 	private int indice;
 	private String nombreColumna;
 	@SuppressWarnings("rawtypes")
