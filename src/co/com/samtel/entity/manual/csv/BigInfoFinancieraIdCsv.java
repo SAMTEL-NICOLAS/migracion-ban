@@ -1,27 +1,32 @@
 package co.com.samtel.entity.manual.csv;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-public class BigDesendeudeseIdCsv implements Serializable {
+/**
+*
+* @author Jeferson
+*/
+@Embeddable
+public class BigInfoFinancieraIdCsv implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	@Column
-	private Integer i_codigo_cliente;
+	private String i_cod_oficina;
 
 	@Column
 	private Date d_fecha_corte;
 
-	public BigDesendeudeseIdCsv() {
+	public BigInfoFinancieraIdCsv() {
 		super();
 	}
 
-	public BigDesendeudeseIdCsv(Integer i_codigo_cliente, Date d_fecha_corte) {
+	public BigInfoFinancieraIdCsv(String i_cod_oficina, Date d_fecha_corte) {
 		super();
-		this.i_codigo_cliente = i_codigo_cliente;
+		this.i_cod_oficina = i_cod_oficina;
 		this.d_fecha_corte = d_fecha_corte;
 	}
 
@@ -30,7 +35,7 @@ public class BigDesendeudeseIdCsv implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((d_fecha_corte == null) ? 0 : d_fecha_corte.hashCode());
-		result = prime * result + ((i_codigo_cliente == null) ? 0 : i_codigo_cliente.hashCode());
+		result = prime * result + ((i_cod_oficina == null) ? 0 : i_cod_oficina.hashCode());
 		return result;
 	}
 
@@ -42,26 +47,26 @@ public class BigDesendeudeseIdCsv implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BigDesendeudeseIdCsv other = (BigDesendeudeseIdCsv) obj;
+		BigInfoFinancieraIdCsv other = (BigInfoFinancieraIdCsv) obj;
 		if (d_fecha_corte == null) {
 			if (other.d_fecha_corte != null)
 				return false;
 		} else if (!d_fecha_corte.equals(other.d_fecha_corte))
 			return false;
-		if (i_codigo_cliente == null) {
-			if (other.i_codigo_cliente != null)
+		if (i_cod_oficina == null) {
+			if (other.i_cod_oficina != null)
 				return false;
-		} else if (!i_codigo_cliente.equals(other.i_codigo_cliente))
+		} else if (!i_cod_oficina.equals(other.i_cod_oficina))
 			return false;
 		return true;
 	}
 
-	public Integer getI_codigo_cliente() {
-		return i_codigo_cliente;
+	public String getI_cod_oficina() {
+		return i_cod_oficina;
 	}
 
-	public void setI_codigo_cliente(Integer i_codigo_cliente) {
-		this.i_codigo_cliente = i_codigo_cliente;
+	public void setI_cod_oficina(String i_cod_oficina) {
+		this.i_cod_oficina = i_cod_oficina;
 	}
 
 	public Date getD_fecha_corte() {
@@ -71,5 +76,4 @@ public class BigDesendeudeseIdCsv implements Serializable {
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
 	}
-
 }
