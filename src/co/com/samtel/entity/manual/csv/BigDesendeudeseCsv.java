@@ -12,8 +12,7 @@ import javax.persistence.Table;
 *
 * @author Jeferson
 */
-@Entity
-@Table(name = "Big Desendeudese")
+
 public class BigDesendeudeseCsv implements Serializable {
 
 	private static final long serialVersionUID = 1L;

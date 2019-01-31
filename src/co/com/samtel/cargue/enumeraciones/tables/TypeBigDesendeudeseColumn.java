@@ -8,7 +8,7 @@ public enum TypeBigDesendeudeseColumn implements IColumn {
 
 	I_TIPO_DOCUMENTO(0,"I_tipo_documento",String.class),
 	S_IDENTIFICACION_CLIENTE(1,"S_identificacion_cliente",String.class),
-	I_CODIGO_CLIENTE(2,"I_codigo_cliente",String.class),
+	I_CODIGO_CLIENTE(2,"I_codigo_cliente",Integer.class),
 	I_FUERZA_COMERCIAL(3,"I_fuerza_comercial",String.class),
 	I_OFICINA(4,"I_oficina",String.class),
 	I_CREDITOS_CCIAL(5,"I_creditos_ccial",Integer.class),
