@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigDesendeudeseColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
-import co.com.samtel.cargue.service.dto.BigDesendeudeseDto;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 
 @Stateless(name = "bigDesendeudeseMapper")
