@@ -19,6 +19,9 @@ app.controller('homeController', ['$scope','$cookies','$location','auth',functio
 	$scope.sendMigration = function(){
 		$location.path("/migration");
 	}
+	$scope.sendUpload = function(){
+		$location.path("/cargue");
+	}
 }]);
 
 app.controller('migrationController', ['$scope','$cookies','auth','migrationFact',function($scope, $cookies, auth, migrationFact) {
@@ -28,7 +31,6 @@ app.controller('migrationController', ['$scope','$cookies','auth','migrationFact
 	// la función logout que llamamos en la vista llama a la función
 	// logout de la factoria auth
 	$scope.sendMigration = function() {
-		
-
+		migrationFact.callMigration();
 	}
 }]);

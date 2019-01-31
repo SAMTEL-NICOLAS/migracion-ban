@@ -11,6 +11,8 @@ app.config(function($routeProvider) {
 		controller : "loginController"
 	}).when("/migration", {
 		templateUrl : "template/modules/migration/views/indexMig.html"
+	}).when("/cargue", {
+		templateUrl : "template/modules/cargue/views/indexCargue.html"
 	}).otherwise({
 		reditrectTo : "/"
 	});

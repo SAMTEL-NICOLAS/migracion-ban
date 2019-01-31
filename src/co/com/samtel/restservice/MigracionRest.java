@@ -32,7 +32,6 @@ public class MigracionRest {
 		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA);
 		if (result) {
 			return Response.status(Response.Status.OK)
-
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", executeMigration.getIdAudit()))
 					.type(MediaType.APPLICATION_JSON_TYPE).build();
 		} else {
