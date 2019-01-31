@@ -21,8 +21,6 @@ public class BigDesendeudeseMapper extends AbsStrategyMapper<BigDesendeudeseCsv,
 		setTypeFile(TypeFile.BIG_DESENDEUDESE);
 		setObjectMapper(new BigDesendeudeseCsv());
 		setListEnumColumns(Arrays.asList(getEnumColumns().values()));		
-	}
-	
-	
+	}	
 
 }

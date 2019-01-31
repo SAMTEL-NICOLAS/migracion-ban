@@ -10,7 +10,6 @@ import co.com.samtel.cargue.exception.MapperException;
 import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.cargue.service.IReadResource;
 import co.com.samtel.cargue.service.IStrategyMapper;
-import co.com.samtel.cargue.service.dto.BigDesendeudeseDto;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 
 @Stateless(name="executePersistTable")

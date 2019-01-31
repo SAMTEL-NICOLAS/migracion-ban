@@ -28,6 +28,7 @@ app.controller('migrationController', ['$scope','$cookies','auth','migrationFact
 	// la función logout que llamamos en la vista llama a la función
 	// logout de la factoria auth
 	$scope.sendMigration = function() {
-		migrationFact.callMigration();
+		
+
 	}
 }]);

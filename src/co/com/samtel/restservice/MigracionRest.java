@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.dto.ResponseRest;
 import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.enumeraciones.TypeMigration;
@@ -20,15 +20,19 @@ public class MigracionRest {
 
 	@EJB(beanName = "executeMigration")
 	IExecuteMigration executeMigration;
+	
+	@EJB(beanName = "executePersistTable")
+	IExecutePersistTable executePersistTable;
 
 	@GET
 	@Path("/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response generateMigration(@PathParam("user") String user) {
+		System.out.println("Parametro: " + user);
 		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA);
 		if (result) {
 			return Response.status(Response.Status.OK)
-					
+
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", executeMigration.getIdAudit()))
 					.type(MediaType.APPLICATION_JSON_TYPE).build();
 		} else {
