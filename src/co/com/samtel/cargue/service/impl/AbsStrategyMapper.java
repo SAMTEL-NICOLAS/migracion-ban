@@ -30,6 +30,8 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 	private T objectMapper;
 	
 	private String DELIMITER;
+	
+	abstract public void init();
 
 	/**
 	 * Metodo con el cual obtengo la clase en la cual se esta implemento la clase
