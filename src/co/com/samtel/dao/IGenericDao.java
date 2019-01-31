@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.exception.ControlledExeption;
 
 @Local
 public interface IGenericDao<T, PK > {
@@ -47,7 +48,7 @@ public interface IGenericDao<T, PK > {
 	 * Metodo con el cual  obtengo el valor maximo del id de la tabla
 	 * @return
 	 */
-	Long getMaxValue();
+	Long getMaxValue() throws ControlledExeption ;
 	/**
 	 * Metodo con el cual se persiste una entidad
 	 * @param Entity

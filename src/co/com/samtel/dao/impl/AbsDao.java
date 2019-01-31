@@ -11,11 +11,13 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.JDBCConnectionException;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.enumeraciones.TypeErrors;
+import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
 
 public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
@@ -51,18 +53,15 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		Session session = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
-			setNumRecordsTable((Long) 
-					session.createCriteria(getDomainClass())
-					.setProjection(Projections.rowCount())
-					.add(Restrictions.eq("migrado", " "))
-					.uniqueResult()
-				);
+			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount())
+					.add(Restrictions.eq("migrado", " ")).uniqueResult());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, null);
 		}
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findBlockData(String idColum, Integer offset) {
@@ -71,7 +70,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					//.add(Restrictions.isNull("migrado"))
+					// .add(Restrictions.isNull("migrado"))
 					.add(Restrictions.eq("migrado", " "))
 					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET 0 ROWS "))
 					.setMaxResults(offset);
@@ -87,14 +86,13 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	@Override
 	public Boolean saveBlockInformation(List<T> blockInformation) {
-			System.out
-					.println(".:: Tamanio de la lista a persistir ".concat("" + blockInformation.size()).concat("::."));
-			for (T item : blockInformation) {
-				if(!saveEntity(item)) {
-					return Boolean.FALSE;
-				}
+		System.out.println(".:: Tamanio de la lista a persistir ".concat("" + blockInformation.size()).concat("::."));
+		for (T item : blockInformation) {
+			if (!saveEntity(item)) {
+				return Boolean.FALSE;
 			}
-			return Boolean.TRUE;
+		}
+		return Boolean.TRUE;
 	}
 
 	@Override
@@ -118,7 +116,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		}
 		return Boolean.TRUE;
 	}
-	
+
 	@Override
 	public Boolean updateEntity(T entity) {
 		Session session = null;
@@ -140,7 +138,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		}
 		return Boolean.TRUE;
 	}
-	
+
 	@Override
 	public Boolean updateListEntity(List<T> listEntity) {
 		Session session = null;
@@ -148,7 +146,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
-			for(T item : listEntity) {
+			for (T item : listEntity) {
 				session.update(item);
 			}
 			tx.commit();
@@ -166,7 +164,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	}
 
 	@Override
-	public Long getMaxValue() {
+	public Long getMaxValue()throws ControlledExeption {
 		Long maxRecords = Long.valueOf("0");
 		Session session = null;
 		try {
@@ -176,6 +174,9 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			if (maxRecords == null) {
 				maxRecords = Long.valueOf("0");
 			}
+		} catch (JDBCConnectionException e) {
+			throw new ControlledExeption(
+					"Error al intentar generar la conexion a la base de datos: " + getTypeConection().getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			maxRecords = Long.valueOf("0");

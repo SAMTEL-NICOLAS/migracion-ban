@@ -15,6 +15,7 @@ import co.com.samtel.entity.business.Auditoria;
 import co.com.samtel.entity.business.DetailAudit;
 import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.enumeraciones.TypeMigration;
+import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.migration.IExecuteMigration;
 import co.com.samtel.migration.IFactoryMigration;
 import co.com.samtel.migration.IGenerateMigration;
@@ -46,6 +47,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	@Override
 	public Boolean generateMigration(TypeMigration typeMigration) {
 		setTypeMigration(typeMigration);
+		Boolean respuesta = Boolean.TRUE;
 		try {
 			// Genero el registro padre de la uditoria
 			Long idTable = auditDao.getMaxValue();
@@ -53,13 +55,20 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			setIdAudit(id);
 			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 
-		} catch (Exception e) {
+		}catch (ControlledExeption e) {
 			e.printStackTrace();
+			respuesta = Boolean.FALSE;
+			setErrorMig(ErrorDto.of(null, TypeErrors.CONNECTION_DATA_BASE, e.getMessage()));
+		}catch (Exception e) {
+			e.printStackTrace();
+			respuesta = Boolean.FALSE;
 		}
-		// Llamo al proceso que genera la migración
-		hilo = new Thread(this);
-		hilo.start();
-		return Boolean.TRUE;
+		if(respuesta) {
+			// Llamo al proceso que genera la migración
+			hilo = new Thread(this);
+			hilo.start();
+		}
+		return respuesta;
 	}
 
 	public void callMigration() {
@@ -99,7 +108,12 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	 * Metodo con el cual genero el registro inicial del detalle de la auditoria
 	 */
 	public DetailAudit generateAuditMigration(IGenerateMigration table) {
-		Long idTable = detailAuditDao.getMaxValue();
+		Long idTable = null;
+		try {
+			idTable = detailAuditDao.getMaxValue();
+		} catch (ControlledExeption e) {
+			e.printStackTrace();
+		}
 		if (idTable == null) {
 			new Exception("Imposible insertar detalle de auditoria");
 		} else {
