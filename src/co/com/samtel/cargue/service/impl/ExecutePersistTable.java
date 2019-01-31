@@ -11,6 +11,7 @@ import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.cargue.service.IReadResource;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.cargue.service.dto.BigDesendeudeseDto;
+import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 
 @Stateless(name="executePersistTable")
 public class ExecutePersistTable implements IExecutePersistTable {
@@ -19,7 +20,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	private IReadResource readResource;
 	
 	@EJB(beanName = "bigDesendeudeseMapper")
-	private IStrategyMapper<BigDesendeudeseDto> strategyMapper;
+	private IStrategyMapper<BigDesendeudeseCsv> strategyMapper;
 
 	@Override
 	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter) throws MapperException {
@@ -31,7 +32,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			for (String item : rows) {
 				strategyMapper.setData(item);
 				strategyMapper.mapper(delimiter);
-				BigDesendeudeseDto objeto = strategyMapper.getObjectMapper();
+				BigDesendeudeseCsv objeto = strategyMapper.getObjectMapper();
 				System.out.println("llego" + objeto.toString());
 				i++;
 				System.out.println("Registros: " + i);

@@ -2,15 +2,17 @@ package co.com.samtel.cargue.enumeraciones;
 
 public enum TypeFile {
 
-	BIG_DESENDEUDESE(3,"BIG_DESENDEUDESE"), BIG_METAS_FUERZA_COMERCIAL(2,"BIG_METAS_FUERZA_COMERCIAL");
+	BIG_DESENDEUDESE(1,3,"BIG_DESENDEUDESE"), BIG_METAS_FUERZA_COMERCIAL(2,3,"BIG_METAS_FUERZA_COMERCIAL");
 
+	private Integer id;
 	private Integer numColumns;
 	private String nombreArchivo;
 	
 
-	private TypeFile(Integer numColumns, String nombreArchivo) {
+	private TypeFile(Integer id, Integer numColumns, String nombreArchivo) {
 		this.numColumns = numColumns;
 		this.nombreArchivo = nombreArchivo;
+		this.id = id;
 	}
 
 	public Integer getNumColumns() {
@@ -27,6 +29,14 @@ public enum TypeFile {
 
 	public void setNombreArchivo(String nombreArchivo) {
 		this.nombreArchivo = nombreArchivo;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

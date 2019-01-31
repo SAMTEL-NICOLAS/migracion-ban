@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
-@Path("/cargue")
+@Path("/v.1/cargue")
 public class CargueRest {
 	@GET
 	@Path("/")
