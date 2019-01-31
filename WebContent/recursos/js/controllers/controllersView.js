@@ -21,13 +21,13 @@ app.controller('homeController', ['$scope','$cookies','$location','auth',functio
 	}
 }]);
 
-app.controller('migrationController', ['$scope','$cookies','auth',function($scope, $cookies, auth) {
+app.controller('migrationController', ['$scope','$cookies','auth','migrationFact',function($scope, $cookies, auth, migrationFact) {
 	// devolvemos a la vista el nombre del usuario
 	$scope.username = $cookies.get('username');
 	$scope.password = $cookies.get('password');
 	// la función logout que llamamos en la vista llama a la función
 	// logout de la factoria auth
 	$scope.sendMigration = function() {
-		auth.logout();
+		migrationFact.callMigration();
 	}
 }]);

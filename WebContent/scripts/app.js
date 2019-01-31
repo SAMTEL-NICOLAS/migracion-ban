@@ -16,10 +16,10 @@ app.config(function($routeProvider) {
 	});
 });
 
-// factoria que controla la autentificación, devuelve un objeto
-// $cookies para crear cookies
-// $cookieStore para actualizar o eliminar
-// $location para cargar otras rutas
+//factoria que controla la autentificación, devuelve un objeto
+//$cookies para crear cookies
+//$cookieStore para actualizar o eliminar
+//$location para cargar otras rutas
 app.factory("auth", ['$cookies','$location',function($cookies,$location) {
 	return {
 		login : function(username, password) {
