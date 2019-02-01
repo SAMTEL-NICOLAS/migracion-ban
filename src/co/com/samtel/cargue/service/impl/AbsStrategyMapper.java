@@ -4,7 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
-import java.text.ParseException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,6 +159,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
+				System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
 					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
@@ -165,9 +167,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 				case "java.lang.Integer":
 					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
 					break;
-				case "java.lang.BigDecimal":
-					method.invoke(getObjectMapper(),
-							BigDecimal.valueOf(Long.parseLong(getColumns().get(item.getIndice()))));
+				case "java.math.BigDecimal":
+					try {
+						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+						symbols.setDecimalSeparator('.');
+						String pattern = "#.##";
+						DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+						decimalFormat.setParseBigDecimal(true);
+
+						BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
+
+						method.invoke(getObjectMapper(), bigDecimal);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 					break;
 				case "java.lang.Date":
 					try {
