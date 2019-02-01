@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -168,28 +169,18 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
 					break;
 				case "java.math.BigDecimal":
-					try {
-						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-						symbols.setDecimalSeparator('.');
-						String pattern = "#.##";
-						DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
-						decimalFormat.setParseBigDecimal(true);
-
-						BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
-
-						method.invoke(getObjectMapper(), bigDecimal);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
+					DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+					symbols.setDecimalSeparator('.');
+					String pattern = "#.##";
+					DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+					decimalFormat.setParseBigDecimal(true);
+					BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
+					method.invoke(getObjectMapper(), bigDecimal);
 					break;
 				case "java.util.Date":
-					try {
-						Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(getColumns().get(item.getIndice()));
-						method.invoke(getObjectMapper(), date1);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = formatter.parse(getColumns().get(item.getIndice()));
+					method.invoke(getObjectMapper(), date);
 					break;
 
 				default:
@@ -197,7 +188,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 				}
 			}
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+				| InvocationTargetException | ParseException e) {
 			e.printStackTrace();
 		}
 	}
