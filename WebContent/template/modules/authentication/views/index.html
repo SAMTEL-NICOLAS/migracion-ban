@@ -1,50 +1,59 @@
 
 <link rel="stylesheet" type="text/css" href="css/loginBanCompartir.css">
 <div ng-controller="loginController">
-<form name="loginUserForm">
-	<div id="divContenido" class="divContenido">
-		<!--Top Baner Logo-->
-		<div id="topBanerLogo" class="topBanerLogo">
-			<div id="divContenedorLogo" class="divContenedorLogo">
-				<img alt="" src="Imagenes/bancompartir.png" class="imgLogo">
+	<form name="loginUserForm">
+		<div id="divContenido" class="divContenido">
+			<!--Top Baner Logo-->
+			<div id="topBanerLogo" class="topBanerLogo">
+				<div id="divContenedorLogo" class="divContenedorLogo">
+					<img alt="" src="Imagenes/bancompartir.png" class="imgLogo">
+				</div>
+			</div>
+			<br /> <br /> <br /> <br />
+			<!--Top Baner Background-->
+			<div id="topBanerBackground" class="topBanerBackground">
+				<div id="imgFondo" class="imgFondo">
+					<img alt="" src="Imagenes/collage_1.png">
+				</div>
+				<div id="sobreImage" class="sobreImage">
+					<!--Logo 2-->
+					<br />
+					<div id="divContenedorLogo2" class="divContenedorLogo2">
+						<img alt="" src="Imagenes/logo_1.png" class="imgLogo2"
+							id="imgLogo2">
+					</div>
+
+					<!--Contenedor del Login-->
+					<br />
+					<div id="contenedorLogin" class="contenedorLogin">
+						<div id="divCabeceraLogin" class="divCabeceraLogin">LOGIN</div>
+
+						<div id="divLbUsuario" class="divLbUsuario">
+							<label id="lbUsuario" style="margin-left: 30px;">Usuario</label>
+						</div>
+
+						<div id="divInpUsuario" class="divInpUsuario">
+							<input type="text" placeholder="Introduce tu usuario"
+								ng-model="username" class="txtUsuario" />
+						</div>
+
+						<div id="divLbContrasena" class="divLbContrasena">
+							<label id="lbUsuario" style="margin-left: 30px;">Contrase&ntilde;a</label>
+						</div>
+
+						<div id="divInpContrasena" class="divInpContrasena">
+							<input type="password" placeholder="Introduce tu password"
+								ng-model="password" class="txtContrasena" />
+						</div>
+
+						<div id="divBoton" class="divBoton">
+							<button ng-click="login()" class="btnIngresar">Ingresar</button>
+						</div>
+
+					</div>
+
+				</div>
 			</div>
 		</div>
-		<br /> <br /> <br /> <br />
-		<!--Top Baner Background-->
-		<div id="topBanerBackground" class="topBanerBackground">
-			<div id="imgFondo" class="imgFondo">
-				<img alt="" src="Imagenes/collage_1.png">
-			</div>
-			<div id="sobreImage" class="sobreImage">
-				<!--Logo 2-->
-				<br />
-				<div id="divContenedorLogo2" class="divContenedorLogo2">
-					<img alt="" src="Imagenes/logo_1.png" class="imgLogo2" id="imgLogo2">
-				</div>
-
-				<!--Contenedor del Login-->
-				<br />
-				<div id="contenedorLogin" class="contenedorLogin">
-					<div id="divCabeceraLogin" class="divCabeceraLogin">LOGIN</div>
-
-					<div id="divLbUsuario" class="divLbUsuario">Usuario</div>
-					<div id="divInpUsuario" class="divInpUsuario">
-						<input type="text" placeholder="Introduce tu usuario" ng-model="username" />
-					</div>
-
-					<div id="divLbContrasena" class="divLbContrasena">Contrase&ntilde;a</div>
-					<div id="divInpContrasena" class="divInpContrasena">
-						<input type="password" placeholder="Introduce tu password" ng-model="password" />
-					</div>
-
-					<div id="divBoton" class="divBoton">
-						<button ng-click="login()">OK</button>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-</form>
+	</form>
 </div>
