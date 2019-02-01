@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -157,22 +158,29 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
-				if ("java.lang.String".equals(item.getTypeColumn().getName())) {
+				switch (item.getTypeColumn().getName()) {
+				case "java.lang.String":
 					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
-				} else if ("java.lang.Integer".equals(item.getTypeColumn().getName())) {
+					break;
+				case "java.lang.Integer":
 					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
-				} else if ("java.lang.BigDecimal".equals(item.getTypeColumn().getName())) {
+					break;
+				case "java.lang.BigDecimal":
 					method.invoke(getObjectMapper(),
 							BigDecimal.valueOf(Long.parseLong(getColumns().get(item.getIndice()))));
-				} else if ("java.lang.Date".equals(item.getTypeColumn().getName())) {
+					break;
+				case "java.lang.Date":
 					try {
 						Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(getColumns().get(item.getIndice()));
 						method.invoke(getObjectMapper(), date1);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				}
+					break;
 
+				default:
+					break;
+				}
 			}
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
