@@ -1,6 +1,7 @@
 package co.com.samtel.entity.manual.csv;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class BigDesendeudeseCsv {
 
@@ -99,7 +100,7 @@ public class BigDesendeudeseCsv {
 	private BigDecimal m_cuota_pag_vs_cuot_actual;
 	private BigDecimal m_cuot_pag_vlr_recoger;
 	private BigDecimal m_cuota_pag_vs_cuot_act_rec;
-	private BigDecimal d_fecha_corte;
+	private Date d_fecha_corte;
 
 	public String getI_tipo_documento() {
 		return i_tipo_documento;
@@ -861,11 +862,11 @@ public class BigDesendeudeseCsv {
 		this.m_cuota_pag_vs_cuot_act_rec = m_cuota_pag_vs_cuot_act_rec;
 	}
 
-	public BigDecimal getD_fecha_corte() {
+	public Date getD_fecha_corte() {
 		return d_fecha_corte;
 	}
 
-	public void setD_fecha_corte(BigDecimal d_fecha_corte) {
+	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
 	}
 
