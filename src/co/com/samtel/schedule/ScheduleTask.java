@@ -16,6 +16,6 @@ public class ScheduleTask {
 	
 	@Schedule(second = "*/20", minute = "*", hour = "*", persistent = false)
 	public void executeTask() {
-		System.out.println("Ejecutando tarea");
+		//System.out.println("Ejecutando tarea");
 	}
 }

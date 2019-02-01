@@ -7,30 +7,45 @@ app.controller('loginController', [ '$scope', 'auth', function($scope, auth) {
 	}
 } ]);
 
-app.controller('homeController', ['$scope','$cookies','$location','auth',function($scope, $cookies,$location, auth) {
-	// devolvemos a la vista el nombre del usuario
-	$scope.username = $cookies.get('username');
-	$scope.password = $cookies.get('password');
-	// la función logout que llamamos en la vista llama a la función
-	// logout de la factoria auth
-	$scope.logout = function() {
-		auth.logout();
-	}
-	$scope.sendMigration = function(){
-		$location.path("/migration");
-	}
-	$scope.sendUpload = function(){
-		$location.path("/cargue");
-	}
-}]);
+app.controller('homeController', [ '$scope', '$cookies', '$location', 'auth',
+		function($scope, $cookies, $location, auth) {
+			// devolvemos a la vista el nombre del usuario
+			$scope.username = $cookies.get('username');
+			$scope.password = $cookies.get('password');
+			// la función logout que llamamos en la vista llama a la función
+			// logout de la factoria auth
+			$scope.logout = function() {
+				auth.logout();
+			}
+			$scope.sendMigration = function() {
+				$location.path("/migration");
+			}
+			$scope.sendUpload = function() {
+				$location.path("/cargue");
+			}
+		} ]);
 
-app.controller('migrationController', ['$scope','$cookies','auth','migrationFact',function($scope, $cookies, auth, migrationFact) {
-	// devolvemos a la vista el nombre del usuario
-	$scope.username = $cookies.get('username');
-	$scope.password = $cookies.get('password');
-	// la función logout que llamamos en la vista llama a la función
-	// logout de la factoria auth
-	$scope.sendMigration = function() {
-		migrationFact.callMigration();
-	}
-}]);
+app.controller('migrationController', [ '$scope', '$cookies', 'auth',
+		'migrationFact', function($scope, $cookies, auth, migrationFact) {
+			// devolvemos a la vista el nombre del usuario
+			$scope.username = $cookies.get('username');
+			$scope.password = $cookies.get('password');
+			// la función logout que llamamos en la vista llama a la función
+			// logout de la factoria auth
+			$scope.sendMigration = function() {
+				migrationFact.callMigration();
+			}
+		} ]);
+
+app.controller('uploadController', [ '$scope', '$cookies', 'auth','cargueFact',
+		function($scope, $cookies, auth, cargueFact) {
+			// devolvemos a la vista el nombre del usuario
+			$scope.username = $cookies.get('username');
+			$scope.password = $cookies.get('password');
+			// la función logout que llamamos en la vista llama a la función
+			// logout de la factoria auth
+			$scope.uploadFile = function() {
+				var formData = new FormData(document.getElementById("formuploadajax"));
+				cargueFact.uploadCargue(formData);
+			}
+		} ]);

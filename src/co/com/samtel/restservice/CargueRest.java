@@ -3,6 +3,7 @@ package co.com.samtel.restservice;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,5 +34,13 @@ public class CargueRest {
 			.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 	
+	@POST
+	@Path("/uploadForm")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFileForm(@FormParam("nombre")String nombre, @FormParam("archivoCsv") String archivo) {
+		return Response.status(Response.Status.OK)
+			.entity(new ResponseRest<String>(TypeErrors.SUCCESS, "OK", "Ok"))
+			.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
 	
 }
