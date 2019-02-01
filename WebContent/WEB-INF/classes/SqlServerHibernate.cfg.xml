@@ -63,5 +63,8 @@
 		
 		<mapping class="co.com.samtel.entity.business.Auditoria" />
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />
+		
+		<mapping class="co.com.samtel.entity.manual.sql.BigDesendeudese" />
+		
 	</session-factory>
 </hibernate-configuration>

@@ -86,7 +86,7 @@ public abstract class MigrateAbs<T, U> {
 				".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
 		// Inicio contador para medir tiempo de la transacción
 
-long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		try {
 			// Itero las veces que sea necesario
 			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {

@@ -9,16 +9,26 @@ public interface IStrategyMapper<T> {
 	/**
 	 * Metodo con el cual realizo el mapeo de un string y lo mappeo a un objeto
 	 */
-	void mapper(String delimiter)throws MapperException;
+	Boolean executeUpload(String delimiter) throws MapperException;
+
 	/**
-	 * Obtengo el objeto mapeado 
+	 * Obtengo el objeto mapeado
+	 * 
 	 * @return
 	 */
 	T getObjectMapper();
+
 	/**
 	 * Metodo con el cual seteo la información para luego mappearlo
+	 * 
 	 * @param data
 	 */
 	void setData(String data);
+
+	/**
+	 * Metodo con el cual seteo la url en donde se encuentra el archivo a procesar
+	 * @param url
+	 */
+	void setUrl(String url);
 
 }
