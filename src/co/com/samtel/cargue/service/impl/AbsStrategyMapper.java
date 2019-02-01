@@ -183,9 +183,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 					}
 
 					break;
-				case "java.lang.Date":
+				case "java.util.Date":
 					try {
-						Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(getColumns().get(item.getIndice()));
+						Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(getColumns().get(item.getIndice()));
 						method.invoke(getObjectMapper(), date1);
 					} catch (Exception e) {
 						e.printStackTrace();
