@@ -3,7 +3,13 @@ package co.com.samtel.cargue.service.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import co.com.samtel.cargue.enumeraciones.ErrorMapperType;
@@ -24,13 +30,13 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 	private TypeFile typeFile;
 
 	private U enumColumns;
-	
+
 	private List<U> listEnumColumns;
 
 	private T objectMapper;
-	
+
 	private String DELIMITER;
-	
+
 	abstract public void init();
 
 	/**
@@ -68,7 +74,8 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 		}
 		String[] columnsVector = data.split(DELIMITER);
 		if (columnsVector.length == 0) {
-			throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Información"));
+			throw new MapperException(
+					ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Información"));
 		}
 
 		for (String item : columnsVector) {
@@ -153,12 +160,35 @@ public abstract class AbsStrategyMapper<T, U extends IColumn> implements IStrate
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
-				method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
+				System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
+				switch (item.getTypeColumn().getName()) {
+				case "java.lang.String":
+					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
+					break;
+				case "java.lang.Integer":
+					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
+					break;
+				case "java.math.BigDecimal":
+					DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+					symbols.setDecimalSeparator('.');
+					String pattern = "#.##";
+					DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+					decimalFormat.setParseBigDecimal(true);
+					BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
+					method.invoke(getObjectMapper(), bigDecimal);
+					break;
+				case "java.util.Date":
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = formatter.parse(getColumns().get(item.getIndice()));
+					method.invoke(getObjectMapper(), date);
+					break;
 
+				default:
+					break;
+				}
 			}
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
+				| InvocationTargetException | ParseException e) {
 			e.printStackTrace();
 		}
 	}

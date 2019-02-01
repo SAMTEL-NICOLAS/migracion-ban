@@ -1,10 +1,10 @@
 package co.com.samtel.cargue.enumeraciones.tables;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @SuppressWarnings("all")
 public enum TypeBigDesendeudeseColumn implements IColumn {
-
 
 	I_TIPO_DOCUMENTO(0,"I_tipo_documento",String.class),
 	S_IDENTIFICACION_CLIENTE(1,"S_identificacion_cliente",String.class),
@@ -101,7 +101,7 @@ public enum TypeBigDesendeudeseColumn implements IColumn {
 	M_CUOTA_PAG_VS_CUOT_ACTUAL(92,"M_cuota_pag_vs_cuot_actual",BigDecimal.class),
 	M_CUOT_PAG_VLR_RECOGER(93,"M_cuot_pag_vlr_recoger",BigDecimal.class),
 	M_CUOTA_PAG_VS_CUOT_ACT_REC(94,"M_cuota_pag_vs_cuot_act_rec",BigDecimal.class),
-	D_FECHA_CORTE(95,"D_fecha_corte",BigDecimal.class);	
+	D_FECHA_CORTE(95,"D_fecha_corte",Date.class);	
 
 	private int indice;
 	private String nombreColumna;
