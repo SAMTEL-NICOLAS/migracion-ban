@@ -3,7 +3,7 @@ package co.com.samtel.entity.manual.csv;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class BigGeoreferenciarProspectoCsv {
+public class BigGeoReferenciarProspectoCsv {
 	
 	private String i_codigo_ejecutivo;
 	private String i_codigo_asesor_geo;
