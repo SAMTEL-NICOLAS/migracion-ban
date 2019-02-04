@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css"
+	href="recursos/Css/templateMenu.css">
+<div ng-controller="menuController">
+	<header id="cabecera">
+
+		<!--Top Baner Logo-->
+		<div id="topBanerLogo" class="topBanerLogo">
+			<!--Div Derecho-->
+			<div class="left">
+				<div id="divContenedorLogo" class="divContenedorLogo">
+					<img alt="" src="recursos/Imagenes/bancompartir.png"
+						class="imgLogo" id="imgLogo">
+				</div>
+			</div>
+			<!--Div Izquierdo-->
+			<div class="right">
+				<!--Datos de la sesion-->
+				<div id="contenedorSesion" class="contenedorSesion">
+					<img alt="" src="recursos/Imagenes/exit.png" ng-click="logout()">
+					<br /> <label>Bienvenido(a)</label> <br /> <label>{{username}}</label>
+				</div>
+			</div>
+			<!--Div Central-->
+			<div class="center">
+				<div id="contenedorMenu" class="contenedorMenu">
+					<div id="menuPrincipal" class="menuPrincipal">
+						<!--Puntos de menu-->
+						<ul id="ulMenu" class="ulMenu" style="list-style: none">
+							<li><a ng-click="sendHome()">Home</a></li>
+							<li><a ng-click="sendMigration()">Cargar Migracion</a></li>
+							<li><a ng-click="sendUpload()">Cargue Excel</a></li>
+							<li><a>Auditoria AS400</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>

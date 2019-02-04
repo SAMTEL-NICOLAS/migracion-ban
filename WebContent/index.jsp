@@ -6,10 +6,11 @@
 <script src="recursos/js/angular-route.js"></script>
 <script src="recursos/js/angular-cookies.js"></script>
 <script type="text/javascript" src="scripts/app.js"></script>
-<script type="text/javascript" src="recursos/js/controllers/controllersView.js"></script>
+<script type="text/javascript"
+	src="recursos/js/controllers/controllersView.js"></script>
 <script type="text/javascript" src="scripts/bussinesFactory.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
 	<div ng-view></div>
