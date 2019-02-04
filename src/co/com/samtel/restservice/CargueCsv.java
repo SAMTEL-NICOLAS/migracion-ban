@@ -36,11 +36,12 @@ public class CargueCsv extends HttpServlet {
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
 			List<FileItem> parts = upload.parseRequest(request);
-
-			for (FileItem items : parts) {
-				if (null != items.getName()) {
-					File file = new File(finalRoute, items.getName());
-					items.write(file);
+			String nombreArchivo = parts.get(0).getFieldName();
+			for (FileItem item : parts) {
+				if (null != item.getName()) {
+					String extencion = item.getName().substring(item.getName().length() - 4);
+					File file = new File(finalRoute, nombreArchivo.concat(extencion));
+					item.write(file);
 				}
 			}
 		} catch (Exception e) {

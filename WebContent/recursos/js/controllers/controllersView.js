@@ -63,13 +63,32 @@ app.controller('uploadController', [
 			// devolvemos a la vista el nombre del usuario
 			$scope.username = $cookies.get('username');
 			$scope.password = $cookies.get('password');
-			// la función logout que llamamos en la vista llama a la función
+			// la función logout que llamamos en la vista llama
+			// a la
+			// función
 			// logout de la factoria auth
 			$scope.uploadFile = function() {
-				var formData = new FormData(document
-						.getElementById("formuploadajax"));
-				// cargueFact.uploadCargue(formData);
+				var continuar = $scope.validar();
+				if (continuar) {
+					var nombreArchivo = document
+							.getElementById("nombreArchivoCsv").value;
+					document.getElementById("nombreArchivoCsv").setAttribute(
+							"name", nombreArchivo);
 
-				document.getElementById("formuploadajax").submit();
+					document.getElementById("formuploadajax").submit();
+				}
+
+			}
+
+			$scope.validar = function() {
+				if (undefined === $scope.nombreArchivoCsv) {
+					alert("Debe seleccionar la opcion del archivo a subir");
+					return false;
+				}
+				if ("" === document.getElementById("archivoCsv").value) {
+					alert("Por favor, cargue un archivo");
+					return false;
+				}
+				return true;
 			}
 		} ]);

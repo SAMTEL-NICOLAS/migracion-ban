@@ -3,7 +3,21 @@
 <div ng-controller="uploadController">
 	<form enctype="multipart/form-data" id="formuploadajax" method="post"
 		action="servletupdate">
-		<input type="file" name="archivoCsv" id="archivoCsv">
-		<button ng-click="uploadFile()">Cargue</button>
+		<label>Archivo a Cargar: </label> <select name="archivo"
+			id="nombreArchivoCsv" ng-model="nombreArchivoCsv">
+			<option value="BIG_CALIFICACION_CARTERA_CLIENTE">BIG
+				CALIFICACION CARTERA CLIENTE</option>
+			<option value="BIG_PARA_INDICADORES">BIG PARA INDICADORES</option>
+			<option value="BIG_PROSPECTOS">BIG PROSPECTOS</option>
+			<option value="BIG_METAS_OFICINA">BIG METAS OFICINA</option>
+			<option value="BIG_METAS_FUERZA_COMERCIAL">BIG METAS FUERZA
+				COMERCIAL</option>
+			<option value="BIG_INFO_FINANCIERA">BIG INFO FINANCIERA</option>
+			<option value="BIG_GEOREFERENCIAR_PROSPECTO">BIG
+				GEOREFERENCIAR PROSPECTO</option>
+			<option value="BIG_DESENDEUDESE">BIG DESENDEUDESE</option>
+		</select> </br> <input type="file" name="archivoCsv" id="archivoCsv"
+			ng-model="archivoCsv"> </br> <input type="button" value="Cargue"
+			ng-click="uploadFile()">
 	</form>
 </div>
