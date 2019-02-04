@@ -45,6 +45,7 @@ li a{
     padding: 12px;
     text-decoration: none;
     font-family: 'Fira Sans',sans-serif;
+    cursor:pointer;
 }
 
 li :hover {
