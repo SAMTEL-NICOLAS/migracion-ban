@@ -9,7 +9,7 @@ import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
-import co.com.samtel.entity.manual.csv.BigGeoreferenciarProspectoCsv;
+import co.com.samtel.entity.manual.csv.BigGeoReferenciarProspectoCsv;
 import co.com.samtel.entity.manual.csv.BigIndicadoresCsv;
 import co.com.samtel.entity.manual.csv.BigInfoFinancieraCsv;
 import co.com.samtel.entity.manual.csv.BigMetasFuerzaComercialCsv;
@@ -41,7 +41,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	private IStrategyMapper<BigInfoFinancieraCsv> strategyMapperBigInfoFinanciera;
 	
 	@EJB(beanName = "bigGeorreferenciarProspectoMapper")
-	private IStrategyMapper<BigGeoreferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
+	private IStrategyMapper<BigGeoReferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
 	
 	
 	@Override
