@@ -175,7 +175,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
-				System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
+				//System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
 					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
@@ -183,6 +183,10 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				case "java.lang.Integer":
 					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
 					break;
+				case "java.lang.Double":
+					method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));
+					break;
+				
 				case "java.math.BigDecimal":
 					try {
 						DecimalFormatSymbols symbols = new DecimalFormatSymbols();

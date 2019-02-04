@@ -3,10 +3,12 @@ package co.com.samtel.entity.manual.sql;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 
 @Entity
 @Table(name = "BIG_CALIFICACION_CARTERA_CLIENTE", schema = "dbo")
@@ -16,7 +18,7 @@ public class BigCalificacionCarteraCliente implements Serializable {
 	
 	@EmbeddedId
 	private BigCalificacionCarteraClienteId id;
-	
+		
 	@Column(name = "s_identificacion_cliente")
 	private String s_identificacion_cliente;	
 	

@@ -14,16 +14,16 @@ public class BigMetasFuerzaComercial implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private BigInfoFinancieraId id;
+	private BigMetasFuerzaComercialId id;
 	
 	@Column(name = "m_valor_meta")
 	private BigDecimal m_valor_meta;
 
-	public BigInfoFinancieraId getId() {
+	public BigMetasFuerzaComercialId getId() {
 		return id;
 	}
 
-	public void setId(BigInfoFinancieraId id) {
+	public void setId(BigMetasFuerzaComercialId id) {
 		this.id = id;
 	}
 

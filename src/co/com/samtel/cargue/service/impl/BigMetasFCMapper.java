@@ -1,22 +1,33 @@
 package co.com.samtel.cargue.service.impl;
 
 import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import org.modelmapper.ModelMapper;
+
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigMetasFuerzaComercialColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigMetasFuerzaComercialCsv;
 import co.com.samtel.entity.manual.sql.BigMetasFuerzaComercial;
+import co.com.samtel.entity.manual.sql.BigMetasFuerzaComercialId;
+import co.com.samtel.enumeraciones.TypeConections;
 
 @Stateless(name = "bigMetasFCMapper")
 public class BigMetasFCMapper extends AbsStrategyMapper<BigMetasFuerzaComercialCsv, TypeBigMetasFuerzaComercialColumn, BigMetasFuerzaComercial>
 		implements IStrategyMapper<BigMetasFuerzaComercialCsv> {
-
+	
+	@EJB(beanName="bigMetasFCDao")
+	IGenericDao<BigMetasFuerzaComercial, BigMetasFuerzaComercialId > objDao;
+	
 	@SuppressWarnings("static-access")
 	@PostConstruct
 	public void init() {
+		getDao().setTypeConection(TypeConections.SQLSERVER);
 		setTypeFile(TypeFile.BIG_METAS_FUERZA_COMERCIAL);
 		setObjectMapper(new BigMetasFuerzaComercialCsv());
 		setListEnumColumns(Arrays.asList(getEnumColumns().values()));
@@ -24,14 +35,16 @@ public class BigMetasFCMapper extends AbsStrategyMapper<BigMetasFuerzaComercialC
 
 	@Override
 	public IGenericDao getDao() {
-		// TODO Auto-generated method stub
-		return null;
+		return objDao;
 	}
 
 	@Override
 	public BigMetasFuerzaComercial getCustomMapper(BigMetasFuerzaComercialCsv dto) {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper modelMapper = new ModelMapper();		
+		BigMetasFuerzaComercial destinoSql = modelMapper.map(dto, BigMetasFuerzaComercial.class);
+		BigMetasFuerzaComercialId id= new BigMetasFuerzaComercialId(dto.getD_fecha(), dto.getI_cod_fuerza_comercial(),dto.getI_cod_segmento_producto(),dto.getI_categoria_asesor(),dto.getS_nombre_meta());
+		destinoSql.setId(id);
+		return destinoSql;
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 public enum TypeBigMetasFuerzaComercialColumn implements IColumn {
 	
 	D_FECHA(0, "D_fecha", Date.class), 
-	I_COD_FUERZA_COMERCIAL(1, "I_cod_fuerza_comercial", Date.class),
+	I_COD_FUERZA_COMERCIAL(1, "I_cod_fuerza_comercial", String.class),
 	I_COD_SEGMENTO_PRODUCTO(2, "I_cod_segmento_producto", Integer.class),
 	I_CATEGORIA_ASESOR(3, "I_categoria_asesor", String.class),	
 	S_NOMBRE_META(4, "S_nombre_meta", String.class),	

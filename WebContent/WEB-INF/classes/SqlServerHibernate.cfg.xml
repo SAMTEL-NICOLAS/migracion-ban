@@ -65,6 +65,16 @@
 		<mapping class="co.com.samtel.entity.business.DetailAudit" />
 		
 		<mapping class="co.com.samtel.entity.manual.sql.BigDesendeudese" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigCalificacionCarteraCliente" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigIndicadores" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigProspectos" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigMetasOficina" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigMetasFuerzaComercial" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigGeoReferenciarProspecto" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigInfoFinanciera" />
+		
+		
+		
 		
 	</session-factory>
 </hibernate-configuration>

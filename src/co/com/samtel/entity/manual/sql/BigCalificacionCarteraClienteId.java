@@ -14,16 +14,16 @@ public class BigCalificacionCarteraClienteId implements Serializable {
 	private String i_codigo_cliente;
 	
 	@Column
-	private Long i_cod_operacion;
+	private Double i_cod_operacion;
 	
 	@Column
 	private Date d_fecha_carga;
 
 	public BigCalificacionCarteraClienteId() {
-		super();		
+		super();
 	}
 
-	public BigCalificacionCarteraClienteId(String i_codigo_cliente, Long i_cod_operacion, Date d_fecha_carga) {
+	public BigCalificacionCarteraClienteId(String i_codigo_cliente, Double i_cod_operacion, Date d_fecha_carga) {
 		super();
 		this.i_codigo_cliente = i_codigo_cliente;
 		this.i_cod_operacion = i_cod_operacion;
@@ -75,11 +75,11 @@ public class BigCalificacionCarteraClienteId implements Serializable {
 		this.i_codigo_cliente = i_codigo_cliente;
 	}
 
-	public Long getI_cod_operacion() {
+	public Double getI_cod_operacion() {
 		return i_cod_operacion;
 	}
 
-	public void setI_cod_operacion(Long i_cod_operacion) {
+	public void setI_cod_operacion(Double i_cod_operacion) {
 		this.i_cod_operacion = i_cod_operacion;
 	}
 
@@ -90,5 +90,4 @@ public class BigCalificacionCarteraClienteId implements Serializable {
 	public void setD_fecha_carga(Date d_fecha_carga) {
 		this.d_fecha_carga = d_fecha_carga;
 	}
-
 }

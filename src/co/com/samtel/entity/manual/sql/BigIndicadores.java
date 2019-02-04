@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BIG_INDICADORES", schema = "dbo")
+@Table(name = "BIG_INDICADORES", schema = "dmc")
 public class BigIndicadores implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -47,8 +47,4 @@ public class BigDesendeudeseMapper extends AbsStrategyMapper<BigDesendeudeseCsv,
 		return destinoSql;
 	}
 
-		
-	
-	
-
 }

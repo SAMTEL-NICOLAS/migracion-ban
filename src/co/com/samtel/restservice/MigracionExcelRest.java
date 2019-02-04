@@ -35,11 +35,27 @@ public class MigracionExcelRest {
 		try {
 			System.out.println("001");
 
-			String url = "C:\\ArchivosExcel\\BIG_DESENDEUDESE.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_DESENDEUDESE.csv";
+			String url = "C:\\ArchivosExcel\\BIG_CALIFICACION_CARTERA_CLIENTE.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_PARA_INDICADORES.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_PROSPECTOS.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_METAS_OFICINA.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_METAS_FUERZA_COMERCIAL.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_INFO_FINANCIERA.csv";
+			//String url = "C:\\ArchivosExcel\\BIG_GEOREFERENCIAR_PROSPECTO.csv";
+			
 			setDelimiter(",");
 
 			System.out.println("002");
-			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_DESENDEUDESE, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_DESENDEUDESE, getDelimiter());
+			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_CALIFICACION_CARTERA_CLIENTE, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_PARA_INDICADORES, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_PROSPECTOS, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_METAS_OFICINA, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_METAS_FUERZA_COMERCIAL, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_INFO_FINANCIERA, getDelimiter());
+//			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_GEOREFERENCIAR_PROSPECTO, getDelimiter());
+			
 			System.out.println("005");
 			if (respuesta) {
 				System.out.println("MAPEO REALIZADO CORRECTAMENTE");

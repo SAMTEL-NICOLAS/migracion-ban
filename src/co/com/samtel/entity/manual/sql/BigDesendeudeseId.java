@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Max;
 
 @Embeddable
 public class BigDesendeudeseId implements Serializable {
@@ -11,6 +12,7 @@ public class BigDesendeudeseId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column
+	@Max(20)
 	private Integer i_codigo_cliente;
 	
 	@Column

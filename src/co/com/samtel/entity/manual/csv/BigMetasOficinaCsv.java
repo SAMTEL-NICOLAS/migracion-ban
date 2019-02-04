@@ -1,35 +1,47 @@
 package co.com.samtel.entity.manual.csv;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class BigMetasOficinaCsv {
 
-/**
- *
- * @author Jeferson
- */
-@Entity
-@Table(name = "Big Metas Oficina")
-public class BigMetasOficinaCsv implements Serializable {
+	private BigDecimal m_valor_meta;	
+	private String s_cod_oficina;
+	private Integer i_cod_segmento_producto;
+	private String s_nombre_meta;
+	private Date d_fecha;
 
-	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
-	private BigMetasOficinaCsv id;
-
-	@Column(name = "m_valor_meta")
-	private BigDecimal m_valor_meta;
-
-	public BigMetasOficinaCsv getId() {
-		return id;
+	
+	public String getS_cod_oficina() {
+		return s_cod_oficina;
 	}
 
-	public void setId(BigMetasOficinaCsv id) {
-		this.id = id;
+	public void setS_cod_oficina(String s_cod_oficina) {
+		this.s_cod_oficina = s_cod_oficina;
+	}
+
+	public Integer getI_cod_segmento_producto() {
+		return i_cod_segmento_producto;
+	}
+
+	public void setI_cod_segmento_producto(Integer i_cod_segmento_producto) {
+		this.i_cod_segmento_producto = i_cod_segmento_producto;
+	}
+
+	public String getS_nombre_meta() {
+		return s_nombre_meta;
+	}
+
+	public void setS_nombre_meta(String s_nombre_meta) {
+		this.s_nombre_meta = s_nombre_meta;
+	}
+
+	public Date getD_fecha() {
+		return d_fecha;
+	}
+
+	public void setD_fecha(Date d_fecha) {
+		this.d_fecha = d_fecha;
 	}
 
 	public BigDecimal getM_valor_meta() {
@@ -38,6 +50,13 @@ public class BigMetasOficinaCsv implements Serializable {
 
 	public void setM_valor_meta(BigDecimal m_valor_meta) {
 		this.m_valor_meta = m_valor_meta;
+	}
+
+	@Override
+	public String toString() {
+		return "BigMetasOficinaCsv [m_valor_meta=" + m_valor_meta + ", s_cod_oficina=" + s_cod_oficina
+				+ ", i_cod_segmento_producto=" + i_cod_segmento_producto + ", s_nombre_meta=" + s_nombre_meta
+				+ ", d_fecha=" + d_fecha + "]";
 	}
 
 }

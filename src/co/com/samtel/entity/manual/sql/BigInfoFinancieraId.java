@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-class BigInfoFinancieraId implements Serializable {
+public class BigInfoFinancieraId implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
