@@ -55,15 +55,15 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			setIdAudit(id);
 			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 
-		}catch (ControlledExeption e) {
+		} catch (ControlledExeption e) {
 			e.printStackTrace();
 			respuesta = Boolean.FALSE;
 			setErrorMig(ErrorDto.of(null, TypeErrors.CONNECTION_DATA_BASE, e.getMessage()));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			respuesta = Boolean.FALSE;
 		}
-		if(respuesta) {
+		if (respuesta) {
 			// Llamo al proceso que genera la migración
 			hilo = new Thread(this);
 			hilo.start();
@@ -79,27 +79,29 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		for (IGenerateMigration item : listTablesToMigrate) {
 			// Genera el registro inicial del log
 			DetailAudit detail = generateAuditMigration(item);
-			executeMigration(item , Long.valueOf("0"));
+			executeMigration(item, Long.valueOf("0"));
 			// Genera el detalle de la migracion
 			generateAuditMigration(item, detail);
 			// Cambia el estado del log Activador marcandola como migrada
 			changeLogActivador(item);
 		}
 	}
+
 	/**
 	 * Metodo con el cual ejecuto la migracion
+	 * 
 	 * @param item
 	 * @param migrados
 	 */
 	public void executeMigration(IGenerateMigration item, Long migrados) {
-		//Seteamos el numero de registros que ha migrado
+		// Seteamos el numero de registros que ha migrado
 		item.setNumRecMig(migrados);
 		item.generateMigration();
 
 		// Extrae el error de la migracion
 		setErrorMig(item.getError());
-		
-		if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)){
+
+		if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
 			executeMigration(item, item.getNumRecMig());
 		}
 	}
@@ -144,39 +146,41 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	}
 
 	public void changeLogActivador(IGenerateMigration table) {
-		//Date nowDate = new Date();
+		// Date nowDate = new Date();
 		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
 			// Quiere decir que la tabla se migro correctamente
 			table.getLogActivador().setEstado("1");
 			table.getLogActivador().setRegMig(table.getNumRecords());
-		} else if(getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM) ){
+		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
 			table.getLogActivador().setEstado("-3");
-		}else {
+		} else {
 			table.getLogActivador().setEstado("-2");
-		}			
-	
+		}
+
 		Calendar fecha = Calendar.getInstance();
-        int anio = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH) + 1;
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        int hora = fecha.get(Calendar.HOUR_OF_DAY);
-        int minutos = fecha.get(Calendar.MINUTE);
-        int segundos = fecha.get(Calendar.SECOND);
-               
-    	table.getLogActivador().setAnio(Long.valueOf(anio));	
-		table.getLogActivador().setMes(Long.valueOf(mes));			
+		int anio = fecha.get(Calendar.YEAR);
+		int mes = fecha.get(Calendar.MONTH) + 1;
+		int dia = fecha.get(Calendar.DAY_OF_MONTH);
+		int hora = fecha.get(Calendar.HOUR_OF_DAY);
+		int minutos = fecha.get(Calendar.MINUTE);
+		int segundos = fecha.get(Calendar.SECOND);
+
+		table.getLogActivador().setAnio(Long.valueOf(anio));
+		table.getLogActivador().setMes(Long.valueOf(mes));
 		table.getLogActivador().setDia(Long.valueOf(dia));
-	    //table.getLogActivador().setHora(Long.valueOf(hora+ ":" + minutos + ":" + segundos));
-	    table.getLogActivador().setHora(Long.valueOf(hora));
-	    
-    	/*table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));	
-		table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));			
-		table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
-	   table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));*/
-        
+		// table.getLogActivador().setHora(Long.valueOf(hora+ ":" + minutos + ":" +
+		// segundos));
+		table.getLogActivador().setHora(Long.valueOf(hora));
+
+		/*
+		 * table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
+		 * table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));
+		 * table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
+		 * table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
+		 */
+
 		logActivadorDao.updateEntity(table.getLogActivador());
-		
-	
+
 	}
 
 	@Override
