@@ -22,7 +22,7 @@ app.controller('menuController', [ '$scope', '$cookies', '$location', 'auth',
 			$scope.sendHome = function() {
 				$location.path("/home");
 			}
-			
+
 			$scope.sendMigration = function() {
 				$location.path("/migration");
 			}
@@ -68,6 +68,8 @@ app.controller('uploadController', [
 			$scope.uploadFile = function() {
 				var formData = new FormData(document
 						.getElementById("formuploadajax"));
-				cargueFact.uploadCargue(formData);
+				// cargueFact.uploadCargue(formData);
+
+				document.getElementById("formuploadajax").submit();
 			}
 		} ]);

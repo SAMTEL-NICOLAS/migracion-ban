@@ -19,7 +19,7 @@ public class LoginMB {
 	private String usuario;
 	private String contrasena;
 
-	@EJB(beanName="executeMigration")
+	@EJB(beanName = "executeMigration")
 	IExecuteMigration executeMigration;
 
 	public String validaDatosSesion() {
@@ -42,7 +42,7 @@ public class LoginMB {
 	 * Metodo con el cual executo la migracion de Informacion
 	 */
 	public void executeMigration() {
-		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA);
+		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA, "admin");
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (result) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",

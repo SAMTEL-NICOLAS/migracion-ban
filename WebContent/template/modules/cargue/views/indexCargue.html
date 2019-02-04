@@ -1,9 +1,9 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
 
 <div ng-controller="uploadController">
-	<form enctype="multipart/form-data" id="formuploadajax" method="post">
-		Aqui cargamos el archivo <input type="text" name="archivoCsv" id="archivoCsv">
-		prueba <input type="text" name="nombre">
+	<form enctype="multipart/form-data" id="formuploadajax" method="post"
+		action="servletupdate">
+		<input type="file" name="archivoCsv" id="archivoCsv">
 		<button ng-click="uploadFile()">Cargue</button>
 	</form>
 </div>

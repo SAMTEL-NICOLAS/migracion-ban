@@ -20,7 +20,7 @@ public class MigracionRest {
 
 	@EJB(beanName = "executeMigration")
 	IExecuteMigration executeMigration;
-	
+
 	@EJB(beanName = "executePersistTable")
 	IExecutePersistTable executePersistTable;
 
@@ -29,7 +29,7 @@ public class MigracionRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response generateMigration(@PathParam("user") String user) {
 		System.out.println("Parametro: " + user);
-		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA);
+		Boolean result = executeMigration.generateMigration(TypeMigration.PRUEBA, user);
 		if (result) {
 			return Response.status(Response.Status.OK)
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", executeMigration.getIdAudit()))
