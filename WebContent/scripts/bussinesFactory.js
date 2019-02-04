@@ -35,3 +35,32 @@ app.factory("cargueFact", [ '$cookies', '$location',
 				}
 			};
 		} ]);
+
+
+//Factory en el cual se realizara la obtencion de los archivos disponibles para cargar
+app.factory("filesToUploadFact", [ '$cookies', '$location',
+		function($cookies, $location) {
+			return {
+				getParamsFiles : function(formData) {
+					var listData = [];
+					$.ajax({
+						url : "resources/v.1/cargue/listFiles",
+						method : 'get',
+						dataType : 'json',
+		                cache: false,
+		                contentType: false,
+		                processData: false,
+		                async : false,
+						success : function(result) {
+							if(result.message == 'OK' && result.typeError == 'SUCCESS'){
+								listData =  result.listResponse;
+								listData.push('Seleccione un Archivo');
+							}else{
+								alert('Error al obtener los parametros de los archivos csv');
+							}
+						}
+					});
+					return listData;
+				}
+			};
+		} ]);

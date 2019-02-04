@@ -59,8 +59,12 @@ app.controller('uploadController', [
 		'$cookies',
 		'auth',
 		'cargueFact',
-		function($scope, $cookies, auth, cargueFact) {
+		'filesToUploadFact',
+		function($scope, $cookies, auth, cargueFact, filesToUploadFact) {
 			// devolvemos a la vista el nombre del usuario
+			$scope.listFiles = [];
+			$scope.listFiles = filesToUploadFact.getParamsFiles();
+			
 			$scope.username = $cookies.get('username');
 			$scope.password = $cookies.get('password');
 			// la función logout que llamamos en la vista llama
