@@ -1,6 +1,7 @@
 package co.com.samtel.migration;
 
 import javax.ejb.Local;
+import javax.servlet.http.HttpServletRequest;
 
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.enumeraciones.TypeMigration;
@@ -16,7 +17,7 @@ public interface IUploadMigration {
 	 * @param typeMigration
 	 * @return
 	 */
-	Boolean generateMigration(TypeMigration typeMigration, String user);
+	Boolean generateMigration(TypeMigration typeMigration, HttpServletRequest request);
 
 	/**
 	 * Metodo con el cual obtendre el error que se genero al ejecutar la migracion
@@ -31,4 +32,5 @@ public interface IUploadMigration {
 	 * @return
 	 */
 	Long getIdAudit();
+
 }
