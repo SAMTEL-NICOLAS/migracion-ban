@@ -34,6 +34,7 @@ public class CargueCsv extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		generateUpload(request);
 		System.out.println("Termino el proceso y enviara a la pagina de cargue...");
+		response.sendRedirect("/migracion-ban/#!/cargue/");
 
 	}
 

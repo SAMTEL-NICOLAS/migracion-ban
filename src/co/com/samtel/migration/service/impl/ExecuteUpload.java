@@ -96,6 +96,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		try {
 			System.out.println("001");
 
+			String url = "\\ArchivosCargueExcel\\BIG_METAS_OFICINA.csv";
 
 			setDelimiter(",");
 
