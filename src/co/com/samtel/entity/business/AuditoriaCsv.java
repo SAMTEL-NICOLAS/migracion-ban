@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "AuditoriaCsv", schema = "dbo")
+@Table(name = "auditoriaCsv", schema = "dbo")
 public class AuditoriaCsv {
 	@Id
 	private Long id;

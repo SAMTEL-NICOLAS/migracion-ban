@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "detalle_auditoriaCsv", schema = "dbo")
 public class DetailAuditCsv {
+	
 	@Id
 	private Long id;
 	@Column(name = "tabla")
