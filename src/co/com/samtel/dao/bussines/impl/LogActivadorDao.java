@@ -16,7 +16,7 @@ import co.com.samtel.enumeraciones.TypeConections;
 
 @Stateless(name = "logActivadorDao")
 public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogActivadorDao {
-	
+
 	@PostConstruct
 	public void init() {
 		setTypeConection(TypeConections.AS400);
@@ -29,7 +29,7 @@ public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogA
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					.add(Restrictions.in("estado", new  String[] {"0","-3"}));
+					.add(Restrictions.in("estado", new String[] { "0", "-3" }));
 
 			result = crit.list();
 		} catch (Exception e) {

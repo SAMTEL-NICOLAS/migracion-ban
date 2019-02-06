@@ -5,16 +5,17 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "BIG_TIPO_IDENT_CLIENTES", schema = "dbo")
 public class BigTipoIdentClientes implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@EmbeddedId
-	private BigTipoIdentClientesId id;	
-	
+	private BigTipoIdentClientesId id;
+
 	@Column(name = "s_nombre_tipo")
 	private String nombre_tip;
 
@@ -33,6 +34,5 @@ public class BigTipoIdentClientes implements Serializable {
 	public void setId(BigTipoIdentClientesId id) {
 		this.id = id;
 	}
-	
-	
+
 }

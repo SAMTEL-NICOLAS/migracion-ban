@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 
 @Entity
 @Table(name = "BIG_CALIFICACION_CARTERA_CLIENTE", schema = "dbo")

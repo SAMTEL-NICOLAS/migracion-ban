@@ -44,13 +44,60 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	private IStrategyMapper<BigGeoReferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
 
 	@Override
-	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter) throws MapperException {
-		Boolean respuesta = Boolean.TRUE;
-
-		strategyMapperBigMetasOficina.setUrl(url);
-		respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile)
+			throws MapperException {
+		Boolean respuesta = process(nameFile, url, delimiter);
 
 		System.out.println(respuesta);
+		return respuesta;
+	}
+
+	/**
+	 * Metodo que se encarga de seleccionar que proceso se debe realizar segun el
+	 * nombre del archivo cargado.
+	 * 
+	 * @param nameFile
+	 * @return
+	 * @throws MapperException
+	 */
+	public Boolean process(String nameFile, String url, String delimiter) throws MapperException {
+		Boolean respuesta = Boolean.TRUE;
+		switch (nameFile) {
+		case "BIG_CALIFICACION_CARTERA_CLIENTE":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_DESENDEUDESE":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_GEOREFERENCIAR_PROSPECTO":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_INFO_FINANCIERA":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+		case "BIG_METAS_FUERZA_COMERCIAL":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_METAS_OFICINA":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_PARA_INDICADORES":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		case "BIG_PROSPECTOS":
+			strategyMapperBigMetasOficina.setUrl(url);
+			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			break;
+		default:
+			break;
+		}
+
 		return respuesta;
 	}
 

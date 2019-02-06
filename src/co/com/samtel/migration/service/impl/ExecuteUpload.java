@@ -2,14 +2,15 @@ package co.com.samtel.migration.service.impl;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -46,6 +47,9 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	IDetailAuditCsvDao detailAuditCsvDao;
 
 	private String delimiter;
+	private String user;
+	private String nameFile;
+	private String extention;
 
 	private Long idAudit;
 
@@ -54,6 +58,8 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	private TypeMigration typeMigration;
 
 	private Thread hilo;
+
+	private Object valor;
 
 	@Override
 	public void run() {
@@ -69,9 +75,9 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			// Genero el registro padre de la uditoria
 			Long idTable = auditCsvDao.getMaxValue();
 
-			String user = createFile(request, idTable + Long.valueOf(1));
+			createFile(request, idTable + Long.valueOf(1));
 
-			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, new Date()));
+			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), getUser(), new Date()));
 			setIdAudit(id);
 			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 
@@ -91,17 +97,24 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		return respuesta;
 	}
 
+	/**
+	 * Metodo que se encarga de ejecutar el proceso de carge validar si se realizo
+	 * de manera exitosa o no.
+	 * 
+	 * @return
+	 */
 	public String uploadFile() {
 		String proceso = "";
 		try {
 			System.out.println("001");
 
-			String url = "\\ArchivosCargueExcel\\BIG_METAS_OFICINA.csv";
+			String url = "\\ArchivosCargueExcel\\".concat(getIdAudit().toString()).concat(getExtention());
 
 			setDelimiter(",");
 
 			System.out.println("002");
-			Boolean respuesta = executePersistTable.executeProcess(url, TypeFile.BIG_METAS_OFICINA, getDelimiter());
+			Boolean respuesta = executePersistTable.executeProcess(url, getTypeFile(getNameFile()), getDelimiter(),
+					getNameFile());
 
 			System.out.println("005");
 			if (respuesta) {
@@ -129,7 +142,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	@Override
 	public Long getIdAudit() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.idAudit;
 	}
 
 	/**
@@ -138,10 +151,11 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	 * 
 	 * @param reqest
 	 */
-	public String createFile(HttpServletRequest request, Long idAuditoria) {
-		String user = "";
+	public void createFile(HttpServletRequest request, Long idAuditoria) {
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String finalRoute = "\\ArchivosCargueExcel";
+			String extention = "";
 
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			factory.setSizeThreshold(1024);
@@ -149,18 +163,60 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
 			List<FileItem> parts = upload.parseRequest(request);
-			user = parts.get(0).getFieldName();
+			setUser(parts.get(0).getFieldName());
+			setNameFile(parts.get(1).getFieldName());
 			for (FileItem item : parts) {
 				if (null != item.getName()) {
-					String extencion = item.getName().substring(item.getName().length() - 4);
-					File file = new File(finalRoute, idAuditoria.toString().concat(extencion));
+					extention = item.getName().substring(item.getName().lastIndexOf('.'));
+					File file = new File(finalRoute, idAuditoria.toString().concat(extention));
 					item.write(file);
 				}
 			}
+			setExtention(extention);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return user;
+
+	}
+
+	/**
+	 * Metodo que se encarga de obtener el TypeFile que se va a procesar en el
+	 * cargue.
+	 * 
+	 * @param nameFile
+	 * @return
+	 */
+	public TypeFile getTypeFile(String nameFile) {
+		TypeFile typeFile = null;
+		switch (nameFile) {
+		case "BIG_CALIFICACION_CARTERA_CLIENTE":
+			typeFile = TypeFile.BIG_CALIFICACION_CARTERA_CLIENTE;
+			break;
+		case "BIG_DESENDEUDESE":
+			typeFile = TypeFile.BIG_DESENDEUDESE;
+			break;
+		case "BIG_GEOREFERENCIAR_PROSPECTO":
+			typeFile = TypeFile.BIG_GEOREFERENCIAR_PROSPECTO;
+			break;
+		case "BIG_INFO_FINANCIERA":
+			typeFile = TypeFile.BIG_INFO_FINANCIERA;
+		case "BIG_METAS_FUERZA_COMERCIAL":
+			typeFile = TypeFile.BIG_METAS_FUERZA_COMERCIAL;
+			break;
+		case "BIG_METAS_OFICINA":
+			typeFile = TypeFile.BIG_METAS_OFICINA;
+			break;
+		case "BIG_PARA_INDICADORES":
+			typeFile = TypeFile.BIG_PARA_INDICADORES;
+			break;
+		case "BIG_PROSPECTOS":
+			typeFile = TypeFile.BIG_PROSPECTOS;
+			break;
+		default:
+			break;
+		}
+
+		return typeFile;
 	}
 
 	public IFactoryMigration getFactoryMigration() {
@@ -229,6 +285,30 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getNameFile() {
+		return nameFile;
+	}
+
+	public void setNameFile(String nameFile) {
+		this.nameFile = nameFile;
+	}
+
+	public String getExtention() {
+		return extention;
+	}
+
+	public void setExtention(String extention) {
+		this.extention = extention;
 	}
 
 }

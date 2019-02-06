@@ -81,7 +81,11 @@ app.controller('uploadController',[
                 var continuar = $scope.validar();
                 if (continuar) {
 
-                	document.getElementById("user").setAttribute("name",   $scope.username);
+                	document.getElementById("user").setAttribute("name", $scope.username);
+                	
+                	var combo = document.getElementById("nombreArchivoCsv");
+                	var nombreArchivo = combo.options[combo.selectedIndex].text;
+                	document.getElementById("nombreArchivoCsv").setAttribute("name", nombreArchivo);
 
                     document.getElementById("formuploadajax").submit();
                 }

@@ -8,10 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,9 +31,15 @@ public class CargueCsv extends HttpServlet {
 		generateUpload(request);
 		System.out.println("Termino el proceso y enviara a la pagina de cargue...");
 		response.sendRedirect("/migracion-ban/#!/cargue/");
-
 	}
 
+	/**
+	 * Metodo con el cual se genera el cargue del archivo y se ejecuta el proceso de
+	 * ejecucion
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Response generateUpload(HttpServletRequest request) {
 		Boolean result = executeUpload.generateMigration(TypeMigration.PRUEBA, request);
 		if (result) {

@@ -1,7 +1,6 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
 <div ng-controller="uploadController">
-    <form enctype="multipart/form-data" id="formuploadajax" method="post"
-          action="servletupdate">
+    <form enctype="multipart/form-data" id="formuploadajax" method="post" action="servletupdate">
         <input type="hidden" name="user" id="user" value="">
         <label>Archivo a Cargar: </label> 
         <select name="archivo"

@@ -3,13 +3,12 @@ package co.com.samtel.entity.as400;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import co.com.samtel.entity.sql.BigPasivosAhId;
 
 @Entity
 @Table(name = "CRM1417F", schema = "DAMCYFILES")

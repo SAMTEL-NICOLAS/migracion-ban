@@ -40,14 +40,14 @@ public class CargueMB implements IManagedBean {
 	public void prueba() {
 		try {
 			System.out.println("001");
-		
+
 			File origen = new File("C:\\BigDesendeudese.csv");
-			InputStream in = new FileInputStream(origen);	
-					
+			InputStream in = new FileInputStream(origen);
+
 			if (manageResource.copyResourceServer(in)) {
 				System.out.println("002");
 				Boolean respuesta = executePersistTable.executeProcess(manageResource.getUrlDestination(),
-						TypeFile.BIG_DESENDEUDESE, getDelimiter());
+						TypeFile.BIG_DESENDEUDESE, getDelimiter(), "");
 				System.out.println("005");
 				if (respuesta) {
 					addMessage(TYPEMESSAGE.SUCCESS, " MAPEO REALIZADO CORRECTAMENTE");
