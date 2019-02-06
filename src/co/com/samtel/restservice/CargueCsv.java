@@ -8,11 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import co.com.samtel.dto.ResponseRest;
-import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.enumeraciones.TypeMigration;
 import co.com.samtel.migration.IUploadMigration;
 
@@ -28,9 +24,9 @@ public class CargueCsv extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		generateUpload(request);
+		Long idAuditoria = generateUpload(request);
 		System.out.println("Termino el proceso y enviara a la pagina de cargue...");
-		response.sendRedirect("/migracion-ban/#!/cargue/");
+		response.sendRedirect("/migracion-ban/#!/cargue?idAuditoria=" + idAuditoria);
 	}
 
 	/**
@@ -40,18 +36,15 @@ public class CargueCsv extends HttpServlet {
 	 * @param request
 	 * @return
 	 */
-	public Response generateUpload(HttpServletRequest request) {
+	public Long generateUpload(HttpServletRequest request) {
 		Boolean result = executeUpload.generateMigration(TypeMigration.PRUEBA, request);
+		Long idAuditoria = (long) 0;
 		if (result) {
-			return Response.status(Response.Status.OK)
-					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", executeUpload.getIdAudit()))
-					.type(MediaType.APPLICATION_JSON_TYPE).build();
+			idAuditoria = executeUpload.getIdAudit();
 		} else {
-			return Response.status(Response.Status.OK)
-					.entity(new ResponseRest<Long>(executeUpload.getMessageError().getTypeError(),
-							executeUpload.getMessageError().getMessage(), Long.valueOf("-1")))
-					.type(MediaType.APPLICATION_JSON_TYPE).build();
+			idAuditoria = (long) -1;
 		}
+		return idAuditoria;
 	}
 
 }

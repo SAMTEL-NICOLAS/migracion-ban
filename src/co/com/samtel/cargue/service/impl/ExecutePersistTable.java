@@ -19,17 +19,17 @@ import co.com.samtel.entity.manual.csv.BigPropectosCsv;
 @Stateless(name = "executePersistTable")
 public class ExecutePersistTable implements IExecutePersistTable {
 
-	@EJB(beanName = "bigDesendeudeseMapper")
-	private IStrategyMapper<BigDesendeudeseCsv> strategyMapperBigDesendeudese;
-
 	@EJB(beanName = "bigCalificacionCarteraClienteMapper")
 	private IStrategyMapper<BigCalificacionCarteraClienteCsv> strategyMapperBigCalificacionCarteraCliente;
 
-	@EJB(beanName = "bigIndicadoresMapper")
-	private IStrategyMapper<BigIndicadoresCsv> strategyMapperBigIndicadores;
+	@EJB(beanName = "bigDesendeudeseMapper")
+	private IStrategyMapper<BigDesendeudeseCsv> strategyMapperBigDesendeudese;
 
-	@EJB(beanName = "bigProspectosMapper")
-	private IStrategyMapper<BigPropectosCsv> strategyMapperBigProspectos;
+	@EJB(beanName = "bigGeorreferenciarProspectoMapper")
+	private IStrategyMapper<BigGeoReferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
+
+	@EJB(beanName = "bigInfoFinancieraMapper")
+	private IStrategyMapper<BigInfoFinancieraCsv> strategyMapperBigInfoFinanciera;
 
 	@EJB(beanName = "bigMetasFCMapper")
 	private IStrategyMapper<BigMetasFuerzaComercialCsv> strategyMapperBigMetasFuerzaComercial;
@@ -37,11 +37,11 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	@EJB(beanName = "bigMetasOficinaMapper")
 	private IStrategyMapper<BigMetasOficinaCsv> strategyMapperBigMetasOficina;
 
-	@EJB(beanName = "bigInfoFinancieraMapper")
-	private IStrategyMapper<BigInfoFinancieraCsv> strategyMapperBigInfoFinanciera;
+	@EJB(beanName = "bigIndicadoresMapper")
+	private IStrategyMapper<BigIndicadoresCsv> strategyMapperBigIndicadores;
 
-	@EJB(beanName = "bigGeorreferenciarProspectoMapper")
-	private IStrategyMapper<BigGeoReferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
+	@EJB(beanName = "bigProspectosMapper")
+	private IStrategyMapper<BigPropectosCsv> strategyMapperBigProspectos;
 
 	@Override
 	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile)
@@ -64,35 +64,35 @@ public class ExecutePersistTable implements IExecutePersistTable {
 		Boolean respuesta = Boolean.TRUE;
 		switch (nameFile) {
 		case "BIG_CALIFICACION_CARTERA_CLIENTE":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigCalificacionCarteraCliente.setUrl(url);
+			respuesta = strategyMapperBigCalificacionCarteraCliente.executeUpload(delimiter);
 			break;
 		case "BIG_DESENDEUDESE":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigDesendeudese.setUrl(url);
+			respuesta = strategyMapperBigDesendeudese.executeUpload(delimiter);
 			break;
 		case "BIG_GEOREFERENCIAR_PROSPECTO":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigGeoreferenciarProspecto.setUrl(url);
+			respuesta = strategyMapperBigGeoreferenciarProspecto.executeUpload(delimiter);
 			break;
 		case "BIG_INFO_FINANCIERA":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigInfoFinanciera.setUrl(url);
+			respuesta = strategyMapperBigInfoFinanciera.executeUpload(delimiter);
 		case "BIG_METAS_FUERZA_COMERCIAL":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigMetasFuerzaComercial.setUrl(url);
+			respuesta = strategyMapperBigMetasFuerzaComercial.executeUpload(delimiter);
 			break;
 		case "BIG_METAS_OFICINA":
 			strategyMapperBigMetasOficina.setUrl(url);
 			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
 			break;
 		case "BIG_PARA_INDICADORES":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigIndicadores.setUrl(url);
+			respuesta = strategyMapperBigIndicadores.executeUpload(delimiter);
 			break;
 		case "BIG_PROSPECTOS":
-			strategyMapperBigMetasOficina.setUrl(url);
-			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
+			strategyMapperBigProspectos.setUrl(url);
+			respuesta = strategyMapperBigProspectos.executeUpload(delimiter);
 			break;
 		default:
 			break;

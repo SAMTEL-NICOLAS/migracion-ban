@@ -21,7 +21,6 @@ import co.com.samtel.cargue.exception.dto.ErrorMapperDto;
 import co.com.samtel.cargue.service.IReadResource;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 
 public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStrategyMapper<T> {
 

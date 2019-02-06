@@ -2,7 +2,7 @@
 <div ng-controller="uploadController">
     <form enctype="multipart/form-data" id="formuploadajax" method="post" action="servletupdate">
         <input type="hidden" name="user" id="user" value="">
-        <label>Archivo a Cargar: </label> 
+        <label>Archivo a Cargar: </label>
         <select name="archivo"
                 id="nombreArchivoCsv" ng-model="nombreArchivoCsv"
                 ng-options="o as o for o in listFiles"
