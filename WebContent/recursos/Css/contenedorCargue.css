@@ -1,0 +1,23 @@
+.contenedor2 {
+	text-align: left;
+	margin-top: 5%;
+	font: 10pt arial;
+}
+
+.titulo {
+	text-align: center;
+	font-weight: bold;
+}
+
+.selectArchivo {
+	width: 100%;
+}
+
+.boton {
+	padding: 3pt 64pt;
+	background: #d0122d;
+	color: #ffffff;
+	font: bold 10pt arial;
+	border: 0;
+	margin: auto; display: block;
+}

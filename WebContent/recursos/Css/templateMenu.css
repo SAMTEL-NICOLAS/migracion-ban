@@ -72,4 +72,8 @@ li :hover {
 .contenedor {
 	margin-top: 4%;
 	text-align: center;
+	width: 60%;
+	height: 500px;
+	position: relative;
+	margin: 0px auto;
 }

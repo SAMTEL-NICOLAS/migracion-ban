@@ -1,15 +1,41 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
+<link rel="stylesheet" type="text/css"
+      href="recursos/Css/contenedorCargue.css">
 <div ng-controller="uploadController" class="contenedor" id="contenedor">
-    <form enctype="multipart/form-data" id="formuploadajax" method="post" action="servletupdate">
-        <input type="hidden" name="user" id="user" value="">
-        <label>Archivo a Cargar: </label>
-        <select name="archivo"
-                id="nombreArchivoCsv" ng-model="nombreArchivoCsv"
-                ng-options="o as o for o in listFiles"
-                ng-init="nombreArchivoCsv = 'Seleccione un Archivo'">
-        </select> 
-        </br>
-        <input type="file" name="archivoCsv" id="archivoCsv" ng-model="archivoCsv"> </br> 
-        <input type="button" value="Cargue" ng-click="uploadFile()"> 
-    </form>
+    <div class="contenedor2" id="contenedor2">
+        <form enctype="multipart/form-data" id="formuploadajax" method="post" action="servletupdate">
+            <input type="hidden" name="user" id="user" value="">
+            <table border="1" style="margin: 0 auto;">
+                <tr>
+                    <td colspan="2" class="titulo" id="titulo">CARGUE EXCEL</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Nombre Archivo a Cargar: </label>            
+                    </td>
+                    <td>
+                        <select name="archivo"
+                                class="selectArchivo"
+                                id="nombreArchivoCsv" ng-model="nombreArchivoCsv"
+                                ng-options="o as o for o in listFiles"
+                                ng-init="nombreArchivoCsv = 'Seleccione un Archivo'">
+                        </select>             
+                    </td>
+                </tr>
+                <tr>  
+                    <td>
+                        <label>Archivo: </label>            
+                    </td>
+                    <td>
+                        <input type="file" name="archivoCsv" id="archivoCsv" ng-model="archivoCsv">             
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="Cargue" class="boton" ng-click="uploadFile()"> 
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
