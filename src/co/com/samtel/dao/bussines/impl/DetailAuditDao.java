@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import co.com.samtel.dao.bussines.IDetailAudit;
 import co.com.samtel.dao.impl.AbsDao;
@@ -21,20 +22,21 @@ public class DetailAuditDao extends AbsDao<DetailAudit, Long> implements IDetail
 		setTypeConection(TypeConections.SQLSERVER);
 	}
 
-	@Override
-	public List<DetailAudit> findAllDetailAudit() {
-		Session session = null;
-		List<DetailAudit> result = null;
-		try {
-			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
-			Criteria crit = session.createCriteria(getDomainClass());
-
-			result = crit.list();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			getFactorySessionHibernate().close(session, null);
-		}
-		return result;
-	}
+//	@Override
+//	public List<DetailAudit> findAllDetailAudit(String Date) {
+//		Session session = null;
+//		List<DetailAudit> result = null;
+//		try {
+//			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+//			Criteria crit = session.createCriteria(getDomainClass()
+//					.add (Restrictions.eq("")));
+//
+//			result = crit.list();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			getFactorySessionHibernate().close(session, null);
+//		}
+//		return result;
+//	}
 }

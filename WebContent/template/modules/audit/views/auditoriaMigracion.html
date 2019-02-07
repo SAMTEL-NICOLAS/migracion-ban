@@ -27,20 +27,17 @@
         <!--Tabla de resultados-->
         <table border="1" style="margin: 0 auto;" ng-show="showAnswerTable" class="answerTable">
             <tr class="answerTrTitle">
+              
+                <td>Fecha</td>
                 <td>Id</td>
-                <td>Tabla</td>
-                <td>Registro Origen</td>
-                <td>Registro Destino</td>
-                <td>Traza</td>
-                <td>Id Auditoria</td>
+                <td>Usuario</td>
             </tr>
             <tr ng-repeat="obj in listallDetailAudit">
+
+                <td class="answerTd">{{obj.fecha}}</td>
                 <td class="answerTd">{{obj.id}}</td>
-                <td class="answerTd">{{obj.tabla}}</td>
-                <td class="answerTd">{{obj.regOrigen}}</td>
-                <td class="answerTd">{{obj.regDestino}}</td>
-                <td class="answerTd">{{obj.traza}}</td>
-                <td class="answerTd">{{obj.idAudit}}</td>
+                <td class="answerTd">{{obj.usuario}}</td>
+
             </tr>
         </table>
     </div>

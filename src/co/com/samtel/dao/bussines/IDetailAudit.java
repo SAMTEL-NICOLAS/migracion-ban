@@ -1,5 +1,6 @@
 package co.com.samtel.dao.bussines;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -17,6 +18,6 @@ public interface IDetailAudit {
 	
 	Boolean updateEntity(DetailAudit entity);
 	
-	List<DetailAudit> findAllDetailAudit();
+	//List<DetailAudit> findAllDetailAudit(String date);
 	
 }
