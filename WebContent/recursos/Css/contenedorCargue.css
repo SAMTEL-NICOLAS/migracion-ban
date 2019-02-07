@@ -7,11 +7,11 @@
 .titulo {
 	text-align: center;
 	font-weight: bold;
-	color: #d0122d;
+	color: black;
 }
 
 .selectArchivo {
-	width: 100%;	
+	width: 100%;
 }
 
 .boton {
@@ -20,12 +20,13 @@
 	color: #ffffff;
 	font: bold 12pt arial;
 	border: 0;
-	margin: auto; display: block;
+	margin: auto;
+	display: block;
 }
 
 table {
 	width: 75%;
-	border-collapse: collapse;	
+	border-collapse: collapse;
 }
 
 td {
@@ -35,6 +36,5 @@ td {
 .titulo {
 	background-color: #dbdbdb;
 	border-bottom: solid 1px #0f362d;
-	color:white:
+	color: white:
 }
-	

@@ -30,6 +30,18 @@ app.controller('menuController', ['$scope', '$cookies', '$location', 'auth',
 		$scope.sendUpload = function () {
 			$location.path("/cargue");
 		}
+		
+		$scope.auditAs400 = function () {
+			$location.path("/auditoriaAs400");
+		}
+		
+		$scope.auditMigration = function () {
+			$location.path("/auditoriaMigracion");
+		}
+		
+		$scope.auditUploadExcel = function () {
+			$location.path("/auditoriaCargueExcel");
+		}
 
 	}
 ]);

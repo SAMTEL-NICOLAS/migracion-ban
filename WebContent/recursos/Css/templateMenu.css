@@ -19,38 +19,16 @@
 	float: right;
 }
 
+.center {
+	margin-left: 20%;
+}
+
 .divContenedorLogo {
 	margin-left: 20px;
 }
 
 .menuPrincipal {
-	max-width: 1300px;
 	margin: 0 auto;
-	position: relative;
-}
-
-ul {
-	list-style-type: none;
-}
-
-li {
-	float: left;
-}
-
-li a {
-	text-transform: uppercase;
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 12px;
-	text-decoration: none;
-	font-family: 'Fira Sans', sans-serif;
-	cursor: pointer;
-}
-
-li :hover {
-	background-color: white;
-	color: #bfd144;
 }
 
 .cerrarSesion {
@@ -66,6 +44,61 @@ li :hover {
 	text-align: right;
 	height: 30px;
 	margin-right: 20px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #d0122d;
+}
+
+li {
+	float: left;
+}
+
+li a, .dropbtn {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	padding: 20px 16px;
+	text-decoration: none;
+	font-family: 'Fira Sans', sans-serif;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+	background-color: white;
+	color: #bfd144;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
 }
 
 /* Estilos para el contenedor  */
