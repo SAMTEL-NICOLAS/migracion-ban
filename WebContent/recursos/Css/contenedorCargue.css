@@ -1,23 +1,40 @@
 .contenedor2 {
 	text-align: left;
 	margin-top: 5%;
-	font: 10pt arial;
+	font: 12pt arial;
 }
 
 .titulo {
 	text-align: center;
 	font-weight: bold;
+	color: #d0122d;
 }
 
 .selectArchivo {
-	width: 100%;
+	width: 100%;	
 }
 
 .boton {
-	padding: 3pt 64pt;
+	padding: 5pt 64pt;
 	background: #d0122d;
 	color: #ffffff;
-	font: bold 10pt arial;
+	font: bold 12pt arial;
 	border: 0;
 	margin: auto; display: block;
 }
+
+table {
+	width: 75%;
+	border-collapse: collapse;	
+}
+
+td {
+	padding: 20px;
+}
+
+.titulo {
+	background-color: #dbdbdb;
+	border-bottom: solid 1px #0f362d;
+	color:white:
+}
+	
