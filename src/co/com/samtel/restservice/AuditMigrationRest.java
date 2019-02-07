@@ -8,20 +8,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import co.com.samtel.dao.bussines.ILogActivadorDao;
+import co.com.samtel.dao.bussines.IDetailAudit;
 
 @Stateless
-@Path("/v.1/audit")
-public class AuditRest {
-
-	@EJB(beanName = "logActivadorDao")
-	ILogActivadorDao logActivadorDao;
+@Path("/v.1/auditMigration")
+public class AuditMigrationRest {
+	@EJB(beanName = "detailAuditDao")
+	IDetailAudit detailAuditDao;
 
 	@GET
-	@Path("/auditAs400")
+	@Path("/getAllDetailAudit")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getListLogActiva() {
-		return Response.status(Response.Status.OK).entity(logActivadorDao.findAllLogActive())
+		return Response.status(Response.Status.OK).entity(detailAuditDao.findAllDetailAudit())
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 }

@@ -8,17 +8,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "detalle_auditoria", schema = "dbo")
 public class DetailAudit {
+	
 	@Id
 	private Long id;
-	@Column(name="tabla")
+	@Column(name = "tabla")
 	private String tabla;
-	@Column(name="reg_origen")
+	@Column(name = "reg_origen")
 	private Long regOrigen;
-	@Column(name="reg_destino")
+	@Column(name = "reg_destino")
 	private Long regDestino;
-	@Column(name="traza")
+	@Column(name = "traza")
 	private String traza;
-	@Column(name="idAudit")
+	@Column(name = "idAudit")
 	private Long idAudit;
 
 	public Long getId() {

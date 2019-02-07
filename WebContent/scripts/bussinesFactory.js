@@ -88,10 +88,9 @@ app.factory(
             }
         ]);
 
-//Factory en el cual se realizara la obtencion de las auditorias a realizar
-//cargar
+//Factory en el cual se realizara la obtencion de la auditoria de As400
 app.factory(
-        "auditFact", [
+        "auditAs400Fact", [
             '$cookies',
             '$location',
             function ($cookies, $location) {
@@ -99,7 +98,7 @@ app.factory(
                     getAuditAs400: function () {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/audit/auditAs400",
+                            url: "resources/v.1/auditAs400/getAllLogActiva",
                             method: 'get',
                             dataType: 'json',
                             cache: false,
@@ -116,3 +115,31 @@ app.factory(
                 };
             }
         ]);
+
+// Factory en el cual se realizara la obtencion de la auditoria de la Migracion
+app.factory(
+		"auditMigrationFact", [
+			'$cookies',
+			'$location',
+			function ($cookies, $location) {
+				return {
+					getAllDetailAudit: function () {
+						var listData = [];
+						$.ajax({
+							url: "resources/v.1/auditMigration/getAllDetailAudit",
+							method: 'get',
+							dataType: 'json',
+							cache: false,
+							contentType: false,
+							processData: false,
+							async: false,
+							success: function (result) {
+								listData = result;
+								console.log(listData);
+							}
+						});
+						return listData;
+					}
+				};
+			}
+			]);

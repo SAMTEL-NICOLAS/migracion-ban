@@ -65,6 +65,7 @@ li a, .dropbtn {
 	padding: 20px 16px;
 	text-decoration: none;
 	font-family: 'Fira Sans', sans-serif;
+	cursor: pointer;
 }
 
 li a:hover, .dropdown:hover .dropbtn {
@@ -101,12 +102,3 @@ li.dropdown {
 	display: block;
 }
 
-/* Estilos para el contenedor  */
-.contenedor {
-	margin-top: 4%;
-	text-align: center;
-	width: 60%;
-	height: 500px;
-	position: relative;
-	margin: 0px auto;
-}

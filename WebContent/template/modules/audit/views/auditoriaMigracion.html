@@ -1,0 +1,28 @@
+<ng-include src="'template/menu/menu.html'"></ng-include>
+<link rel="stylesheet" type="text/css"
+      href="recursos/Css/auditoriaMigracion.css">
+<div ng-controller="uploadController" class="contenedor" id="contenedor">
+    <div class="contenedor2" id="contenedor2">
+        <table border="1" style="margin: 0 auto;">
+            <tr>
+                <td colspan="6"><label>Auditoria Migraci&oacute;n</label></td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td>Tabla</td>
+                <td>Registro Origen</td>
+                <td>Registro Destino</td>
+                <td>Traza</td>
+                <td>Id Auditoria</td>
+            </tr>
+            <tr ng-repeat="obj in listallDetailAudit">
+                <td>{{obj.id}}</td>
+                <td>{{obj.tabla}}</td>
+                <td>{{obj.regOrigen}}</td>
+                <td>{{obj.regDestino}}</td>
+                <td>{{obj.traza}}</td>
+                <td>{{obj.idAudit}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

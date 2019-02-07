@@ -14,12 +14,13 @@ app.config(function ($routeProvider) {
     }).when("/cargue", {
         templateUrl: "template/modules/cargue/views/indexCargue.html"
     }).when("/auditoriaAs400", {
-    	templateUrl: "template/modules/aunditoria/views/auditoriaAs400.html",
+    	templateUrl: "template/modules/audit/views/auditoriaAs400.html",
     	controller: "auditAs400Controller"
     }).when("/auditoriaMigracion", {
-    	templateUrl: "template/modules/aunditoria/views/auditoriaMigracion.html"
+    	templateUrl: "template/modules/audit/views/auditoriaMigracion.html",
+    	controller: "auditMigrationController"
     }).when("/auditoriaCargueExcel", {
-    	templateUrl: "template/modules/aunditoria/views/auditoriaCargueExcel.html"
+    	templateUrl: "template/modules/audit/views/auditoriaCargueExcel.html"
     }).otherwise({
         reditrectTo: "/"
     });
