@@ -6,8 +6,7 @@ app.factory("migrationFact", [
         return {
             callMigration: function () {
                 $.ajax({
-                    url: "resources/migracion/" +
-                            $cookies.get('username'),
+                    url: "resources/migracion/" + $cookies.get('username'),
                     method: 'GET',
                     dataType: 'json',
                     success: function (result) {
@@ -106,8 +105,8 @@ app.factory(
                             processData: false,
                             async: false,
                             success: function (result) {
-                            	 listData = result;
-                                 console.log(listData);
+                                listData = result;
+                                console.log(listData);
                             }
                         });
                         return listData;
@@ -118,28 +117,45 @@ app.factory(
 
 // Factory en el cual se realizara la obtencion de la auditoria de la Migracion
 app.factory(
-		"auditMigrationFact", [
-			'$cookies',
-			'$location',
-			function ($cookies, $location) {
-				return {
-					getAllDetailAudit: function () {
-						var listData = [];
-						$.ajax({
-							url: "resources/v.1/auditMigration/getAllDetailAudit",
-							method: 'get',
-							dataType: 'json',
-							cache: false,
-							contentType: false,
-							processData: false,
-							async: false,
-							success: function (result) {
-								listData = result;
-								console.log(listData);
-							}
-						});
-						return listData;
-					}
-				};
-			}
-			]);
+        "auditMigrationFact", [
+            '$cookies',
+            '$location',
+            function ($cookies, $location) {
+                return {
+                    getAllDetailAudit: function () {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditMigration/getAllDetailAudit",
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }, getDetailAuditByDate: function (date) {
+                    	alert(date);
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditMigration/getDetailAuditByDate/" + date,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }
+                };
+            }
+        ]);

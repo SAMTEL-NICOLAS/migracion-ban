@@ -152,7 +152,14 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 	// devolvemos a la vista el nombre del usuario
 	$scope.username = $cookies.get('username');
 	$scope.password = $cookies.get('password');
+	$scope.showAnswerTable = false;
 	
 	$scope.listallDetailAudit = auditMigrationFact.getAllDetailAudit();
+	
+	 $scope.getDetail = function () {
+		 var fechaAuditoria = document.getElementById("fechaAuditoria").value;
+		 auditMigrationFact.getDetailAuditByDate(fechaAuditoria);
+		 $scope.showAnswerTable = true;	 
+	 };
 }
 ]);

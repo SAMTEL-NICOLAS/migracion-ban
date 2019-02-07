@@ -2,6 +2,7 @@ package co.com.samtel.restservice;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,10 +18,20 @@ public class AuditMigrationRest {
 	IDetailAudit detailAuditDao;
 
 	@GET
+	@Path("/getDetailAuditByDate/{date}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDetailAuditByDate(@PathParam("date") String date) {
+		System.out.println(date);
+		return Response.status(Response.Status.OK).entity(detailAuditDao.findAllDetailAudit())
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
+
+	@GET
 	@Path("/getAllDetailAudit")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getListLogActiva() {
 		return Response.status(Response.Status.OK).entity(detailAuditDao.findAllDetailAudit())
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
+
 }
