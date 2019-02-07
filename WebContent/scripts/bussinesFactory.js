@@ -1,90 +1,118 @@
 //Factory en el cual se realizara todos los metodos de migracion
 app.factory("migrationFact", [
-	'$cookies',
-	'$location',
-	function ($cookies, $location) {
-		return {
-			callMigration: function () {
-				$.ajax({
-						url: "resources/migracion/" +
-							$cookies.get('username'),
-						method: 'GET',
-						dataType: 'json',
-						success: function (result) {
-							alert(JSON.stringify(result));
-						}
-					});
-			}
-		};
-	}
+    '$cookies',
+    '$location',
+    function ($cookies, $location) {
+        return {
+            callMigration: function () {
+                $.ajax({
+                    url: "resources/migracion/" +
+                            $cookies.get('username'),
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (result) {
+                        alert(JSON.stringify(result));
+                    }
+                });
+            }
+        };
+    }
 ]);
 
 // Factory en el cual se realizara todos los metodos de migracion
 app.factory("cargueFact", ['$cookies', '$location',
-	function ($cookies, $location) {
-		return {
-			uploadCargue: function (formData) {
-				$.ajax({
-					url: "resources/v.1/cargue/uploadForm",
-					method: 'post',
-					dataType: 'html',
-					data: formData,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function (result) {
-						alert(JSON.stringify(result));
-					}
-				});
-			}
+    function ($cookies, $location) {
+        return {
+            uploadCargue: function (formData) {
+                $.ajax({
+                    url: "resources/v.1/cargue/uploadForm",
+                    method: 'post',
+                    dataType: 'html',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        alert(JSON.stringify(result));
+                    }
+                });
+            }
 
-		};
-	}
+        };
+    }
 ]);
 
 // Factory en el cual se realizara la obtencion de los archivos disponibles para
 // cargar
-app
-	.factory(
-		"filesToUploadFact", [
-			'$cookies',
-			'$location',
-			function ($cookies, $location) {
-				return {
-					getParamsFiles: function (formData) {
-						var listData = [];
-						$.ajax({
-								url: "resources/v.1/cargue/listFiles",
-								method: 'get',
-								dataType: 'json',
-								cache: false,
-								contentType: false,
-								processData: false,
-								async: false,
-								success: function (result) {
-									if (result.message == 'OK' &&
-										result.typeError == 'SUCCESS') {
-										listData = result.listResponse;
-										listData
-											.push('Seleccione un Archivo');
-									} else {
-										alert('Error al obtener los parametros de los archivos csv');
-									}
-								}
-							});
-						return listData;
-					},
-					runUploadFile: function () {
-						$.ajax({
-							url: "resources/v.1/uploadExcel/" +
-								$cookies.get('username'),
-							method: 'GET',
-							dataType: 'json',
-							success: function (result) {
-								alert(JSON.stringify(result));
-							}
-						});
-					}
-				};
-			}
-		]);
+app.factory(
+        "filesToUploadFact", [
+            '$cookies',
+            '$location',
+            function ($cookies, $location) {
+                return {
+                    getParamsFiles: function (formData) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/cargue/listFiles",
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                if (result.message == 'OK' &&
+                                        result.typeError == 'SUCCESS') {
+                                    listData = result.listResponse;
+                                    listData
+                                            .push('Seleccione un Archivo');
+                                } else {
+                                    alert('Error al obtener los parametros de los archivos csv');
+                                }
+                            }
+                        });
+                        return listData;
+                    },
+                    runUploadFile: function () {
+                        $.ajax({
+                            url: "resources/v.1/uploadExcel/" +
+                                    $cookies.get('username'),
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function (result) {
+                                alert(JSON.stringify(result));
+                            }
+                        });
+                    }
+                };
+            }
+        ]);
+
+//Factory en el cual se realizara la obtencion de las auditorias a realizar
+//cargar
+app.factory(
+        "auditFact", [
+            '$cookies',
+            '$location',
+            function ($cookies, $location) {
+                return {
+                    getAuditAs400: function () {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/audit/auditAs400",
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                            	 listData = result;
+                                 console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }
+                };
+            }
+        ]);

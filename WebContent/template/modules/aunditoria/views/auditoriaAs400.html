@@ -3,6 +3,24 @@
       href="recursos/Css/contenedorCargue.css">
 <div ng-controller="uploadController" class="contenedor" id="contenedor">
     <div class="contenedor2" id="contenedor2">
-        <h1>Auditoria As400</h1>
+        <table border="1" style="margin: 0 auto;">
+            <tr>
+                <td colspan="5"><label>Auditoria As400</label></td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td>A&ntilde;o</td>
+                <td>Dia</td>
+                <td>Estado</td>
+                <td>Nombre Tabla</td>
+            </tr>
+            <tr ng-repeat="obj in listAuditAs400">
+                <td>{{obj.id}}</td>
+                <td>{{obj.anio}}</td>
+                <td>{{obj.dia}}</td>
+                <td>{{obj.estado}}</td>
+                <td>{{obj.nombreTabla}}</td>
+            </tr>
+        </table>
     </div>
 </div>

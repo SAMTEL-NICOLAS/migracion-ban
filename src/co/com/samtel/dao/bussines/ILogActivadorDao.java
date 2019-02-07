@@ -13,4 +13,6 @@ public interface ILogActivadorDao {
 	
 	Boolean updateEntity(LogActivador entity);
 
+	List<LogActivador> findAllLogActive();
+
 }

@@ -14,7 +14,8 @@ app.config(function ($routeProvider) {
     }).when("/cargue", {
         templateUrl: "template/modules/cargue/views/indexCargue.html"
     }).when("/auditoriaAs400", {
-    	templateUrl: "template/modules/aunditoria/views/auditoriaAs400.html"
+    	templateUrl: "template/modules/aunditoria/views/auditoriaAs400.html",
+    	controller: "auditAs400Controller"
     }).when("/auditoriaMigracion", {
     	templateUrl: "template/modules/aunditoria/views/auditoriaMigracion.html"
     }).when("/auditoriaCargueExcel", {

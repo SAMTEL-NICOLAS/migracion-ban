@@ -134,3 +134,17 @@ app.controller('uploadController', [
 
 	}
 ]);
+
+// Controlador de la auditoria de As400
+app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth',
+	'auditFact',
+	function ($scope, $cookies, auth, auditFact) {
+		// devolvemos a la vista el nombre del usuario
+		$scope.username = $cookies.get('username');
+		$scope.password = $cookies.get('password');
+
+		$scope.listAuditAs400 = auditFact.getAuditAs400();
+		
+		
+	}
+]);
