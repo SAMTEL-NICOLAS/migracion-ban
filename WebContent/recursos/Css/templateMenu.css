@@ -2,68 +2,74 @@
     Created on : 18/01/2019, 09:32:38 AM
     Author     : Jeferson
 */
-
-.topBanerLogo{
-    min-height: 58px;
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    background-color: #d0122d;
-    padding-top: 30px;
+.topBanerLogo {
+	min-height: 58px;
+	margin: 0 auto;
+	position: relative;
+	width: 100%;
+	background-color: #d0122d;
+	padding-top: 30px;
 }
 
-.left{
-    float: left;
-}
-.right{
-    float: right;
+.left {
+	float: left;
 }
 
-.divContenedorLogo{
-    margin-left: 20px;
+.right {
+	float: right;
 }
 
-.menuPrincipal{
-    max-width: 1300px;
-    margin: 0 auto;
-    position: relative;
+.divContenedorLogo {
+	margin-left: 20px;
+}
+
+.menuPrincipal {
+	max-width: 1300px;
+	margin: 0 auto;
+	position: relative;
 }
 
 ul {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 li {
-    float: left;
+	float: left;
 }
 
-li a{
-    text-transform: uppercase;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-family: 'Fira Sans',sans-serif;
-    cursor:pointer;
+li a {
+	text-transform: uppercase;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 12px;
+	text-decoration: none;
+	font-family: 'Fira Sans', sans-serif;
+	cursor: pointer;
 }
 
 li :hover {
-    background-color: white;
-    color: #bfd144;
+	background-color: white;
+	color: #bfd144;
 }
 
-.cerrarSesion{
-    background-color: black;
-    float: right;
-    height: 30px;
-    width: 5%;
+.cerrarSesion {
+	background-color: black;
+	float: right;
+	height: 30px;
+	width: 5%;
 }
 
-.contenedorSesion{
-    color: #ffffff;
-    font: bold 10pt arial;
-    text-align: right;
-    height: 30px;
-    margin-right: 20px;
+.contenedorSesion {
+	color: #ffffff;
+	font: bold 10pt arial;
+	text-align: right;
+	height: 30px;
+	margin-right: 20px;
+}
+
+/* Estilos para el contenedor  */
+.contenedor {
+	margin-top: 4%;
+	text-align: center;
 }
