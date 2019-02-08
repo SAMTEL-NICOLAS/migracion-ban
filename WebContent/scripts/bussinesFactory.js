@@ -122,27 +122,11 @@ app.factory(
             '$location',
             function ($cookies, $location) {
                 return {
-                    getAllDetailAudit: function () {
-                        var listData = [];
-                        $.ajax({
-                            url: "resources/v.1/auditMigration/getAllDetailAudit",
-                            method: 'get',
-                            dataType: 'json',
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            async: false,
-                            success: function (result) {
-                                listData = result;
-                                console.log(listData);
-                            }
-                        });
-                        return listData;
-                    }, getDetailAuditByDate: function (date) {
+                    getAuditByDate: function (date) {
                     	alert(date);
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditMigration/getDetailAuditByDate/" + date,
+                            url: "resources/v.1/auditMigration/getAuditByDate/" + date,
                             method: 'get',
                             dataType: 'json',
                             cache: false,

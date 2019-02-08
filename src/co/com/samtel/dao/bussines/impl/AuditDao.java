@@ -17,23 +17,21 @@ import org.hibernate.exception.JDBCConnectionException;
 import co.com.samtel.dao.bussines.IAuditDao;
 import co.com.samtel.dao.impl.AbsDao;
 import co.com.samtel.entity.business.Auditoria;
-import co.com.samtel.entity.business.DetailAudit;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
 
-@Stateless(name="auditDao")
+@Stateless(name = "auditDao")
 public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
-	
-	
+
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
-	
+
 	@PostConstruct
 	public void init() {
 		setTypeConection(TypeConections.SQLSERVER);
 	}
-	
+
 	@Override
 	public Long insertAudit(Auditoria audit) throws ControlledExeption {
 		Session session = null;
@@ -44,9 +42,10 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 			tx = session.beginTransaction();
 			id = (Long) session.save(audit);
 			tx.commit();
-		}catch (JDBCConnectionException e) {
-			throw new ControlledExeption("Error al intentar generar la conexion a la base de datos: " +getTypeConection().getValue()); 
-		}catch (Exception e) {
+		} catch (JDBCConnectionException e) {
+			throw new ControlledExeption(
+					"Error al intentar generar la conexion a la base de datos: " + getTypeConection().getValue());
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, null);
@@ -54,16 +53,42 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 		return id;
 	}
 
+	/**
+	 * Metodo que se encarga de consultar los registros de la tabla de AUDITORIA
+	 * filtrandolos por fecha.
+	 */
 	@Override
-	public List<Auditoria> finAuditSqlServer(String date) {
+	public List<Auditoria> getAuditByDate(String date) {
 		Session session = null;
 		List<Auditoria> result = null;
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
-			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");		
+			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
 			Date fecha = parseador.parse(date);
-			Criteria crit = session.createCriteria(getDomainClass()).add(Restrictions.eq("fecha", fecha));
-			//Criteria crit = session.createCriteria(getDomainClass());
+			 Criteria crit = session.createCriteria(getDomainClass()).add(Restrictions.ge("fecha",
+			 fecha));
+		//Criteria crit = session.createCriteria(getDomainClass());
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
+
+	/**
+	 * Metodo que se encarga de consultar todos los registros de la tabla AUDITORIA
+	 * que se encuentra en la base de datos.
+	 */
+	@Override
+	public List<Auditoria> findAllAudit() {
+		Session session = null;
+		List<Auditoria> result = null;
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			Criteria crit = session.createCriteria(getDomainClass());
+
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();

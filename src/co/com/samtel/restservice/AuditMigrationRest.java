@@ -14,25 +14,32 @@ import co.com.samtel.dao.bussines.IAuditDao;
 @Stateless
 @Path("/v.1/auditMigration")
 public class AuditMigrationRest {
-	
+
 	@EJB(beanName = "auditDao")
 	IAuditDao auditDao;
 
+	/**
+	 * Servicio que se encarga de recuperar la fecha de la vista y la envia a la
+	 * consulta para luego retornar la respuesta por medio de un objeto Json.
+	 * 
+	 * @param date
+	 * @return
+	 */
 	@GET
-	@Path("/getDetailAuditByDate/{date}")
+	@Path("/getAuditByDate/{date}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDetailAuditByDate(@PathParam("date") String date) {
+	public Response getAuditByDate(@PathParam("date") String date) {
 		System.out.println(date);
-		return Response.status(Response.Status.OK).entity(auditDao.finAuditSqlServer(date))
+		return Response.status(Response.Status.OK).entity(auditDao.getAuditByDate(date))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 
-//	@GET
-//	@Path("/getAllDetailAudit")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getListLogActiva() {
-//		return Response.status(Response.Status.OK).entity(detailAuditDao.findAllDetailAudit())
-//				.type(MediaType.APPLICATION_JSON_TYPE).build();
-//	}
+	@GET
+	@Path("/getAllAudit")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllAudit() {
+		return Response.status(Response.Status.OK).entity(auditDao.findAllAudit()).type(MediaType.APPLICATION_JSON_TYPE)
+				.build();
+	}
 
 }
