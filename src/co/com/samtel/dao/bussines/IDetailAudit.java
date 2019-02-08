@@ -17,7 +17,10 @@ public interface IDetailAudit {
 	Boolean saveEntity(DetailAudit entity);
 	
 	Boolean updateEntity(DetailAudit entity);
+
+	List<DetailAudit> getAllDetailAudit();
 	
-	//List<DetailAudit> findAllDetailAudit(String date);
+	List<DetailAudit> getDetailById(String idDatail);
+	
 	
 }

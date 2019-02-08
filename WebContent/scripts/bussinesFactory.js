@@ -60,8 +60,8 @@ app.factory(
                             processData: false,
                             async: false,
                             success: function (result) {
-                                if (result.message == 'OK' &&
-                                        result.typeError == 'SUCCESS') {
+                                if (result.message === 'OK' &&
+                                        result.typeError === 'SUCCESS') {
                                     listData = result.listResponse;
                                     listData
                                             .push('Seleccione un Archivo');
@@ -126,6 +126,22 @@ app.factory(
                         var listData = [];
                         $.ajax({
                             url: "resources/v.1/auditMigration/getAuditByDate/" + date1 + "/" + date2,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }, getDetailById: function (idDatail) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditMigration/getDetailById/" + idDatail,
                             method: 'get',
                             dataType: 'json',
                             cache: false,

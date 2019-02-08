@@ -160,5 +160,11 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 		 $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
 		 $scope.showAnswerTable = true;	 
 	 };
+	 
+	 $scope.getDetailById = function (idDetail) {
+		 alert(idDetail);
+		 $scope.listDatailAudit = auditMigrationFact.getDetailById(idDetail);
+		 alert($scope.listDatailAudit);
+	 };
 }
 ]);

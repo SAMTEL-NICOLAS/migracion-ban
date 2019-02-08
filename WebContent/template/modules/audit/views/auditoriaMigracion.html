@@ -1,6 +1,6 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
-<link rel="stylesheet" type="text/css"
-      href="recursos/Css/auditoriaMigracion.css">
+
+<link rel="stylesheet" type="text/css" href="recursos/Css/auditoriaMigracion.css">
 <div ng-controller="uploadController" class="contenedor" id="contenedor">
     <div class="contenedor2" id="contenedor2">
 
@@ -37,13 +37,18 @@
                     <td>Id</td>
                     <td>Usuario</td>  
                     <td>Fecha</td>
+                    <td>Detalle</td>
                 </tr>
                 <tr ng-repeat="obj in listAudit">
                     <td class="answerTd">{{obj.id}}</td>
                     <td class="answerTd">{{obj.usuario}}</td>
                     <td class="answerTd">{{obj.fecha}}</td>
+                    <td class="answerTd">
+                        <input type="button" ng-click="getDetailById(5)" value="Ver detalles...">
+                    </td>
                 </tr>
             </table>
         </div>
+
     </div>
 </div>

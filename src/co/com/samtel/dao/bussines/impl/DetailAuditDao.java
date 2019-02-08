@@ -22,21 +22,42 @@ public class DetailAuditDao extends AbsDao<DetailAudit, Long> implements IDetail
 		setTypeConection(TypeConections.SQLSERVER);
 	}
 
-//	@Override
-//	public List<DetailAudit> findAllDetailAudit(String Date) {
-//		Session session = null;
-//		List<DetailAudit> result = null;
-//		try {
-//			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
-//			Criteria crit = session.createCriteria(getDomainClass()
-//					.add (Restrictions.eq("")));
-//
-//			result = crit.list();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			getFactorySessionHibernate().close(session, null);
-//		}
-//		return result;
-//	}
+	/**
+	 * Metodo que se encarga de consultar el detalle de la auditoria en la base de
+	 * datos filtrando por el id de la tabla padre.
+	 */
+	@Override
+	public List<DetailAudit> getDetailById(String idDatail) {
+		Session session = null;
+		List<DetailAudit> result = null;
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			Criteria crit = session.createCriteria(getDomainClass());
+			crit.add(Restrictions.eq("idAudit", Long.valueOf(idDatail)));
+
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
+
+	@Override
+	public List<DetailAudit> getAllDetailAudit() {
+		Session session = null;
+		List<DetailAudit> result = null;
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			Criteria crit = session.createCriteria(getDomainClass());
+
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
 }
