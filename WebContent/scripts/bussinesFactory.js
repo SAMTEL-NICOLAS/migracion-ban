@@ -122,11 +122,10 @@ app.factory(
             '$location',
             function ($cookies, $location) {
                 return {
-                    getAuditByDate: function (date) {
-                    	alert(date);
+                    getAuditByDate: function (date1, date2) {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditMigration/getAuditByDate/" + date,
+                            url: "resources/v.1/auditMigration/getAuditByDate/" + date1 + "/" + date2,
                             method: 'get',
                             dataType: 'json',
                             cache: false,

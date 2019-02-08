@@ -21,6 +21,6 @@ public interface IAuditDao {
 
 	List<Auditoria> findAllAudit();
 
-	List<Auditoria> getAuditByDate(String date);
+	List<Auditoria> getAuditByDate(String date1, String date2);
 
 }

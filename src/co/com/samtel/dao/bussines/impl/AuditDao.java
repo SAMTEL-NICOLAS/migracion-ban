@@ -1,6 +1,7 @@
 package co.com.samtel.dao.bussines.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -58,16 +59,18 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 	 * filtrandolos por fecha.
 	 */
 	@Override
-	public List<Auditoria> getAuditByDate(String date) {
+	public List<Auditoria> getAuditByDate(String date1, String date2) {
 		Session session = null;
 		List<Auditoria> result = null;
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
 			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
-			Date fecha = parseador.parse(date);
-			 Criteria crit = session.createCriteria(getDomainClass()).add(Restrictions.ge("fecha",
-			 fecha));
-		//Criteria crit = session.createCriteria(getDomainClass());
+			Date fecha1 = parseador.parse(date1);
+			Date fecha2 = parseador.parse(date2);
+			fecha2 = addDays(fecha2, 1);
+			Criteria crit = session.createCriteria(getDomainClass());
+			crit.add(Restrictions.ge("fecha", fecha1));
+			crit.add(Restrictions.lt("fecha", fecha2));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,4 +101,21 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 		return result;
 	}
 
+	/**
+	 * Metodo que se encarga de sumar dias a una fecha.
+	 * 
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public Date addDays(Date date, int day) {
+		if (day == 0) {
+			return date;
+		}
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_YEAR, day);
+		return calendar.getTime();
+	}
 }

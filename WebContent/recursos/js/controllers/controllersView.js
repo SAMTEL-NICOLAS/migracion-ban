@@ -154,11 +154,10 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 	$scope.password = $cookies.get('password');
 	$scope.showAnswerTable = false;
 	
-	$scope.listallDetailAudit = auditMigrationFact.getAuditByDate();
-	
-	 $scope.getDetail = function () {
-		 var fechaAuditoria = document.getElementById("fechaAuditoria").value;
-		 auditMigrationFact.getAuditByDate(fechaAuditoria);
+	 $scope.getAuditByDate = function () {
+		 var date1 = document.getElementById("fechaInicio").value;
+		 var date2 = document.getElementById("fechaFin").value;
+		 $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
 		 $scope.showAnswerTable = true;	 
 	 };
 }

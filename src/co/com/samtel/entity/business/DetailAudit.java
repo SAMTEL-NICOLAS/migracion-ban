@@ -2,23 +2,35 @@ package co.com.samtel.entity.business;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "detalle_auditoria", schema = "dbo")
 public class DetailAudit {
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idAudit", nullable = false)
+	private Auditoria auditoria;
+
 	@Id
 	private Long id;
+
 	@Column(name = "tabla")
 	private String tabla;
+
 	@Column(name = "reg_origen")
 	private Long regOrigen;
+
 	@Column(name = "reg_destino")
 	private Long regDestino;
+
 	@Column(name = "traza")
 	private String traza;
+
 	@Column(name = "idAudit")
 	private Long idAudit;
 

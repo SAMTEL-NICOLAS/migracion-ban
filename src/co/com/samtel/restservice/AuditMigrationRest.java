@@ -9,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.JSONObject;
+
 import co.com.samtel.dao.bussines.IAuditDao;
 
 @Stateless
@@ -26,11 +28,10 @@ public class AuditMigrationRest {
 	 * @return
 	 */
 	@GET
-	@Path("/getAuditByDate/{date}")
+	@Path("/getAuditByDate/{date1}/{date2}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAuditByDate(@PathParam("date") String date) {
-		System.out.println(date);
-		return Response.status(Response.Status.OK).entity(auditDao.getAuditByDate(date))
+	public Response getAuditByDate(@PathParam("date1") String date1, @PathParam("date2") String date2) {
+		return Response.status(Response.Status.OK).entity(auditDao.getAuditByDate(date1, date2))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 
