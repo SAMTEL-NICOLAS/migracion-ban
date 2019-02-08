@@ -16,9 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "Auditoria", schema = "dbo")
 public class Auditoria {
 
-	@OneToMany(mappedBy = "idAudit")
-	private List<DetailAudit> detailAudit = new ArrayList<DetailAudit>();
-	
+
 	@Id
 	private Long id;
 
@@ -66,12 +64,6 @@ public class Auditoria {
 		this.fecha = fecha;
 	}
 
-	public List<DetailAudit> getDetailAudit() {
-		return detailAudit;
-	}
 
-	public void setDetailAudit(List<DetailAudit> detailAudit) {
-		this.detailAudit = detailAudit;
-	}
 
 }

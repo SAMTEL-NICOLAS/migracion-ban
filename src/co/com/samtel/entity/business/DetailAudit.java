@@ -12,9 +12,7 @@ import javax.persistence.Table;
 @Table(name = "detalle_auditoria", schema = "dbo")
 public class DetailAudit {
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idAudit", nullable = false)
-	private Auditoria auditoria;
+
 
 	@Id
 	private Long id;
