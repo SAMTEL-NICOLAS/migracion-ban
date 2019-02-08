@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,10 +19,10 @@ public class AuditAs400Rest {
 	ILogActivadorDao logActivadorDao;
 
 	@GET
-	@Path("/getAllLogActiva")
+	@Path("/getAllLogActiva/{estado}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllLogActiva() {
-		return Response.status(Response.Status.OK).entity(logActivadorDao.findAllLogActive())
+	public Response getAllLogActiva(@PathParam("estado") String estado) {
+		return Response.status(Response.Status.OK).entity(logActivadorDao.findAllLogActive(estado))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 

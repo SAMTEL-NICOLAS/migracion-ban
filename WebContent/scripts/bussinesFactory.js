@@ -94,10 +94,10 @@ app.factory(
             '$location',
             function ($cookies, $location) {
                 return {
-                    getAuditAs400: function () {
+                    getAuditAs400: function (estado) {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditAs400/getAllLogActiva",
+                            url: "resources/v.1/auditAs400/getAllLogActiva/"+ estado ,
                             method: 'get',
                             dataType: 'json',
                             cache: false,
