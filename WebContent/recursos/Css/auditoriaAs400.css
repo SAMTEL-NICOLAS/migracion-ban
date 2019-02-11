@@ -39,11 +39,20 @@ table {
 }
 
 td {
-	padding: 20px;
+	padding: 10px;
 }
-
+tr {
+	text-align: center;
+}
 .titulo {
 	background-color: #dbdbdb;
 	border-bottom: solid 1px #0f362d;
 	color: white:
+}
+#tituloConsulta {
+	background-color: #dbdbdb;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+	border-bottom: solid 1px #0f362d;
 }

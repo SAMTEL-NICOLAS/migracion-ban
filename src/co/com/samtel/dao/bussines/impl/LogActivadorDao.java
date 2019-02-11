@@ -41,12 +41,12 @@ public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogA
 	}
 	
 	@Override
-	public List<LogActivador> findAllLogActive() {
+	public List<LogActivador> findAllLogActive(String estado) {
 		Session session = null;
 		List<LogActivador> result = null;
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
-			Criteria crit = session.createCriteria(getDomainClass());
+			Criteria crit = session.createCriteria(getDomainClass()).add(Restrictions.eq("estado",estado));
 			
 			result = crit.list();
 		} catch (Exception e) {

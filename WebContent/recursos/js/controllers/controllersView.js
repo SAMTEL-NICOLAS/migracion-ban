@@ -141,9 +141,15 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
-
-        $scope.listAuditAs400 = auditAs400Fact.getAuditAs400();
-    }
+        $scope.showAnswerTableAs = false;             
+        
+        $scope.getFind = function () {
+        var estado = document.getElementById("selectEstado").value;
+        $scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);
+        $scope.showAnswerTableAs = true;	 
+    
+		};
+}
 ]);
 
 // Controlador de la auditoria de la Migracion
