@@ -158,3 +158,48 @@ app.factory(
                 };
             }
         ]);
+
+
+//Factory en el cual se realizara la obtencion de la auditoria del cargue del Excel
+app.factory(
+        "auditUploadExcelFact", [
+            '$cookies',
+            '$location',
+            function ($cookies, $location) {
+                return {
+                    getAuditByDate: function (date1, date2) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditUploadExcelRest/getAuditByDate/" + date1 + "/" + date2,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }, getDetailById: function (idDatail) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditUploadExcelRest/getDetailById/" + idDatail,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }
+                };
+            }
+        ]);

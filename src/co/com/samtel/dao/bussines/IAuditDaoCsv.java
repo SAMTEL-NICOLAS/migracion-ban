@@ -1,5 +1,7 @@
 package co.com.samtel.dao.bussines;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import co.com.samtel.entity.business.AuditoriaCsv;
@@ -17,4 +19,8 @@ public interface IAuditDaoCsv {
 	Long insertAudit(AuditoriaCsv audit) throws ControlledExeption;
 
 	Long getMaxValue() throws ControlledExeption;
+
+	List<AuditoriaCsv> findAllAudit();
+
+	List<AuditoriaCsv> getAuditByDate(String date1, String date2);
 }

@@ -194,13 +194,14 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 
         // Funcion que se encarga de consultar los detalles de la auditoria.
         $scope.getDetailById = function (objDatail) {
+        	var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaMigracion.html';
             $scope.listDetailAudit = auditMigrationFact.getDetailById(objDatail.id);
 
             if ($scope.listDetailAudit.length === 0) {
                 alert($scope.message);
             } else {
                 ngDialog.open({
-                    template: 'template/modules/audit/views/modalAuditoriaMigracion.html',
+                    template: urlTemplate,
                     className: 'ngdialog-theme-default',
                     scope: $scope
                 });
@@ -257,3 +258,113 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
         ;
     }
 ]);
+
+
+//Controlador de la auditoria de la Migracion
+app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'auditUploadExcelFact', 'ngDialog',
+    function ($scope, $cookies, auth, auditUploadExcelFact, ngDialog) {
+
+        app.filter('startFrom', function () {
+            return function (input, start) {
+                start = +start;
+                return input.slice(start);
+            };
+        });
+        footerOfTableOne();
+
+        $('#fechaInicio').val(actualDate());
+        $('#fechaFin').val(actualDate());
+
+
+        // devolvemos a la vista el nombre del usuario
+        $scope.username = $cookies.get('username');
+        $scope.password = $cookies.get('password');
+        $scope.showAnswerTable = false;
+        $scope.message = "No hay registros que mostrar";
+
+        // Funcion que se encarga de consultar la Auditoria de la migración.
+        $scope.getAuditByDate = function () {
+            var date1 = $("#fechaInicio").val();
+            var date2 = $("#fechaFin").val();
+            
+
+            if (validateDates()) {
+                $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2);
+                if ($scope.listAudit.length === 0) {
+                    alert($scope.message);
+                    $scope.showAnswerTable = false;
+                } else {
+                    $scope.showAnswerTable = true;
+                }
+
+            }
+
+        };
+
+        // Funcion que se encarga de consultar los detalles de la auditoria.
+        $scope.getDetailById = function (objDatail) {
+        	var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaCargueExcel.html';
+            $scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id);
+
+            if ($scope.listDetailAudit.length === 0) {
+                alert($scope.message);
+            } else {
+                ngDialog.open({
+                    template: urlTemplate,
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+            }
+        };
+
+        // Funcion que se encarga de obtener la fecha actual.
+        function actualDate() {
+            var fecha = new Date();
+            var anno = fecha.getFullYear();
+            var mes = (fecha.getMonth() + 1);
+
+            var fechaActual;
+            if (mes < 10) {
+                fechaActual = anno + "-0" + mes + "-" + fecha.getDate();
+            } else {
+                fechaActual = anno + "-" + mes + "-" + fecha.getDate();
+            }
+
+            return fechaActual;
+        }
+        ;
+
+        // Funcion que se encarga de validar que la fecha fin no sea mayor a la fecha inicial.
+        function validateDates() {
+            var fechaInicial = formatDate($("#fechaInicio").val());
+            var fechaFinal = formatDate($("#fechaFin").val());
+            if (fechaFinal.getTime() < fechaInicial.getTime()) {
+                $("#fechaFin").val($("#fechaInicio").val());
+                alert('La fecha inicial es mayor a la final..');
+                return false;
+            }
+            return true;
+        }
+        ;
+
+        // Funcion que se encarga de darle un formato a la fecha para poderla validar.
+        function formatDate(date) {
+            var date_aux = date.split("-");
+            return new Date(parseInt(date_aux[2]), parseInt(date_aux[1] - 1), parseInt(date_aux[0]));
+        }
+        ;
+
+        // Pie de pagina para la tabla de de la Auditoria.
+        function footerOfTableOne() {
+            $scope.t1CurrentPage = 0;
+            $scope.t1PageSize = 10;
+            $scope.data = [];
+
+            $scope.t1NumberOfPages = function () {
+                return Math.ceil($scope.listAudit.length / $scope.t1PageSize);
+            };
+        }
+        ;
+    }
+]);
+

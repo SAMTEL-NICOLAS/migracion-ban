@@ -1,7 +1,7 @@
 .contenedor {
 	margin-top: 4%;
 	text-align: center;
-	width: 60%;
+	/* 	width: 60%; */
 	height: 500px;
 	position: relative;
 	margin: 0px auto;
@@ -9,14 +9,29 @@
 
 .contenedor2 {
 	text-align: left;
-	margin-top: 5%;
+	margin-top: 3%;
 	font: 12pt arial;
 }
 
-.titulo {
+td {
+	padding: 8px;
+}
+
+.queryTable {
+	width: 75%;
+	border-collapse: collapse;
+}
+
+.queryTd {
+	padding: 8px;
+}
+
+#tituloConsulta, #tituloRespuesta {
+	background-color: #dbdbdb;
 	text-align: center;
 	font-weight: bold;
 	color: black;
+	border-bottom: solid 1px #0f362d;
 }
 
 .selectArchivo {
@@ -33,17 +48,39 @@
 	display: block;
 }
 
-table {
+.answerTable {
 	width: 75%;
 	border-collapse: collapse;
 }
 
-td {
+.answerTd {
+	padding: 8px;
+}
+
+.answerTrTitle {
 	padding: 20px;
+	background-color: #dbdbdb;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+	border-bottom: solid 1px #0f362d;
 }
 
 .titulo {
 	background-color: #dbdbdb;
 	border-bottom: solid 1px #0f362d;
 	color: white:
+}
+
+.btnPaginador {
+	padding: 5pt 4pt;
+	background: #d0122d;
+	color: #ffffff;
+	border: 0;
+	margin: auto;
+}
+
+/* Modal */
+.ngdialog-content {
+	width: 80% !Important;
 }

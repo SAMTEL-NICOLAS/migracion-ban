@@ -20,7 +20,8 @@ app.config(function ($routeProvider) {
     	templateUrl: "template/modules/audit/views/auditoriaMigracion.html",
     	controller: "auditMigrationController"
     }).when("/auditoriaCargueExcel", {
-    	templateUrl: "template/modules/audit/views/auditoriaCargueExcel.html"
+    	templateUrl: "template/modules/audit/views/auditoriaCargueExcel.html",
+    		controller: "auditUploadExcelController"
     }).otherwise({
         reditrectTo: "/"
     });

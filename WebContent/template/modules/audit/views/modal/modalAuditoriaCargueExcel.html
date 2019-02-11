@@ -1,0 +1,21 @@
+<div ng-controller="auditUploadExcelController">
+    <!--Tabla de resultados Detalles-->
+    <table border="1" style="margin: 0 auto;" class="answerTable" >
+        <tr class="answerTrTitle">
+            <td>Id</td>
+            <td>Tabla</td>
+            <td>Registro Origen</td>
+            <td>Registro Destino</td>
+            <td>Traza</td>
+            <td>Id Auditoria</td>
+        </tr>
+        <tr ng-repeat="obj in listDetailAudit">
+            <td class="answerTd">{{obj.id}}</td>
+            <td class="answerTd">{{obj.tabla}}</td>
+            <td class="answerTd">{{obj.regOrigen}}</td>
+            <td class="answerTd">{{obj.regDestino}}</td>
+            <td class="answerTd">{{obj.traza}}</td>
+            <td class="answerTd">{{obj.idAudit}}</td>
+        </tr>
+    </table>
+</div>
