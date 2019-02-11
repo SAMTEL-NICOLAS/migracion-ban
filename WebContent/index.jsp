@@ -5,6 +5,7 @@
         <script src="recursos/js/angular.js"></script>
         <script src="recursos/js/angular-route.js"></script>
         <script src="recursos/js/angular-cookies.js"></script>
+        <script src="recursos/js/ngDialog.min.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
         <script type="text/javascript"
         src="recursos/js/controllers/controllersView.js"></script>

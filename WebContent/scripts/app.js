@@ -1,4 +1,4 @@
-var app = angular.module("migracionApp", ['ngCookies', 'ngRoute']);
+var app = angular.module("migracionApp", ['ngCookies', 'ngRoute', 'ngDialog']);
 
 app.config(function ($routeProvider) {
     $routeProvider.when("/", {

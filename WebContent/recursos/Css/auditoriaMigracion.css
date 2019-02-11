@@ -71,3 +71,8 @@ td {
 	border-bottom: solid 1px #0f362d;
 	color: white:
 }
+
+/* Modal */
+.ngdialog-content {
+	width: 80% !Important;
+}

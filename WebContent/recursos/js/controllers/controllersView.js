@@ -141,36 +141,47 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
-        $scope.showAnswerTableAs = false;             
-        
+        $scope.showAnswerTableAs = false;
+
         $scope.getFind = function () {
-        var estado = document.getElementById("selectEstado").value;
-        $scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);
-        $scope.showAnswerTableAs = true;	 
-    
-		};
-}
+            var estado = document.getElementById("selectEstado").value;
+            $scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);
+            $scope.showAnswerTableAs = true;
+
+        };
+    }
 ]);
 
 // Controlador de la auditoria de la Migracion
-app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'auditMigrationFact',
-	function ($scope, $cookies, auth, auditMigrationFact) {
-	// devolvemos a la vista el nombre del usuario
-	$scope.username = $cookies.get('username');
-	$scope.password = $cookies.get('password');
-	$scope.showAnswerTable = false;
-	
-	 $scope.getAuditByDate = function () {
-		 var date1 = document.getElementById("fechaInicio").value;
-		 var date2 = document.getElementById("fechaFin").value;
-		 $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
-		 $scope.showAnswerTable = true;	 
-	 };
-	 
-	 $scope.getDetailById = function (idDetail) {
-		 alert(idDetail);
-		 $scope.listDatailAudit = auditMigrationFact.getDetailById(idDetail);
-		 alert($scope.listDatailAudit);
-	 };
-}
+app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'auditMigrationFact', 'ngDialog',
+    function ($scope, $cookies, auth, auditMigrationFact, ngDialog) {
+        // devolvemos a la vista el nombre del usuario
+        $scope.username = $cookies.get('username');
+        $scope.password = $cookies.get('password');
+        $scope.showAnswerTable = false;
+
+
+
+        $scope.getAuditByDate = function () {
+            var date1 = document.getElementById("fechaInicio").value;
+            var date2 = document.getElementById("fechaFin").value;
+            $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
+            $scope.showAnswerTable = true;
+
+
+        };
+
+        $scope.getDetailById = function (objDatail) {
+            alert(objDatail.id);
+            $scope.listDetailAudit = auditMigrationFact.getDetailById(objDatail.id);
+            alert($scope.listDetailAudit);
+
+            ngDialog.open({
+                template: 'template/modules/audit/views/modalAuditoriaMigracion.html',
+                className: 'ngdialog-theme-default',
+                scope: $scope
+            });
+
+        };
+    }
 ]);
