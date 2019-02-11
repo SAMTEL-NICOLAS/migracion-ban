@@ -1,0 +1,24 @@
+.EmpezarMigracion {
+    color: #252525;
+    font-size: 170%;
+    margin: 60px auto 50px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Open Sans',sans-serif;
+}
+.btonEjecutar {
+
+	padding: 5pt 64pt;
+	background: #d0122d;
+	color: #ffffff;
+	font: bold 14pt arial;
+	border: 0;
+	margin: auto;
+	display: block;
+}
+
+.imgLogo2 {
+    width: 100%;;
+     opacity: 0.5;
+    
+}
