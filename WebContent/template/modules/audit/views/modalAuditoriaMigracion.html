@@ -1,6 +1,6 @@
 <div ng-controller="auditMigrationController">
     <!--Tabla de resultados Detalles-->
-    <table border="1" style="margin: 0 auto;" class="answerTable">
+    <table border="1" style="margin: 0 auto;" class="answerTable" >
         <tr class="answerTrTitle">
             <td>Id</td>
             <td>Tabla</td>
@@ -9,7 +9,7 @@
             <td>Traza</td>
             <td>Id Auditoria</td>
         </tr>
-        <tr ng-repeat="obj in listAudit">
+        <tr ng-repeat="obj in listDetailAudit">
             <td class="answerTd">{{obj.id}}</td>
             <td class="answerTd">{{obj.tabla}}</td>
             <td class="answerTd">{{obj.regOrigen}}</td>

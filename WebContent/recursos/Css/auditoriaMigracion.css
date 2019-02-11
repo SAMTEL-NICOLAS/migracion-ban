@@ -72,6 +72,14 @@ td {
 	color: white:
 }
 
+.btnPaginador {
+	padding: 5pt 4pt;
+	background: #d0122d;
+	color: #ffffff;
+	border: 0;
+	margin: auto;
+}
+
 /* Modal */
 .ngdialog-content {
 	width: 80% !Important;
