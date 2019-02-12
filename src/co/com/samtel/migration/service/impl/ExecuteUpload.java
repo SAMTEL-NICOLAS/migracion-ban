@@ -21,6 +21,7 @@ import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
 import co.com.samtel.dao.bussines.ILogActivadorDao;
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.AuditoriaCsv;
+import co.com.samtel.entity.business.DetailAuditCsv;
 import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.enumeraciones.TypeMigration;
 import co.com.samtel.exception.ControlledExeption;
@@ -52,6 +53,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	private String extention;
 
 	private Long idAudit;
+	private String estado;
 
 	private ErrorDto errorMig;
 
@@ -63,7 +65,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	@Override
 	public void run() {
-		uploadFile();
+		callUpload();
 	}
 
 	@Override
@@ -76,10 +78,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			Long idTable = auditCsvDao.getMaxValue();
 
 			createFile(request, idTable + Long.valueOf(1));
-
-			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), getUser(), new Date()));
+			setEstado("En proceso");
+			Long id = auditCsvDao
+					.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), getUser(), new Date(), getEstado()));
 			setIdAudit(id);
-			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 
 		} catch (ControlledExeption e) {
 			e.printStackTrace();
@@ -97,40 +99,74 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		return respuesta;
 	}
 
+	public void callUpload() {
+		// Genera el registro inicial del log
+		DetailAuditCsv detail = generateAuditMigration();
+		executeMigration(Long.valueOf("0"));
+		// Genera el detalle de la migracion
+		generateAuditMigration(detail);
+	}
+
 	/**
 	 * Metodo que se encarga de ejecutar el proceso de carge validar si se realizo
 	 * de manera exitosa o no.
 	 * 
 	 * @return
 	 */
-	public String uploadFile() {
-		String proceso = "";
+	public void executeMigration(Long migrados) {
 		try {
-			System.out.println("001");
 
 			String url = "\\ArchivosCargueExcel\\".concat(getIdAudit().toString()).concat(getExtention());
 
 			setDelimiter(",");
 
-			System.out.println("002");
 			Boolean respuesta = executePersistTable.executeProcess(url, getTypeFile(getNameFile()), getDelimiter(),
 					getNameFile());
 
-			System.out.println("005");
 			if (respuesta) {
 				System.out.println("MAPEO REALIZADO CORRECTAMENTE");
-				proceso = "MAPEO REALIZADO CORRECTAMENTE";
 			} else {
 				System.out.println("Error al mapear el excel");
-				proceso = "Error al mapear el excel";
 			}
 
 		} catch (Exception e) {
-			System.out.println("003");
 			e.printStackTrace();
 		}
+	}
 
-		return proceso;
+	/**
+	 * Metodo con el cual genero el registro inicial del detalle de la auditoria
+	 */
+	public DetailAuditCsv generateAuditMigration() {
+		Long idTable = null;
+		try {
+			idTable = detailAuditCsvDao.getMaxValue();
+		} catch (ControlledExeption e) {
+			e.printStackTrace();
+		}
+		if (idTable == null) {
+			new Exception("Imposible insertar detalle de auditoria");
+		} else {
+			idTable += 1;
+		}
+		DetailAuditCsv detail = new DetailAuditCsv();
+		detail.setIdAudit(getIdAudit());
+		detail.setId(idTable);
+		detail.setRegDestino(Long.valueOf(0));
+		detail.setRegOrigen(Long.valueOf(0));
+		detail.setTabla(getNameFile());
+		detail.setTraza("Sin Traza");
+
+		detailAuditCsvDao.saveEntity(detail);
+		return detail;
+	}
+
+	public void generateAuditMigration(DetailAuditCsv detail) {
+		detail.setRegDestino(Long.valueOf(0));
+		detail.setRegOrigen(Long.valueOf(0));
+		detail.setTraza("Ok");
+		detailAuditCsvDao.updateEntity(detail);
+		// Actualizo el disparador
 	}
 
 	@Override
@@ -309,6 +345,14 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	public void setExtention(String extention) {
 		this.extention = extention;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }

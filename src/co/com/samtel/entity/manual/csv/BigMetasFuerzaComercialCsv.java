@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class BigMetasFuerzaComercialCsv {
-	
+
 	private Date D_fecha;
 	private String I_cod_fuerza_comercial;
 	private Integer I_cod_segmento_producto;

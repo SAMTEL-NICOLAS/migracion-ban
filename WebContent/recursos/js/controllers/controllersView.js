@@ -83,7 +83,8 @@ app.controller('uploadController', [
         try {
             var param1 = $routeParams.idAuditoria;
             if (undefined !== param1) {
-                alert("El id de la auditoria es: " + param1);
+//                alert("El id de la auditoria es: " + param1);
+                $scope.idAuditoria = param1;
             }
         } catch (e) {
         }

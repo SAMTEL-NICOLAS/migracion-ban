@@ -19,16 +19,19 @@ public class AuditoriaCsv {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false)
 	private Date fecha;
+	@Column
+	private String estado;
 
 	public AuditoriaCsv() {
 		super();
 	}
 
-	public AuditoriaCsv(Long id, String usuario, Date fecha) {
+	public AuditoriaCsv(Long id, String usuario, Date fecha, String estado) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;
+		this.estado = estado;
 	}
 
 	public Long getId() {
@@ -53,6 +56,14 @@ public class AuditoriaCsv {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }

@@ -33,6 +33,10 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 		setTypeConection(TypeConections.SQLSERVER);
 	}
 
+	/**
+	 * Metodo que se encarga insertar los registros de la Auditoria que se realizara
+	 * para el cargue de excel.
+	 */
 	@Override
 	public Long insertAudit(AuditoriaCsv audit) throws ControlledExeption {
 		Session session = null;

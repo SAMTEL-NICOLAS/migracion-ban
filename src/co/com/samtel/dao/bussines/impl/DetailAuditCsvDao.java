@@ -62,15 +62,4 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 		return result;
 	}
 
-	@Override
-	public Boolean saveEntity(DetailAudit entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean updateEntity(DetailAudit entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

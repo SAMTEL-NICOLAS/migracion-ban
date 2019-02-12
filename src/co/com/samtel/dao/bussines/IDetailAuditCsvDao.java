@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import co.com.samtel.entity.business.DetailAudit;
 import co.com.samtel.entity.business.DetailAuditCsv;
 import co.com.samtel.exception.ControlledExeption;
 
@@ -12,9 +11,9 @@ import co.com.samtel.exception.ControlledExeption;
 public interface IDetailAuditCsvDao {
 	Long getMaxValue() throws ControlledExeption;
 
-	Boolean saveEntity(DetailAudit entity);
+	Boolean saveEntity(DetailAuditCsv entity);
 
-	Boolean updateEntity(DetailAudit entity);
+	Boolean updateEntity(DetailAuditCsv entity);
 
 	List<DetailAuditCsv> getAllDetailAudit();
 

@@ -30,7 +30,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 	@EJB(beanName = "csvRead")
 	private IReadResource readResource;
-	
+
 	private String url;
 
 	private List<String> columns;
@@ -42,15 +42,15 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	private List<U> listEnumColumns;
 
 	private T objectMapper;
-	
+
 	private Z objectDataBase;
 
 	private String DELIMITER;
 
 	abstract public void init();
-	
+
 	abstract public IGenericDao getDao();
-	
+
 	abstract public Z getCustomMapper(T dto);
 
 	/**
@@ -174,7 +174,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
-				//System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
+				// System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
 					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
@@ -185,7 +185,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				case "java.lang.Double":
 					method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));
 					break;
-				
+
 				case "java.math.BigDecimal":
 					try {
 						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -240,7 +240,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * Metodo con el cual realizo el proceso de cargue
 	 * 
 	 * @return
-	 * @throws MapperException 
+	 * @throws MapperException
 	 */
 	public Boolean executeUpload(String delimeter) throws MapperException {
 		DELIMITER = delimeter;
@@ -263,7 +263,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 			System.out.println("Error al leer el archivo");
 			respuesta = Boolean.FALSE;
 		}
-		
+
 		return respuesta;
 	}
 
