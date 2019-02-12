@@ -102,23 +102,20 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
 .inferior {
-	min-height: 58px;
-	margin: 0 auto;	
+	margin: 0 auto;
 	width: 100%;
-/* 	background-color: #5b5b5f; */
-	padding-top: 50px;
-	position:fixed;
-  	left:0px;
-  	bottom:0px;	
-	
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
 }
 
 .imgBancompartir {
 	text-align: center;
 	color: #ababab;
-	font-family: 'Open Sans',sans-serif;
-	font-size: 14px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 10px;
 }
 
 .footer2 {

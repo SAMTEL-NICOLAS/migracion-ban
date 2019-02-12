@@ -1,73 +1,78 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
 <link rel="stylesheet" type="text/css"
-	href="recursos/Css/auditoriaAs400.css">
-<div ng-controller="uploadController" class="contenedor" id="contenedor">
-	<div class="contenedor2" id="contenedor2">
+      href="recursos/Css/auditoriaAs400.css">
+<div class="contenedor" id="contenedor">
+    <div class="contenedor2" id="contenedor2">
 
-		<table border="1" style="margin: 0 auto;" class="queryTable">
-			<tr>
-				<td class="queryTd" id="tituloConsulta" colspan="2">Consulta
-					Auditoria AS400</td>
-			</tr>
-			<tr>
-				<td class="queryTd"><label>ESTADO</label></td>
-				<!-- 				<td><input type="text" id="estado" -->
-				<!-- 					class="estado" style="width: 97%; padding: 2pt;"></td> -->
-				</td>
-				<td><select id="selectEstado" >
-						<option value="0">Pendientes por migrar</option>
-						<option value="1">Migrados</option>
-						<option value="-2">Errores</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td class="queryTd" colspan="2"><input type="button"
-					class="boton" value="Consultar" ng-click="getFind()"></td>
-			</tr>
-		</table>
-		</br> </br> </br>
+        <table border="1" style="margin: 0 auto;" class="queryTable">
+            <tr>
+                <td class="queryTd" id="tituloConsulta" colspan="2">Consulta
+                    Auditoria AS400</td>
+            </tr>
+            <tr>
+                <td class="queryTd"><label>ESTADO</label></td>
+                </td>
+                <td>
+                    <select id="selectEstado" class="selectEstado" >
+                        <option value="0">Pendientes por migrar</option>
+                        <option value="1">Migrados</option>
+                        <option value="-2">Errores</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="queryTd" colspan="2">
+                    <input type="button" class="boton" value="Consultar" ng-click="getFind()"></td>
+            </tr>
+        </table>
+        </br> </br>
 
-		<table border="1" style="margin: 0 auto;" ng-show="showAnswerTableAs">
-			<tr>
-				<td colspan="10"><label>Auditoria As400</label></td>
-			</tr>
-			<tr>
-				<td>CONSECUTIVO</td>
-				<td>NOMBRE RPG</td>
-				<td>NOMBRE FISICO</td>
-				<td>CANTIDAD REG RX</td>
-				<!--                 <td>DIA RX</td> -->
-				<!--                 <td>MES RX</td> -->
-				<!--                 <td>ANIO RX</td> -->
-				<!--                 <td>HORA RX</td> -->
-				<td>ESTADO</td>
-				<!--                 <td>LOGSCA</td> -->
-				<td>CANTIDAD REG MIGRADOS</td>
-				<td>DIA</td>
-				<td>MES</td>				
-				<td>A&ntilde;o</td>
-				<td>HORA</td>
+		<!-- Tabla Respuesta -->
+        <table border="1" style="margin: 0 auto;" ng-show="showAnswerTableAs" class="answerTable">
 
-			</tr>
-			<tr ng-repeat="obj in listAuditAs400">
-				<td>{{obj.id}}</td>
-				<td>{{obj.nombreRPG}}</td>
-				<td>{{obj.nombreTabla}}</td>
-				<td>{{obj.cantRegistrosRX}}</td>
-				<!--                 <td>{{obj.diaRX}}</td> -->
-				<!--                 <td>{{obj.mesRX}}</td> -->
-				<!--                 <td>{{obj.anioRX}}</td> -->
-				<!--                 <td>{{obj.logho4}}</td>                 -->
-				<td>{{obj.estado}}</td>
-				<!--                 <td>{{obj.logsca}}</td> -->
-				<td>{{obj.regMig}}</td>
-				<td>{{obj.dia}}</td>
-				<td>{{obj.mes}}</td>
-				<td>{{obj.anio}}</td>
-				<td>{{obj.hora}}</td>
+             <tr class="answerTrTitle">
+                <td>CONSECUTIVO</td>
+                <td>NOMBRE RPG</td>
+                <td>NOMBRE FISICO</td>
+                <td>CANTIDAD REG RX</td>
+                <td>ESTADO</td>
+                <td>CANTIDAD REG MIGRADOS</td>
+                <td>DIA</td>
+                <td>MES</td>				
+                <td>A&ntilde;o</td>
+                <td>HORA</td>
 
-
-			</tr>
-		</table>
-	</div>
+            </tr>
+            <tr ng-repeat="obj in listAuditAs400">
+                <td class="answerTd">{{obj.id}}</td>
+                <td class="answerTd">{{obj.nombreRPG}}</td>
+                <td class="answerTd">{{obj.nombreTabla}}</td>
+                <td class="answerTd">{{obj.cantRegistrosRX}}</td>
+                <td class="answerTd">{{obj.estado}}</td>
+                <td class="answerTd">{{obj.regMig}}</td>
+                <td class="answerTd">{{obj.dia}}</td>
+                <td class="answerTd">{{obj.mes}}</td>
+                <td class="answerTd">{{obj.anio}}</td>
+                <td class="answerTd">{{obj.hora}}</td>
+            </tr>
+            <!--Paginador-->
+            <tr> 
+                <td align="center" colspan="10" >
+                    <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage == 0" ng-click="t1CurrentPage = 0">
+                        Primero
+                    </button>
+                    <button class="btnPaginador"  type="button" ng-disabled="t1CurrentPage == 0" ng-click="t1CurrentPage = t1CurrentPage - 1">
+                        Anterior
+                    </button>
+                    {{t1CurrentPage + 1}}/{{t1NumberOfPages()}}
+                    <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage >= listAuditAs400.length / t1PageSize - 1" ng-click="t1CurrentPage = t1CurrentPage + 1">
+                        Siguiente
+                    </button>
+                    <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage >= listAuditAs400.length / t1PageSize - 1"  ng-click="t1CurrentPage = t1NumberOfPages - 1">
+                        &Uacute;ltimo
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

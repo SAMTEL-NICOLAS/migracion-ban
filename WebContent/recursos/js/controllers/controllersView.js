@@ -133,12 +133,21 @@ app.controller('uploadController', [
             filesToUploadFact.runUploadFile();
         };
 
+
     }
 ]);
 
 // Controlador de la auditoria de As400
 app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs400Fact',
     function ($scope, $cookies, auth, auditAs400Fact) {
+        app.filter('startFrom', function () {
+            return function (input, start) {
+                start = +start;
+                return input.slice(start);
+            };
+        });
+        footerOfTableOne();
+
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
@@ -150,6 +159,18 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
             $scope.showAnswerTableAs = true;
 
         };
+
+        // Pie de pagina para la tabla de de la Auditoria.
+        function footerOfTableOne() {
+            $scope.t1CurrentPage = 0;
+            $scope.t1PageSize = 10;
+            $scope.data = [];
+
+            $scope.t1NumberOfPages = function () {
+                return Math.ceil($scope.listAuditAs400.length / $scope.t1PageSize);
+            };
+        }
+        ;
     }
 ]);
 
@@ -195,7 +216,7 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 
         // Funcion que se encarga de consultar los detalles de la auditoria.
         $scope.getDetailById = function (objDatail) {
-        	var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaMigracion.html';
+            var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaMigracion.html';
             $scope.listDetailAudit = auditMigrationFact.getDetailById(objDatail.id);
 
             if ($scope.listDetailAudit.length === 0) {
@@ -287,7 +308,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
         $scope.getAuditByDate = function () {
             var date1 = $("#fechaInicio").val();
             var date2 = $("#fechaFin").val();
-            
+
 
             if (validateDates()) {
                 $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2);
@@ -304,7 +325,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
 
         // Funcion que se encarga de consultar los detalles de la auditoria.
         $scope.getDetailById = function (objDatail) {
-        	var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaCargueExcel.html';
+            var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaCargueExcel.html';
             $scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id);
 
             if ($scope.listDetailAudit.length === 0) {
