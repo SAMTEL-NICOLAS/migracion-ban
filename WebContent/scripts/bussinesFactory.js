@@ -22,15 +22,15 @@ app.factory("migrationFact", [
 app.factory("cargueFact", ['$cookies', '$location',
     function ($cookies, $location) {
         return {
-            uploadCargue: function (formData) {
+            executeProcess: function () {
                 $.ajax({
-                    url: "resources/v.1/cargue/uploadForm",
-                    method: 'post',
-                    dataType: 'html',
-                    data: formData,
+                    url: "resources/v.1/uploadExcel/" + $cookies.get('username'),
+                    method: 'get',
+                    dataType: 'json',
                     cache: false,
                     contentType: false,
                     processData: false,
+                    async: false,
                     success: function (result) {
                         alert(JSON.stringify(result));
                     }
@@ -63,8 +63,6 @@ app.factory(
                                 if (result.message === 'OK' &&
                                         result.typeError === 'SUCCESS') {
                                     listData = result.listResponse;
-                                    listData
-                                            .push('Seleccione un Archivo');
                                 } else {
                                     alert('Error al obtener los parametros de los archivos csv');
                                 }
@@ -97,7 +95,7 @@ app.factory(
                     getAuditAs400: function (estado) {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditAs400/getAllLogActiva/"+ estado ,
+                            url: "resources/v.1/auditAs400/getAllLogActiva/" + estado,
                             method: 'get',
                             dataType: 'json',
                             cache: false,

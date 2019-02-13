@@ -34,16 +34,32 @@
 }
 
 table {
-	width: 75%;
 	border-collapse: collapse;
 }
 
-td {
-	padding: 20px;
+tr {
+	font: bold 10pt arial;
+	color: #474747;
 }
 
 .titulo {
 	background-color: #dbdbdb;
 	border-bottom: solid 1px #0f362d;
 	color: white:
+}
+
+.title {
+	font: bold 13pt arial;
+	color: #d0122d;
+	text-align: center;
+}
+
+.btnExecute {
+	padding: 3pt 64pt;
+	background: #d0122d;
+	color: #ffffff;
+	font: bold 12pt arial;
+	border: 0;
+	margin: auto;
+	display: block;
 }

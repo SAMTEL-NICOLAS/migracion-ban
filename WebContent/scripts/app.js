@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
     }).when("/migration", {
         templateUrl: "template/modules/migration/views/indexMig.html"
     }).when("/cargue", {
-        templateUrl: "template/modules/cargue/views/indexCargue.html"
+        templateUrl: "template/modules/cargue/views/cargueManual.html"
     }).when("/auditoriaAs400", {
     	templateUrl: "template/modules/audit/views/auditoriaAs400.html",
     	controller: "auditAs400Controller"

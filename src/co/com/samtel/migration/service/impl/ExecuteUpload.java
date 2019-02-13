@@ -1,6 +1,8 @@
 package co.com.samtel.migration.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +24,9 @@ import co.com.samtel.dao.bussines.ILogActivadorDao;
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.AuditoriaCsv;
 import co.com.samtel.entity.business.DetailAuditCsv;
+import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TypeErrors;
-import co.com.samtel.enumeraciones.TypeMigration;
 import co.com.samtel.exception.ControlledExeption;
-import co.com.samtel.migration.IFactoryMigration;
 import co.com.samtel.migration.IUploadMigration;
 
 @Stateless(name = "executeUpload")
@@ -33,9 +34,6 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	@EJB(beanName = "executePersistTable")
 	IExecutePersistTable executePersistTable;
-
-	@EJB
-	IFactoryMigration factoryMigration;
 
 	// Objeto para la consulta de tablas listas para migrar
 	@EJB
@@ -57,7 +55,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	private ErrorDto errorMig;
 
-	private TypeMigration typeMigration;
+	private TypeFile typeFile;
 
 	private Thread hilo;
 
@@ -69,18 +67,15 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	}
 
 	@Override
-	public Boolean generateMigration(TypeMigration typeMigration, HttpServletRequest request) {
-		setTypeMigration(typeMigration);
+	public Boolean generateMigration(String user) {
 		Boolean respuesta = Boolean.TRUE;
 		try {
-
 			// Genero el registro padre de la uditoria
 			Long idTable = auditCsvDao.getMaxValue();
 
-			createFile(request, idTable + Long.valueOf(1));
 			setEstado("En proceso");
 			Long id = auditCsvDao
-					.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), getUser(), new Date(), getEstado()));
+					.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, new Date(), getEstado()));
 			setIdAudit(id);
 
 		} catch (ControlledExeption e) {
@@ -100,11 +95,17 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	}
 
 	public void callUpload() {
-		// Genera el registro inicial del log
-		DetailAuditCsv detail = generateAuditMigration();
-		executeMigration(Long.valueOf("0"));
-		// Genera el detalle de la migracion
-		generateAuditMigration(detail);
+
+		List<TypeFile> typetiles = Arrays.asList(TypeFile.values());
+
+		for (TypeFile item : typetiles) {
+			// Genera el registro inicial del log
+			DetailAuditCsv detail = generateAuditMigration(item);
+			executeMigration(item, Long.valueOf("0"));
+			// Genera el detalle de la migracion
+			generateAuditMigration(detail);
+		}
+
 	}
 
 	/**
@@ -113,20 +114,26 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	 * 
 	 * @return
 	 */
-	public void executeMigration(Long migrados) {
+	public void executeMigration(TypeFile item, Long migrados) {
 		try {
 
-			String url = "\\ArchivosCargueExcel\\".concat(getIdAudit().toString()).concat(getExtention());
+			// Seteamos el numero de registros que ha migrado
 
-			setDelimiter(",");
+			String url = "\\ArchivosCargueExcel\\".concat(item.getNombreArchivo());
+			if (existFile(url)) {
+				url = url.concat(getExtention());
+				setDelimiter(";");
+				System.out.println("Archivo: ".concat(item.getNombreArchivo()));
+				Boolean respuesta = executePersistTable.executeProcess(url, getTypeFile(item.getNombreArchivo()),
+						getDelimiter(), item.getNombreArchivo());
 
-			Boolean respuesta = executePersistTable.executeProcess(url, getTypeFile(getNameFile()), getDelimiter(),
-					getNameFile());
-
-			if (respuesta) {
-				System.out.println("MAPEO REALIZADO CORRECTAMENTE");
+				if (respuesta) {
+					System.out.println("MAPEO REALIZADO CORRECTAMENTE");
+				} else {
+					System.out.println("Error al mapear el excel");
+				}
 			} else {
-				System.out.println("Error al mapear el excel");
+				System.out.println("No existe el archivo: ".concat(item.getNombreArchivo()));
 			}
 
 		} catch (Exception e) {
@@ -137,7 +144,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	/**
 	 * Metodo con el cual genero el registro inicial del detalle de la auditoria
 	 */
-	public DetailAuditCsv generateAuditMigration() {
+	public DetailAuditCsv generateAuditMigration(TypeFile item) {
 		Long idTable = null;
 		try {
 			idTable = detailAuditCsvDao.getMaxValue();
@@ -154,7 +161,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setId(idTable);
 		detail.setRegDestino(Long.valueOf(0));
 		detail.setRegOrigen(Long.valueOf(0));
-		detail.setTabla(getNameFile());
+		detail.setTabla(item.getNombreArchivo());
 		detail.setTraza("Sin Traza");
 
 		detailAuditCsvDao.saveEntity(detail);
@@ -167,6 +174,20 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setTraza("Ok");
 		detailAuditCsvDao.updateEntity(detail);
 		// Actualizo el disparador
+	}
+
+	public Boolean existFile(String url) {
+		Boolean exist = Boolean.FALSE;
+		setExtention(".csv");
+		File fichero = new File(url.concat(getExtention()));
+
+		if (fichero.exists()) {
+			exist = Boolean.TRUE;
+		} else {
+			exist = Boolean.FALSE;
+		}
+
+		return exist;
 	}
 
 	@Override
@@ -255,14 +276,6 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		return typeFile;
 	}
 
-	public IFactoryMigration getFactoryMigration() {
-		return factoryMigration;
-	}
-
-	public void setFactoryMigration(IFactoryMigration factoryMigration) {
-		this.factoryMigration = factoryMigration;
-	}
-
 	public ILogActivadorDao getLogActivadorDao() {
 		return logActivadorDao;
 	}
@@ -295,12 +308,12 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		this.errorMig = errorMig;
 	}
 
-	public TypeMigration getTypeMigration() {
-		return typeMigration;
+	public TypeFile getTypeFile() {
+		return typeFile;
 	}
 
-	public void setTypeMigration(TypeMigration typeMigration) {
-		this.typeMigration = typeMigration;
+	public void setTypeFile(TypeFile typeFile) {
+		this.typeFile = typeFile;
 	}
 
 	public Thread getHilo() {
@@ -353,6 +366,66 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public TypeFile getFileToUpload() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public Boolean generateMigration(TypeMigration typeMigration, HttpServletRequest request) {
+//		Boolean respuesta = Boolean.TRUE;
+//		try {
+//
+//			// Genero el registro padre de la uditoria
+//			Long idTable = auditCsvDao.getMaxValue();
+//
+//			createFile(request, idTable + Long.valueOf(1));
+//			setEstado("En proceso");
+//			Long id = auditCsvDao
+//					.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), getUser(), new Date(), getEstado()));
+//			setIdAudit(id);
+//
+//		} catch (ControlledExeption e) {
+//			e.printStackTrace();
+//			respuesta = Boolean.FALSE;
+//			setErrorMig(ErrorDto.of(null, TypeErrors.CONNECTION_DATA_BASE, e.getMessage()));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			respuesta = Boolean.FALSE;
+//		}
+//		if (respuesta) {
+//			// Llamo al proceso que genera la migración
+//			hilo = new Thread(this);
+//			hilo.start();
+//		}
+//		return respuesta;
+//	}
+
+	@Override
+	public Long getNumRecords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getNumRecMig() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLogActivador(LogActivador logActivador) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNumRecMig(Long valor) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

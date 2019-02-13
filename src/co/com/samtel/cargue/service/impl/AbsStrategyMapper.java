@@ -88,9 +88,15 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		}
 		String[] columnsVector = data.split(DELIMITER);
 		if (columnsVector.length == 0) {
-			throw new MapperException(
-					ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin InformaciÃ³n"));
+			DELIMITER = ",";
+			columnsVector = data.split(DELIMITER);
+			if (columnsVector.length == 0) {
+				throw new MapperException(
+						ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin InformaciÃ³n"));
+			}
 		}
+
+		System.out.println("DELIMITER: ".concat(DELIMITER));
 
 		for (String item : columnsVector) {
 			if (getColumns() == null) {
@@ -106,6 +112,8 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * @throws MapperException
 	 */
 	public void validateStructure() throws MapperException {
+		System.out.println("Tamaño columnas del archivo: " + getColumns().size());
+		System.out.println("Tamaño columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());
 		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
 			throw new MapperException(
 					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));

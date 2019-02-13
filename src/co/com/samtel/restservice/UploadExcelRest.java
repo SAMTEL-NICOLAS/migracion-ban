@@ -2,7 +2,6 @@ package co.com.samtel.restservice;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -12,7 +11,6 @@ import javax.ws.rs.core.Response;
 
 import co.com.samtel.dto.ResponseRest;
 import co.com.samtel.enumeraciones.TypeErrors;
-import co.com.samtel.enumeraciones.TypeMigration;
 import co.com.samtel.migration.IUploadMigration;
 
 @Stateless
@@ -25,8 +23,8 @@ public class UploadExcelRest {
 	@GET
 	@Path("/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response generateUpload(@PathParam("request") HttpServletRequest request) {
-		Boolean result = executeUpload.generateMigration(TypeMigration.PRUEBA, request);
+	public Response generateUpload(@PathParam("user") String user) {
+		Boolean result = executeUpload.generateMigration(user);
 		if (result) {
 			return Response.status(Response.Status.OK)
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", executeUpload.getIdAudit()))
