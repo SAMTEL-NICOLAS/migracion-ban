@@ -121,6 +121,190 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		}
 	}
 
+	public void mapperObject() {
+		try {
+			for (U item : getListEnumColumns()) {
+
+				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
+
+				switch (item.getTypeColumn().getName()) {
+				case "java.lang.String":
+					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
+					break;
+				case "java.lang.Integer":
+					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
+					break;
+				case "java.lang.Double":
+					method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));
+					break;
+				case "java.math.BigDecimal":
+					try {
+						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+						symbols.setDecimalSeparator('.');
+						String pattern = "#.##";
+						DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+						decimalFormat.setParseBigDecimal(true);
+
+						BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
+
+						method.invoke(getObjectMapper(), bigDecimal);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					break;
+				case "java.util.Date":
+					try {
+						SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
+						Date date1 = parseador.parse(getColumns().get(item.getIndice()));
+						method.invoke(getObjectMapper(), date1);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+
+				default:
+					break;
+				}
+			}
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	/**
+	 * Metodo con el cual realizo el proceso de cargue
+	 * 
+	 * @return
+	 * @throws MapperException
+	 */
+	public Boolean executeUpload(String delimeter) throws MapperException {
+		DELIMITER = delimeter;
+		Boolean respuesta = Boolean.FALSE;
+		readResource.setUrl(getUrl());
+		if (readResource.readFile()) {
+			respuesta = throughRows();
+		} else {
+			System.out.println("Error al leer el archivo");
+			respuesta = Boolean.FALSE;
+		}
+
+		return respuesta;
+	}
+
+	/**
+	 * Metodo que se encarga de iterar cada una de las filas del archivo incluyendo
+	 * la de los titulos para asi validar si la estructura se encuentra correcta.
+	 * 
+	 * @return
+	 * @throws MapperException
+	 */
+	public Boolean throughRows() throws MapperException {
+		Boolean answer = Boolean.TRUE;
+		List<String> rows = readResource.getRows();
+		int i = 0;
+		for (String item : rows) {
+			if (i == 0) {
+				System.out.println("Titulos");
+				if (!splitColumns(item)) {
+					answer = Boolean.FALSE;
+					System.out.println("Error en la estructura del documento");
+					throw new MapperException(ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null,
+							"Error en la estructura del documento"));
+				}
+			}
+			if (i != 0) {
+				process(item);
+			}
+			i++;
+			System.out.println("Registros: " + i);
+		}
+		return answer;
+	}
+
+	/**
+	 * Metodo que se encarga de tomar cada uno de los campos de la primera fila del
+	 * archivo (Titulos) los guardo en una lista para que luego se pueda validar la
+	 * estructura.
+	 * 
+	 * @param item2
+	 * @return
+	 * @throws MapperException
+	 */
+	public Boolean splitColumns(String item2) throws MapperException {
+		Boolean structureOk = Boolean.FALSE;
+		String[] columnsVector = item2.split(DELIMITER);
+		if (columnsVector.length == 0) {
+			DELIMITER = ",";
+			columnsVector = item2.split(DELIMITER);
+			if (columnsVector.length == 0) {
+				throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null,
+						"Sin datos para valdiar la estruxtura."));
+			}
+		}
+
+		for (String item : columnsVector) {
+			if (getTitlesColumns() == null) {
+				setTitlesColumns(new ArrayList<String>());
+			}
+			titlesColumns.add(item);
+		}
+
+		structureOk = validateFileStructure();
+		return structureOk;
+	}
+
+	/**
+	 * Metodo que se encarga de validar que la estructura del archivo sea correcta,
+	 * en el caso de que el orden de las columnas no sean iguales no continuara con
+	 * el proceso.
+	 * 
+	 * @return
+	 */
+	public Boolean validateFileStructure() {
+		Boolean structureOk = Boolean.TRUE;
+
+		for (U item : getListEnumColumns()) {
+			if (structureOk) {
+				if (getTitlesColumns().get(item.getIndice()).equalsIgnoreCase(item.getNombreColumna())) {
+					System.out.println("Los nombres de las columnas son igules son iguales...");
+					structureOk = Boolean.TRUE;
+				} else {
+					System.out.println("Los nombres de las columnas no son iguales...");
+					System.out.println(
+							"Columna del archivo: ".concat(getTitlesColumns().get(item.getIndice()).toUpperCase()));
+					System.out.println("Columna que deberia ir: ".concat(item.getNombreColumna().toUpperCase()));
+					structureOk = Boolean.FALSE;
+				}
+			}
+		}
+		return structureOk;
+	}
+
+	/**
+	 * Metodo que se encarga de continuar con el proceso de mapeo del archivo.
+	 * 
+	 * @param item
+	 * @throws MapperException
+	 */
+	public void process(String item) throws MapperException {
+		setData(item);
+		mapper(DELIMITER);
+		T objeto = getObjectMapper();
+		getDao().saveEntity(getCustomMapper(objeto));
+		System.out.println("llego" + objeto.toString());
+	}
+
 	public String getData() {
 		return data;
 	}
@@ -183,160 +367,6 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 	public void setTitlesColumns(List<String> titlesColumns) {
 		this.titlesColumns = titlesColumns;
-	}
-
-	public void mapperObject() {
-		try {
-			for (U item : getListEnumColumns()) {
-
-				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
-
-				// System.out.println("Tipo: ".concat(item.getTypeColumn().getName()));
-				switch (item.getTypeColumn().getName()) {
-				case "java.lang.String":
-					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
-					break;
-				case "java.lang.Integer":
-					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
-					break;
-				case "java.lang.Double":
-					method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));
-					break;
-
-				case "java.math.BigDecimal":
-					try {
-						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-						symbols.setDecimalSeparator('.');
-						String pattern = "#.##";
-						DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
-						decimalFormat.setParseBigDecimal(true);
-
-						BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
-
-						method.invoke(getObjectMapper(), bigDecimal);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-					break;
-				case "java.util.Date":
-					try {
-
-						SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
-						// SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yy");
-
-						Date date1 = parseador.parse(getColumns().get(item.getIndice()));
-
-						// System.out.println( date2);
-						method.invoke(getObjectMapper(), date1);
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-
-				default:
-					break;
-				}
-			}
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	/**
-	 * Metodo con el cual realizo el proceso de cargue
-	 * 
-	 * @return
-	 * @throws MapperException
-	 */
-	public Boolean executeUpload(String delimeter) throws MapperException {
-		DELIMITER = delimeter;
-		Boolean respuesta = Boolean.FALSE;
-		readResource.setUrl(getUrl());
-		if (readResource.readFile()) {
-			List<String> rows = readResource.getRows();
-			int i = 0;
-			for (String item : rows) {
-				if (i == 0) {
-					System.out.println("Titulos");
-					if (!splitColumns(item)) {
-						System.out.println("Error en la estructura del documento");
-						throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null,
-								"Error en la estructura del documento"));
-					}
-				}
-				if (i != 0) {
-					setData(item);
-					mapper(DELIMITER);
-					T objeto = getObjectMapper();
-					getDao().saveEntity(getCustomMapper(objeto));
-					System.out.println("llego" + objeto.toString());
-				}
-				i++;
-				System.out.println("Registros: " + i);
-			}
-			respuesta = Boolean.TRUE;
-		} else {
-			System.out.println("Error al leer el archivo");
-			respuesta = Boolean.FALSE;
-		}
-
-		return respuesta;
-	}
-
-	public Boolean splitColumns(String item2) throws MapperException {
-		Boolean structureOk = Boolean.FALSE;
-		String[] columnsVector = item2.split(DELIMITER);
-		if (columnsVector.length == 0) {
-			DELIMITER = ",";
-			columnsVector = item2.split(DELIMITER);
-			if (columnsVector.length == 0) {
-				throw new MapperException(
-						ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Información"));
-			}
-		}
-
-		System.out.println("DELIMITER: ".concat(DELIMITER));
-
-		for (String item : columnsVector) {
-			if (getTitlesColumns() == null) {
-				setTitlesColumns(new ArrayList<String>());
-			}
-			titlesColumns.add(item);
-		}
-
-		structureOk = validateFileStructure();
-		return structureOk;
-	}
-
-	public Boolean validateFileStructure() {
-		Boolean structureOk = Boolean.TRUE;
-
-		for (U item : getListEnumColumns()) {
-			if (structureOk) {
-				if (getTitlesColumns().get(item.getIndice()).equalsIgnoreCase(item.getNombreColumna())) {
-					System.out.println("Los nombres de las columnas son igules son iguales...");
-					structureOk = Boolean.TRUE;
-				} else {
-					System.out.println("Los nombres de las columnas no son iguales...");
-					System.out.println(
-							"Columna del archivo: ".concat(getTitlesColumns().get(item.getIndice()).toUpperCase()));
-					System.out.println("Columna que deberia ir: ".concat(item.getNombreColumna().toUpperCase()));
-					structureOk = Boolean.FALSE;
-				}
-			}
-		}
-		return structureOk;
 	}
 
 }

@@ -31,9 +31,7 @@ public class CsvRead extends AbsRead implements IReadResource {
 				if (getRows() == null) {
 					setRows(new ArrayList<>());
 				}
-//				if(i!=0) {
 				getRows().add(sCurrentLine);
-//				}
 				i++;
 			}
 		} catch (IOException e) {
