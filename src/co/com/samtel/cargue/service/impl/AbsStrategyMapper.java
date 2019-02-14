@@ -34,6 +34,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	private String url;
 
 	private List<String> columns;
+	private List<String> titlesColumns;
 
 	private TypeFile typeFile;
 
@@ -176,6 +177,14 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		this.listEnumColumns = listEnumColumns;
 	}
 
+	public List<String> getTitlesColumns() {
+		return titlesColumns;
+	}
+
+	public void setTitlesColumns(List<String> titlesColumns) {
+		this.titlesColumns = titlesColumns;
+	}
+
 	public void mapperObject() {
 		try {
 			for (U item : getListEnumColumns()) {
@@ -258,11 +267,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 			List<String> rows = readResource.getRows();
 			int i = 0;
 			for (String item : rows) {
-				setData(item);
-				mapper(DELIMITER);
-				T objeto = getObjectMapper();
-				getDao().saveEntity(getCustomMapper(objeto));
-				System.out.println("llego" + objeto.toString());
+				if (i == 0) {
+					System.out.println("Titulos");
+					if (!splitColumns(item)) {
+						System.out.println("Error en la estructura del documento");
+						throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null,
+								"Error en la estructura del documento"));
+					}
+				}
+				if (i != 0) {
+					setData(item);
+					mapper(DELIMITER);
+					T objeto = getObjectMapper();
+					getDao().saveEntity(getCustomMapper(objeto));
+					System.out.println("llego" + objeto.toString());
+				}
 				i++;
 				System.out.println("Registros: " + i);
 			}
@@ -273,6 +292,51 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		}
 
 		return respuesta;
+	}
+
+	public Boolean splitColumns(String item2) throws MapperException {
+		Boolean structureOk = Boolean.FALSE;
+		String[] columnsVector = item2.split(DELIMITER);
+		if (columnsVector.length == 0) {
+			DELIMITER = ",";
+			columnsVector = item2.split(DELIMITER);
+			if (columnsVector.length == 0) {
+				throw new MapperException(
+						ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Información"));
+			}
+		}
+
+		System.out.println("DELIMITER: ".concat(DELIMITER));
+
+		for (String item : columnsVector) {
+			if (getTitlesColumns() == null) {
+				setTitlesColumns(new ArrayList<String>());
+			}
+			titlesColumns.add(item);
+		}
+
+		structureOk = validateFileStructure();
+		return structureOk;
+	}
+
+	public Boolean validateFileStructure() {
+		Boolean structureOk = Boolean.TRUE;
+
+		for (U item : getListEnumColumns()) {
+			if (structureOk) {
+				if (getTitlesColumns().get(item.getIndice()).equalsIgnoreCase(item.getNombreColumna())) {
+					System.out.println("Los nombres de las columnas son igules son iguales...");
+					structureOk = Boolean.TRUE;
+				} else {
+					System.out.println("Los nombres de las columnas no son iguales...");
+					System.out.println(
+							"Columna del archivo: ".concat(getTitlesColumns().get(item.getIndice()).toUpperCase()));
+					System.out.println("Columna que deberia ir: ".concat(item.getNombreColumna().toUpperCase()));
+					structureOk = Boolean.FALSE;
+				}
+			}
+		}
+		return structureOk;
 	}
 
 }

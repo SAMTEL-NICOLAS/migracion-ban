@@ -8,7 +8,7 @@ public enum TypeBigProspectosColumn implements IColumn {
 	
 	S_TIPO_CLIENTE(0, "S_tipo_cliente", String.class), 
 	S_CODIGO_TIPO_IDENTIFICACION(1, "S_codigo_tipo_identificacion", String.class),
-	S_NUMERO_IDENTIFICACION(2, "S_numero_identificacion", Integer.class),
+	S_NUMERO_IDENTIFICACION(2, "S_numero_identificacion", String.class),
 	S_NOMBRE_COMPLETO(3, "S_nombre_completo", String.class),
 	I_POSECION_NEGOCIO_MES(4, "I_posecion_negocio_mes", Integer.class),
 	I_COD_FUERZA_COMERCIAL(5, "I_cod_fuerza_comercial", String.class),

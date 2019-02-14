@@ -1,8 +1,5 @@
 package co.com.samtel.cargue.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -18,9 +15,6 @@ import co.com.samtel.entity.manual.csv.BigInfoFinancieraCsv;
 import co.com.samtel.entity.manual.csv.BigMetasFuerzaComercialCsv;
 import co.com.samtel.entity.manual.csv.BigMetasOficinaCsv;
 import co.com.samtel.entity.manual.csv.BigPropectosCsv;
-import co.com.samtel.migration.IFactoryUpload;
-import co.com.samtel.migration.IGenerateMigration;
-import co.com.samtel.migration.IUploadMigration;
 
 @Stateless(name = "executePersistTable")
 public class ExecutePersistTable implements IExecutePersistTable {
