@@ -75,7 +75,10 @@
 		<mapping class="co.com.samtel.entity.manual.sql.BigGeoReferenciarProspecto" />
 		<mapping class="co.com.samtel.entity.manual.sql.BigInfoFinanciera" />
 		
-		
+		<mapping class="co.com.samtel.entity.manual.sql.BigCifinBureau" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigGeneraIcs" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigProductos" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigSeguros" />
 		
 		
 	</session-factory>

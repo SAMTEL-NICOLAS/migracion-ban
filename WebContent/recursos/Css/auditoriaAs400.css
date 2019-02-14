@@ -5,6 +5,7 @@
 	height: 500px;
 	position: relative;
 	margin: 0px auto;
+	margin-left: 200px;
 }
 
 .contenedor2 {
@@ -20,6 +21,7 @@ td {
 .queryTable {
 	width: 75%;
 	border-collapse: collapse;
+	
 }
 
 .queryTd {
