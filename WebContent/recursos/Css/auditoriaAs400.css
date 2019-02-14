@@ -5,13 +5,14 @@
 	height: 500px;
 	position: relative;
 	margin: 0px auto;
-	margin-left: 200px;
+	margin-left: 200px;	
 }
 
 .contenedor2 {
 	text-align: left;
 	margin-top: 3%;
 	font: 12pt arial;
+	
 }
 
 td {
@@ -21,7 +22,7 @@ td {
 .queryTable {
 	width: 75%;
 	border-collapse: collapse;
-	
+	border: #d0122d 1px solid;
 }
 
 .queryTd {
@@ -29,12 +30,12 @@ td {
 }
 
 #tituloConsulta, #tituloRespuesta {
-	background-color: #dbdbdb;
+/* 	background-color: #dbdbdb; */
 	text-align: center;
 	font-weight: bold;
-	color: black;
+	color: #d0122d;
 	border-bottom: solid 1px #0f362d;
-}
+	}
 
 .selectArchivo {
 	width: 100%;
@@ -52,7 +53,8 @@ td {
 
 .answerTable {
 	width: 75%;
-	border-collapse: collapse;
+	border-collapse: collapse;	
+	border: #d0122d 1px solid;
 }
 
 .answerTd {
@@ -61,7 +63,7 @@ td {
 
 .answerTrTitle {
 	padding: 20px;
-	background-color: #dbdbdb;
+	
 	text-align: center;
 	font-weight: bold;
 	color: black;
