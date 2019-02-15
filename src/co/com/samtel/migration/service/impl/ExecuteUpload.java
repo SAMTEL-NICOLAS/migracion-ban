@@ -1,7 +1,11 @@
 package co.com.samtel.migration.service.impl;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,8 +53,12 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	private String user;
 	private String nameFile;
 	private String extention;
+	private String url;
+	private String urlFinal;
+	private String traceDetail;
 
 	private Long idAudit;
+	private Long idDetailAudit;
 	private String estado;
 
 	private ErrorDto errorMig;
@@ -61,11 +69,19 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	private Object valor;
 
+	private InputStream in;
+
+	private OutputStream out;
+
 	@Override
 	public void run() {
 		callUpload();
 	}
 
+	/**
+	 * Metodo inicial el cual se encargara de insertar en la tabla padre de la
+	 * auditoria y luego crea un hilo para realizar el cargue "Manual".
+	 */
 	@Override
 	public Boolean generateMigration(String user) {
 		Boolean respuesta = Boolean.TRUE;
@@ -94,6 +110,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		return respuesta;
 	}
 
+	/**
+	 * Metodo que se encarga de ser el nuevo hilo en cual se realizara el proceso de
+	 * cargue "Manual"
+	 */
 	public void callUpload() {
 
 		List<TypeFile> typetiles = Arrays.asList(TypeFile.values());
@@ -116,24 +136,20 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	 */
 	public void executeMigration(TypeFile item, Long migrados) {
 		try {
-
-			// Seteamos el numero de registros que ha migrado
-
-			String url = "\\ArchivosCargueExcel\\".concat(item.getNombreArchivo());
-			if (existFile(url)) {
-				url = url.concat(getExtention());
+			setUrl("\\ArchivosCargueExcel\\".concat(item.getNombreArchivo()));
+			if (existFile(getUrl())) {
+				setUrl(backupFile());
 				setDelimiter(";");
 				System.out.println("Archivo: ".concat(item.getNombreArchivo()));
-				Boolean respuesta = executePersistTable.executeProcess(url, getTypeFile(item.getNombreArchivo()),
+				Boolean respuesta = executePersistTable.executeProcess(getUrl(), getTypeFile(item.getNombreArchivo()),
 						getDelimiter(), item.getNombreArchivo());
-
 				if (respuesta) {
-					System.out.println("MAPEO REALIZADO CORRECTAMENTE");
+					setTraceDetail("Mapeo realizado correctamente");
 				} else {
-					System.out.println("Error al mapear el excel");
+					setTraceDetail("Error al mapear el excel");
 				}
 			} else {
-				System.out.println("No existe el archivo: ".concat(item.getNombreArchivo()));
+				setTraceDetail("No existe el archivo: ".concat(item.getNombreArchivo()).concat(".csv"));
 			}
 
 		} catch (Exception e) {
@@ -164,22 +180,37 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setTabla(item.getNombreArchivo());
 		detail.setTraza("Sin Traza");
 
+		setIdDetailAudit(idTable);
+
 		detailAuditCsvDao.saveEntity(detail);
 		return detail;
 	}
 
+	/**
+	 * Metodo que se encarga de actualizar los detalles de la auditoria.
+	 * 
+	 * @param detail
+	 */
 	public void generateAuditMigration(DetailAuditCsv detail) {
 		detail.setRegDestino(Long.valueOf(0));
 		detail.setRegOrigen(Long.valueOf(0));
-		detail.setTraza("Ok");
+		detail.setTraza(getTraceDetail());
 		detailAuditCsvDao.updateEntity(detail);
 		// Actualizo el disparador
 	}
 
+	/**
+	 * Metodo que se encarga de validar si existe un archivo en un directorio
+	 * especifico.
+	 * 
+	 * @param url
+	 * @return
+	 */
 	public Boolean existFile(String url) {
 		Boolean exist = Boolean.FALSE;
 		setExtention(".csv");
-		File fichero = new File(url.concat(getExtention()));
+		setUrl(url.concat(getExtention()));
+		File fichero = new File(getUrl());
 
 		if (fichero.exists()) {
 			exist = Boolean.TRUE;
@@ -190,50 +221,18 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		return exist;
 	}
 
-	@Override
-	public ErrorDto getMessageError() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Long getIdAudit() {
-		// TODO Auto-generated method stub
-		return this.idAudit;
-	}
-
 	/**
-	 * Metodo que se encarga de recuperar el archivo o archivos que se envian desde
-	 * la vista y los guarda en una ruta final
+	 * Metodo que se encarga de validar si existe un directorio, en el caso que no
+	 * lo crea.
 	 * 
-	 * @param reqest
+	 * @param url
 	 */
-	public void createFile(HttpServletRequest request, Long idAuditoria) {
-		Map<String, String> map = new HashMap<String, String>();
-		try {
-			String finalRoute = "\\ArchivosCargueExcel";
-			String extention = "";
+	public void existdirectory(String url) {
+		File directory = new File(url);
 
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			factory.setSizeThreshold(1024);
-			factory.setRepository(new File(finalRoute));
-			ServletFileUpload upload = new ServletFileUpload(factory);
-
-			List<FileItem> parts = upload.parseRequest(request);
-			setUser(parts.get(0).getFieldName());
-			setNameFile(parts.get(1).getFieldName());
-			for (FileItem item : parts) {
-				if (null != item.getName()) {
-					extention = item.getName().substring(item.getName().lastIndexOf('.'));
-					File file = new File(finalRoute, idAuditoria.toString().concat(extention));
-					item.write(file);
-				}
-			}
-			setExtention(extention);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!directory.exists()) {
+			directory.mkdir();
 		}
-
 	}
 
 	/**
@@ -274,6 +273,62 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		}
 
 		return typeFile;
+	}
+
+	/**
+	 * Metodo que se encarga de copiar el archivo original y dejarlo en una ruta
+	 * cambiandole el nombre del archivo por el ID de la tabla de la auditoria.
+	 * 
+	 * @throws IOException
+	 */
+	public String backupFile() throws IOException {
+		setUrlFinal("\\AuditoriaArchivosCargados\\");
+		existdirectory(getUrlFinal());
+		setUrlFinal(getUrlFinal().concat(getIdDetailAudit().toString()).concat(getExtention()));
+		in = new FileInputStream(getUrl());
+		out = new FileOutputStream(getUrlFinal());
+
+		byte[] b = new byte[1024];
+		int l;
+		while ((l = in.read(b)) > 0) {
+			out.write(b, 0, l);
+		}
+
+		return getUrlFinal();
+	}
+
+	/**
+	 * Metodo que se encarga de recuperar el archivo o archivos que se envian desde
+	 * la vista y los guarda en una ruta final
+	 * 
+	 * @param reqest
+	 */
+	public void createFile(HttpServletRequest request, Long idAuditoria) {
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			String finalRoute = "\\ArchivosCargueExcel";
+			String extention = "";
+
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(1024);
+			factory.setRepository(new File(finalRoute));
+			ServletFileUpload upload = new ServletFileUpload(factory);
+
+			List<FileItem> parts = upload.parseRequest(request);
+			setUser(parts.get(0).getFieldName());
+			setNameFile(parts.get(1).getFieldName());
+			for (FileItem item : parts) {
+				if (null != item.getName()) {
+					extention = item.getName().substring(item.getName().lastIndexOf('.'));
+					File file = new File(finalRoute, idAuditoria.toString().concat(extention));
+					item.write(file);
+				}
+			}
+			setExtention(extention);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public ILogActivadorDao getLogActivadorDao() {
@@ -328,6 +383,14 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		this.idAudit = idAudit;
 	}
 
+	public Long getIdDetailAudit() {
+		return idDetailAudit;
+	}
+
+	public void setIdDetailAudit(Long idDetailAudit) {
+		this.idDetailAudit = idDetailAudit;
+	}
+
 	public String getDelimiter() {
 		return delimiter;
 	}
@@ -366,6 +429,30 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUrlFinal() {
+		return urlFinal;
+	}
+
+	public void setUrlFinal(String urlFinal) {
+		this.urlFinal = urlFinal;
+	}
+
+	public String getTraceDetail() {
+		return traceDetail;
+	}
+
+	public void setTraceDetail(String traceDetail) {
+		this.traceDetail = traceDetail;
 	}
 
 	@Override
@@ -426,6 +513,18 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	public void setNumRecMig(Long valor) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public ErrorDto getMessageError() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getIdAudit() {
+		// TODO Auto-generated method stub
+		return this.idAudit;
 	}
 
 }
