@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,10 +14,13 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import org.hibernate.exception.DataException;
+
 import co.com.samtel.cargue.enumeraciones.ErrorMapperType;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.IColumn;
 import co.com.samtel.cargue.exception.MapperException;
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.exception.dto.ErrorMapperDto;
 import co.com.samtel.cargue.service.IReadResource;
 import co.com.samtel.cargue.service.IStrategyMapper;
@@ -25,6 +29,8 @@ import co.com.samtel.dao.IGenericDao;
 public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStrategyMapper<T> {
 
 	private String data;
+
+	private Integer row;
 
 	private Class<T> domainClass = initDomainClass();
 
@@ -69,7 +75,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		return domainClass;
 	}
 
-	public void mapper(String delimiter) throws MapperException {
+	public void mapper(String delimiter) throws MapperException, UploadMapperExpetion {
 		this.DELIMITER = delimiter;
 		initialize();
 		splitData();
@@ -121,7 +127,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		}
 	}
 
-	public void mapperObject() {
+	public void mapperObject() throws UploadMapperExpetion {
 		try {
 			for (U item : getListEnumColumns()) {
 
@@ -155,12 +161,12 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				case "java.util.Date":
 					try {
-						SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
-						Date date1 = parseador.parse(getColumns().get(item.getIndice()));
+						Date date1 = formatingDate(getColumns().get(item.getIndice()));
 						method.invoke(getObjectMapper(), date1);
-
-					} catch (Exception e) {
+					} catch (ParseException e) {
 						e.printStackTrace();
+						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
+								Long.valueOf(getRow()), Long.valueOf(item.getIndice()), e.getMessage());
 					}
 					break;
 
@@ -172,6 +178,35 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Metodo con el cual se evaluaran todos los posibles formatos que podra tener
+	 * una fecha en la aplicacion
+	 * 
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
+	public Date formatingDate(String date) throws ParseException {
+		Date fecha = null;
+		try {
+			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
+			fecha = parseador.parse(date);
+		} catch (ParseException e) {
+			SimpleDateFormat parseador = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				fecha = parseador.parse(date);
+			} catch (ParseException e1) {
+				SimpleDateFormat parseador1 = new SimpleDateFormat("dd-MM-yyyy");
+				try {
+					fecha = parseador1.parse(date);
+				} catch (ParseException e2) {
+					throw new ParseException(e2.getMessage(), 0);
+				}
+			}
+		}
+		return fecha;
 	}
 
 	public String getUrl() {
@@ -187,8 +222,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * 
 	 * @return
 	 * @throws MapperException
+	 * @throws UploadMapperExpetion
 	 */
-	public Boolean executeUpload(String delimeter) throws MapperException {
+	public Boolean executeUpload(String delimeter) throws MapperException, UploadMapperExpetion {
 		DELIMITER = delimeter;
 		Boolean respuesta = Boolean.FALSE;
 		readResource.setUrl(getUrl());
@@ -208,8 +244,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * 
 	 * @return
 	 * @throws MapperException
+	 * @throws UploadMapperExpetion
 	 */
-	public Boolean throughRows() throws MapperException {
+	public Boolean throughRows() throws MapperException, UploadMapperExpetion {
 		Boolean answer = Boolean.TRUE;
 		List<String> rows = readResource.getRows();
 		int i = 0;
@@ -296,12 +333,19 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * 
 	 * @param item
 	 * @throws MapperException
+	 * @throws UploadMapperExpetion
 	 */
-	public void process(String item) throws MapperException {
+	public void process(String item) throws MapperException, UploadMapperExpetion {
 		setData(item);
 		mapper(DELIMITER);
 		T objeto = getObjectMapper();
-		getDao().saveEntity(getCustomMapper(objeto));
+		try {
+			getDao().saveEntity(getCustomMapper(objeto));
+		} catch (DataException e) {
+			throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), "", Long.valueOf(getRow()),
+					Long.valueOf(0), e.getMessage());
+		}
+
 		System.out.println("llego" + objeto.toString());
 	}
 
@@ -367,6 +411,14 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 	public void setTitlesColumns(List<String> titlesColumns) {
 		this.titlesColumns = titlesColumns;
+	}
+
+	public Integer getRow() {
+		return row;
+	}
+
+	public void setRow(Integer row) {
+		this.row = row;
 	}
 
 }

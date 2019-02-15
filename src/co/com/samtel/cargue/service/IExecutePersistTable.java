@@ -4,6 +4,7 @@ import javax.ejb.Local;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.exception.MapperException;
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 
 @Local
 public interface IExecutePersistTable {
@@ -14,6 +15,6 @@ public interface IExecutePersistTable {
 	 * @return
 	 */
 
-	Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile) throws MapperException;
+	Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile, Integer row) throws MapperException,UploadMapperExpetion;
 
 }

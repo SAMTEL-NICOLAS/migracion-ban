@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import org.hibernate.exception.JDBCConnectionException;
 
 import co.com.samtel.dao.IGenericDao;
@@ -108,8 +109,9 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			System.out.println("Error controlado debe actualizar");
 			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
 			return Boolean.FALSE;
-		} catch (Exception e) {
+		} catch (DataException e) {
 			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
 			return Boolean.FALSE;
 		} finally {
 			factorySessionHibernate.close(session, tx);
@@ -164,7 +166,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	}
 
 	@Override
-	public Long getMaxValue()throws ControlledExeption {
+	public Long getMaxValue() throws ControlledExeption {
 		Long maxRecords = Long.valueOf("0");
 		Session session = null;
 		try {

@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.exception.MapperException;
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
@@ -44,9 +45,9 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	private IStrategyMapper<BigPropectosCsv> strategyMapperBigProspectos;
 
 	@Override
-	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile)
-			throws MapperException {
-		Boolean respuesta = process(nameFile, url, delimiter);
+	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile, Integer row)
+			throws MapperException, UploadMapperExpetion {
+		Boolean respuesta = process(nameFile, url, delimiter, row);
 
 		System.out.println(respuesta);
 		return respuesta;
@@ -59,39 +60,48 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	 * @param nameFile
 	 * @return
 	 * @throws MapperException
+	 * @throws UploadMapperExpetion 
 	 */
-	public Boolean process(String nameFile, String url, String delimiter) throws MapperException {
+	public Boolean process(String nameFile, String url, String delimiter, Integer row) throws MapperException, UploadMapperExpetion {
 		Boolean respuesta = Boolean.TRUE;
 		switch (nameFile) {
 		case "BIG_CALIFICACION_CARTERA_CLIENTE":
 			strategyMapperBigCalificacionCarteraCliente.setUrl(url);
+			strategyMapperBigCalificacionCarteraCliente.setRow(row);
 			respuesta = strategyMapperBigCalificacionCarteraCliente.executeUpload(delimiter);
 			break;
 		case "BIG_DESENDEUDESE":
 			strategyMapperBigDesendeudese.setUrl(url);
+			strategyMapperBigDesendeudese.setRow(row);
 			respuesta = strategyMapperBigDesendeudese.executeUpload(delimiter);
 			break;
 		case "BIG_GEOREFERENCIAR_PROSPECTO":
 			strategyMapperBigGeoreferenciarProspecto.setUrl(url);
+			strategyMapperBigGeoreferenciarProspecto.setRow(row);
 			respuesta = strategyMapperBigGeoreferenciarProspecto.executeUpload(delimiter);
 			break;
 		case "BIG_INFO_FINANCIERA":
 			strategyMapperBigInfoFinanciera.setUrl(url);
+			strategyMapperBigInfoFinanciera.setRow(row);
 			respuesta = strategyMapperBigInfoFinanciera.executeUpload(delimiter);
 		case "BIG_METAS_FUERZA_COMERCIAL":
 			strategyMapperBigMetasFuerzaComercial.setUrl(url);
+			strategyMapperBigMetasFuerzaComercial.setRow(row);
 			respuesta = strategyMapperBigMetasFuerzaComercial.executeUpload(delimiter);
 			break;
 		case "BIG_METAS_OFICINA":
 			strategyMapperBigMetasOficina.setUrl(url);
+			strategyMapperBigMetasOficina.setRow(row);
 			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
 			break;
 		case "BIG_PARA_INDICADORES":
 			strategyMapperBigIndicadores.setUrl(url);
+			strategyMapperBigIndicadores.setRow(row);
 			respuesta = strategyMapperBigIndicadores.executeUpload(delimiter);
 			break;
 		case "BIG_PROSPECTOS":
 			strategyMapperBigProspectos.setUrl(url);
+			strategyMapperBigProspectos.setRow(row);
 			respuesta = strategyMapperBigProspectos.executeUpload(delimiter);
 			break;
 		default:

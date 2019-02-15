@@ -21,6 +21,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.dao.bussines.IAuditDaoCsv;
 import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
@@ -117,13 +118,14 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	public void callUpload() {
 
 		List<TypeFile> typetiles = Arrays.asList(TypeFile.values());
-
+		Integer iterador = Integer.valueOf("0");
 		for (TypeFile item : typetiles) {
 			// Genera el registro inicial del log
 			DetailAuditCsv detail = generateAuditMigration(item);
-			executeMigration(item, Long.valueOf("0"));
+			executeMigration(item, Long.valueOf("0"), iterador);
 			// Genera el detalle de la migracion
 			generateAuditMigration(detail);
+			iterador++;
 		}
 
 	}
@@ -134,7 +136,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	 * 
 	 * @return
 	 */
-	public void executeMigration(TypeFile item, Long migrados) {
+	public void executeMigration(TypeFile item, Long migrados, Integer row) {
 		try {
 			setUrl("\\ArchivosCargueExcel\\".concat(item.getNombreArchivo()));
 			if (existFile(getUrl())) {
@@ -142,7 +144,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 				setDelimiter(";");
 				System.out.println("Archivo: ".concat(item.getNombreArchivo()));
 				Boolean respuesta = executePersistTable.executeProcess(getUrl(), getTypeFile(item.getNombreArchivo()),
-						getDelimiter(), item.getNombreArchivo());
+						getDelimiter(), item.getNombreArchivo(), row);
 				if (respuesta) {
 					setTraceDetail("Mapeo realizado correctamente");
 				} else {
@@ -152,6 +154,8 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 				setTraceDetail("No existe el archivo: ".concat(item.getNombreArchivo()).concat(".csv"));
 			}
 
+		} catch (UploadMapperExpetion e) {
+			System.out.println("Aqui llego la vuelta tomo acciones con el mensaje " + e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

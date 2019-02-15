@@ -47,7 +47,7 @@ public class CargueMB implements IManagedBean {
 			if (manageResource.copyResourceServer(in)) {
 				System.out.println("002");
 				Boolean respuesta = executePersistTable.executeProcess(manageResource.getUrlDestination(),
-						TypeFile.BIG_DESENDEUDESE, getDelimiter(), "");
+						TypeFile.BIG_DESENDEUDESE, getDelimiter(), "",0);
 				System.out.println("005");
 				if (respuesta) {
 					addMessage(TYPEMESSAGE.SUCCESS, " MAPEO REALIZADO CORRECTAMENTE");
