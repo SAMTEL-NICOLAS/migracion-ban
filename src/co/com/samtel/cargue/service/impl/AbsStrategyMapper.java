@@ -145,17 +145,12 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				case "java.math.BigDecimal":
 					try {
-						DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-						symbols.setDecimalSeparator('.');
-						String pattern = "#.##";
-						DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
-						decimalFormat.setParseBigDecimal(true);
-
-						BigDecimal bigDecimal = (BigDecimal) decimalFormat.parse(getColumns().get(item.getIndice()));
-
+						BigDecimal bigDecimal = formatingBigDecimal(getColumns().get(item.getIndice()));
 						method.invoke(getObjectMapper(), bigDecimal);
-					} catch (Exception e) {
+					} catch (ParseException e) {
 						e.printStackTrace();
+						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
+								Long.valueOf(getRow()), Long.valueOf(item.getIndice()), e.getMessage());
 					}
 
 					break;
@@ -178,6 +173,38 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Metodo con el cual se evaluaran todos los posibles formatos que podra tener
+	 * un BigDecimal en la aplicacion.
+	 * 
+	 * @param value
+	 * @return
+	 * @throws ParseException
+	 */
+	public BigDecimal formatingBigDecimal(String value) throws ParseException {
+		BigDecimal bigDecimal = null;
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+		String pattern = "#.##";
+
+		try {
+			DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+			decimalFormat.setParseBigDecimal(true);
+			bigDecimal = (BigDecimal) decimalFormat.parse(value);
+		} catch (ParseException e) {
+			try {
+				pattern = "#,##";
+				DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+				decimalFormat.setParseBigDecimal(true);
+				bigDecimal = (BigDecimal) decimalFormat.parse(value);
+			} catch (Exception e2) {
+				throw new ParseException(e2.getMessage(), 0);
+			}
+		}
+
+		return bigDecimal;
 	}
 
 	/**

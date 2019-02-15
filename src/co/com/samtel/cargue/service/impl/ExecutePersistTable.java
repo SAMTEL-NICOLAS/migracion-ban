@@ -60,9 +60,10 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	 * @param nameFile
 	 * @return
 	 * @throws MapperException
-	 * @throws UploadMapperExpetion 
+	 * @throws UploadMapperExpetion
 	 */
-	public Boolean process(String nameFile, String url, String delimiter, Integer row) throws MapperException, UploadMapperExpetion {
+	public Boolean process(String nameFile, String url, String delimiter, Integer row)
+			throws MapperException, UploadMapperExpetion {
 		Boolean respuesta = Boolean.TRUE;
 		switch (nameFile) {
 		case "BIG_CALIFICACION_CARTERA_CLIENTE":
@@ -84,7 +85,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigInfoFinanciera.setUrl(url);
 			strategyMapperBigInfoFinanciera.setRow(row);
 			respuesta = strategyMapperBigInfoFinanciera.executeUpload(delimiter);
-		case "BIG_METAS_FUERZA_COMERCIAL":
+		case "BIG_METAS_FC":
 			strategyMapperBigMetasFuerzaComercial.setUrl(url);
 			strategyMapperBigMetasFuerzaComercial.setRow(row);
 			respuesta = strategyMapperBigMetasFuerzaComercial.executeUpload(delimiter);
