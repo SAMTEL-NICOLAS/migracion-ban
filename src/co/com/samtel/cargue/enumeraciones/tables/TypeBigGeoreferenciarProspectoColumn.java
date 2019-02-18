@@ -31,7 +31,7 @@ public enum TypeBigGeoreferenciarProspectoColumn implements IColumn {
 	I_CODIGO_ZONA(22,"I_codigo_zona",String.class),
 	I_CODIGO_OFICINA(23,"I_codigo_oficina",String.class),
 	S_UBICACION_DIRECCION(24,"S_ubicacion_direccion",String.class),
-	D_FECHA_CORTE(25,"S_fecha_corte",String.class),
+	D_FECHA_CORTE(25,"D_fecha_corte",Date.class),
 	I_NRO_CONSULTA(26,"I_nro_consulta",Integer.class),
 	S_INTERESADO(27,"S_interesado",String.class),
 	S_PRODUCTO(28,"S_producto",String.class);

@@ -81,7 +81,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigGeoreferenciarProspecto.setRow(row);
 			respuesta = strategyMapperBigGeoreferenciarProspecto.executeUpload(delimiter);
 			break;
-		case "BIG_INFO_FINANCIERA":
+		case "BIG_INF_FINANCIERA":
 			strategyMapperBigInfoFinanciera.setUrl(url);
 			strategyMapperBigInfoFinanciera.setRow(row);
 			respuesta = strategyMapperBigInfoFinanciera.executeUpload(delimiter);

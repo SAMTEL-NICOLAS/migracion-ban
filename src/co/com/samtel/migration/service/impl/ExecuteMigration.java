@@ -103,6 +103,10 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 
 		if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
 			executeMigration(item, item.getNumRecMig());
+		    setErrorMig(item.getError());
+			if(getErrorMig().getTypeError().equals(TypeErrors.NO_RECORDS_FOUND)) {
+				
+			}
 		}
 	}
 
@@ -153,7 +157,11 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			table.getLogActivador().setRegMig(table.getNumRecords());
 		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
 			table.getLogActivador().setEstado("-3");
-		} else {
+		} else if (getErrorMig().getTypeError().equals(TypeErrors.NO_RECORDS_FOUND)) {
+			table.getLogActivador().setEstado("1");
+			table.getLogActivador().setRegMig(table.getNumRecords());
+		}
+		else {
 			table.getLogActivador().setEstado("-2");
 		}
 
