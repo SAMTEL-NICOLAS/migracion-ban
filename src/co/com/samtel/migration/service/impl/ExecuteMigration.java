@@ -99,15 +99,12 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		item.generateMigration();
 
 		// Extrae el error de la migracion
-		setErrorMig(item.getError());
-
-		if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
-			executeMigration(item, item.getNumRecMig());
-		    setErrorMig(item.getError());
-			if(getErrorMig().getTypeError().equals(TypeErrors.NO_RECORDS_FOUND)) {
-				
+		if(null != item.getError()) {
+			setErrorMig(item.getError());	
+			if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
+				executeMigration(item, item.getNumRecMig());
 			}
-		}
+		}	
 	}
 
 	/**
@@ -156,12 +153,8 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			table.getLogActivador().setEstado("1");
 			table.getLogActivador().setRegMig(table.getNumRecords());
 		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
-			table.getLogActivador().setEstado("-3");
-		} else if (getErrorMig().getTypeError().equals(TypeErrors.NO_RECORDS_FOUND)) {
-			table.getLogActivador().setEstado("1");
-			table.getLogActivador().setRegMig(table.getNumRecords());
-		}
-		else {
+			table.getLogActivador().setEstado("-3");		
+		} else {
 			table.getLogActivador().setEstado("-2");
 		}
 

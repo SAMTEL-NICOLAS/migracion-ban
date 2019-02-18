@@ -101,6 +101,7 @@ public abstract class MigrateAbs<T, U> {
 				persistInformation();
 				updateMigrateOrigin();
 				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::."));
+
 			}
 		} catch (MapperException e) {
 			e.printStackTrace();
@@ -154,8 +155,9 @@ public abstract class MigrateAbs<T, U> {
 					setNumRecMig(getNumRecMig() + 1);
 				}
 			}
-		} else if (getNumRecords().equals(numRecMig)) {
-			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));
+			if (getNumRecords().equals(numRecMig)) {
+				setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));
+			}
 		} else {
 			throw new NoRecordsFoundException("Sin Registros de origen");
 		}

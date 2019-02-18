@@ -5,8 +5,9 @@ import java.math.BigDecimal;
 @SuppressWarnings("all")
 public enum TypeBigMetasOficinaColumn implements IColumn {
 	
-	D_FECHA(0, "D_fecha", Date.class), 
-	S_COD_OFICINA(1, "S_cod_oficina", String.class),
+	
+	S_COD_OFICINA(0, "S_cod_oficina", String.class),
+	D_FECHA(1, "D_fecha", Date.class), 
 	I_COD_SEGMENTO_PRODUCTO(2, "I_cod_segmento_producto", Integer.class),
 	S_NOMBRE_META(3, "S_nombre_meta", String.class),
 	M_VALOR_META(4, "M_valor_meta", BigDecimal.class);
