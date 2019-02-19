@@ -22,7 +22,15 @@ public class AuditAs400Rest {
 	@Path("/getAllLogActiva/{estado}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllLogActiva(@PathParam("estado") String estado) {
-		return Response.status(Response.Status.OK).entity(logActivadorDao.findAllLogActive(estado))
+		return Response.status(Response.Status.OK).entity(logActivadorDao.findLogActiveByState(estado))
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
+	
+	@GET
+	@Path("/getLogActiva")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLogActiva() {
+		return Response.status(Response.Status.OK).entity(logActivadorDao.findLogAllActive())
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 

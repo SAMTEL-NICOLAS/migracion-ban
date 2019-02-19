@@ -34,7 +34,7 @@ public interface IGenerateMigration {
 	 * 
 	 * @return
 	 */
-	Long getNumRecords();
+	Long getNumRecordsAll();
 
 	/**
 	 * Numero de registros que se migraron en la tabla que corresponde

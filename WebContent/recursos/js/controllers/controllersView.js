@@ -159,11 +159,27 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
         $scope.showAnswerTableAs = false;
+        $scope.errores = false;
+    	$scope.otros = false;
 
         $scope.getFind = function () {
             var estado = document.getElementById("selectEstado").value;
-            $scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);
-            $scope.showAnswerTableAs = true;
+            if (estado == 0 || estado == 1 ) {
+            	$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);          
+            	$scope.showAnswerTableAs = true;
+            	$scope.listAuditAs400.forEach(function(element){
+            		console.log(Element);
+            	})
+//for (obj : $scope.listAuditAs400 ){
+//	if(obj.estado === -2){
+//		obj.estado = "sin registros"
+//	}
+//}
+//            	
+            }else{
+            	 $scope.listAuditAs400 = auditAs400Fact.getAuditAllAs400(estado);
+                 $scope.showAnswerTableAs = true;
+            }
 
         };
 

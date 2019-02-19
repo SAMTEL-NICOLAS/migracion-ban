@@ -20,9 +20,15 @@ public interface IGenericDao<T, PK > {
 	public List<T> findBlockData(String idColum, Integer offset);
 	
 	/**
-	 * Metodo con el cual se cuenta cuantos registros hay en la tabla
+	 * Metodo con el cual se cuenta cuantos registros hay en la tabla que faltan por migrar
 	 */
 	public void countRecordsTable();
+	
+	/**
+	 * Metodo con el cual se cuenta cuantos registros hay en total en la tabla
+	 */
+	public void  countRecordsTableAll();	
+	
 	/**
 	 * Metodo con el cual seteo que tipo de conexion deseo usar
 	 * @param typeConections
@@ -38,7 +44,10 @@ public interface IGenericDao<T, PK > {
 	 * Metodo con el cual obtengo el numero de registros en la tabla
 	 * @return
 	 */
-	Long getNumRecordsTable();
+	Long getNumRecordsTable();	
+	
+	Long getNumRecordsTableAll();
+	
 	/**
 	 * Metodo con el cual obtengo los errores que se generan en los accesos a datos
 	 * @return
@@ -67,4 +76,8 @@ public interface IGenericDao<T, PK > {
 	 * @return
 	 */
 	Boolean updateListEntity(List<T> listEntity);
+
+	
+
+	
 }

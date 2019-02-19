@@ -108,6 +108,22 @@ app.factory(
                             }
                         });
                         return listData;
+                    }, getAuditAllAs400: function () {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditAs400/getLogActiva/",
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
                     }
                 };
             }

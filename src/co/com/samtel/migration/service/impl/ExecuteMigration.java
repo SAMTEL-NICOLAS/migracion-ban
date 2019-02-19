@@ -135,7 +135,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	}
 
 	public void generateAuditMigration(IGenerateMigration table, DetailAudit detail) {
-		detail.setRegDestino(table.getNumRecords());
+		detail.setRegDestino(table.getNumRecordsAll());
 		detail.setRegOrigen(table.getNumRecMig());
 		if (!getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
 			detail.setTraza("Tipo Error: " + getErrorMig().getTypeError() + " Mensaje: " + getErrorMig().getMessage());
@@ -151,7 +151,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
 			// Quiere decir que la tabla se migro correctamente
 			table.getLogActivador().setEstado("1");
-			table.getLogActivador().setRegMig(table.getNumRecords());
+			table.getLogActivador().setRegMig(table.getNumRecordsAll());
 		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
 			table.getLogActivador().setEstado("-3");		
 		} else {

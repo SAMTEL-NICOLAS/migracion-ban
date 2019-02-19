@@ -7,7 +7,8 @@ public class BigProductosCsv {
 	
 	private Integer i_cod_tipo_producto;	
 	private String s_des_tipo_producto;		
-	private Integer i_cod_producto;		
+	private Integer i_cod_producto;	
+	private Integer i_cod_sub_producto;	
 	private String s_des_producto;	
 	private String s_des_sub_producto;	
 	private String s_des_segmento_producto;		
@@ -15,7 +16,6 @@ public class BigProductosCsv {
 	private String s_des_segmento_cliente;		
 	private String s_des_segmento_tasas;		
 	private BigDecimal m_tasa_referencia;	
-	private Integer i_cod_sub_producto;	
 	private Date d_fecha_corte;
 	
 	public Integer getI_cod_tipo_producto() {

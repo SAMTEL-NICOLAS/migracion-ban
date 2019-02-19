@@ -9,13 +9,16 @@ import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.service.IExecutePersistTable;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
+import co.com.samtel.entity.manual.csv.BigCifinBureauCsv;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 import co.com.samtel.entity.manual.csv.BigGeoReferenciarProspectoCsv;
 import co.com.samtel.entity.manual.csv.BigIndicadoresCsv;
 import co.com.samtel.entity.manual.csv.BigInfoFinancieraCsv;
 import co.com.samtel.entity.manual.csv.BigMetasFuerzaComercialCsv;
 import co.com.samtel.entity.manual.csv.BigMetasOficinaCsv;
+import co.com.samtel.entity.manual.csv.BigProductosCsv;
 import co.com.samtel.entity.manual.csv.BigPropectosCsv;
+import co.com.samtel.entity.manual.csv.BigSegurosCsv;
 
 @Stateless(name = "executePersistTable")
 public class ExecutePersistTable implements IExecutePersistTable {
@@ -43,6 +46,15 @@ public class ExecutePersistTable implements IExecutePersistTable {
 
 	@EJB(beanName = "bigProspectosMapper")
 	private IStrategyMapper<BigPropectosCsv> strategyMapperBigProspectos;
+	
+	@EJB(beanName = "bigCifinBureauMapper")
+	private IStrategyMapper<BigCifinBureauCsv> strategyMapperBigCifinBureau;
+	
+	@EJB(beanName = "bigProductosMapper")
+	private IStrategyMapper<BigProductosCsv> strategyMapperBigProductos;	
+	
+	@EJB(beanName = "bigSegurosMapper")
+	private IStrategyMapper<BigSegurosCsv> strategyMapperBigSeguros;
 
 	@Override
 	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile, Integer row)
@@ -104,7 +116,21 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigProspectos.setUrl(url);
 			strategyMapperBigProspectos.setRow(row);
 			respuesta = strategyMapperBigProspectos.executeUpload(delimiter);
-			break;
+			break;	
+		case "BIG_SEGUROS":
+			strategyMapperBigSeguros.setUrl(url);
+			strategyMapperBigSeguros.setRow(row);
+			respuesta = strategyMapperBigSeguros.executeUpload(delimiter);
+			break;	
+		case "BIG_PRODUCTOS":
+			strategyMapperBigProductos.setUrl(url);
+			strategyMapperBigProductos.setRow(row);
+			respuesta = strategyMapperBigProductos.executeUpload(delimiter);
+			break;	
+		case "BIG_CIFIN_BUREAU":
+			strategyMapperBigCifinBureau.setUrl(url);
+			strategyMapperBigCifinBureau.setRow(row);
+			respuesta = strategyMapperBigCifinBureau.executeUpload(delimiter);
 		default:
 			break;
 		}

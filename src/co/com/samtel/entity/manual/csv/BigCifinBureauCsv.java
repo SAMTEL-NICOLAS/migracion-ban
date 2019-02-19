@@ -61,7 +61,7 @@ public class BigCifinBureauCsv {
 	private Integer i_probabilidad_de_mora_score;
 	private Integer i_probabilidad_de_incumplimiento_score;
 	private String s_campana;
-	private String i_codigo_fuerza_comercia;
+	private String i_codigo_fuerza_comercial;
 	private Short i_codigo_oficina;	
 	private Integer i_codigo_cliente;
 	private Date d_fecha_corte;
@@ -403,10 +403,10 @@ public class BigCifinBureauCsv {
 		this.s_campana = s_campana;
 	}
 	public String getI_codigo_fuerza_comercia() {
-		return i_codigo_fuerza_comercia;
+		return i_codigo_fuerza_comercial;
 	}
 	public void setI_codigo_fuerza_comercia(String i_codigo_fuerza_comercia) {
-		this.i_codigo_fuerza_comercia = i_codigo_fuerza_comercia;
+		this.i_codigo_fuerza_comercial = i_codigo_fuerza_comercia;
 	}
 	public Short getI_codigo_oficina() {
 		return i_codigo_oficina;

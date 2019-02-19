@@ -27,6 +27,9 @@ public abstract class MigrateAbs<T, U> {
 	IParametrosService parametrosService;
 	// Numero de registros a migrar
 	private Long numRecords;
+	
+	private Long numRecordsAll;
+	
 	// Numero de registros migrados
 	private Long numRecMig;
 	// Numero de registros que se migrarar (bloque de información)
@@ -99,7 +102,7 @@ public abstract class MigrateAbs<T, U> {
 				extractInformation(getStrPrimaryKey(), getNumRecBlock().intValue());
 				setListDestino(mappearOrigen(getListOrigen()));
 				persistInformation();
-				updateMigrateOrigin();
+				updateMigrateOrigin();				
 				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::."));
 
 			}
@@ -155,13 +158,22 @@ public abstract class MigrateAbs<T, U> {
 					setNumRecMig(getNumRecMig() + 1);
 				}
 			}
-			if (getNumRecords().equals(numRecMig)) {
-				setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));
-			}
-		} else {
+			cantidadRegistrosMigrados();
+		}
+		
+		else {
 			throw new NoRecordsFoundException("Sin Registros de origen");
 		}
-
+		
+	}
+	
+	public void cantidadRegistrosMigrados () {
+		getOrigen().countRecordsTableAll();
+		setNumRecordsAll(getOrigen().getNumRecordsTableAll());		
+	
+		if (getNumRecordsAll().equals(numRecMig)) {
+		setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));			
+	} 
 	}
 
 	/**
@@ -271,6 +283,14 @@ public abstract class MigrateAbs<T, U> {
 
 	public void setLogActivador(LogActivador logActivador) {
 		this.logActivador = logActivador;
+	}
+
+	public Long getNumRecordsAll() {
+		return numRecordsAll;
+	}
+
+	public void setNumRecordsAll(Long numRecordsAll) {
+		this.numRecordsAll = numRecordsAll;
 	}
 
 }

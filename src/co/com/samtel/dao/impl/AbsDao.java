@@ -28,6 +28,8 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	private TypeConections typeConection;
 
 	private Long numRecordsTable;
+	
+	private Long numRecordsTableAll;
 
 	private ErrorDto error;
 
@@ -56,12 +58,26 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount())
 					.add(Restrictions.eq("migrado", " ")).uniqueResult());
+//			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount()).uniqueResult());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, null);
 		}
 	}
+	@Override
+	public void countRecordsTableAll() {
+		Session session = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			setNumRecordsTableAll((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount()).uniqueResult());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			factorySessionHibernate.close(session, null);
+		}
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -226,6 +242,14 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	public void setError(ErrorDto error) {
 		this.error = error;
+	}
+
+	public Long getNumRecordsTableAll() {
+		return numRecordsTableAll;
+	}
+
+	public void setNumRecordsTableAll(Long numRecordsTableAll) {
+		this.numRecordsTableAll = numRecordsTableAll;
 	}
 
 }
