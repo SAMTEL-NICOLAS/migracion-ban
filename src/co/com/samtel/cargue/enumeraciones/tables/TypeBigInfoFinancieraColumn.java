@@ -16,7 +16,6 @@ public enum TypeBigInfoFinancieraColumn implements IColumn {
 	M_INGRESOS_TOTALES(7, "M_ingresos_totales", BigDecimal.class),
 	M_EGRESOS_TOTALES(8, "M_egresos_totales", BigDecimal.class);
 
-
 	private int indice;
 	private String nombreColumna;
 	@SuppressWarnings("rawtypes")

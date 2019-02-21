@@ -64,7 +64,7 @@ public enum TypeBigCifinBureauColumn implements IColumn {
 	I_PROBABILIDAD_DE_INCUMPLIMIENTO_SCORE(55,"I_probabilidad_de_incumplimiento_score",Integer.class),
 	S_CAMPANA(56,"S_campana",String.class),
 	I_CODIGO_CLIENTE(57,"I_codigo_cliente",Integer.class),
-	I_CODIGO_FUERZA_COMERCIA(58,"I_codigo_fuerza_comercial",String.class),
+	I_CODIGO_FUERZA_COMERCIAL(58,"I_codigo_fuerza_comercial",String.class),
 	I_CODIGO_OFICINA(59,"I_codigo_oficina",Short.class);	
 	
 	private int indice;

@@ -107,7 +107,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigMetasOficina.setRow(row);
 			respuesta = strategyMapperBigMetasOficina.executeUpload(delimiter);
 			break;
-		case "BIG_PARA_INDICADORES":
+		case "BIG_INDICADORES":
 			strategyMapperBigIndicadores.setUrl(url);
 			strategyMapperBigIndicadores.setRow(row);
 			respuesta = strategyMapperBigIndicadores.executeUpload(delimiter);

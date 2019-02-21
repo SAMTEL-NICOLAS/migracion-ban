@@ -21,8 +21,8 @@
 
 .center {
 	margin-left: 0%;
-	height: 100%;
-	position:relative;
+/* 	height: 100%; */
+/* 	position:relative; */
 
 }
 
@@ -52,10 +52,10 @@
 ul {
 	font-size: 16px !important;
 	list-style-type: none;
-	margin: 0;
-	padding: 0;
 	overflow: hidden;
 	background-color: #f9f9f9;
+	position: absolute;
+
  }
 
 li {
@@ -134,7 +134,7 @@ li.dropdown {
 	width: 200px;
 	font-size: 10pt;
 	height: 100%;
-	position: fixed;
+/* 	position: fixed; */
 	/*       width: 200px; */
 	/*       height: 150px; */
 	/*       overflow-y: auto; */

@@ -402,12 +402,6 @@ public class BigCifinBureauCsv {
 	public void setS_campana(String s_campana) {
 		this.s_campana = s_campana;
 	}
-	public String getI_codigo_fuerza_comercia() {
-		return i_codigo_fuerza_comercial;
-	}
-	public void setI_codigo_fuerza_comercia(String i_codigo_fuerza_comercia) {
-		this.i_codigo_fuerza_comercial = i_codigo_fuerza_comercia;
-	}
 	public Short getI_codigo_oficina() {
 		return i_codigo_oficina;
 	}
@@ -425,5 +419,12 @@ public class BigCifinBureauCsv {
 	}
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
+	}
+	public String getI_codigo_fuerza_comercial() {
+		return i_codigo_fuerza_comercial;
+	}
+	public void setI_codigo_fuerza_comercial(String i_codigo_fuerza_comercial) {
+		this.i_codigo_fuerza_comercial = i_codigo_fuerza_comercial;
 	}	
+	
 }

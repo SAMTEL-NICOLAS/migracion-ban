@@ -18,7 +18,7 @@ public enum TypeBigDesendeudeseColumn implements IColumn {
 	I_PLAZO_CCIAL(9,"I_plazo_ccial",Integer.class),
 	M_TNMV_CCIAL(10,"M_tnmv_ccial",BigDecimal.class),
 	M_TNA_CCIAL(11,"M_tna_ccial",BigDecimal.class),
-	I_TEA_CCIAL(12,"I_tea_ccial",Integer.class),
+	I_TEA_CCIAL(12,"I_tea_ccial",BigDecimal.class),
 	I_CREDITOS_CONS(13,"I_creditos_cons",Integer.class),
 	M_VLR_DESEM_CONS(14,"M_vlr_desem_cons",BigDecimal.class),
 	M_VLR_SALDO_CONS(15,"M_vlr_saldo_cons",BigDecimal.class),

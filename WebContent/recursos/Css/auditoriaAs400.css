@@ -11,7 +11,7 @@
 .contenedor2 {
 	text-align: left;
 	margin-top: 3%;
-	font: 12pt arial;
+	font: 10pt arial;
 	
 }
 
@@ -35,6 +35,7 @@ td {
 	font-weight: bold;
 	color: #d0122d;
 	border-bottom: solid 1px #0f362d;
+	border: #d0122d 1px solid;
 	}
 
 .selectArchivo {
@@ -68,6 +69,7 @@ td {
 	font-weight: bold;
 	color: black;
 	border-bottom: solid 1px #0f362d;
+	border: #d0122d 1px solid;
 }
 
 .titulo {

@@ -9,6 +9,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import co.com.samtel.dao.IGenericDao;
 public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStrategyMapper<T> {
 
 	private String data;
+	private List <String>data2;
 
 	private Integer row;
 
@@ -88,11 +90,34 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	}
 
 	public void splitData() throws MapperException {
+	
 		if (getData() == null) {
 			throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Linea Vacia"));
 		} else if (getData().equalsIgnoreCase("")) {
 			throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Linea Vacia"));
 		}
+		
+		String ultimo = data.substring(data.length() - 1);			
+		if(ultimo.equals(";")) {			
+			List<String> myList = new ArrayList<String>(Arrays.asList(data.split(DELIMITER)));
+
+		      while(getTypeFile().getNumColumns().intValue()!=myList.size() ) {
+		    	  myList.add(null);
+		      } 		
+			
+			int tamanio = myList.size();
+			System.out.println(tamanio);
+			System.out.println("DELIMITER: ".concat(DELIMITER));
+
+			for (String item : myList) {
+				if (getColumns() == null) {
+					setColumns(new ArrayList<String>());
+				}
+				columns.add(item);
+			}
+		}
+		else
+		{	
 		String[] columnsVector = data.split(DELIMITER);
 		if (columnsVector.length == 0) {
 			DELIMITER = ",";
@@ -103,6 +128,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 			}
 		}
 
+
 		System.out.println("DELIMITER: ".concat(DELIMITER));
 
 		for (String item : columnsVector) {
@@ -110,6 +136,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				setColumns(new ArrayList<String>());
 			}
 			columns.add(item);
+		}
 		}
 	}
 
@@ -121,12 +148,16 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	public void validateStructure() throws MapperException {
 		System.out.println("Tamaño columnas del archivo: " + getColumns().size());
 		System.out.println("Tamaño columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());
-		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
+		if(getColumns().size()>getTypeFile().getNumColumns().intValue()) {
 			throw new MapperException(
 					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));
 		}
+//		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
+//			throw new MapperException(
+//					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));
+//		}
 	}
-
+	
 	public void mapperObject() throws UploadMapperExpetion {
 		try {
 			for (U item : getListEnumColumns()) {
@@ -135,19 +166,26 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
-					method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));
+						method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));				
 					break;
 				case "java.lang.Integer":
-					method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));
+						method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));			
 					break;
 				case "java.lang.Double":
-					method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));
+						method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));	
 					break;
 				case "java.math.BigDecimal":
-					try {
-						BigDecimal bigDecimal = formatingBigDecimal(getColumns().get(item.getIndice()));
-						method.invoke(getObjectMapper(), bigDecimal);
-					} catch (ParseException e) {
+					try {						
+						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
+							BigDecimal bigDecimal = null;
+							method.invoke(getObjectMapper(), bigDecimal);
+						}
+						else {
+							BigDecimal bigDecimal = formatingBigDecimal(getColumns().get(item.getIndice()));
+							method.invoke(getObjectMapper(), bigDecimal);
+						}
+						
+					} catch (ParseException | IndexOutOfBoundsException e) { 
 						e.printStackTrace();
 						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
 								Long.valueOf(getRow()), Long.valueOf(item.getIndice()), e.getMessage());
@@ -156,8 +194,15 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				case "java.util.Date":
 					try {
-						Date date1 = formatingDate(getColumns().get(item.getIndice()));
-						method.invoke(getObjectMapper(), date1);
+						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty()) {
+							Date date = null;
+							method.invoke(getObjectMapper(), date);
+						}
+						else {
+							Date date1 = formatingDate(getColumns().get(item.getIndice()));
+							method.invoke(getObjectMapper(), date1);
+						}
+						
 					} catch (ParseException e) {
 						e.printStackTrace();
 						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
@@ -446,6 +491,14 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 	public void setRow(Integer row) {
 		this.row = row;
+	}
+
+	public List<String> getData2() {
+		return data2;
+	}
+
+	public void setData2(List<String> data2) {
+		this.data2 = data2;
 	}
 
 }

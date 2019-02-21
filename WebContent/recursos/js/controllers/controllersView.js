@@ -153,8 +153,7 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
                 return input.slice(start);
             };
         });
-        footerOfTableOne();
-
+        
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
@@ -165,7 +164,13 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         $scope.getFind = function () {
             var estado = document.getElementById("selectEstado").value;
             if (estado == 0 || estado == 1 ) {
-            	$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);          
+            	$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado); 
+            	footerOfTableOne(); 
+            	$scope.ho= $scope.listAuditAs400.length / $scope.t1PageSize;
+            	$scope.t1NumberOfPages= function(){
+            		return $scope.ho;
+            	}
+            	$scope.showAnswerTableAs = true;
             	$scope.showAnswerTableAs = true;
             	$scope.listAuditAs400.forEach(function(element){
             		console.log(Element);
@@ -187,13 +192,11 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         function footerOfTableOne() {
             $scope.t1CurrentPage = 0;
             $scope.t1PageSize = 10;
-            $scope.data = [];
-
-            $scope.t1NumberOfPages = function () {
-                return Math.ceil($scope.listAuditAs400.length / $scope.t1PageSize);
-            };
+            $scope.data = [];           
         }
-        ;
+//        $scope.t1NumberOfPages = function () {
+//            return Math.ceil($scope.listAuditAs400.length / $scope.t1PageSize);
+//       };
     }
 ]);
 

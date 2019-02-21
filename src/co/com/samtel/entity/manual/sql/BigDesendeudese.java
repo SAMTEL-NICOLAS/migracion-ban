@@ -51,7 +51,7 @@ public class BigDesendeudese implements Serializable {
 	private BigDecimal m_tna_ccial;	
 	
 	@Column(name = "i_tea_ccial")
-	private Integer i_tea_ccial;	
+	private BigDecimal i_tea_ccial;	
 	
 	@Column(name = "i_creditos_cons")
 	private Integer i_creditos_cons;	
@@ -395,11 +395,11 @@ public class BigDesendeudese implements Serializable {
 		this.m_tna_ccial = m_tna_ccial;
 	}
 
-	public Integer getI_tea_ccial() {
+	public BigDecimal getI_tea_ccial() {
 		return i_tea_ccial;
 	}
 
-	public void setI_tea_ccial(Integer i_tea_ccial) {
+	public void setI_tea_ccial(BigDecimal i_tea_ccial) {
 		this.i_tea_ccial = i_tea_ccial;
 	}
 

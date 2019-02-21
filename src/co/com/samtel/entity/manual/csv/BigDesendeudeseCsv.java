@@ -17,7 +17,7 @@ public class BigDesendeudeseCsv {
 	private Integer i_plazo_ccial;
 	private BigDecimal m_tnmv_ccial;
 	private BigDecimal m_tna_ccial;
-	private Integer i_tea_ccial;
+	private BigDecimal i_tea_ccial;
 	private Integer i_creditos_cons;
 	private BigDecimal m_vlr_desem_cons;
 	private BigDecimal m_vlr_saldo_cons;
@@ -198,11 +198,11 @@ public class BigDesendeudeseCsv {
 		this.m_tna_ccial = m_tna_ccial;
 	}
 
-	public Integer getI_tea_ccial() {
+	public BigDecimal getI_tea_ccial() {
 		return i_tea_ccial;
 	}
 
-	public void setI_tea_ccial(Integer i_tea_ccial) {
+	public void setI_tea_ccial(BigDecimal i_tea_ccial) {
 		this.i_tea_ccial = i_tea_ccial;
 	}
 
