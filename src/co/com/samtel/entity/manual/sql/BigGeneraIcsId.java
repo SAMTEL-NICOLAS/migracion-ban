@@ -12,7 +12,7 @@ public class BigGeneraIcsId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column		
-	private Integer i_codigo_cliente;
+	private Long i_codigo_cliente;
 	
 	@Column		
 	private String s_cod_producto;
@@ -25,7 +25,7 @@ public class BigGeneraIcsId implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BigGeneraIcsId(Integer i_codigo_cliente, String s_cod_producto, Date d_fecha_corte) {
+	public BigGeneraIcsId(Long i_codigo_cliente, String s_cod_producto, Date d_fecha_corte) {
 		super();
 		this.i_codigo_cliente = i_codigo_cliente;
 		this.s_cod_producto = s_cod_producto;
@@ -69,11 +69,11 @@ public class BigGeneraIcsId implements Serializable {
 		return true;
 	}
 
-	public Integer getI_codigo_cliente() {
+	public Long getI_codigo_cliente() {
 		return i_codigo_cliente;
 	}
 
-	public void setI_codigo_cliente(Integer i_codigo_cliente) {
+	public void setI_codigo_cliente(Long i_codigo_cliente) {
 		this.i_codigo_cliente = i_codigo_cliente;
 	}
 

@@ -90,21 +90,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	}
 
 	public void splitData() throws MapperException {
-	
+
 		if (getData() == null) {
 			throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Linea Vacia"));
 		} else if (getData().equalsIgnoreCase("")) {
 			throw new MapperException(ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Linea Vacia"));
 		}
-		
-		String ultimo = data.substring(data.length() - 1);			
-		if(ultimo.equals(";")) {			
+
+		String ultimo = data.substring(data.length() - 1);
+		if (ultimo.equals(";")) {
 			List<String> myList = new ArrayList<String>(Arrays.asList(data.split(DELIMITER)));
 
-		      while(getTypeFile().getNumColumns().intValue()!=myList.size() ) {
-		    	  myList.add(null);
-		      } 		
-			
+			while (getTypeFile().getNumColumns().intValue() != myList.size()) {
+				myList.add(null);
+			}
+
 			int tamanio = myList.size();
 			System.out.println(tamanio);
 			System.out.println("DELIMITER: ".concat(DELIMITER));
@@ -115,19 +115,16 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				}
 				columns.add(item);
 			}
-		}
-		else
-		{	
-		String[] columnsVector = data.split(DELIMITER);
-		if (columnsVector.length == 0) {
-			DELIMITER = ",";
-			columnsVector = data.split(DELIMITER);
+		} else {
+			String[] columnsVector = data.split(DELIMITER);
 			if (columnsVector.length == 0) {
-				throw new MapperException(
-						ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Informaci√≥n"));
+				DELIMITER = ",";
+				columnsVector = data.split(DELIMITER);
+				if (columnsVector.length == 0) {
+					throw new MapperException(
+							ErrorMapperDto.of(ErrorMapperType.EMPTY_DATA, typeFile, null, "Sin Informaci√≥n"));
+				}
 			}
-		}
-
 
 		System.out.println("DELIMITER: ".concat(DELIMITER));
 
@@ -147,15 +144,11 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 */
 	public void validateStructure() throws MapperException {
 		System.out.println("TamaÒo columnas del archivo: " + getColumns().size());
-		System.out.println("TamaÒo columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());
-		if(getColumns().size()>getTypeFile().getNumColumns().intValue()) {
+		System.out.println("TamaÒo columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());	
+		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
 			throw new MapperException(
 					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));
-		}
-//		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
-//			throw new MapperException(
-//					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));
-//		}
+			}
 	}
 	
 	public void mapperObject() throws UploadMapperExpetion {
@@ -169,7 +162,13 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 						method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));				
 					break;
 				case "java.lang.Integer":
-						method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));			
+						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
+						Integer integer = null;
+						method.invoke(getObjectMapper(), integer);	
+						}
+						else {
+							method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));	
+						}
 					break;
 				case "java.lang.Double":
 						method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));	
@@ -288,7 +287,6 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 	/**
 	 * Metodo con el cual realizo el proceso de cargue
 	 * 

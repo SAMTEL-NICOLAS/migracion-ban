@@ -30,7 +30,7 @@ public class BigSegurosCsv {
 	private Long i_producto_asociado;
 	private String s_plan;
 	private Integer i_cod_producto;
-	private Integer i_codigo_cliente;
+	private Long i_codigo_cliente;
 	private Date d_fecha_corte;
 	
 	public String getS_territorial() {
@@ -183,10 +183,10 @@ public class BigSegurosCsv {
 	public void setI_cod_producto(Integer i_cod_producto) {
 		this.i_cod_producto = i_cod_producto;
 	}
-	public Integer getI_codigo_cliente() {
+	public Long getI_codigo_cliente() {
 		return i_codigo_cliente;
 	}
-	public void setI_codigo_cliente(Integer i_codigo_cliente) {
+	public void setI_codigo_cliente(Long i_codigo_cliente) {
 		this.i_codigo_cliente = i_codigo_cliente;
 	}
 	public Date getD_fecha_corte() {
@@ -195,6 +195,18 @@ public class BigSegurosCsv {
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "BigSegurosCsv [s_territorial=" + s_territorial + ", s_cod_oficina=" + s_cod_oficina + ", s_nom_oficina="
+				+ s_nom_oficina + ", d_fecha=" + d_fecha + ", s_id_vendedor=" + s_id_vendedor + ", s_nombre_vendedor="
+				+ s_nombre_vendedor + ", s_cargo_asesor=" + s_cargo_asesor + ", s_id_aprobador=" + s_id_aprobador
+				+ ", s_nombre_aprobador=" + s_nombre_aprobador + ", s_id_cliente=" + s_id_cliente
+				+ ", s_nombre_cliente=" + s_nombre_cliente + ", m_valor_mensual=" + m_valor_mensual + ", m_total_plan="
+				+ m_total_plan + ", i_numero_meses=" + i_numero_meses + ", s_forma_pago=" + s_forma_pago
+				+ ", s_origen_venta=" + s_origen_venta + ", m_total_pagado=" + m_total_pagado + ", s_status=" + s_status
+				+ ", d_cobertura_hasta=" + d_cobertura_hasta + ", m_num_ctaxpagar=" + m_num_ctaxpagar + ", i_grupo="
+				+ i_grupo + ", i_codigo_asesor=" + i_codigo_asesor + ", i_producto_asociado=" + i_producto_asociado
+				+ ", s_plan=" + s_plan + ", i_cod_producto=" + i_cod_producto + ", i_codigo_cliente=" + i_codigo_cliente
+				+ ", d_fecha_corte=" + d_fecha_corte + "]";
+	}	
 }

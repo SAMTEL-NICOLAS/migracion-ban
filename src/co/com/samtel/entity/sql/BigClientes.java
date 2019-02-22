@@ -1051,5 +1051,39 @@ public class BigClientes implements Serializable {
 		this.nrofilgren = nrofilgren;
 	}
 
+	@Override
+	public String toString() {
+		return "BigClientes [nui=" + nui + ", codnatucli=" + codnatucli + ", codtipiden=" + codtipiden + ", codocupaci="
+				+ codocupaci + ", numidentif=" + numidentif + ", fechaexdoc=" + fechaexdoc + ", lugarexped="
+				+ lugarexped + ", nombcomprs=" + nombcomprs + ", numemplead=" + numemplead + ", numemplern="
+				+ numemplern + ", numemplnrn=" + numemplnrn + ", codregionl=" + codregionl + ", codzoncomr="
+				+ codzoncomr + ", codofiactl=" + codofiactl + ", fechcrecli=" + fechcrecli + ", tienemicro="
+				+ tienemicro + ", nombremicr=" + nombremicr + ", fechconsem=" + fechconsem + ", expnegocio="
+				+ expnegocio + ", posnegocio=" + posnegocio + ", anticlient=" + anticlient + ", antigempre="
+				+ antigempre + ", codejecuti=" + codejecuti + ", codsectec1=" + codsectec1 + ", codsectec2="
+				+ codsectec2 + ", codactiec1=" + codactiec1 + ", codintace1=" + codintace1 + ", codactiec2="
+				+ codactiec2 + ", codintace2=" + codintace2 + ", codagencre=" + codagencre + ", correoelec="
+				+ correoelec + ", totalactiv=" + totalactiv + ", totalpasiv=" + totalpasiv + ", totalpatri="
+				+ totalpatri + ", totalvents=" + totalvents + ", totalcsven=" + totalcsven + ", totaloting="
+				+ totaloting + ", totalegres=" + totalegres + ", utilidbrut=" + utilidbrut + ", utilidneta="
+				+ utilidneta + ", utilidoper=" + utilidoper + ", descrpotri=" + descrpotri + ", expactivid="
+				+ expactivid + ", codigenero=" + codigenero + ", codestaciv=" + codestaciv + ", paisorigen="
+				+ paisorigen + ", edad=" + edad + ", fechanacim=" + fechanacim + ", nrohijos=" + nrohijos
+				+ ", codniveduc=" + codniveduc + ", codprofesi=" + codprofesi + ", codcobersa=" + codcobersa
+				+ ", codcajcomp=" + codcajcomp + ", codjefefam=" + codjefefam + ", numperscar=" + numperscar
+				+ ", fechaultac=" + fechaultac + ", codtipcont=" + codtipcont + ", cargodesem=" + cargodesem
+				+ ", empretrabj=" + empretrabj + ", antigenemp=" + antigenemp + ", salario=" + salario + ", estrato="
+				+ estrato + ", codtipvivi=" + codtipvivi + ", codtiplocl=" + codtiplocl + ", locviviend=" + locviviend
+				+ ", codsegment=" + codsegment + ", codsubsegm=" + codsubsegm + ", codcnlvinc=" + codcnlvinc
+				+ ", codmdenvio=" + codmdenvio + ", victconfli=" + victconfli + ", codvincent=" + codvincent
+				+ ", menoredad=" + menoredad + ", declararen=" + declararen + ", pep=" + pep + ", camppoliti="
+				+ camppoliti + ", opermndext=" + opermndext + ", actitotneg=" + actitotneg + ", nivelendeu="
+				+ nivelendeu + ", codtpempre=" + codtpempre + ", codregimen=" + codregimen + ", numrsocios="
+				+ numrsocios + ", nombrepleg=" + nombrepleg + ", codtprpleg=" + codtprpleg + ", regbiometr="
+				+ regbiometr + ", nrofinraiz=" + nrofinraiz + ", nrovehicul=" + nrovehicul + ", tipcontrib="
+				+ tipcontrib + ", nropersgrf=" + nropersgrf + ", nrppercppg=" + nrppercppg + ", nivelconsl="
+				+ nivelconsl + ", tipgruende=" + tipgruende + ", secgruende=" + secgruende + ", codcliecab="
+				+ codcliecab + ", nrofilgren=" + nrofilgren + "]";
+	}
 	
 }

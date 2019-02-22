@@ -6,7 +6,7 @@ import java.util.Date;
 @SuppressWarnings("all")
 public enum TypeBigGeneraIcsColumn implements IColumn {
 	
-	I_CODIGO_CLIENTE (0,"I_codigo_cliente",Integer.class), //no viene
+	I_CODIGO_CLIENTE (0,"I_codigo_cliente",Long.class), //no viene
 	S_ID_CLIENTE (1,"S_id_cliente",String.class),
 	S_COD_PRODUCTO (2,"S_cod_producto",String.class),
 	S_COD_EJECUTIVO (3,"S_cod_ejecutivo",String.class),

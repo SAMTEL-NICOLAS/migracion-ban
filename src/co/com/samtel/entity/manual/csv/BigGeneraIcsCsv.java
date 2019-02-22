@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class BigGeneraIcsCsv {
 	
-	private Integer i_codigo_cliente; //no viene 	
+	private Long i_codigo_cliente; //no viene 	
 	private String s_id_cliente;	
 	private String s_cod_ejecutivo;	
 	private BigDecimal m_mora;	
@@ -115,10 +115,10 @@ public class BigGeneraIcsCsv {
 	public void setS_id_razon(String s_id_razon) {
 		this.s_id_razon = s_id_razon;
 	}
-	public Integer getI_codigo_cliente() {
+	public Long getI_codigo_cliente() {
 		return i_codigo_cliente;
 	}
-	public void setI_codigo_cliente(Integer i_codigo_cliente) {
+	public void setI_codigo_cliente(Long i_codigo_cliente) {
 		this.i_codigo_cliente = i_codigo_cliente;
 	}
 	public String getS_cod_producto() {
@@ -132,5 +132,17 @@ public class BigGeneraIcsCsv {
 	}
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
+	}
+	@Override
+	public String toString() {
+		return "BigGeneraIcsCsv [i_codigo_cliente=" + i_codigo_cliente + ", s_id_cliente=" + s_id_cliente
+				+ ", s_cod_ejecutivo=" + s_cod_ejecutivo + ", m_mora=" + m_mora + ", m_saldo_capital=" + m_saldo_capital
+				+ ", m_interes_corriente=" + m_interes_corriente + ", m_capital_mora=" + m_capital_mora
+				+ ", m_interes_mora=" + m_interes_mora + ", i_dias_mora=" + i_dias_mora + ", d_fecha_pago="
+				+ d_fecha_pago + ", i_cuota_vencida=" + i_cuota_vencida + ", d_fecha_ult_gestion=" + d_fecha_ult_gestion
+				+ ", s_id_accion=" + s_id_accion + ", s_id_respuesta=" + s_id_respuesta + ", s_observacion="
+				+ s_observacion + ", s_id_razon=" + s_id_razon + ", s_cod_producto=" + s_cod_producto
+				+ ", d_fecha_corte=" + d_fecha_corte + "]";
 	}	
+	
 }

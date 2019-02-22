@@ -28,11 +28,11 @@ public enum TypeBigSegurosColumn implements IColumn {
 	D_COBERTURA_HASTA(19,"D_cobertura_hasta",Date.class),	
 	M_NUM_CTAXPAGAR(20,"M_num_ctaxpagar",Integer.class),	
 	I_GRUPO(21,"I_grupo",Integer.class),
-	I_CODIGO_ASESOR(22,"I_codigo_asesor",Integer.class),	
-	I_PRODUCTO(23,"I_producto_asociado",Long.class),	
-	I_COD_PRODUCTO(24,"I_cod_producto",Integer.class),
-	I_CODIGO_CLIENTE(25,"I_codigo_cliente",Integer.class),
-	D_FECHA_CORTE(26,"D_fecha_corte",Date.class);
+	I_COD_PRODUCTO(22,"I_cod_producto",Integer.class),
+	D_FECHA_CORTE(23,"D_fecha_corte",Date.class),
+	I_CODIGO_ASESOR(24,"I_codigo_asesor",Integer.class),	
+	I_CODIGO_CLIENTE(25,"I_codigo_cliente",Long.class),	
+	I_PRODUCTO(26,"I_producto_asociado",Long.class);
 	
 	private int indice;
 	private String nombreColumna;

@@ -19,17 +19,16 @@ public class BigSegurosId implements Serializable {
 	private Integer i_cod_producto;
 	
 	@Column
-	private Integer i_codigo_cliente;
+	private Long i_codigo_cliente;
 	
 	@Column
 	private Date d_fecha_corte;
 
 	public BigSegurosId() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
-	public BigSegurosId(String s_plan, Integer i_cod_producto, Integer i_codigo_cliente, Date d_fecha_corte) {
+	public BigSegurosId(String s_plan, Integer i_cod_producto, Long i_codigo_cliente, Date d_fecha_corte) {
 		super();
 		this.s_plan = s_plan;
 		this.i_cod_producto = i_cod_producto;
@@ -96,11 +95,11 @@ public class BigSegurosId implements Serializable {
 		this.i_cod_producto = i_cod_producto;
 	}
 
-	public Integer getI_codigo_cliente() {
+	public 	Long getI_codigo_cliente() {
 		return i_codigo_cliente;
 	}
 
-	public void setI_codigo_cliente(Integer i_codigo_cliente) {
+	public void setI_codigo_cliente(Long i_codigo_cliente) {
 		this.i_codigo_cliente = i_codigo_cliente;
 	}
 

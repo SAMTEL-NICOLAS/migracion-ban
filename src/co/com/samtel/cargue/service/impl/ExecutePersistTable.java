@@ -11,6 +11,7 @@ import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.csv.BigCifinBureauCsv;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
+import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
 import co.com.samtel.entity.manual.csv.BigGeoReferenciarProspectoCsv;
 import co.com.samtel.entity.manual.csv.BigIndicadoresCsv;
 import co.com.samtel.entity.manual.csv.BigInfoFinancieraCsv;
@@ -55,6 +56,9 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	
 	@EJB(beanName = "bigSegurosMapper")
 	private IStrategyMapper<BigSegurosCsv> strategyMapperBigSeguros;
+	
+	@EJB(beanName = "bigGeneraIcsMapper")
+	private IStrategyMapper<BigGeneraIcsCsv> strategyMapperBigGeneraIcs;
 
 	@Override
 	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile, Integer row)
@@ -126,6 +130,11 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigProductos.setUrl(url);
 			strategyMapperBigProductos.setRow(row);
 			respuesta = strategyMapperBigProductos.executeUpload(delimiter);
+			break;	
+		case "BIG_GENERA_ICS":
+			strategyMapperBigGeneraIcs.setUrl(url);
+			strategyMapperBigGeneraIcs.setRow(row);
+			respuesta = strategyMapperBigGeneraIcs.executeUpload(delimiter);
 			break;	
 		case "BIG_CIFIN_BUREAU":
 			strategyMapperBigCifinBureau.setUrl(url);

@@ -6,7 +6,8 @@ import co.com.samtel.cargue.exception.MapperException;
 import co.com.samtel.cargue.exception.UploadMapperExpetion;
 
 @Local
-public interface IStrategyMapper<T> {
+public interface IStrategyMapper<T> {	
+		
 	/**
 	 * Metodo con el cual realizo el mapeo de un string y lo mappeo a un objeto
 	 */
