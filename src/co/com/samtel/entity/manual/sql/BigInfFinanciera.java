@@ -9,39 +9,39 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BIG_INF_FINANCIERA", schema = "dbo")
-public class BigInfoFinanciera implements Serializable {
+public class BigInfFinanciera implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private BigInfoFinancieraId id;
+	private BigInfFinancieraId id;
 	
 	@Column(name = "m_gasto_administrativo")
 	private BigDecimal m_gasto_administrativo;	
 	
 	@Column(name = "m_gasto_personal")
-	private BigDecimal m_gasto_personal;
+	private BigDecimal m_gasto_personal;	
 	
 	@Column(name = "m_gasto_neto_provision")
 	private BigDecimal m_gasto_neto_provision;	
 	
 	@Column(name = "m_gasto_asignado")
-	private BigDecimal m_gasto_asignado;
+	private BigDecimal m_gasto_asignado;	
 	
 	@Column(name = "m_costo_patrimonio_riesgo")
 	private BigDecimal m_costo_patrimonio_riesgo;	
 	
 	@Column(name = "m_ingresos_totales")
-	private BigDecimal m_ingresos_totales;
+	private BigDecimal m_ingresos_totales;	
 	
 	@Column(name = "m_egresos_totales")
 	private BigDecimal m_egresos_totales;
 
-	public BigInfoFinancieraId getId() {
+	public BigInfFinancieraId getId() {
 		return id;
 	}
 
-	public void setId(BigInfoFinancieraId id) {
+	public void setId(BigInfFinancieraId id) {
 		this.id = id;
 	}
 
@@ -99,5 +99,5 @@ public class BigInfoFinanciera implements Serializable {
 
 	public void setM_egresos_totales(BigDecimal m_egresos_totales) {
 		this.m_egresos_totales = m_egresos_totales;
-	}	
+	}		
 }

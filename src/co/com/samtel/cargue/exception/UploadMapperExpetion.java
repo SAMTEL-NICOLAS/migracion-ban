@@ -11,9 +11,8 @@ public class UploadMapperExpetion extends Exception {
 	private String columnName;
 	private Long row;
 	private Long column;
-	private String message;
+	private String message;	
 
-	
 
 	public UploadMapperExpetion(String fileName, String columnName, Long row, Long column, String message) {
 		super();

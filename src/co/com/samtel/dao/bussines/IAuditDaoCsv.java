@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import co.com.samtel.entity.business.AuditoriaCsv;
+import co.com.samtel.entity.business.DetailAuditCsv;
 import co.com.samtel.exception.ControlledExeption;
 
 @Local
@@ -23,4 +24,6 @@ public interface IAuditDaoCsv {
 	List<AuditoriaCsv> findAllAudit();
 
 	List<AuditoriaCsv> getAuditByDate(String date1, String date2);
+	
+	Boolean updateEntity(AuditoriaCsv entity);
 }

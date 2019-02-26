@@ -12,13 +12,17 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "auditoriaCsv", schema = "dbo")
 public class AuditoriaCsv {
+	
 	@Id
 	private Long id;
+	
 	@Column
 	private String usuario;
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(insertable = false)
+	@Column(insertable = false)	
 	private Date fecha;
+	
 	@Column
 	private String estado;
 

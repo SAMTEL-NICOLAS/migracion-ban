@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class BigInfoFinancieraId implements Serializable {
+public class BigInfFinancieraId implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -16,11 +16,11 @@ public class BigInfoFinancieraId implements Serializable {
 	@Column
 	private Date d_fecha_corte;
 
-	public BigInfoFinancieraId() {
-		super();		
+	public BigInfFinancieraId() {
+		super();
 	}
 
-	public BigInfoFinancieraId(String i_cod_oficina, Date d_fecha_corte) {
+	public BigInfFinancieraId(String i_cod_oficina, Date d_fecha_corte) {
 		super();
 		this.i_cod_oficina = i_cod_oficina;
 		this.d_fecha_corte = d_fecha_corte;
@@ -43,7 +43,7 @@ public class BigInfoFinancieraId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BigInfoFinancieraId other = (BigInfoFinancieraId) obj;
+		BigInfFinancieraId other = (BigInfFinancieraId) obj;
 		if (d_fecha_corte == null) {
 			if (other.d_fecha_corte != null)
 				return false;

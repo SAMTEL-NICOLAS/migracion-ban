@@ -14,7 +14,7 @@ import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
 import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
 import co.com.samtel.entity.manual.csv.BigGeoReferenciarProspectoCsv;
 import co.com.samtel.entity.manual.csv.BigIndicadoresCsv;
-import co.com.samtel.entity.manual.csv.BigInfoFinancieraCsv;
+import co.com.samtel.entity.manual.csv.BigInfFinancieraCsv;
 import co.com.samtel.entity.manual.csv.BigMetasFuerzaComercialCsv;
 import co.com.samtel.entity.manual.csv.BigMetasOficinaCsv;
 import co.com.samtel.entity.manual.csv.BigProductosCsv;
@@ -32,10 +32,7 @@ public class ExecutePersistTable implements IExecutePersistTable {
 
 	@EJB(beanName = "bigGeorreferenciarProspectoMapper")
 	private IStrategyMapper<BigGeoReferenciarProspectoCsv> strategyMapperBigGeoreferenciarProspecto;
-
-	@EJB(beanName = "bigInfoFinancieraMapper")
-	private IStrategyMapper<BigInfoFinancieraCsv> strategyMapperBigInfoFinanciera;
-
+	
 	@EJB(beanName = "bigMetasFCMapper")
 	private IStrategyMapper<BigMetasFuerzaComercialCsv> strategyMapperBigMetasFuerzaComercial;
 
@@ -59,13 +56,16 @@ public class ExecutePersistTable implements IExecutePersistTable {
 	
 	@EJB(beanName = "bigGeneraIcsMapper")
 	private IStrategyMapper<BigGeneraIcsCsv> strategyMapperBigGeneraIcs;
+	
+	@EJB(beanName = "bigInfFinancieraMapper")
+	private IStrategyMapper<BigInfFinancieraCsv> strategyMapperBigInfFinanciera;
 
 	@Override
 	public Boolean executeProcess(String url, TypeFile typeFile, String delimiter, String nameFile, Integer row)
 			throws MapperException, UploadMapperExpetion {
 		Boolean respuesta = process(nameFile, url, delimiter, row);
-
 		System.out.println(respuesta);
+		
 		return respuesta;
 	}
 
@@ -97,10 +97,6 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigGeoreferenciarProspecto.setRow(row);
 			respuesta = strategyMapperBigGeoreferenciarProspecto.executeUpload(delimiter);
 			break;
-		case "BIG_INF_FINANCIERA":
-			strategyMapperBigInfoFinanciera.setUrl(url);
-			strategyMapperBigInfoFinanciera.setRow(row);
-			respuesta = strategyMapperBigInfoFinanciera.executeUpload(delimiter);
 		case "BIG_METAS_FC":
 			strategyMapperBigMetasFuerzaComercial.setUrl(url);
 			strategyMapperBigMetasFuerzaComercial.setRow(row);
@@ -135,6 +131,11 @@ public class ExecutePersistTable implements IExecutePersistTable {
 			strategyMapperBigGeneraIcs.setUrl(url);
 			strategyMapperBigGeneraIcs.setRow(row);
 			respuesta = strategyMapperBigGeneraIcs.executeUpload(delimiter);
+			break;
+		case "BIG_INF_FINANCIERA":
+			strategyMapperBigInfFinanciera.setUrl(url);
+			strategyMapperBigInfFinanciera.setRow(row);
+			respuesta = strategyMapperBigInfFinanciera.executeUpload(delimiter);
 			break;	
 		case "BIG_CIFIN_BUREAU":
 			strategyMapperBigCifinBureau.setUrl(url);

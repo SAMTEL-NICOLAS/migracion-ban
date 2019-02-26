@@ -73,7 +73,7 @@
 		<mapping class="co.com.samtel.entity.manual.sql.BigMetasOficina" />
 		<mapping class="co.com.samtel.entity.manual.sql.BigMetasFuerzaComercial" />
 		<mapping class="co.com.samtel.entity.manual.sql.BigGeoReferenciarProspecto" />
-		<mapping class="co.com.samtel.entity.manual.sql.BigInfoFinanciera" />
+		<mapping class="co.com.samtel.entity.manual.sql.BigInfFinanciera" />
 		
 		<mapping class="co.com.samtel.entity.manual.sql.BigCifinBureau" />
 		<mapping class="co.com.samtel.entity.manual.sql.BigGeneraIcs" />
