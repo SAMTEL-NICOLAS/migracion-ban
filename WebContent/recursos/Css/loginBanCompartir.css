@@ -97,6 +97,7 @@
 
 .txtUsuario, .txtContrasena{
     padding: 2pt 25px;
+    text-align: center;
 }
 
 .btnIngresar{

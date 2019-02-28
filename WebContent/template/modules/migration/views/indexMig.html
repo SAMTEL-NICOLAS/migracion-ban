@@ -1,21 +1,18 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
 <link rel="stylesheet" type="text/css" href="recursos/Css/migracion.css">
-<meta charset="utf-8" /> 
+<meta charset="utf-8" />
 <div ng-controller="migrationController">
-	<div class="fondo">
-	<img alt="" src="recursos/Imagenes/Ahorro.jpg" class="imgLogo2">
-
-		<div class="EmpezarMigracion">
-			<p>Empezar Migración</p>
-		
-		
-	    <div >	
-			<button ng-click="sendMigration()" class="btonEjecutar">Ejecutar</button>				
-	
-	  <br /> <br /> 
-	  		
-	 </div></div>	
-	
-	</div>	
-	
-</div>
+   <div class="fondo">
+      <img alt="" src="recursos/Imagenes/Ahorro.jpg" class="imgLogo2">
+      <div class="EmpezarMigracion">
+         <p>Empezar Migración</p>
+         <div >	
+            <button ng-click="sendMigration()" class="btonEjecutar">Ejecutar</button>				
+            <br /> <br /> 
+         </div>
+         <div class="idAuditoria">        	
+            <output>Este es el ID de la Auditoria:</output>  	
+            <output>{{objeto.response}}</output>
+         </div>
+      </div>
+   </div>

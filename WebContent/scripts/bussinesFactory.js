@@ -5,24 +5,28 @@ app.factory("migrationFact", [
     function ($cookies, $location) {
         return {
             callMigration: function () {
+            	var objeto = null;
                 $.ajax({
                     url: "resources/migracion/" + $cookies.get('username'),
                     method: 'GET',
                     dataType: 'json',
+                    async: false,
                     success: function (result) {
-                        alert(JSON.stringify(result));
+                    	objeto = result;                    	
                     }
                 });
+                return objeto;
             }
         };
     }
 ]);
 
-// Factory en el cual se realizara todos los metodos de migracion
+// Factory en el cual se realizara todos los metodos del cargue
 app.factory("cargueFact", ['$cookies', '$location',
     function ($cookies, $location) {
         return {
             executeProcess: function () {
+            	var objeto = null;
                 $.ajax({
                     url: "resources/v.1/uploadExcel/" + $cookies.get('username'),
                     method: 'get',
@@ -32,11 +36,11 @@ app.factory("cargueFact", ['$cookies', '$location',
                     processData: false,
                     async: false,
                     success: function (result) {
-                        alert(JSON.stringify(result));
+                    	objeto = result;
                     }
                 });
+                return objeto;
             }
-
         };
     }
 ]);
@@ -197,10 +201,10 @@ app.factory(
                             }
                         });
                         return listData;
-                    }, getDetailById: function (idDatail) {
+                    }, getDetailById: function (idDatail,table) {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditUploadExcelRest/getDetailById/" + idDatail,
+                            url: "resources/v.1/auditUploadExcelRest/getDetailById/" + idDatail + "/" + table,
                             method: 'get',
                             dataType: 'json',
                             cache: false,
@@ -213,7 +217,23 @@ app.factory(
                             }
                         });
                         return listData;
-                    }
+                    }, getDetailByIdAndTable: function (idDatail,table) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditUploadExcelRest/getDetailByIdAndTable/" + idDatail + "/" + table,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }                     
                 };
             }
         ]);

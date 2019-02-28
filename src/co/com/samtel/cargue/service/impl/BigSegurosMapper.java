@@ -22,6 +22,7 @@ import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigSegurosColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.entity.as400.CnofcAs;
 import co.com.samtel.entity.manual.csv.BigSegurosCsv;
 import co.com.samtel.entity.manual.sql.BigSeguros;
 import co.com.samtel.entity.manual.sql.BigSegurosId;
@@ -66,6 +67,11 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 			if (!missingFieldCodeProduct.isEmpty() == true) {
 				Long codeProduct = Long.parseLong(missingFieldCodeProduct.get(0).getId().getI_nro_credito());
 				dto.setI_producto_asociado(codeProduct);
+			}
+			List<CnofcAs> missingFieldCodeAdviser = extractMissingFieldCodeAdviser(dto);
+			if(!missingFieldCodeAdviser.isEmpty() == true) {				
+				int codeAdviser = Integer.parseInt(missingFieldCodeAdviser.get(0).getId().getCodigo_asesor());
+				dto.setI_codigo_asesor(codeAdviser);
 			}
 		} else {
 			dto.setI_codigo_cliente(null);
@@ -125,5 +131,24 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 		}
 		return result;
 	}
-
+	
+	public  List<CnofcAs> extractMissingFieldCodeAdviser(BigSegurosCsv dto) {
+		System.out.println(dto.getS_id_vendedor());
+		Session session = null;
+		List<CnofcAs> result = null;
+		try {
+			session = factorySessionHibernate.generateSesion(TypeConections.AS400).openSession();
+			Criteria crit = session.createCriteria(CnofcAs.class)
+					.add(Restrictions.eq("cnorut", dto.getS_id_vendedor()));
+			result = crit.list();
+			if (result.isEmpty()) {
+				System.out.println("La consulta no retorna nada");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			factorySessionHibernate.close(session, null);
+		}
+		return result;		
+	}
 }

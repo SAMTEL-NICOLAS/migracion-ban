@@ -28,7 +28,7 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 	 * datos filtrando por el id de la tabla padre.
 	 */
 	@Override
-	public List<DetailAuditCsv> getDetailById(String idDatail) {
+	public List<DetailAuditCsv> getDetailById(String idDatail,String table) {
 		Session session = null;
 		List<DetailAuditCsv> result = null;
 		try {
@@ -36,6 +36,28 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.eq("idAudit", Long.valueOf(idDatail)));
 
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
+	
+	/**
+	 * Metodo que se encarga de consultar en la BD el detalle de la auditoria por id
+	 * y por tabla
+	 */
+	@Override
+	public List<DetailAuditCsv> getDetailByIdAndTable(String idDatail, String table) {
+		Session session = null;
+		List<DetailAuditCsv> result = null;
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			Criteria crit = session.createCriteria(getDomainClass());
+			crit.add(Restrictions.eq("idAudit", Long.valueOf(idDatail)));
+			crit.add(Restrictions.eq("tabla", table));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -17,5 +17,7 @@ public interface IDetailAuditCsvDao {
 
 	List<DetailAuditCsv> getAllDetailAudit();
 
-	List<DetailAuditCsv> getDetailById(String idDatail);
+	List<DetailAuditCsv> getDetailById(String idDatail,String table);
+	
+	List<DetailAuditCsv> getDetailByIdAndTable(String idDatail,String table);
 }

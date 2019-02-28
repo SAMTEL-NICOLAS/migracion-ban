@@ -63,3 +63,10 @@ tr {
 	margin: auto;
 	display: block;
 }
+.idAuditoria {
+	margin-top: 2em;
+	text-align: center
+}
+.idTable{
+	border: 1px solid black;
+}

@@ -65,7 +65,7 @@ app.controller('migrationController', ['$scope', '$cookies', 'auth',
         // la función logout que llamamos en la vista llama a la función
         // logout de la factoria auth
         $scope.sendMigration = function () {
-            migrationFact.callMigration();
+        	$scope.objeto = migrationFact.callMigration();        	
         };
     }
 ]);
@@ -103,7 +103,8 @@ app.controller('uploadController', [
         // logout de la factoria auth
         
         $scope.executeProcess = function () {
-        	cargueFact.executeProcess();
+        	$scope.objeto = cargueFact.executeProcess();
+        	//alert($scope.objeto.response);
         };
         
         
@@ -328,7 +329,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
         $scope.showAnswerTable = false;
-        $scope.message = "No hay registros que mostrar";
+        $scope.messageNoData = "La consulta no retorno nada";
 
         // Funcion que se encarga de consultar la Auditoria de la migración.
         $scope.getAuditByDate = function () {
@@ -339,7 +340,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
             if (validateDates()) {
                 $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2);
                 if ($scope.listAudit.length === 0) {
-                    alert($scope.message);
+                    alert($scope.messageNoData);
                     $scope.showAnswerTable = false;
                 } else {
                     $scope.showAnswerTable = true;
@@ -349,20 +350,32 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
 
         };
 
-        // Funcion que se encarga de consultar los detalles de la auditoria.
+        // Funcion que se encarga de consultar los detalles de la auditoria del cargue.
         $scope.getDetailById = function (objDatail) {
             var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaCargueExcel.html';
-            var estado = document.getElementById("selectTable").value;
-            $scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id);
-
-            if ($scope.listDetailAudit.length === 0) {
-                alert($scope.message);
-            } else {
-                ngDialog.open({
+            var table = document.getElementById("selectTable").value;
+            if (table == 0) {            	
+            	$scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id,table);            	
+            	if ($scope.listDetailAudit.length === 0) {
+            		alert($scope.message);
+            	} else {
+            		ngDialog.open({
                     template: urlTemplate,
                     className: 'ngdialog-theme-default',
                     scope: $scope
-                });
+            		});
+            	}
+            } else {
+            	$scope.listDetailAudit = auditUploadExcelFact.getDetailByIdAndTable(objDatail.id,table);
+             	if ($scope.listDetailAudit.length === 0) {
+             		alert($scope.message);
+             	} else {
+             		ngDialog.open({
+             		template: urlTemplate,
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+             		});
+             	}            	
             }
         };
 

@@ -47,6 +47,7 @@ td {
 	border: 0;
 	margin: auto;
 	display: block;
+	margin-top: 2em;
 }
 
 .answerTable {
@@ -87,4 +88,8 @@ td {
 }
 .selectTable {
 		width: 100%;
+}
+
+.filtro{
+	margin-top: 3em;
 }
