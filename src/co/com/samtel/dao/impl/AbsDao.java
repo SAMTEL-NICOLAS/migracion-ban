@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 
 import org.hibernate.Criteria;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
@@ -116,11 +117,13 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	public Boolean saveEntity(T entity) {
 		Session session = null;
 		Transaction tx = null;
+		setError(null);		
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
 			session.save(entity);
 			tx.commit();
+			System.out.println("Todo ok");
 		} catch (ConstraintViolationException e) {
 			System.out.println("Error controlado debe actualizar");
 			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
@@ -128,7 +131,10 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		} catch (DataException e) {
 			e.printStackTrace();
 			setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
-			return Boolean.FALSE;
+			System.out.println("Error"+ e.getMessage());
+			return Boolean.FALSE;	
+		} catch (Exception e) {
+			setError(ErrorDto.of(null,TypeErrors.MAPPER_EROR,e.toString() + e.getMessage()));
 		} finally {
 			factorySessionHibernate.close(session, tx);
 		}

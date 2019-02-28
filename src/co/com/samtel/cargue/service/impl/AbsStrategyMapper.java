@@ -15,8 +15,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.hibernate.exception.DataException;
-
 import co.com.samtel.cargue.enumeraciones.ErrorMapperType;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.IColumn;
@@ -26,6 +24,15 @@ import co.com.samtel.cargue.exception.dto.ErrorMapperDto;
 import co.com.samtel.cargue.service.IReadResource;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
+import co.com.samtel.entity.business.DetailAuditCsv;
+import co.com.samtel.enumeraciones.TypeErrors;
+import co.com.samtel.exception.ControlledExeption;
+import co.com.samtel.migration.IUploadMigration;
+
+
+
+
 
 public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStrategyMapper<T> {
 
@@ -61,6 +68,13 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	abstract public IGenericDao getDao();
 
 	abstract public Z getCustomMapper(T dto);
+	
+	@EJB
+	IUploadMigration executeUpload; 
+
+	@EJB
+	IDetailAuditCsvDao detailAuditCsvDao; 
+	
 
 	/**
 	 * Metodo con el cual obtengo la clase en la cual se esta implemento la clase
@@ -77,12 +91,13 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		return domainClass;
 	}
 
-	public void mapper(String delimiter) throws MapperException, UploadMapperExpetion {
+	public Boolean mapper(String delimiter) throws MapperException, UploadMapperExpetion {
 		this.DELIMITER = delimiter;
 		initialize();
 		splitData();
 		validateStructure();
-		mapperObject();
+		Boolean result = mapperObject();
+		return result;
 	}
 
 	public void initialize() {
@@ -151,43 +166,55 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 			}
 	}
 	
-	public void mapperObject() throws UploadMapperExpetion {
-		try {
+	public Boolean mapperObject() throws UploadMapperExpetion {
+		Boolean result  = true;
+		try {		
 			for (U item : getListEnumColumns()) {
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
-						method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));				
+						method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));						
 					break;
 				case "java.lang.Integer":
+					try {
 						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
-						Integer integer = null;
-						method.invoke(getObjectMapper(), integer);	
+							Integer integer = null;
+							method.invoke(getObjectMapper(), integer);					
 						}
 						else {
-							method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));	
+							method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));				
 						}
+					}catch (Exception e) {
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
+								Long.valueOf(getRow())+1, Long.valueOf(item.getIndice())+1, e.getMessage());
+						
+						insertDetailAudit(error);
+						result = false;
+					}
 					break;
 				case "java.lang.Double":
-						method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));	
+						method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));					
 					break;
 				case "java.math.BigDecimal":
 					try {						
 						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
 							BigDecimal bigDecimal = null;
-							method.invoke(getObjectMapper(), bigDecimal);
+							method.invoke(getObjectMapper(), bigDecimal);						
 						}
 						else {
 							BigDecimal bigDecimal = formatingBigDecimal(getColumns().get(item.getIndice()));
-							method.invoke(getObjectMapper(), bigDecimal);
+							method.invoke(getObjectMapper(), bigDecimal);							
 						}
 						
 					} catch (ParseException | IndexOutOfBoundsException e) { 
 						e.printStackTrace();
-						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
-								Long.valueOf(getRow()), Long.valueOf(item.getIndice()), e.getMessage());
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
+								Long.valueOf(getRow())+1, Long.valueOf(item.getIndice())+1, e.getMessage());
+						
+						insertDetailAudit(error);
+						result = false;
 					}
 
 					break;
@@ -195,17 +222,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					try {
 						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty()) {
 							Date date = null;
-							method.invoke(getObjectMapper(), date);
+							method.invoke(getObjectMapper(), date);						
 						}
 						else {
 							Date date1 = formatingDate(getColumns().get(item.getIndice()));
-							method.invoke(getObjectMapper(), date1);
+							method.invoke(getObjectMapper(), date1);						
 						}
 						
 					} catch (ParseException e) {
 						e.printStackTrace();
-						throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
-								Long.valueOf(getRow()), Long.valueOf(item.getIndice()), e.getMessage());
+						
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
+								Long.valueOf(getRow()+1), Long.valueOf(item.getIndice())+1, e.getMessage());
+						
+						insertDetailAudit(error);
+						result = false;					    
 					}
 					break;
 
@@ -213,11 +244,46 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				}
 			}
+			
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			e.printStackTrace();
-		}
+		}		
+		return result;
 	}
+	
+
+	/**
+	 * Metodo con el cual se inserta en la tabla detalle auditoria cada ves que se genere un error 
+	 */
+	public void insertDetailAudit(UploadMapperExpetion error) {	
+		
+		Long idTable = null;
+		try {
+			idTable = detailAuditCsvDao.getMaxValue();
+		} catch (ControlledExeption e) {
+			e.printStackTrace();
+		}
+		if (idTable == null) {
+			new Exception("Imposible insertar detalle de auditoria");
+		} else {
+			idTable += 1;
+		}
+		DetailAuditCsv detail = new DetailAuditCsv();			
+		
+		detail.setId(idTable);
+		detail.setTabla(error.getFileName());
+		detail.setRegDestino(Long.valueOf(0));
+		detail.setRegOrigen(Long.valueOf(0));		
+		detail.setTraza("No fue posible realizar la inserción");
+		detail.setIdAudit(executeUpload.getIdAudit());		
+		detail.setColumn_name(error.getColumnName());
+		detail.setRow(error.getRow());
+		detail.setColumna(error.getColumn());
+		detail.setMessage(error.getMessage());
+		detailAuditCsvDao.saveEntity(detail);
+		
+		}
 
 	/**
 	 * Metodo con el cual se evaluaran todos los posibles formatos que podra tener
@@ -299,7 +365,11 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		Boolean respuesta = Boolean.FALSE;
 		readResource.setUrl(getUrl());
 		if (readResource.readFile()) {
-			respuesta = throughRows();
+			try {
+				respuesta = throughRows();
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("Error al leer el archivo");
 			respuesta = Boolean.FALSE;
@@ -313,10 +383,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * la de los titulos para asi validar si la estructura se encuentra correcta.
 	 * 
 	 * @return
-	 * @throws MapperException
-	 * @throws UploadMapperExpetion
+	 * @throws Exception 
 	 */
-	public Boolean throughRows() throws MapperException, UploadMapperExpetion {
+	public Boolean throughRows() throws Exception {
 		Boolean answer = Boolean.TRUE;
 		List<String> rows = readResource.getRows();
 		int i = 0;
@@ -330,8 +399,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 							"Error en la estructura del documento"));
 				}
 			}
-			if (i != 0) {
-				process(item);
+			if (i != 0) {		
+				int fila = i;
+				process(item,fila);				
 			}
 			i++;
 			System.out.println("Registros: " + i);
@@ -405,20 +475,38 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * @throws MapperException
 	 * @throws UploadMapperExpetion
 	 */
-	public void process(String item) throws MapperException, UploadMapperExpetion {
+	public void process(String item, int fila) throws MapperException, UploadMapperExpetion {
 		setData(item);
-		mapper(DELIMITER);
-		T objeto = getObjectMapper();
-		try {
+		setRow(fila);
+		Boolean result = false;
+		result = mapper(DELIMITER);
+
+		if (result == true) {
+			T objeto = getObjectMapper();
 			getDao().saveEntity(getCustomMapper(objeto));
-		} catch (DataException e) {
-			throw new UploadMapperExpetion(getTypeFile().getNombreArchivo(), "", Long.valueOf(getRow()),
-					Long.valueOf(0), e.getMessage());
+			// Se extrae el error
+			getDao().getError();
+			if (getDao().getError() != null) {
+				validarError();
+			}
+			System.out.println("llego" + objeto.toString());
+		} else {
+			System.out.println("No debe continuar");
+		}
+	}
+	
+	/**
+	 * Metodo que se encarga de setear el error a la clase UploadMapperExpetion e invocar el metodo que lo inserta en la tabla de auditoria
+	 * 	 */
+	public void validarError() {
+
+			UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), "",
+					Long.valueOf(getRow()) + 1, null, getDao().getError().getMessage());
+
+			insertDetailAudit(error);
 		}
 
-		System.out.println("llego" + objeto.toString());
-	}
-
+	
 	public String getData() {
 		return data;
 	}
@@ -499,4 +587,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		this.data2 = data2;
 	}
 
+	
+	
+	
 }

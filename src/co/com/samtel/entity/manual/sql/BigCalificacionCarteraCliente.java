@@ -28,7 +28,7 @@ public class BigCalificacionCarteraCliente implements Serializable {
 	private String i_fuerza_comercial;	
 	
 	@Column(name = "i_oficina")
-	private String i_oficina;	
+	private Integer i_oficina;	
 	
 	@Column(name = "s_descripcion_linea")
 	private String s_descripcion_linea;	
@@ -150,11 +150,11 @@ public class BigCalificacionCarteraCliente implements Serializable {
 		this.i_fuerza_comercial = i_fuerza_comercial;
 	}
 
-	public String getI_oficina() {
+	public Integer getI_oficina() {
 		return i_oficina;
 	}
 
-	public void setI_oficina(String i_oficina) {
+	public void setI_oficina(Integer i_oficina) {
 		this.i_oficina = i_oficina;
 	}		
 	

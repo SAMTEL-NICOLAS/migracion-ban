@@ -10,7 +10,7 @@ public enum TypeBigCalificacionCarteraClienteColumn implements IColumn {
 	TIPO_IDENTIFICACION(1, "I_tipo_identificacion", String.class),
 	CODIGO_CLIENTE(2, "I_codigo_cliente", String.class),
 	FUERZA_COMERCIAL(3, "I_fuerza_comercial", String.class),
-	OFICINA(4, "I_oficina", String.class),
+	OFICINA(4, "I_oficina", Integer.class),
 	DESCRIPCION_LINEA(5, "S_descripcion_linea", String.class),
 	COD_OPERACION(6, "I_cod_operacion", Double.class),
 	CALIFICACION_ANTERIOR(7, "S_calificacion_anterior", String.class),

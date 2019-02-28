@@ -9,7 +9,7 @@ public class BigCalificacionCarteraClienteCsv {
 	private String I_tipo_identificacion;
 	private String I_codigo_cliente;
 	private String I_fuerza_comercial;
-	private String I_oficina;
+	private Integer I_oficina;
 	private String S_descripcion_linea;
 	private Double I_cod_operacion;
 	private String S_calificacion_anterior;
@@ -45,10 +45,10 @@ public class BigCalificacionCarteraClienteCsv {
 	public void setI_fuerza_comercial(String i_fuerza_comercial) {
 		I_fuerza_comercial = i_fuerza_comercial;
 	}
-	public String getI_oficina() {
+	public Integer getI_oficina() {
 		return I_oficina;
 	}
-	public void setI_oficina(String i_oficina) {
+	public void setI_oficina(Integer i_oficina) {
 		I_oficina = i_oficina;
 	}
 	public String getS_descripcion_linea() {

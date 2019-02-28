@@ -308,7 +308,7 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 ]);
 
 
-//Controlador de la auditoria de la Migracion
+//Controlador de la auditoria del  cargue
 app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'auditUploadExcelFact', 'ngDialog',
     function ($scope, $cookies, auth, auditUploadExcelFact, ngDialog) {
 
@@ -352,6 +352,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
         // Funcion que se encarga de consultar los detalles de la auditoria.
         $scope.getDetailById = function (objDatail) {
             var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaCargueExcel.html';
+            var estado = document.getElementById("selectTable").value;
             $scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id);
 
             if ($scope.listDetailAudit.length === 0) {

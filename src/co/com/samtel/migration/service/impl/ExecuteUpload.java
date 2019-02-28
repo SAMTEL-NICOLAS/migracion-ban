@@ -74,9 +74,17 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	private OutputStream out;
 
+	private Date fechaEjecucion;
+	private String usuario;
+
 	@Override
 	public void run() {
-		callUpload();
+		try {
+			callUpload();
+		} catch (ControlledExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -91,9 +99,11 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			Long idTable = auditCsvDao.getMaxValue();
 
 			setEstado("En proceso");
-			Long id = auditCsvDao
-					.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, new Date(), getEstado()));
+			Date fecha = new Date();
+			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, fecha, getEstado()));
 			setIdAudit(id);
+			setUsuario(user);
+			setFechaEjecucion(fecha);
 
 		} catch (ControlledExeption e) {
 			e.printStackTrace();
@@ -114,8 +124,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	/**
 	 * Metodo que se encarga de ser el nuevo hilo en cual se realizara el proceso de
 	 * cargue "Manual"
+	 * 
+	 * @throws ControlledExeption
 	 */
-	public void callUpload() {
+	public void callUpload() throws ControlledExeption {
 
 		List<TypeFile> typetiles = Arrays.asList(TypeFile.values());
 		Integer iterador = Integer.valueOf("0");
@@ -124,10 +136,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			DetailAuditCsv detail = generateAuditMigration(item);
 			executeMigration(item, Long.valueOf("0"), iterador);
 			// Genera el detalle de la migracion
-			generateAuditMigration(detail);
+			generateAuditMigration(detail);			
 			iterador++;
 		}
-
+		auditCsvDao.updateEntity(new AuditoriaCsv(getIdAudit(), getUsuario(), getFechaEjecucion(), "Finalizado"));
 	}
 
 	/**
@@ -156,6 +168,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 		} catch (UploadMapperExpetion e) {
 			System.out.println("Aqui llego la vuelta tomo acciones con el mensaje " + e.getMessage());
+			setTraceDetail(e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -183,6 +196,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setRegOrigen(Long.valueOf(0));
 		detail.setTabla(item.getNombreArchivo());
 		detail.setTraza("Sin Traza");
+		detail.setColumn_name("No Aplica");
+//		detail.setRow();
+//		detail.setColumna();
+		detail.setMessage("No Aplica");
 
 		setIdDetailAudit(idTable);
 
@@ -201,6 +218,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setTraza(getTraceDetail());
 		detailAuditCsvDao.updateEntity(detail);
 		// Actualizo el disparador
+
 	}
 
 	/**
@@ -259,7 +277,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			typeFile = TypeFile.BIG_GEOREFERENCIAR_PROSPECTO;
 			break;
 		case "BIG_INFO_FINANCIERA":
-			typeFile = TypeFile.BIG_INFO_FINANCIERA;
+			typeFile = TypeFile.BIG_INF_FINANCIERA;
 		case "BIG_METAS_FUERZA_COMERCIAL":
 			typeFile = TypeFile.BIG_METAS_FUERZA_COMERCIAL;
 			break;
@@ -529,6 +547,22 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	public Long getIdAudit() {
 		// TODO Auto-generated method stub
 		return this.idAudit;
+	}
+
+	public Date getFechaEjecucion() {
+		return fechaEjecucion;
+	}
+
+	public void setFechaEjecucion(Date fechaEjecucion) {
+		this.fechaEjecucion = fechaEjecucion;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 }

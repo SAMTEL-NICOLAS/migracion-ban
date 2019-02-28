@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigGeneraIcsColumn;
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
@@ -50,10 +51,10 @@ public class BigGeneraIcsMapper extends AbsStrategyMapper<BigGeneraIcsCsv, TypeB
 
 	@Override
 	public BigGeneraIcs getCustomMapper(BigGeneraIcsCsv dto) {
-		List<BigClientes> missingField = extractMissingField(dto);		
-		System.out.println(missingField.get(0).getNui());
-		dto.setI_codigo_cliente(missingField.get(0).getNui());
-		System.out.println(dto);
+		List<BigClientes> missingField = extractMissingField(dto);
+		if (!missingField.isEmpty() == true) {
+			dto.setI_codigo_cliente(missingField.get(0).getNui());
+		}
 		ModelMapper modelMapper = new ModelMapper();
 		BigGeneraIcs destinoSql = modelMapper.map(dto, BigGeneraIcs.class);
 		BigGeneraIcsId id = new BigGeneraIcsId(dto.getI_codigo_cliente(), dto.getS_cod_producto(),
@@ -72,8 +73,8 @@ public class BigGeneraIcsMapper extends AbsStrategyMapper<BigGeneraIcsCsv, TypeB
 			session = factorySessionHibernate.generateSesion(TypeConections.SQLSERVER).openSession();
 			Criteria crit = session.createCriteria(BigClientes.class)
 					.add(Restrictions.eq("numidentif", dto.getS_id_cliente()));
-			result = crit.list();	
-			if(result.isEmpty()) {
+			result = crit.list();
+			if (result.isEmpty()) {
 				System.out.println("La consulta no retorna nada");
 			}
 		} catch (Exception e) {

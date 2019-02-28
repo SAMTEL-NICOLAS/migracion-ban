@@ -85,3 +85,6 @@ td {
 .ngdialog-content {
 	width: 80% !Important;
 }
+.selectTable {
+		width: 100%;
+}

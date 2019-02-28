@@ -60,13 +60,18 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 		dto.setD_fecha_corte(dto.getD_fecha());
 		System.out.println(dto);
 		List<BigClientes> missingField = extractMissingFieldCodeCliente(dto);
-		System.out.println(missingField.get(0).getNui());
-		dto.setI_codigo_cliente(missingField.get(0).getNui());
-		List<BigActivos> missingFieldCodeProduct = extractMissingFieldCodeProduct(dto);
-		Long codeProduct = Long.parseLong(missingFieldCodeProduct.get(0).getId().getI_nro_credito());
-		dto.setI_producto_asociado(codeProduct);
+		if (!missingField.isEmpty() == true) {
+			dto.setI_codigo_cliente(missingField.get(0).getNui());
+			List<BigActivos> missingFieldCodeProduct = extractMissingFieldCodeProduct(dto);
+			if (!missingFieldCodeProduct.isEmpty() == true) {
+				Long codeProduct = Long.parseLong(missingFieldCodeProduct.get(0).getId().getI_nro_credito());
+				dto.setI_producto_asociado(codeProduct);
+			}
+		} else {
+			dto.setI_codigo_cliente(null);
+			dto.setI_producto_asociado(null);
+		}
 		System.out.println(dto);
-
 		ModelMapper modelMapper = new ModelMapper();
 		BigSeguros destinoSql = modelMapper.map(dto, BigSeguros.class);
 		BigSegurosId id = new BigSegurosId(dto.getS_plan(), dto.getI_cod_producto(), dto.getI_codigo_cliente(),

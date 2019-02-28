@@ -1,70 +1,87 @@
 <ng-include src="'template/menu/menu.html'"></ng-include>
 <link rel="stylesheet" type="text/css"
-      href="recursos/Css/auditoriaCargueExcel.css">
+	href="recursos/Css/auditoriaCargueExcel.css">
 <div ng-controller="uploadController" class="contenedor" id="contenedor">
- <div class="contenedor2" id="contenedor2">
+	<div class="contenedor2" id="contenedor2">
 
-        <table border="1" style="margin: 0 auto;" class="queryTable">
-            <tr>
-                <td class="queryTd" id="tituloConsulta" colspan="4">Consulta Cargue Excel</td>
-            </tr>
-            <tr>
-                <td class="queryTd">
-                    <label>Fecha Inicio</label>
-                </td>
-                <td>
-                    <input type="date" id="fechaInicio" class="fechaAuditoria" style="width: 97%;padding: 2pt;">
-                </td>
-                <td class="queryTd">
-                    <label>Fecha Fin</label>
-                </td>
-                <td>
-                    <input type="date" id="fechaFin" class="fechaAuditoria" style="width: 97%;padding: 2pt;">
-                </td>
-            </tr>
-            <tr>
-                <td class="queryTd" colspan="4">
-                    <input type="button" class="boton" value="Consultar" ng-click="getAuditByDate()">
-                </td>
-            </tr>
-        </table>
-        </br></br></br>
+		<table border="1" style="margin: 0 auto;" class="queryTable">
+			<tr>
+				<td class="queryTd" id="tituloConsulta" colspan="4">Consulta
+					Cargue Excel</td>
+			</tr>
+			<tr>
+				<td class="queryTd"><label>Fecha Inicio</label></td>
+				<td><input type="date" id="fechaInicio" class="fechaAuditoria"
+					style="width: 97%; padding: 2pt;"></td>
+				<td class="queryTd"><label>Fecha Fin</label></td>
+				<td><input type="date" id="fechaFin" class="fechaAuditoria"
+					style="width: 97%; padding: 2pt;"></td>
+			</tr>
+			<tr>
+				<td class="queryTd"><label>Filtrar Por Tabla:</label></td>
+				</td>
+				<td colspan=3"><select id="selectTable" class="selectTable" >
+						<option value="0">-----SELECCIONAR TODO-----</option>
+						<option value="1">BIG_PARA_INDICADORES</option>
+						<option value="3">BIG_PROSPECTOS</option>
+						<option value="4">BIG_METAS_OFICINA</option>
+						<option value="5">BIG_METAS_FUERZA_COMERCIAL</option>
+						<option value="6">BIG_INFO_FINANCIERA</option>
+						<option value="7">BIG_GEOREFERENCIAR_PROSPECTO</option>
+						<option value="8">BIG_DESENDEUDESE</option>
+						<option value="9">BIG_CIFIN_BUREAU</option>
+						<option value="10">BIG_GENERA_ICS</option>
+						<option value="11">BIG_PRODUCTOS</option>
+						<option value="12">BIG_SEGUROS</option>	
+						<option value="13">BIG_CALIFICACION_CARTERA_CLIENTE</option>				
+				</select></td>
+			</tr>
+			<tr>
+				<td class="queryTd" colspan="4"><input type="button"
+					class="boton" value="Consultar" ng-click="getAuditByDate()">
+				</td>
+			</tr>
+		</table>
+		</br> </br> </br>
 
-        <div>
-            <!--Tabla de resultados-->
-            <table border="1" style="margin: 0 auto;" ng-show="showAnswerTable" class="answerTable">
-                <tr class="answerTrTitle">
-                    <td>Id</td>
-                    <td>Usuario</td>  
-                    <td>Fecha</td>
-                    <td>Detalle</td>
-                </tr>
-                <tr ng-repeat="obj in listAudit">
-                    <td class="answerTd">{{obj.id}}</td>
-                    <td class="answerTd">{{obj.usuario}}</td>
-                    <td class="answerTd">{{obj.fecha}}</td>
-                    <td class="answerTd"><u ng-click="getDetailById(obj)"  style="cursor: pointer;">Ver detalles...</u></td>
-                </tr>
-                <!--Paginador-->
-                <tr> 
-                    <td align="center" colspan="4" >
-                        <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage == 0" ng-click="t1CurrentPage = 0">
-                            Primero
-                        </button>
-                        <button class="btnPaginador"  type="button" ng-disabled="t1CurrentPage == 0" ng-click="t1CurrentPage = t1CurrentPage - 1">
-                            Anterior
-                        </button>
-                        {{t1CurrentPage + 1}}/{{t1NumberOfPages()}}
-                        <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage >= listAudit.length / t1PageSize - 1" ng-click="t1CurrentPage = t1CurrentPage + 1">
-                            Siguiente
-                        </button>
-                        <button class="btnPaginador" type="button" ng-disabled="t1CurrentPage >= listAudit.length / t1PageSize - 1"  ng-click="t1CurrentPage = t1NumberOfPages - 1">
-                             &Uacute;ltimo
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+		<div>
+			<!--Tabla de resultados-->
+			<table border="1" style="margin: 0 auto;" ng-show="showAnswerTable"
+				class="answerTable">
+				<tr class="answerTrTitle">
+					<td>Id</td>
+					<td>Usuario</td>
+					<td>Fecha</td>
+					<td>Detalle</td>
+				</tr>
+				<tr ng-repeat="obj in listAudit">
+					<td class="answerTd">{{obj.id}}</td>
+					<td class="answerTd">{{obj.usuario}}</td>
+					<td class="answerTd">{{obj.fecha}}</td>
+					<td class="answerTd"><u ng-click="getDetailById(obj)"
+						style="cursor: pointer;">Ver detalles...</u></td>
+				</tr>
+				<!--Paginador-->
+				<tr>
+					<td align="center" colspan="4">
+						<button class="btnPaginador" type="button"
+							ng-disabled="t1CurrentPage == 0" ng-click="t1CurrentPage = 0">
+							Primero</button>
+						<button class="btnPaginador" type="button"
+							ng-disabled="t1CurrentPage == 0"
+							ng-click="t1CurrentPage = t1CurrentPage - 1">Anterior</button>
+						{{t1CurrentPage + 1}}/{{t1NumberOfPages()}}
+						<button class="btnPaginador" type="button"
+							ng-disabled="t1CurrentPage >= listAudit.length / t1PageSize - 1"
+							ng-click="t1CurrentPage = t1CurrentPage + 1">Siguiente</button>
+						<button class="btnPaginador" type="button"
+							ng-disabled="t1CurrentPage >= listAudit.length / t1PageSize - 1"
+							ng-click="t1CurrentPage = t1NumberOfPages - 1">
+							&Uacute;ltimo</button>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-    </div>
+	</div>
 </div>
