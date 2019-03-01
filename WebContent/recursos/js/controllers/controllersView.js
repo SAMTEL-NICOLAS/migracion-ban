@@ -158,30 +158,30 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
         $scope.password = $cookies.get('password');
-        $scope.showAnswerTableAs = false;
+        $scope.message = "No hay registros que mostrar";
+        $scope.showAnswerTableAs = false;        
         $scope.errores = false;
     	$scope.otros = false;
 
-        $scope.getFind = function () {
-            var estado = document.getElementById("selectEstado").value;
+        $scope.getFind = function () {        	
+            var estado = document.getElementById("selectEstado").value;            
             if (estado == 0 || estado == 1 ) {
             	$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado); 
-            	footerOfTableOne(); 
-            	$scope.ho= $scope.listAuditAs400.length / $scope.t1PageSize;
-            	$scope.t1NumberOfPages= function(){
-            		return $scope.ho;
-            	}
-            	$scope.showAnswerTableAs = true;
-            	$scope.showAnswerTableAs = true;
-            	$scope.listAuditAs400.forEach(function(element){
-            		console.log(Element);
-            	})
-//for (obj : $scope.listAuditAs400 ){
-//	if(obj.estado === -2){
-//		obj.estado = "sin registros"
-//	}
-//}
-//            	
+            	
+            	if ($scope.listAuditAs400.length === 0) {
+            		alert($scope.message);
+                    $scope.showAnswerTableAs = false;
+                } else {                	               	
+                	footerOfTableOne(); 
+                	$scope.ho= $scope.listAuditAs400.length / $scope.t1PageSize;
+                	$scope.t1NumberOfPages= function(){
+                		return $scope.ho;
+                	}
+                	$scope.showAnswerTableAs = true;
+                	$scope.listAuditAs400.forEach(function(element){
+                		console.log(Element);
+                	})
+                }     	
             }else{
             	 $scope.listAuditAs400 = auditAs400Fact.getAuditAllAs400(estado);
                  $scope.showAnswerTableAs = true;
@@ -212,10 +212,10 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
             };
         });
         footerOfTableOne();
-
-        $('#fechaInicio').val(actualDate());
+        $scope.actual = actualDate();
+        $('#fechaInicio').val($scope.actual);
         $('#fechaFin').val(actualDate());
-
+       
 
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
@@ -227,18 +227,40 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
         $scope.getAuditByDate = function () {
             var date1 = $("#fechaInicio").val();
             var date2 = $("#fechaFin").val();
-
-            if (validateDates()) {
-                $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
-                if ($scope.listAudit.length === 0) {
-                    alert($scope.message);
-                    $scope.showAnswerTable = false;
-                } else {
-                    $scope.showAnswerTable = true;
-                }
-
-            }
-
+            var id = document.getElementById("idAudit").value;
+            
+            if(date1>date2 || date1=="" || date2 ==""){
+            	  if(date1>date2 && date2!="" && date1!=""){
+                  	 alert('La fecha inicial no puede ser mayor a la fecha final');
+                  	 $scope.showAnswerTable = false;                  	 
+                  }
+                  if(date1=="" || date2 ==""){
+                  	alert('Por favor seleccione valores para las fechas');
+                  	$scope.showAnswerTable = false;   
+                  }
+            } else {
+            	if(!id == ""){
+//                  if (validateDates(date1,)) {
+                    $scope.listAudit = auditMigrationFact.getAuditByDateAndId(date1, date2, id);
+                    if ($scope.listAudit.length === 0) {
+                        alert($scope.message);
+                        $scope.showAnswerTable = false;
+                    } else {
+                        $scope.showAnswerTable = true;
+                    }
+//                }
+            	}else{
+//                  if (validateDates(date1,)) {
+                    $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
+                    if ($scope.listAudit.length === 0) {
+                        alert($scope.message);
+                        $scope.showAnswerTable = false;
+                    } else {
+                        $scope.showAnswerTable = true;
+                    }
+//                }
+            	}
+            }            
         };
 
         // Funcion que se encarga de consultar los detalles de la auditoria.
@@ -269,18 +291,19 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
             } else {
                 fechaActual = anno + "-" + mes + "-" + fecha.getDate();
             }
+            result = moment(fechaActual, 'YYYY-MM-DD').format('DD/MM/YYYY');
 
-            return fechaActual;
+            return result;
         }
         ;
 
-        // Funcion que se encarga de validar que la fecha fin no sea mayor a la fecha inicial.
+//        // Funcion que se encarga de validar que la fecha fin no sea mayor a la fecha inicial.
         function validateDates() {
             var fechaInicial = formatDate($("#fechaInicio").val());
             var fechaFinal = formatDate($("#fechaFin").val());
-            if (fechaFinal.getTime() < fechaInicial.getTime()) {
-                $("#fechaFin").val($("#fechaInicio").val());
-                alert('La fecha inicial es mayor a la final..');
+            if (fechaInicial.getTime()>fechaFinal.getTime()) {
+//                $("#fechaFin").val($("#fechaInicio").val());
+                alert('La fecha inicial no puede ser mayor a la fecha final');
                 return false;
             }
             return true;
@@ -323,7 +346,8 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
 
         $('#fechaInicio').val(actualDate());
         $('#fechaFin').val(actualDate());
-
+        
+        $scope.actual = actualDate();
 
         // devolvemos a la vista el nombre del usuario
         $scope.username = $cookies.get('username');
@@ -331,22 +355,43 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
         $scope.showAnswerTable = false;
         $scope.messageNoData = "La consulta no retorno nada";
 
-        // Funcion que se encarga de consultar la Auditoria de la migración.
+        // Funcion que se encarga de consultar la Auditoria del cargue.
         $scope.getAuditByDate = function () {
             var date1 = $("#fechaInicio").val();
             var date2 = $("#fechaFin").val();
-
-
-            if (validateDates()) {
-                $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2);
-                if ($scope.listAudit.length === 0) {
-                    alert($scope.messageNoData);
-                    $scope.showAnswerTable = false;
-                } else {
-                    $scope.showAnswerTable = true;
+            var id = document.getElementById("idAudit").value;
+            
+            if(date1>date2 || date1=="" || date2 ==""){
+          	  if(date1>date2 && date2!="" && date1!=""){
+                	 alert('La fecha inicial no puede ser mayor a la fecha final');
+                	 $scope.showAnswerTable = false;                  	 
                 }
-
-            }
+                if(date1=="" || date2 ==""){
+                	alert('Por favor seleccione valores para las fechas');
+                	$scope.showAnswerTable = false;      
+                }
+          } else {
+//
+//              if (validateDates()) {
+              	if(!id == ""){
+              		  $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2,id);
+                        if ($scope.listAudit.length === 0) {
+                            alert($scope.messageNoData);
+                            $scope.showAnswerTable = false;
+                        } else {
+                            $scope.showAnswerTable = true;
+                        }
+                  }else{
+                  	 $scope.listAudit = auditUploadExcelFact.getAuditByDateAllId(date1, date2);
+                       if ($scope.listAudit.length === 0) {
+                           alert($scope.messageNoData);
+                           $scope.showAnswerTable = false;
+                       } else {
+                           $scope.showAnswerTable = true;
+                       }
+                  }
+//              }  
+          }
 
         };
 

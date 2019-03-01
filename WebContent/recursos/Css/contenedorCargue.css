@@ -38,9 +38,13 @@ table {
 }
 
 tr {
-	font: bold 10pt arial;
-	color: #474747;
+	font: 10pt arial;
+	color: #474747;	
 }
+td{
+	padding: 5px;
+}
+
 
 .titulo {
 	background-color: #dbdbdb;
@@ -62,6 +66,29 @@ tr {
 	border: 0;
 	margin: auto;
 	display: block;
+	margin-top: 2em;
+}
+.tables{
+	width: 70%;	
+	border: #d0122d 1px solid;
+}
+
+.tableTr{
+		border: #d0122d 1px solid;
+}
+
+table#t01 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+table#t01 tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+table#t01 th {
+/*   color: white; */
+/*   background-color: #78b845; */
+  font: bold 12pt arial;
+  padding: 10pt;
+  text-align: center;
 }
 .idAuditoria {
 	margin-top: 2em;

@@ -56,15 +56,24 @@ public class AuditUploadExcelRest {
 	/**
 	 * Servicio que se encarga de recuperar la fecha de la vista y la envia a la
 	 * consulta para luego retornar la respuesta por medio de un objeto Json.
-	 *  
+	 * 
 	 * @param date
 	 * @return
 	 */
 	@GET
-	@Path("/getAuditByDate/{date1}/{date2}")
+	@Path("/getAuditByDate/{date1}/{date2}/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAuditByDate(@PathParam("date1") String date1, @PathParam("date2") String date2) {
-		return Response.status(Response.Status.OK).entity(auditCsvDao.getAuditByDate(date1, date2))
+	public Response getAuditByDate(@PathParam("date1") String date1, @PathParam("date2") String date2,
+			@PathParam("id") String id) {
+		return Response.status(Response.Status.OK).entity(auditCsvDao.getAuditByDate(date1, date2,id))
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
+	
+	@GET
+	@Path("/getAuditByDateAllId/{date1}/{date2}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAuditByDateAllId(@PathParam("date1") String date1, @PathParam("date2") String date2) {
+		return Response.status(Response.Status.OK).entity(auditCsvDao.getAuditByDateAllId(date1, date2))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
 

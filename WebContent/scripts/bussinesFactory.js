@@ -156,7 +156,23 @@ app.factory(
                             }
                         });
                         return listData;
-                    }, getDetailById: function (idDatail) {
+                    }, getAuditByDateAndId: function (date1, date2, id) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditMigration/getAuditByDateAndId/" + date1 + "/" + date2 + "/" + id,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    },getDetailById: function (idDatail) {
                         var listData = [];
                         $.ajax({
                             url: "resources/v.1/auditMigration/getDetailById/" + idDatail,
@@ -185,10 +201,26 @@ app.factory(
             '$location',
             function ($cookies, $location) {
                 return {
-                    getAuditByDate: function (date1, date2) {
+                    getAuditByDate: function (date1, date2,id) {
                         var listData = [];
                         $.ajax({
-                            url: "resources/v.1/auditUploadExcelRest/getAuditByDate/" + date1 + "/" + date2,
+                            url: "resources/v.1/auditUploadExcelRest/getAuditByDate/" + date1 + "/" + date2 + "/" + id,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    },getAuditByDateAllId: function (date1, date2) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditUploadExcelRest/getAuditByDateAllId/" + date1 + "/" + date2,
                             method: 'get',
                             dataType: 'json',
                             cache: false,

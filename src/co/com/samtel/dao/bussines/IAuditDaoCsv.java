@@ -23,7 +23,9 @@ public interface IAuditDaoCsv {
 
 	List<AuditoriaCsv> findAllAudit();
 
-	List<AuditoriaCsv> getAuditByDate(String date1, String date2);
+	List<AuditoriaCsv> getAuditByDate(String date1, String date2, String id);
+	
+	List<AuditoriaCsv> getAuditByDateAllId(String date1, String date2);
 	
 	Boolean updateEntity(AuditoriaCsv entity);
 }

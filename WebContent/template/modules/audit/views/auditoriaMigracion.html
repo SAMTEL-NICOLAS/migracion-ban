@@ -2,42 +2,45 @@
 
 <link rel="stylesheet" type="text/css" href="recursos/Css/auditoriaMigracion.css">
 <div ng-controller="uploadController" class="contenedor" id="contenedor">
-    <div class="contenedor2" id="contenedor2">
+    <div class="contenedor2" id="contenedor2">    	
+     	<div class="title">
+     		<td id="tituloConsulta" colspan="6">Consulta Auditoria Migraci&oacute;n</td>
+        </div><br>
 
-        <table border="1" style="margin: 0 auto;" class="queryTable">
-            <tr>
-                <td class="queryTd" id="tituloConsulta" colspan="4">Consulta Auditoria Migraci&oacute;n</td>
-            </tr>
+        <table border="0" style="margin: 0 auto;" class="queryTable">
+          
             <tr>
                 <td class="queryTd">
-                    <label>Fecha Inicio</label>
+                    <label>Fecha Inicio:</label>
                 </td>
                 <td>
-                    <input type="date" id="fechaInicio" class="fechaAuditoria" style="width: 97%;padding: 2pt;">
+                    <input type="date" id="fechaInicio" class="fechaAuditoria"  style="width: 97%;padding: 2pt;">
                 </td>
                 <td class="queryTd">
-                    <label>Fecha Fin</label>
+                    <label>Fecha Fin:</label>
                 </td>
                 <td>
                     <input type="date" id="fechaFin" class="fechaAuditoria" style="width: 97%;padding: 2pt;">
                 </td>
+                <td class="queryTd"><label>Filtrar por Id:</label></td>
+            <td><input id="idAudit" type="text" style="width: 97%; padding: 2pt;"></td>
             </tr>
-            <tr>
+            </table>            
                 <td class="queryTd" colspan="4">
                     <input type="button" class="boton" value="Consultar" ng-click="getAuditByDate()">
                 </td>
-            </tr>
-        </table>
+           
+       
         </br></br></br>
 
         <div>
             <!--Tabla de resultados-->
-            <table border="1" style="margin: 0 auto;" ng-show="showAnswerTable" class="answerTable">
+            <table border="1" style="margin: 0 auto;" ng-show="showAnswerTable" class="answerTable" id="t01">
                 <tr class="answerTrTitle">
-                    <td>Id</td>
-                    <td>Usuario</td>  
-                    <td>Fecha</td>
-                    <td>Detalle</td>
+                    <td class="queryTd">Id</td>
+                    <td class="queryTd">Usuario</td>  
+                    <td class="queryTd">Fecha</td>
+                    <td class="queryTd">Detalle</td>
                 </tr>
                 <tr ng-repeat="obj in listAudit">
                     <td class="answerTd">{{obj.id}}</td>

@@ -6,19 +6,17 @@
         <div>
             <p class="title">Cargue Manual</p>
 
-            <table>
-                <tr>
-                    <td>Tablas</td>
-                </tr>
+            <table border="0" style="margin: 0 auto;" class="tables" id="t01">
+<!--                 <tr class="tableTr"> -->
+<!--                     <th class="pe">TABLAS</th> -->
+<!--                 </tr> -->
                 <tr ng-repeat="obj in listFiles">
                     <td>{{obj}}</td>
                 </tr>
-                <tr>
-                    <td>
-                        <button ng-click="executeProcess()" class="btnExecute">Ejecutar</button>				
-                    </td>
-                </tr>
             </table>
+                <td>
+                        <button ng-click="executeProcess()" class="btnExecute">Ejecutar</button>
+                </td>            
         </div>
         <div class="idAuditoria">        	
         	<output>Este es el ID de la Auditoria:</output>  	

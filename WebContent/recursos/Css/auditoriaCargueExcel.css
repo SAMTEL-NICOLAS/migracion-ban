@@ -11,9 +11,14 @@
 .contenedor2 {
 	text-align: left;
 	margin-top: 3%;
-	font: 12pt arial;
+	font: 10pt arial;
 }
-
+.title{
+	color: #d0122d;
+	text-align: center;
+	font-weight: bold;
+	font: bold 13pt arial;
+}
 td {
 	padding: 8px;
 }
@@ -21,10 +26,13 @@ td {
 .queryTable {
 	width: 75%;
 	border-collapse: collapse;
+	border: #d0122d 1px solid;
 }
 
 .queryTd {
 	padding: 8px;
+	font-weight: bold;
+	color:#494949;
 }
 
 #tituloConsulta, #tituloRespuesta {
@@ -61,7 +69,7 @@ td {
 
 .answerTrTitle {
 	padding: 20px;
-	background-color: #dbdbdb;
+/* 	background-color: #dbdbdb; */
 	text-align: center;
 	font-weight: bold;
 	color: black;
@@ -92,4 +100,12 @@ td {
 
 .filtro{
 	margin-top: 3em;
+}
+
+
+table#t01 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+table#t01 tr:nth-child(odd) {
+  background-color: #ffffff;
 }

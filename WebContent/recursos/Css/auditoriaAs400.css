@@ -12,7 +12,7 @@
 	text-align: left;
 	margin-top: 3%;
 	font: 10pt arial;
-	
+	color:#494949
 }
 
 td {
@@ -23,10 +23,20 @@ td {
 	width: 75%;
 	border-collapse: collapse;
 	border: #d0122d 1px solid;
+	
 }
 
 .queryTd {
-	padding: 8px;
+	padding: 8px;	
+	font: bold 10pt arial;
+	
+}
+
+.title{
+	font: bold 13pt arial;
+	color:  #d0122d;
+	text-align: center;
+	
 }
 
 #tituloConsulta, #tituloRespuesta {
@@ -50,12 +60,21 @@ td {
 	border: 0;
 	margin: auto;
 	display: block;
+	margin-top: 2em;
+	
 }
 
 .answerTable {
 	width: 75%;
-	border-collapse: collapse;	
+	border-collapse: collapse;		
 	border: #d0122d 1px solid;
+}
+
+table#t01 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+table#t01 tr:nth-child(odd) {
+  background-color: #ffffff;
 }
 
 .answerTd {
@@ -68,8 +87,8 @@ td {
 	text-align: center;
 	font-weight: bold;
 	color: black;
-	border-bottom: solid 1px #0f362d;
-	border: #d0122d 1px solid;
+	border-bottom: solid 0px #0f362d;
+/* 	border: #d0122d 1px solid; */ /*borde titulo*/
 }
 
 .titulo {

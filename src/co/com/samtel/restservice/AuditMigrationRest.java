@@ -53,6 +53,15 @@ public class AuditMigrationRest {
 	}
 
 	@GET
+	@Path("/getAuditByDateAndId/{date1}/{date2}/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAuditByDate(@PathParam("date1") String date1, @PathParam("date2") String date2,
+			@PathParam("id") String id) {
+		return Response.status(Response.Status.OK).entity(auditDao.getAuditByDateAndId(date1, date2, id))
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
+
+	@GET
 	@Path("/getAllAudit")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllAudit() {

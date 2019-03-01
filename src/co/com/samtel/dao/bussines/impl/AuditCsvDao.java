@@ -67,7 +67,30 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 	 * filtrandolos por fecha.
 	 */
 	@Override
-	public List<AuditoriaCsv> getAuditByDate(String date1, String date2) {
+	public List<AuditoriaCsv> getAuditByDate(String date1, String date2, String id) {
+		Session session = null;
+		List<AuditoriaCsv> result = null;
+		Long idAuditoria= Long.parseLong(id);
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
+			Date fecha1 = parseador.parse(date1);
+			Date fecha2 = parseador.parse(date2);
+			fecha2 = addDays(fecha2, 1);
+			Criteria crit = session.createCriteria(getDomainClass());
+			crit.add(Restrictions.ge("fecha", fecha1));
+			crit.add(Restrictions.lt("fecha", fecha2));
+			crit.add(Restrictions.eq("id", idAuditoria));
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
+	@Override
+	public List<AuditoriaCsv> getAuditByDateAllId(String date1, String date2) {
 		Session session = null;
 		List<AuditoriaCsv> result = null;
 		try {
@@ -78,7 +101,7 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 			fecha2 = addDays(fecha2, 1);
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.ge("fecha", fecha1));
-			crit.add(Restrictions.lt("fecha", fecha2));
+			crit.add(Restrictions.lt("fecha", fecha2));		
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();

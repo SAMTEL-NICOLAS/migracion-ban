@@ -11,7 +11,9 @@
 .contenedor2 {
 	text-align: left;
 	margin-top: 3%;
-	font: 12pt arial;
+/* 	font: 12pt arial; */
+	font: 10pt arial;
+	color: black;
 }
 
 td {
@@ -21,18 +23,28 @@ td {
 .queryTable {
 	width: 75%;
 	border-collapse: collapse;
+	border: #d0122d 1px solid;
 }
 
 .queryTd {
 	padding: 8px;
+	font-weight: bold;
+	color:#494949;
+}
+.title{
+	color: #d0122d;
+	text-align: center;
+	font-weight: bold;
+	font: bold 13pt arial;
 }
 
 #tituloConsulta, #tituloRespuesta {
 	background-color: #dbdbdb;
 	text-align: center;
 	font-weight: bold;
-	color: black;
+	color: #d0122d;
 	border-bottom: solid 1px #0f362d;
+
 }
 
 .selectArchivo {
@@ -47,6 +59,7 @@ td {
 	border: 0;
 	margin: auto;
 	display: block;
+	margin-top: 2em;
 }
 
 .answerTable {
@@ -60,7 +73,7 @@ td {
 
 .answerTrTitle {
 	padding: 20px;
-	background-color: #dbdbdb;
+/* 	background-color: #dbdbdb; */
 	text-align: center;
 	font-weight: bold;
 	color: black;
@@ -84,4 +97,11 @@ td {
 /* Modal */
 .ngdialog-content {
 	width: 80% !Important;
+}
+
+table#t01 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+table#t01 tr:nth-child(odd) {
+  background-color: #ffffff;
 }

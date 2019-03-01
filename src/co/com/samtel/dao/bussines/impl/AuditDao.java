@@ -79,6 +79,29 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 		}
 		return result;
 	}
+	@Override
+	public List<Auditoria> getAuditByDateAndId(String date1, String date2,String id) {
+		Long idAuditoria = Long.parseLong(id);
+		Session session = null;
+		List<Auditoria> result = null;
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd");
+			Date fecha1 = parseador.parse(date1);
+			Date fecha2 = parseador.parse(date2);
+			fecha2 = addDays(fecha2, 1);
+			Criteria crit = session.createCriteria(getDomainClass());
+			crit.add(Restrictions.ge("fecha", fecha1));
+			crit.add(Restrictions.lt("fecha", fecha2));
+			crit.add(Restrictions.eq("id", idAuditoria));
+			result = crit.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getFactorySessionHibernate().close(session, null);
+		}
+		return result;
+	}
 
 	/**
 	 * Metodo que se encarga de consultar todos los registros de la tabla AUDITORIA
