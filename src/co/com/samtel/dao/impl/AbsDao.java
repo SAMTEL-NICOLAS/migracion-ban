@@ -1,6 +1,7 @@
 package co.com.samtel.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -33,7 +34,7 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	private Long numRecordsTableAll;
 
 	private ErrorDto error;
-
+	
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
 
@@ -113,6 +114,35 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		return Boolean.TRUE;
 	}
 
+	@Override
+	public Boolean saveEntity2(List<T> entity) {
+		for (T item : entity) {
+			Session session = null;
+			Transaction tx = null;
+			setError(null);
+			try {
+				session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+				tx = session.beginTransaction();
+				session.save(item);
+				tx.commit();
+				System.out.println("Todo ok");
+			} catch (ConstraintViolationException e) {
+				System.out.println("Error controlado debe actualizar");
+				setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+				return Boolean.FALSE;
+			} catch (DataException e) {
+				e.printStackTrace();
+				setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
+				System.out.println("Error" + e.getMessage());
+				return Boolean.FALSE;
+			} catch (Exception e) {
+				setError(ErrorDto.of(null, TypeErrors.MAPPER_EROR, e.toString() + e.getMessage()));
+			} finally {
+				factorySessionHibernate.close(session, tx);
+			}
+		}
+		return Boolean.TRUE;
+	}
 	@Override
 	public Boolean saveEntity(T entity) {
 		Session session = null;

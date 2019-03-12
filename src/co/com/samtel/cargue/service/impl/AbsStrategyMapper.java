@@ -1,5 +1,6 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -26,18 +27,15 @@ import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
 import co.com.samtel.entity.business.DetailAuditCsv;
-import co.com.samtel.enumeraciones.TypeErrors;
+import co.com.samtel.entity.manual.csv.BigCifinBureauCsv;
 import co.com.samtel.exception.ControlledExeption;
+import co.com.samtel.exception.NoRecordsFoundException;
 import co.com.samtel.migration.IUploadMigration;
-
-
-
-
 
 public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStrategyMapper<T> {
 
 	private String data;
-	private List <String>data2;
+	private List<String> data2;
 
 	private Integer row;
 
@@ -56,6 +54,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	private U enumColumns;
 
 	private List<U> listEnumColumns;
+	List<T> l;
+
+	ArrayList<T> listAllObject = new ArrayList<>();
 
 	private T objectMapper;
 
@@ -68,13 +69,16 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	abstract public IGenericDao getDao();
 
 	abstract public Z getCustomMapper(T dto);
-	
-	@EJB
-	IUploadMigration executeUpload; 
+		
+	abstract public List<Z> getCustomMapper2(List<T> dto);
 
 	@EJB
-	IDetailAuditCsvDao detailAuditCsvDao; 
+	IUploadMigration executeUpload;
+
+	@EJB
+	IDetailAuditCsvDao detailAuditCsvDao;
 	
+	BigCifinBureauCsv p;
 
 	/**
 	 * Metodo con el cual obtengo la clase en la cual se esta implemento la clase
@@ -91,7 +95,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		return domainClass;
 	}
 
-	public Boolean mapper(String delimiter) throws MapperException, UploadMapperExpetion {
+	public Boolean mapper(String delimiter) throws MapperException, UploadMapperExpetion, InstantiationException {
 		this.DELIMITER = delimiter;
 		initialize();
 		splitData();
@@ -141,14 +145,14 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				}
 			}
 
-		System.out.println("DELIMITER: ".concat(DELIMITER));
+			System.out.println("DELIMITER: ".concat(DELIMITER));
 
-		for (String item : columnsVector) {
-			if (getColumns() == null) {
-				setColumns(new ArrayList<String>());
+			for (String item : columnsVector) {
+				if (getColumns() == null) {
+					setColumns(new ArrayList<String>());
+				}
+				columns.add(item);
 			}
-			columns.add(item);
-		}
 		}
 	}
 
@@ -159,60 +163,68 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 */
 	public void validateStructure() throws MapperException {
 		System.out.println("Tamaño columnas del archivo: " + getColumns().size());
-		System.out.println("Tamaño columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());	
+		System.out.println("Tamaño columnas que deberia tener el archivo: " + getTypeFile().getNumColumns().intValue());
 		if (getColumns().size() != getTypeFile().getNumColumns().intValue()) {
 			throw new MapperException(
 					ErrorMapperDto.of(ErrorMapperType.WRONG_STRUCTURE, typeFile, null, "Estructura incorrecta"));
-			}
+		}
 	}
-	
-	public Boolean mapperObject() throws UploadMapperExpetion {
-		Boolean result  = true;
-		try {		
+
+	public Boolean mapperObject() throws UploadMapperExpetion, InstantiationException {
+		Boolean result = true;
+		try {
+			String nombreDeLaClase = getDomainClass().getSimpleName();
+			Constructor constructor = getDomainClass().getConstructor();
+			T objeto = (T) constructor.newInstance();
+//			switch (nombreDeLaClase) {
+//			case "BigCifinBureauCsv":
+			// BigCifinBureauCsv ci = (BigCifinBureauCsv) c.newInstance();
 			for (U item : getListEnumColumns()) {
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
 
 				switch (item.getTypeColumn().getName()) {
 				case "java.lang.String":
-						method.invoke(getObjectMapper(), getColumns().get(item.getIndice()));						
+					method.invoke(objeto, getColumns().get(item.getIndice()));
 					break;
 				case "java.lang.Integer":
 					try {
-						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
+						if (getColumns().get(item.getIndice()) == null
+								|| getColumns().get(item.getIndice()).isEmpty()) {
 							Integer integer = null;
-							method.invoke(getObjectMapper(), integer);					
+							method.invoke(objeto, integer);
+						} else {
+							method.invoke(objeto, Integer.valueOf(getColumns().get(item.getIndice())));
 						}
-						else {
-							method.invoke(getObjectMapper(), Integer.valueOf(getColumns().get(item.getIndice())));				
-						}
-					}catch (Exception e) {
-						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
-								Long.valueOf(getRow())+1, Long.valueOf(item.getIndice())+1, e.getMessage());
-						
+					} catch (Exception e) {
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
+								item.getNombreColumna(), Long.valueOf(getRow()) + 1, Long.valueOf(item.getIndice()) + 1,
+								e.getMessage());
+
 						insertDetailAudit(error);
 						result = false;
 					}
 					break;
 				case "java.lang.Double":
-						method.invoke(getObjectMapper(), Double.valueOf(getColumns().get(item.getIndice())));					
+					method.invoke(objeto, Double.valueOf(getColumns().get(item.getIndice())));
 					break;
 				case "java.math.BigDecimal":
-					try {						
-						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty() ) {
+					try {
+						if (getColumns().get(item.getIndice()) == null
+								|| getColumns().get(item.getIndice()).isEmpty()) {
 							BigDecimal bigDecimal = null;
-							method.invoke(getObjectMapper(), bigDecimal);						
-						}
-						else {
+							method.invoke(objeto, bigDecimal);
+						} else {
 							BigDecimal bigDecimal = formatingBigDecimal(getColumns().get(item.getIndice()));
-							method.invoke(getObjectMapper(), bigDecimal);							
+							method.invoke(objeto, bigDecimal);
 						}
-						
-					} catch (ParseException | IndexOutOfBoundsException e) { 
+
+					} catch (ParseException | IndexOutOfBoundsException e) {
 						e.printStackTrace();
-						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
-								Long.valueOf(getRow())+1, Long.valueOf(item.getIndice())+1, e.getMessage());
-						
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
+								item.getNombreColumna(), Long.valueOf(getRow()) + 1, Long.valueOf(item.getIndice()) + 1,
+								e.getMessage());
+
 						insertDetailAudit(error);
 						result = false;
 					}
@@ -220,23 +232,24 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				case "java.util.Date":
 					try {
-						if(getColumns().get(item.getIndice()) == null || getColumns().get(item.getIndice()).isEmpty()) {
+						if (getColumns().get(item.getIndice()) == null
+								|| getColumns().get(item.getIndice()).isEmpty()) {
 							Date date = null;
-							method.invoke(getObjectMapper(), date);						
-						}
-						else {
+							method.invoke(objeto, date);
+						} else {
 							Date date1 = formatingDate(getColumns().get(item.getIndice()));
-							method.invoke(getObjectMapper(), date1);						
+							method.invoke(objeto, date1);
 						}
-						
+
 					} catch (ParseException e) {
 						e.printStackTrace();
-						
-						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), item.getNombreColumna(),
-								Long.valueOf(getRow()+1), Long.valueOf(item.getIndice())+1, e.getMessage());
-						
+
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
+								item.getNombreColumna(), Long.valueOf(getRow() + 1), Long.valueOf(item.getIndice()) + 1,
+								e.getMessage());
+
 						insertDetailAudit(error);
-						result = false;					    
+						result = false;
 					}
 					break;
 
@@ -244,20 +257,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					break;
 				}
 			}
-			
+			listAllObject.add(objeto);
+//			}
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			e.printStackTrace();
-		}		
+		}
 		return result;
 	}
-	
 
 	/**
-	 * Metodo con el cual se inserta en la tabla detalle auditoria cada ves que se genere un error 
+	 * Metodo con el cual se inserta en la tabla detalle auditoria cada ves que se
+	 * genere un error
 	 */
-	public void insertDetailAudit(UploadMapperExpetion error) {	
-		
+	public void insertDetailAudit(UploadMapperExpetion error) {
+
 		Long idTable = null;
 		try {
 			idTable = detailAuditCsvDao.getMaxValue();
@@ -269,21 +283,21 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		} else {
 			idTable += 1;
 		}
-		DetailAuditCsv detail = new DetailAuditCsv();			
-		
+		DetailAuditCsv detail = new DetailAuditCsv();
+
 		detail.setId(idTable);
 		detail.setTabla(error.getFileName());
 		detail.setRegDestino(Long.valueOf(0));
-		detail.setRegOrigen(Long.valueOf(0));		
+		detail.setRegOrigen(Long.valueOf(0));
 		detail.setTraza("No fue posible realizar la inserción");
-		detail.setIdAudit(executeUpload.getIdAudit());		
+		detail.setIdAudit(executeUpload.getIdAudit());
 		detail.setColumn_name(error.getColumnName());
 		detail.setRow(error.getRow());
 		detail.setColumna(error.getColumn());
 		detail.setMessage(error.getMessage());
 		detailAuditCsvDao.saveEntity(detail);
-		
-		}
+
+	}
 
 	/**
 	 * Metodo con el cual se evaluaran todos los posibles formatos que podra tener
@@ -353,6 +367,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	/**
 	 * Metodo con el cual realizo el proceso de cargue
 	 * 
@@ -367,7 +382,9 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		if (readResource.readFile()) {
 			try {
 				respuesta = throughRows();
-			} catch (Exception e) {				
+				getListAllObject();
+				persistInformation();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
@@ -378,12 +395,35 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		return respuesta;
 	}
 
+	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
+
+		getDao().saveEntity2(getCustomMapper2(getListAllObject()));
+		// Se extrae el error
+		getDao().getError();
+		if (getDao().getError() != null) {
+			validarError();
+		}
+	}
+	
+//	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
+//		if (getListAllObject() != null && !getListAllObject().isEmpty()) {
+//			for (T item : getListAllObject()) {
+//				getDao().saveEntity(getCustomMapper(item));			
+//				// Se extrae el error
+//				getDao().getError();
+//				if (getDao().getError() != null) {
+//					validarError();
+//				}
+//			}
+//		}
+//	}
+
 	/**
 	 * Metodo que se encarga de iterar cada una de las filas del archivo incluyendo
 	 * la de los titulos para asi validar si la estructura se encuentra correcta.
 	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Boolean throughRows() throws Exception {
 		Boolean answer = Boolean.TRUE;
@@ -399,15 +439,17 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 							"Error en la estructura del documento"));
 				}
 			}
-			if (i != 0) {		
+			if (i != 0) {
 				int fila = i;
-				process(item,fila);				
+				process(item, fila);
+				T objeto = getObjectMapper();
 			}
 			i++;
 			System.out.println("Registros: " + i);
 		}
 		return answer;
 	}
+
 
 	/**
 	 * Metodo que se encarga de tomar cada uno de los campos de la primera fila del
@@ -474,39 +516,43 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	 * @param item
 	 * @throws MapperException
 	 * @throws UploadMapperExpetion
+	 * @throws InstantiationException
 	 */
-	public void process(String item, int fila) throws MapperException, UploadMapperExpetion {
+	public void process(String item, int fila) throws MapperException, UploadMapperExpetion, InstantiationException {
 		setData(item);
 		setRow(fila);
 		Boolean result = false;
 		result = mapper(DELIMITER);
 
-		if (result == true) {
-			T objeto = getObjectMapper();
-			getDao().saveEntity(getCustomMapper(objeto));
-			// Se extrae el error
-			getDao().getError();
-			if (getDao().getError() != null) {
-				validarError();
-			}
-			System.out.println("llego" + objeto.toString());
-		} else {
-			System.out.println("No debe continuar");
-		}
+//		if (result == true) {
+//			T objeto = getObjectMapper();
+//			getDao().save(objeto);
+//		}
+//		getDao().getListAllObject();
+//			getDao().saveEntity(getCustomMapper(objeto));
+//			// Se extrae el error
+//			getDao().getError();
+//			if (getDao().getError() != null) {
+//				validarError();
+//			}
+//			System.out.println("llego" + objeto.toString());
+//		} else {
+//			System.out.println("No debe continuar");
+//		}
 	}
-	
+
 	/**
-	 * Metodo que se encarga de setear el error a la clase UploadMapperExpetion e invocar el metodo que lo inserta en la tabla de auditoria
-	 * 	 */
+	 * Metodo que se encarga de setear el error a la clase UploadMapperExpetion e
+	 * invocar el metodo que lo inserta en la tabla de auditoria
+	 */
 	public void validarError() {
 
-			UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), "",
-					Long.valueOf(getRow()) + 1, null, getDao().getError().getMessage());
+		UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(), "",
+				Long.valueOf(getRow()) + 1, null, getDao().getError().getMessage());
 
-			insertDetailAudit(error);
-		}
+		insertDetailAudit(error);
+	}
 
-	
 	public String getData() {
 		return data;
 	}
@@ -587,7 +633,12 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		this.data2 = data2;
 	}
 
-	
-	
-	
+	public ArrayList<T> getListAllObject() {
+		return listAllObject;
+	}
+
+	public void setListAllObject(ArrayList<T> listAllObject) {
+		this.listAllObject = listAllObject;
+	}
+
 }

@@ -145,62 +145,86 @@ app.controller('uploadController', [
     }
 ]);
 
+//app.filter('startFromGrid', function() {
+//    return function(input, start) {
+//        start =+ start;
+//        return input.slice(start);
+//    }
+//}); 
+app.filter('startFromGrid', function() {
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
 // Controlador de la auditoria de As400
 app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs400Fact',
-    function ($scope, $cookies, auth, auditAs400Fact) {
-        app.filter('startFrom', function () {
-            return function (input, start) {
-                start = +start;
-                return input.slice(start);
-            };
-        });
-        
-        // devolvemos a la vista el nombre del usuario
-        $scope.username = $cookies.get('username');
-        $scope.password = $cookies.get('password');
-        $scope.message = "No hay registros que mostrar";
-        $scope.showAnswerTableAs = false;        
-        $scope.errores = false;
-    	$scope.otros = false;
+	function($scope, $cookies, auth, auditAs400Fact) {
 
-        $scope.getFind = function () {        	
-            var estado = document.getElementById("selectEstado").value;            
-            if (estado == 0 || estado == 1 ) {
-            	$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado); 
-            	
-            	if ($scope.listAuditAs400.length === 0) {
-            		alert($scope.message);
-                    $scope.showAnswerTableAs = false;
-                } else {                	               	
-                	footerOfTableOne(); 
-                	$scope.ho= $scope.listAuditAs400.length / $scope.t1PageSize;
-                	$scope.t1NumberOfPages= function(){
-                		return $scope.ho;
-                	}
-                	$scope.showAnswerTableAs = true;
-                	$scope.listAuditAs400.forEach(function(element){
-                		console.log(Element);
-                	})
-                }     	
-            }else{
-            	 $scope.listAuditAs400 = auditAs400Fact.getAuditAllAs400(estado);
-                 $scope.showAnswerTableAs = true;
-            }
+		// devolvemos a la vista el nombre del usuario
+		$scope.username = $cookies.get('username');
+		$scope.password = $cookies.get('password');
+		$scope.message = "No hay registros que mostrar";
+		$scope.showAnswerTableAs = false;
+		$scope.errores = false;
+		$scope.otros = false;
 
-        };
+		$scope.getFind = function() {
+			var estado = document.getElementById("selectEstado").value;
 
-        // Pie de pagina para la tabla de de la Auditoria.
-        function footerOfTableOne() {
-            $scope.t1CurrentPage = 0;
-            $scope.t1PageSize = 10;
-            $scope.data = [];           
-        }
-//        $scope.t1NumberOfPages = function () {
-//            return Math.ceil($scope.listAuditAs400.length / $scope.t1PageSize);
-//       };
-    }
+			if (estado == 0 || estado == 1) {
+				$scope.listAuditAs400 = auditAs400Fact.getAuditAs400(estado);
+
+				if ($scope.listAuditAs400.length === 0) {
+					alert($scope.message);
+					$scope.showAnswerTableAs = false;
+				} else {
+					$scope.inicializarVariables();
+					$scope.configPages();
+					$scope.showAnswerTableAs = true;
+				}
+			} else {
+				$scope.listAuditAs400 = auditAs400Fact.getAuditAllAs400(estado);
+				$scope.inicializarVariables();
+				$scope.configPages();				
+				$scope.showAnswerTableAs = true;
+			}
+		};
+		$scope.inicializarVariables = function() {
+			$scope.currentPage = 0;
+			$scope.pageSize = 10; // Esta la cantidad de registros que deseamos mostrar por página
+			$scope.pages = [];
+		}
+		$scope.configPages = function() {
+			$scope.pages.length = 0;
+			var ini = $scope.currentPage - 4;
+			var fin = $scope.currentPage + 5;
+			if (ini < 1) {
+				ini = 1;
+				if (Math.ceil($scope.listAuditAs400.length / $scope.pageSize) > 10) fin = 10;
+				else fin = Math.ceil($scope.listAuditAs400.length / $scope.pageSize);
+			} else {
+				if (ini >= Math.ceil($scope.listAuditAs400.length / $scope.pageSize) - 10) {
+					ini = Math.ceil($scope.listAuditAs400.length / $scope.pageSize) - 10;
+					fin = Math.ceil($scope.listAuditAs400.length / $scope.pageSize);
+				}
+			}
+			if (ini < 1) ini = 1;
+			for (var i = ini; i <= fin; i++) {
+				$scope.pages.push({
+					no: i
+				});
+			}
+			if ($scope.currentPage >= $scope.pages.length)
+				$scope.currentPage = $scope.pages.length - 1;
+		};
+		$scope.setPage = function(index) {
+			$scope.currentPage = index - 1;
+		};
+	}
 ]);
-
 // Controlador de la auditoria de la Migracion
 app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'auditMigrationFact', 'ngDialog',
     function ($scope, $cookies, auth, auditMigrationFact, ngDialog) {

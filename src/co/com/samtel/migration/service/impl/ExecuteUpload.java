@@ -196,10 +196,10 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 		detail.setRegOrigen(Long.valueOf(0));
 		detail.setTabla(item.getNombreArchivo());
 		detail.setTraza("Sin Traza");
-		detail.setColumn_name("No Aplica");
+//		detail.setColumn_name("No Aplica");
 //		detail.setRow();
 //		detail.setColumna();
-		detail.setMessage("No Aplica");
+//		detail.setMessage("No Aplica");
 
 		setIdDetailAudit(idTable);
 

@@ -2,7 +2,7 @@ package co.com.samtel.ldap;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,11 +19,13 @@ public class LdapRest {
 	@EJB(beanName = "conexionLdap")
 	ILdap conexionLdap;
 
-	@POST
+	@GET
 	@Path("/{user}/{password}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response generateUpload(@PathParam("user") String user, @PathParam("password") String password) {
+		System.out.println(user+password);		
 		Boolean result = conexionLdap.generateConnection(user, password);
+	
 		if (result) {
 			return Response.status(Response.Status.OK)
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", conexionLdap.getLdapDto()))
@@ -33,6 +35,6 @@ public class LdapRest {
 					.entity(new ResponseRest<Long>(conexionLdap.getMessageError().getTypeError(),
 							conexionLdap.getMessageError().getMessage(), Long.valueOf("-1")))
 					.type(MediaType.APPLICATION_JSON_TYPE).build();
-		}
+		}		
 	}
 }

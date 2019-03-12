@@ -425,6 +425,41 @@ public class BigCifinBureauCsv {
 	}
 	public void setI_codigo_fuerza_comercial(String i_codigo_fuerza_comercial) {
 		this.i_codigo_fuerza_comercial = i_codigo_fuerza_comercial;
+	}
+	@Override
+	public String toString() {
+		return "BigCifinBureauCsv [i_tipo_persona=" + i_tipo_persona + ", s_codigo_persona=" + s_codigo_persona
+				+ ", s_nombre_persona=" + s_nombre_persona + ", s_fecha_expedicion=" + s_fecha_expedicion
+				+ ", s_ciudad_expedicion_dto=" + s_ciudad_expedicion_dto + ", s_depto_expedicion_dto="
+				+ s_depto_expedicion_dto + ", s_estado_dto=" + s_estado_dto + ", s_rango_edad=" + s_rango_edad
+				+ ", i_codigo_ciiu=" + i_codigo_ciiu + ", s_actividad_economica=" + s_actividad_economica
+				+ ", s_nombre_producto=" + s_nombre_producto + ", s_nombre_entidad=" + s_nombre_entidad
+				+ ", s_tipo_contrato=" + s_tipo_contrato + ", i_numero_obligacion=" + i_numero_obligacion
+				+ ", s_ciudad=" + s_ciudad + ", s_tipo_cuenta=" + s_tipo_cuenta + ", d_fecha_apertura="
+				+ d_fecha_apertura + ", d_fecha_terminacion=" + d_fecha_terminacion + ", m_cupo_sobregiro="
+				+ m_cupo_sobregiro + ", i_dias_autorizados=" + i_dias_autorizados + ", i_no_cheques_devueltos="
+				+ i_no_cheques_devueltos + ", s_estado=" + s_estado + ", s_marca_tarjeta=" + s_marca_tarjeta
+				+ ", s_clase_tarjeta=" + s_clase_tarjeta + ", m_valor_cuota=" + m_valor_cuota + ", m_cupo=" + m_cupo
+				+ ", m_saldo=" + m_saldo + ", s_modalidad_credito=" + s_modalidad_credito + ", s_cod_producto="
+				+ s_cod_producto + ", m_valor_inicial=" + m_valor_inicial + ", m_valor_mora=" + m_valor_mora
+				+ ", s_altura_mora=" + s_altura_mora + ", s_periodicidad=" + s_periodicidad + ", s_tipo_garantia="
+				+ s_tipo_garantia + ", m_cubrimiento=" + m_cubrimiento + ", s_calidad=" + s_calidad
+				+ ", s_calificacion=" + s_calificacion + ", s_modo_extincion=" + s_modo_extincion
+				+ ", i_cuotas_pactadas_plazo=" + i_cuotas_pactadas_plazo + ", i_cuotas_pagadas=" + i_cuotas_pagadas
+				+ ", i_cuotas_en_mora=" + i_cuotas_en_mora + ", s_vector_de_comportamiento="
+				+ s_vector_de_comportamiento + ", d_fecha_permanencia=" + d_fecha_permanencia
+				+ ", s_calif_endeuda_global_tri_iii=" + s_calif_endeuda_global_tri_iii
+				+ ", s_calif_endeuda_global_tri_ii=" + s_calif_endeuda_global_tri_ii + ", m_total_vr_mora_principal="
+				+ m_total_vr_mora_principal + ", m_total_saldo_principal=" + m_total_saldo_principal
+				+ ", m_total_cuotas_principal=" + m_total_cuotas_principal + ", m_total_vr_mora_codeudor="
+				+ m_total_vr_mora_codeudor + ", m_total_saldo_codeudor=" + m_total_saldo_codeudor
+				+ ", m_total_cuotas_codeudor=" + m_total_cuotas_codeudor + ", m_total_saldo_obligaciones="
+				+ m_total_saldo_obligaciones + ", i_puntaje_score=" + i_puntaje_score
+				+ ", i_probabilidad_de_mora_score=" + i_probabilidad_de_mora_score
+				+ ", i_probabilidad_de_incumplimiento_score=" + i_probabilidad_de_incumplimiento_score + ", s_campana="
+				+ s_campana + ", i_codigo_fuerza_comercial=" + i_codigo_fuerza_comercial + ", i_codigo_oficina="
+				+ i_codigo_oficina + ", i_codigo_cliente=" + i_codigo_cliente + ", d_fecha_corte=" + d_fecha_corte
+				+ "]";
 	}	
 	
 }

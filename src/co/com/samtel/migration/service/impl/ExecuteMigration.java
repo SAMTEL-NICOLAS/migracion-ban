@@ -140,7 +140,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		if (!getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
 			detail.setTraza("Tipo Error: " + getErrorMig().getTypeError() + " Mensaje: " + getErrorMig().getMessage());
 		} else {
-			detail.setTraza("Ok");
+			detail.setTraza("FINALIZADO");
 		}
 		detailAuditDao.updateEntity(detail);
 		// Actualizo el disparador

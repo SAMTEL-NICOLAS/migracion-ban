@@ -20,7 +20,7 @@ public class AuditoriaCsv {
 	private String usuario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(insertable = false)	
+	@Column(insertable = true)	
 	private Date fecha;
 	
 	@Column

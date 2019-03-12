@@ -1,5 +1,7 @@
 package co.com.samtel.cargue.service;
 
+import java.util.ArrayList;
+
 import javax.ejb.Local;
 
 import co.com.samtel.cargue.exception.MapperException;
@@ -42,7 +44,5 @@ public interface IStrategyMapper<T> {
 	 * @return
 	 */
 	Integer getRow();
-	
-	
-
+		
 }

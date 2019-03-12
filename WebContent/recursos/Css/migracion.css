@@ -1,9 +1,9 @@
 .EmpezarMigracion {
     color: #252525;
-    font-size: 170%;
+    font-size: 130%;
     margin: 60px auto 50px;
     text-align: center;
-    text-transform: uppercase;
+/*     text-transform: uppercase; */
     font-family: 'Open Sans',sans-serif;
 }
 .btonEjecutar {

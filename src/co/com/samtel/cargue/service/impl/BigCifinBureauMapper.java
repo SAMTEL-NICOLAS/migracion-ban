@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,7 +25,9 @@ public class BigCifinBureauMapper extends AbsStrategyMapper<BigCifinBureauCsv, T
 
 	@EJB(beanName = "bigCifinBureauDao")
 	IGenericDao<BigCifinBureau, BigCifinBureauId> objDao;
-
+    ArrayList<BigCifinBureau> n = new ArrayList<>(); 
+    ModelMapper modelMapper = new ModelMapper();
+    
 	@SuppressWarnings("static-access")
 	@PostConstruct
 	public void init() {
@@ -45,6 +49,19 @@ public class BigCifinBureauMapper extends AbsStrategyMapper<BigCifinBureauCsv, T
 		BigCifinBureauId id= new BigCifinBureauId(dto.getI_codigo_cliente(),dto.getD_fecha_corte());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigCifinBureau> getCustomMapper2(List<BigCifinBureauCsv> dto) {
+		for(BigCifinBureauCsv item: dto) {
+			
+			BigCifinBureau destinoSql = modelMapper.map(item, BigCifinBureau.class);
+			BigCifinBureauId id= new BigCifinBureauId(item.getI_codigo_cliente(),item.getD_fecha_corte());
+			destinoSql.setId(id);
+			n.add(destinoSql);
+		}
+		System.out.println("salio");
+		return n;
 	}
 
 }

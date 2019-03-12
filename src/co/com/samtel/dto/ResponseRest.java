@@ -3,6 +3,7 @@ package co.com.samtel.dto;
 import java.util.List;
 
 import co.com.samtel.enumeraciones.TypeErrors;
+import co.com.samtel.ldap.LdapDto;
 
 public class ResponseRest<T> {
 
@@ -10,6 +11,7 @@ public class ResponseRest<T> {
 	private String message;
 	private T response;
 	private List<T> listResponse;
+	private LdapDto ldapDto;
 
 	public ResponseRest(TypeErrors typeError, String message, List<T> listResponse) {
 		super();
@@ -23,6 +25,13 @@ public class ResponseRest<T> {
 		this.typeError = typeError;
 		this.message = message;
 		this.response = response;
+	}
+
+	public ResponseRest(TypeErrors typeError, String message, LdapDto ldapDto) {
+		super();
+		this.typeError = typeError;
+		this.message = message;		
+		this.ldapDto = ldapDto;
 	}
 
 	public TypeErrors getTypeError() {

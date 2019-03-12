@@ -15,7 +15,7 @@ public interface ILdap {
 	 * @return
 	 */
 	Boolean generateConnection(String user, String password);
-
+   
 	/**
 	 * Metodo con el cual obtendre el error que se genero al realizar la conexion
 	 * con el LDAP.

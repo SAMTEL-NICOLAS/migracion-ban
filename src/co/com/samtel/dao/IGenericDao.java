@@ -1,5 +1,6 @@
 package co.com.samtel.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -64,20 +65,20 @@ public interface IGenericDao<T, PK > {
 	 * @return
 	 */
 	Boolean saveEntity(T Entity);
+	
+	Boolean saveEntity2(List<T> listEntity);
 	/**
 	 * Metodo con el cual actualizo la entidad
 	 * @param entity
 	 * @return
 	 */
+	
+	
 	Boolean updateEntity(T listEntity);
 	/**
 	 * Metodo con el cual actualizo en masa un bloque de registros
 	 * @param listEntity
 	 * @return
 	 */
-	Boolean updateListEntity(List<T> listEntity);
-
-	
-
-	
+	Boolean updateListEntity(List<T> listEntity);	
 }
