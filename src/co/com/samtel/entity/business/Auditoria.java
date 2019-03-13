@@ -24,8 +24,6 @@ public class Auditoria {
 	@Column(insertable = false)
 	private Date fecha;
 
-
-
 	public Auditoria() {
 		super();
 	}

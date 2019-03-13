@@ -53,15 +53,13 @@ public class BigCifinBureauMapper extends AbsStrategyMapper<BigCifinBureauCsv, T
 
 	@Override
 	public List<BigCifinBureau> getCustomMapper2(List<BigCifinBureauCsv> dto) {
-		for(BigCifinBureauCsv item: dto) {
-			
+		for (BigCifinBureauCsv item : dto) {
 			BigCifinBureau destinoSql = modelMapper.map(item, BigCifinBureau.class);
-			BigCifinBureauId id= new BigCifinBureauId(item.getI_codigo_cliente(),item.getD_fecha_corte());
+			BigCifinBureauId id = new BigCifinBureauId(item.getI_codigo_cliente(), item.getD_fecha_corte());
 			destinoSql.setId(id);
 			n.add(destinoSql);
 		}
 		System.out.println("salio");
 		return n;
 	}
-
 }

@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,6 +26,9 @@ public class BigMetasFCMapper extends AbsStrategyMapper<BigMetasFuerzaComercialC
 	@EJB(beanName="bigMetasFCDao")
 	IGenericDao<BigMetasFuerzaComercial, BigMetasFuerzaComercialId > objDao;
 	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigMetasFuerzaComercial> obj = new ArrayList<>();
+	
 	@SuppressWarnings("static-access")
 	@PostConstruct
 	public void init() {
@@ -45,6 +50,18 @@ public class BigMetasFCMapper extends AbsStrategyMapper<BigMetasFuerzaComercialC
 		BigMetasFuerzaComercialId id= new BigMetasFuerzaComercialId(dto.getD_fecha(), dto.getI_cod_fuerza_comercial(),dto.getI_cod_segmento_producto(),dto.getI_categoria_asesor(),dto.getS_nombre_meta());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigMetasFuerzaComercial> getCustomMapper2(List<BigMetasFuerzaComercialCsv> dto) {
+		for (BigMetasFuerzaComercialCsv item : dto) {
+			BigMetasFuerzaComercial destinoSql = modelMapper.map(item, BigMetasFuerzaComercial.class);
+			BigMetasFuerzaComercialId id= new BigMetasFuerzaComercialId(item.getD_fecha(), item.getI_cod_fuerza_comercial(),item.getI_cod_segmento_producto(),item.getI_categoria_asesor(),item.getS_nombre_meta());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 
 }

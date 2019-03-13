@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,6 +25,8 @@ public class BigIndicadoresMapper extends AbsStrategyMapper<BigIndicadoresCsv, T
 	
 	@EJB(beanName="bigIndicadoresDao")
 	IGenericDao<BigIndicadores,BigIndicadoresId > objDao;
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigIndicadores> obj = new ArrayList<>();
 	
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -45,5 +49,18 @@ public class BigIndicadoresMapper extends AbsStrategyMapper<BigIndicadoresCsv, T
 		BigIndicadoresId id= new BigIndicadoresId(dto.getI_id_indicador(),dto.getD_fecha_fin(), dto.getD_fecha_inicio());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigIndicadores> getCustomMapper2(List<BigIndicadoresCsv> dto) {
+		for (BigIndicadoresCsv item : dto) {
+			BigIndicadores destinoSql = modelMapper.map(item, BigIndicadores.class);
+			BigIndicadoresId id = new BigIndicadoresId(item.getI_id_indicador(), item.getD_fecha_fin(),
+					item.getD_fecha_inicio());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 }

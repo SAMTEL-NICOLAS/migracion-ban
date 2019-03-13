@@ -172,13 +172,11 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 
 	public Boolean mapperObject() throws UploadMapperExpetion, InstantiationException {
 		Boolean result = true;
+		Boolean bandera = false;
 		try {
 			String nombreDeLaClase = getDomainClass().getSimpleName();
 			Constructor constructor = getDomainClass().getConstructor();
 			T objeto = (T) constructor.newInstance();
-//			switch (nombreDeLaClase) {
-//			case "BigCifinBureauCsv":
-			// BigCifinBureauCsv ci = (BigCifinBureauCsv) c.newInstance();
 			for (U item : getListEnumColumns()) {
 
 				Method method = getDomainClass().getMethod("set" + item.getNombreColumna(), item.getTypeColumn());
@@ -198,11 +196,31 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 						}
 					} catch (Exception e) {
 						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
-								item.getNombreColumna(), Long.valueOf(getRow()) + 1, Long.valueOf(item.getIndice()) + 1,
+								item.getNombreColumna(), Long.valueOf(getRow()), Long.valueOf(item.getIndice()) + 1,
 								e.getMessage());
 
 						insertDetailAudit(error);
 						result = false;
+						bandera = true;
+					}
+					break;
+				case "java.lang.Short":
+					try {
+						if (getColumns().get(item.getIndice()) == null
+								|| getColumns().get(item.getIndice()).isEmpty()) {
+							Short shortt = null;
+							method.invoke(objeto, shortt);
+						} else {
+							method.invoke(objeto, Short.valueOf(getColumns().get(item.getIndice())));
+						}
+					} catch (Exception e) {
+						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
+								item.getNombreColumna(), Long.valueOf(getRow()), Long.valueOf(item.getIndice()) + 1,
+								e.getMessage());
+
+						insertDetailAudit(error);
+						result = false;
+						bandera = true;
 					}
 					break;
 				case "java.lang.Double":
@@ -222,11 +240,12 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 					} catch (ParseException | IndexOutOfBoundsException e) {
 						e.printStackTrace();
 						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
-								item.getNombreColumna(), Long.valueOf(getRow()) + 1, Long.valueOf(item.getIndice()) + 1,
+								item.getNombreColumna(), Long.valueOf(getRow()), Long.valueOf(item.getIndice()) + 1,
 								e.getMessage());
 
 						insertDetailAudit(error);
 						result = false;
+						bandera = true;
 					}
 
 					break;
@@ -245,10 +264,11 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 						e.printStackTrace();
 
 						UploadMapperExpetion error = new UploadMapperExpetion(getTypeFile().getNombreArchivo(),
-								item.getNombreColumna(), Long.valueOf(getRow() + 1), Long.valueOf(item.getIndice()) + 1,
+								item.getNombreColumna(), Long.valueOf(getRow()), Long.valueOf(item.getIndice()) + 1,
 								e.getMessage());
 
 						insertDetailAudit(error);
+						bandera = true;
 						result = false;
 					}
 					break;
@@ -256,9 +276,11 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 				default:
 					break;
 				}
+			}	
+			if(bandera!=true) {
+				listAllObject.add(objeto);
 			}
-			listAllObject.add(objeto);
-//			}
+		
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			e.printStackTrace();
@@ -381,8 +403,8 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 		readResource.setUrl(getUrl());
 		if (readResource.readFile()) {
 			try {
+				getListAllObject().clear();
 				respuesta = throughRows();
-				getListAllObject();
 				persistInformation();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -396,13 +418,8 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 	}
 
 	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
-
-		getDao().saveEntity2(getCustomMapper2(getListAllObject()));
-		// Se extrae el error
-		getDao().getError();
-		if (getDao().getError() != null) {
-			validarError();
-		}
+		getCustomMapper2(getListAllObject()).clear();
+		getDao().saveEntity2(getCustomMapper2(getListAllObject()), getTypeFile().getNombreArchivo());
 	}
 	
 //	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
@@ -442,7 +459,7 @@ public abstract class AbsStrategyMapper<T, U extends IColumn, Z> implements IStr
 			if (i != 0) {
 				int fila = i;
 				process(item, fila);
-				T objeto = getObjectMapper();
+				//T objeto = getObjectMapper();
 			}
 			i++;
 			System.out.println("Registros: " + i);

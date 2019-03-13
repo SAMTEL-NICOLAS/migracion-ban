@@ -16,12 +16,16 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.DataException;
 import org.hibernate.exception.JDBCConnectionException;
 
+import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
 import co.com.samtel.dto.ErrorDto;
+import co.com.samtel.entity.business.DetailAuditCsv;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
+import co.com.samtel.migration.IUploadMigration;
 
 public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
@@ -34,6 +38,14 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	private Long numRecordsTableAll;
 
 	private ErrorDto error;
+	
+	private Integer row;	
+	
+	@EJB
+	IDetailAuditCsvDao detailAuditCsvDao;
+	
+	@EJB
+	IUploadMigration executeUpload;
 	
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
@@ -115,8 +127,9 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 	}
 
 	@Override
-	public Boolean saveEntity2(List<T> entity) {
-		for (T item : entity) {
+	public Boolean saveEntity2(List<T> entity, String nameFile) {
+		int fila = 0;		
+		for (T item : entity) {	
 			Session session = null;
 			Transaction tx = null;
 			setError(null);
@@ -129,19 +142,55 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			} catch (ConstraintViolationException e) {
 				System.out.println("Error controlado debe actualizar");
 				setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
-				return Boolean.FALSE;
+				validarError(fila, nameFile);				
 			} catch (DataException e) {
 				e.printStackTrace();
 				setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
 				System.out.println("Error" + e.getMessage());
-				return Boolean.FALSE;
+				validarError(fila,nameFile);	
 			} catch (Exception e) {
 				setError(ErrorDto.of(null, TypeErrors.MAPPER_EROR, e.toString() + e.getMessage()));
 			} finally {
 				factorySessionHibernate.close(session, tx);
 			}
+			fila++;
+			System.out.println("Filas Insertadas: "+ fila);
 		}
 		return Boolean.TRUE;
+	}
+	public void validarError(int fila, String nameFile) {
+		setRow(fila);
+		UploadMapperExpetion error = new UploadMapperExpetion(nameFile, "",
+				Long.valueOf(getRow()) + 1, null, getError().getMessage());
+
+		insertDetailAudit(error);
+	}
+	public void insertDetailAudit(UploadMapperExpetion error) {
+
+		Long idTable = null;
+		try {
+			idTable = detailAuditCsvDao.getMaxValue();
+		} catch (ControlledExeption e) {
+			e.printStackTrace();
+		}
+		if (idTable == null) {
+			new Exception("Imposible insertar detalle de auditoria");
+		} else {
+			idTable += 1;
+		}
+		DetailAuditCsv detail = new DetailAuditCsv();
+
+		detail.setId(idTable);
+		detail.setTabla(error.getFileName());
+		detail.setRegDestino(Long.valueOf(0));
+		detail.setRegOrigen(Long.valueOf(0));
+		detail.setTraza("No fue posible realizar la inserción");
+		detail.setIdAudit(executeUpload.getIdAudit());
+		detail.setColumn_name(error.getColumnName());
+		detail.setRow(error.getRow());
+		detail.setColumna(error.getColumn());
+		detail.setMessage(error.getMessage());
+		detailAuditCsvDao.saveEntity(detail);
 	}
 	@Override
 	public Boolean saveEntity(T entity) {
@@ -286,6 +335,14 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	public void setNumRecordsTableAll(Long numRecordsTableAll) {
 		this.numRecordsTableAll = numRecordsTableAll;
+	}
+
+	public Integer getRow() {
+		return row;
+	}
+
+	public void setRow(Integer row) {
+		this.row = row;
 	}
 
 }

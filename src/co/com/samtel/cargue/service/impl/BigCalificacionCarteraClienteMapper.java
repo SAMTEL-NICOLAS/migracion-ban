@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,6 +26,9 @@ public class BigCalificacionCarteraClienteMapper
 	
 	@EJB(beanName="bigCalificacionCarteraClienteDao")
 	IGenericDao<BigCalificacionCarteraCliente,BigCalificacionCarteraClienteId > objDao;
+	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigCalificacionCarteraCliente> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -46,5 +51,18 @@ public class BigCalificacionCarteraClienteMapper
 		BigCalificacionCarteraClienteId id= new BigCalificacionCarteraClienteId(dto.getI_codigo_cliente(),dto.getI_cod_operacion(),dto.getD_fecha_carga());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigCalificacionCarteraCliente> getCustomMapper2(List<BigCalificacionCarteraClienteCsv> dto) {
+		for (BigCalificacionCarteraClienteCsv item : dto) {
+			BigCalificacionCarteraCliente destinoSql = modelMapper.map(item, BigCalificacionCarteraCliente.class);
+			BigCalificacionCarteraClienteId id = new BigCalificacionCarteraClienteId(item.getI_codigo_cliente(),
+					item.getI_cod_operacion(), item.getD_fecha_carga());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 }

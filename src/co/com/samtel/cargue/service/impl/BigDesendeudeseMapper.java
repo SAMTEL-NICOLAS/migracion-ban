@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,7 +14,10 @@ import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigDesendeudeseColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
+import co.com.samtel.entity.manual.sql.BigCalificacionCarteraCliente;
+import co.com.samtel.entity.manual.sql.BigCalificacionCarteraClienteId;
 import co.com.samtel.entity.manual.sql.BigDesendeudese;
 import co.com.samtel.entity.manual.sql.BigDesendeudeseId;
 import co.com.samtel.enumeraciones.TypeConections;
@@ -23,6 +28,10 @@ public class BigDesendeudeseMapper extends AbsStrategyMapper<BigDesendeudeseCsv,
 	
 	@EJB(beanName="bigDesendeudeseDao")
 	IGenericDao<BigDesendeudese,BigDesendeudeseId > objDao;
+	
+	ModelMapper modelMapper = new ModelMapper();
+	
+	ArrayList<BigDesendeudese> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -47,4 +56,15 @@ public class BigDesendeudeseMapper extends AbsStrategyMapper<BigDesendeudeseCsv,
 		return destinoSql;
 	}
 
+	@Override
+	public List<BigDesendeudese> getCustomMapper2(List<BigDesendeudeseCsv> dto) {
+		for (BigDesendeudeseCsv item : dto) {
+			BigDesendeudese destinoSql = modelMapper.map(item, BigDesendeudese.class);
+			BigDesendeudeseId id= new BigDesendeudeseId(item.getI_codigo_cliente(), item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
+	}
 }

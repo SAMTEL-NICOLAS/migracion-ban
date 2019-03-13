@@ -1,10 +1,15 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import org.modelmapper.ModelMapper;
+
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigMetasOficinaColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
@@ -19,7 +24,10 @@ public class BigMetasOficinaMapper extends AbsStrategyMapper<BigMetasOficinaCsv,
 		implements IStrategyMapper<BigMetasOficinaCsv> {
 
 	@EJB(beanName="bigMetasOficinaDao")
-	IGenericDao<BigMetasOficina, BigMetasOficinaId> objDao;
+	IGenericDao<BigMetasOficina, BigMetasOficinaId> objDao;	
+	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigMetasOficina> obj = new ArrayList<>();
 
 		@SuppressWarnings("static-access")
 	@PostConstruct
@@ -42,6 +50,18 @@ public class BigMetasOficinaMapper extends AbsStrategyMapper<BigMetasOficinaCsv,
 		BigMetasOficinaId id= new BigMetasOficinaId(dto.getS_cod_oficina(),dto.getI_cod_segmento_producto(),dto.getS_nombre_meta(),dto.getD_fecha());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigMetasOficina> getCustomMapper2(List<BigMetasOficinaCsv> dto) {
+		for (BigMetasOficinaCsv item : dto) {
+			BigMetasOficina destinoSql = modelMapper.map(item, BigMetasOficina.class);
+			BigMetasOficinaId id= new BigMetasOficinaId(item.getS_cod_oficina(),item.getI_cod_segmento_producto(),item.getS_nombre_meta(),item.getD_fecha());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 
 }

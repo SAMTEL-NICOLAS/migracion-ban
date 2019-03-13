@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,6 +26,9 @@ public class BigInfFinancieraMapper extends
 
 	@EJB(beanName = "bigInfFinancieraDao")
 	IGenericDao<BigInfFinanciera, BigInfFinancieraId> objDao;
+	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigInfFinanciera> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -46,6 +51,18 @@ public class BigInfFinancieraMapper extends
 		BigInfFinancieraId id= new BigInfFinancieraId(dto.getI_cod_oficina() ,dto.getD_fecha_corte());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigInfFinanciera> getCustomMapper2(List<BigInfFinancieraCsv> dto) {
+		for (BigInfFinancieraCsv item : dto) {
+			BigInfFinanciera destinoSql = modelMapper.map(item, BigInfFinanciera.class);
+			BigInfFinancieraId id= new BigInfFinancieraId(item.getI_cod_oficina() ,item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 
 }

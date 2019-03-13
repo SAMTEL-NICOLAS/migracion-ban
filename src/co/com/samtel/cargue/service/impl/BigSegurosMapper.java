@@ -1,5 +1,6 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,19 +11,17 @@ import javax.ejb.Stateless;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.modelmapper.ModelMapper;
-
-import com.ibm.wsspi.cache.ConfigEntry.Property;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigSegurosColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.CnofcAs;
+import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
 import co.com.samtel.entity.manual.csv.BigSegurosCsv;
 import co.com.samtel.entity.manual.sql.BigSeguros;
 import co.com.samtel.entity.manual.sql.BigSegurosId;
@@ -40,6 +39,10 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
+
+	
+    ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigSeguros> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -106,7 +109,7 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 		return result;
 	}
 
-	public List<BigActivos> extractMissingFieldCodeProduct(BigSegurosCsv dto) {
+	public List<BigActivos> extractMissingFieldCodeProduct(BigSegurosCsv item) {
 		Session session = null;
 		List<BigActivos> result = null;
 		try {
@@ -114,11 +117,11 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 
 			DetachedCriteria subCriteria = DetachedCriteria.forClass(BigActivos.class)
 					.setProjection(Projections.max("fecinicred"))
-					.add(Restrictions.eq("num_idclie", dto.getI_codigo_cliente()));
+					.add(Restrictions.eq("num_idclie", item.getI_codigo_cliente()));
 
 			Criteria crit = session.createCriteria(BigActivos.class)
 					.add(Subqueries.propertyEq("fecinicred", subCriteria))
-					.add(Restrictions.eq("num_idclie", dto.getI_codigo_cliente()));
+					.add(Restrictions.eq("num_idclie", item.getI_codigo_cliente()));
 			result = crit.list();
 
 			if (result.isEmpty()) {
@@ -150,5 +153,36 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 			factorySessionHibernate.close(session, null);
 		}
 		return result;		
+	}
+
+	@Override
+	public List<BigSeguros> getCustomMapper2(List<BigSegurosCsv> dto) {
+		for (BigSegurosCsv item : dto) {
+			item.setI_cod_producto(99);
+			item.setD_fecha_corte(item.getD_fecha());
+			List<BigClientes> missingField = extractMissingFieldCodeCliente(item);
+			if (!missingField.isEmpty() == true) {
+				item.setI_codigo_cliente(missingField.get(0).getNui());
+				List<BigActivos> missingFieldCodeProduct = extractMissingFieldCodeProduct(item);
+				if (!missingFieldCodeProduct.isEmpty() == true) {
+					Long codeProduct = Long.parseLong(missingFieldCodeProduct.get(0).getId().getI_nro_credito());
+					item.setI_producto_asociado(codeProduct);
+				}
+				List<CnofcAs> missingFieldCodeAdviser = extractMissingFieldCodeAdviser(item);
+				if (!missingFieldCodeAdviser.isEmpty() == true) {
+					int codeAdviser = Integer.parseInt(missingFieldCodeAdviser.get(0).getId().getCodigo_asesor());
+					item.setI_codigo_asesor(codeAdviser);
+				}
+			} else {
+				item.setI_codigo_cliente(null);
+				item.setI_producto_asociado(null);
+			}
+			BigSeguros destinoSql = modelMapper.map(item, BigSeguros.class);
+			BigSegurosId id = new BigSegurosId(item.getS_plan(), item.getI_cod_producto(), item.getI_codigo_cliente(),
+					item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		return obj;
 	}
 }

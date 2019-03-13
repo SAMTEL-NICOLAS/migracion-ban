@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,6 +25,9 @@ public class BigProductosMapper extends AbsStrategyMapper<BigProductosCsv, TypeB
 
 	@EJB(beanName = "bigProductosDao")
 	IGenericDao<BigProductos, BigProductosId> objDao;
+	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigProductos> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -45,6 +50,18 @@ public class BigProductosMapper extends AbsStrategyMapper<BigProductosCsv, TypeB
 		BigProductosId id= new BigProductosId(dto.getI_cod_sub_producto(),dto.getD_fecha_corte());
 		destinoSql.setId(id);
 		return destinoSql;
+	}
+
+	@Override
+	public List<BigProductos> getCustomMapper2(List<BigProductosCsv> dto) {
+		for (BigProductosCsv item : dto) {
+			BigProductos destinoSql = modelMapper.map(item, BigProductos.class);
+			BigProductosId id= new BigProductosId(item.getI_cod_sub_producto(),item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
 	}
 
 }

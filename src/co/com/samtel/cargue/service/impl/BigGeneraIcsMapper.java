@@ -1,12 +1,12 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.criteria.CriteriaUpdate;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -15,7 +15,6 @@ import org.modelmapper.ModelMapper;
 
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigGeneraIcsColumn;
-import co.com.samtel.cargue.exception.UploadMapperExpetion;
 import co.com.samtel.cargue.service.IStrategyMapper;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
@@ -34,6 +33,9 @@ public class BigGeneraIcsMapper extends AbsStrategyMapper<BigGeneraIcsCsv, TypeB
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
+	
+    ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigGeneraIcs> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -83,6 +85,22 @@ public class BigGeneraIcsMapper extends AbsStrategyMapper<BigGeneraIcsCsv, TypeB
 			factorySessionHibernate.close(session, null);
 		}
 		return result;
+	}
+
+	@Override
+	public List<BigGeneraIcs> getCustomMapper2(List<BigGeneraIcsCsv> dto) {
+		for (BigGeneraIcsCsv item : dto) {
+			List<BigClientes> missingField = extractMissingField(item);
+			if (!missingField.isEmpty() == true) {
+				item.setI_codigo_cliente(missingField.get(0).getNui());
+			}
+			BigGeneraIcs destinoSql = modelMapper.map(item, BigGeneraIcs.class);
+			BigGeneraIcsId id = new BigGeneraIcsId(item.getI_codigo_cliente(), item.getS_cod_producto(),
+					item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);			
+		}
+		return obj;
 	}
 
 }

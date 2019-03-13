@@ -1,6 +1,8 @@
 package co.com.samtel.cargue.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,6 +26,9 @@ public class BigGeorreferenciarProspectoMapper extends
 
 	@EJB(beanName = "bigGeoreferenciarProspectoDao")
 	IGenericDao<BigGeoReferenciarProspecto, BigGeoReferenciarProspectoId> objDao;
+	
+	ModelMapper modelMapper = new ModelMapper();	
+	ArrayList<BigGeoReferenciarProspecto> obj = new ArrayList<>();
 
 	@SuppressWarnings("static-access")
 	@PostConstruct
@@ -49,4 +54,16 @@ public class BigGeorreferenciarProspectoMapper extends
 		return destinoSql;
 	}
 
+	@Override
+	public List<BigGeoReferenciarProspecto> getCustomMapper2(List<BigGeoReferenciarProspectoCsv> dto) {
+		for (BigGeoReferenciarProspectoCsv item : dto) {
+			BigGeoReferenciarProspecto destinoSql = modelMapper.map(item, BigGeoReferenciarProspecto.class);
+			BigGeoReferenciarProspectoId id = new BigGeoReferenciarProspectoId(item.getI_tipo_persona(),
+					item.getS_codigo_persona(), item.getD_fecha_corte());
+			destinoSql.setId(id);
+			obj.add(destinoSql);
+		}
+		System.out.println("salio");
+		return obj;
+	}
 }

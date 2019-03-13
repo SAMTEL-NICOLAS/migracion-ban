@@ -66,7 +66,7 @@ public interface IGenericDao<T, PK > {
 	 */
 	Boolean saveEntity(T Entity);
 	
-	Boolean saveEntity2(List<T> listEntity);
+	Boolean saveEntity2(List<T> listEntity,String nameFile);
 	/**
 	 * Metodo con el cual actualizo la entidad
 	 * @param entity
