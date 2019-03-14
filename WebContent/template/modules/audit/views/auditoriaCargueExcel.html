@@ -59,7 +59,7 @@
                <td>Detalle</td>
                <td>Estado</td>
             </tr>
-            <tr ng-repeat="obj in listAudit">
+            <tr ng-repeat="obj in listAudit | startFromGrid: currentPage * pageSize | limitTo: pageSize">
                <td class="answerTd">{{obj.id}}</td>
                <td class="answerTd">{{obj.usuario}}</td>
                <td class="answerTd">{{obj.fecha}}</td>
@@ -69,14 +69,16 @@
             </tr>
             <!--Paginador-->
             <tr>
-              <!-- Navegar hacia atrás -->
+            	<td align="center" colspan="10">
+                    <!-- Navegar hacia atrás -->
                     <button type='button' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
 
                     <!-- Navegar a una página especifica-->
                     <button type='button' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
 
                     <!-- Navegar hacia adelante -->
-                    <button type='button' ng-disabled='currentPage >= listAuditAs400.length/pageSize - 1' ng-click='currentPage = currentPage + 1'>&raquo;</button>
+                    <button type='button' ng-disabled='currentPage >= listAudit.length/pageSize - 1' ng-click='currentPage = currentPage + 1'>&raquo;</button>
+                </td>
             </tr>
          </table>        
       </div>

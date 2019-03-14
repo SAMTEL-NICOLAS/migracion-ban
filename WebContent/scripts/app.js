@@ -43,17 +43,20 @@ app.factory(
                         // han pasado
                         $cookies.put('username', username);
                         $cookies.put('password', password);
-//                        $.ajax({
-//                            url: "resources/v.1/ldap/" + username + "/" +password,
-//                            method: 'GET',
-//                            dataType: 'json',
-//                            async: false,
-//                            success: function (result) {
-//                            	objeto = result;                    	
-//                            }
-//                        });
-                        // mandamos a la home
-                        $location.path("/home");
+                        $.ajax({
+                            url: "resources/v.1/ldap/" + username + "/" +password,
+                            method: 'GET',
+                            dataType: 'json',
+                            async: false,
+                            success: function (result) {
+                            	objeto = result;                    	
+                            }
+                        });
+//                        if(username=="admin" && password=="admin"){
+//                        	 // mandamos a la home
+//                            $location.path("/home");
+//                        }
+                       
                     },
                     logout: function () {
                         // al hacer logout eliminamos la cookie con

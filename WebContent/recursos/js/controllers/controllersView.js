@@ -228,14 +228,12 @@ app.controller('auditAs400Controller', ['$scope', '$cookies', 'auth', 'auditAs40
 // Controlador de la auditoria de la Migracion
 app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'auditMigrationFact', 'ngDialog',
     function ($scope, $cookies, auth, auditMigrationFact, ngDialog) {
-
-        app.filter('startFrom', function () {
-            return function (input, start) {
-                start = +start;
-                return input.slice(start);
-            };
-        });
-        footerOfTableOne();
+//        app.filter('startFrom', function () {
+//            return function (input, start) {
+//                start = +start;
+//                return input.slice(start);
+//            };
+//        });      
         $scope.actual = actualDate();
         $('#fechaInicio').val($scope.actual);
         $('#fechaFin').val(actualDate());
@@ -264,7 +262,6 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
                   }
             } else {
             	if(!id == ""){
-//                  if (validateDates(date1,)) {
                     $scope.listAudit = auditMigrationFact.getAuditByDateAndId(date1, date2, id);
                     if ($scope.listAudit.length === 0) {
                         alert($scope.message);
@@ -272,21 +269,50 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
                     } else {
                         $scope.showAnswerTable = true;
                     }
-//                }
             	}else{
-//                  if (validateDates(date1,)) {
                     $scope.listAudit = auditMigrationFact.getAuditByDate(date1, date2);
                     if ($scope.listAudit.length === 0) {
                         alert($scope.message);
                         $scope.showAnswerTable = false;
                     } else {
+                    	$scope.inicializarVariables();
+        				$scope.configPages();	
                         $scope.showAnswerTable = true;
                     }
-//                }
             	}
             }            
         };
-
+		$scope.inicializarVariables = function() {
+			$scope.currentPage = 0;
+			$scope.pageSize = 10; // Esta la cantidad de registros que deseamos mostrar por página
+			$scope.pages = [];
+		}
+		$scope.configPages = function() {
+			$scope.pages.length = 0;
+			var ini = $scope.currentPage - 4;
+			var fin = $scope.currentPage + 5;
+			if (ini < 1) {
+				ini = 1;
+				if (Math.ceil($scope.listAudit.length / $scope.pageSize) > 10) fin = 10;
+				else fin = Math.ceil($scope.listAudit.length / $scope.pageSize);
+			} else {
+				if (ini >= Math.ceil($scope.listAudit.length / $scope.pageSize) - 10) {
+					ini = Math.ceil($scope.listAudit.length / $scope.pageSize) - 10;
+					fin = Math.ceil($scope.listAudit.length / $scope.pageSize);
+				}
+			}
+			if (ini < 1) ini = 1;
+			for (var i = ini; i <= fin; i++) {
+				$scope.pages.push({
+					no: i
+				});
+			}
+			if ($scope.currentPage >= $scope.pages.length)
+				$scope.currentPage = $scope.pages.length - 1;
+		};
+		$scope.setPage = function(index) {
+			$scope.currentPage = index - 1;
+		};
         // Funcion que se encarga de consultar los detalles de la auditoria.
         $scope.getDetailById = function (objDatail) {
             var urlTemplate = 'template/modules/audit/views/modal/modalAuditoriaMigracion.html';
@@ -340,18 +366,6 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
             return new Date(parseInt(date_aux[2]), parseInt(date_aux[1] - 1), parseInt(date_aux[0]));
         }
         ;
-
-        // Pie de pagina para la tabla de de la Auditoria.
-        function footerOfTableOne() {
-            $scope.t1CurrentPage = 0;
-            $scope.t1PageSize = 10;
-            $scope.data = [];
-
-            $scope.t1NumberOfPages = function () {
-                return Math.ceil($scope.listAudit.length / $scope.t1PageSize);
-            };
-        }
-        ;
     }
 ]);
 
@@ -359,14 +373,6 @@ app.controller('auditMigrationController', ['$scope', '$cookies', 'auth', 'audit
 //Controlador de la auditoria del  cargue
 app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'auditUploadExcelFact', 'ngDialog',
     function ($scope, $cookies, auth, auditUploadExcelFact, ngDialog) {
-
-        app.filter('startFrom', function () {
-            return function (input, start) {
-                start = +start;
-                return input.slice(start);
-            };
-        });
-        footerOfTableOne();
 
         $('#fechaInicio').val(actualDate());
         $('#fechaFin').val(actualDate());
@@ -395,14 +401,12 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
                 	$scope.showAnswerTable = false;      
                 }
           } else {
-//
-//              if (validateDates()) {
               	if(!id == ""){
               		  $scope.listAudit = auditUploadExcelFact.getAuditByDate(date1, date2,id);
                         if ($scope.listAudit.length === 0) {
                             alert($scope.messageNoData);
                             $scope.showAnswerTable = false;
-                        } else {
+                        } else {                        	
                             $scope.showAnswerTable = true;
                         }
                   }else{
@@ -410,14 +414,47 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
                        if ($scope.listAudit.length === 0) {
                            alert($scope.messageNoData);
                            $scope.showAnswerTable = false;
-                       } else {
+                       } else {                    	   
+                    	   $scope.inicializarVariables();
+           				   $scope.configPages();
                            $scope.showAnswerTable = true;
                        }
                   }
-//              }  
           }
 
         };
+        
+        $scope.inicializarVariables = function() {
+			$scope.currentPage = 0;
+			$scope.pageSize = 10; // Esta la cantidad de registros que deseamos mostrar por página		
+			$scope.pages = [];
+		}
+		$scope.configPages = function() {
+			$scope.pages.length = 0;
+			var ini = $scope.currentPage - 4;
+			var fin = $scope.currentPage + 5;
+			if (ini < 1) {
+				ini = 1;
+				if (Math.ceil($scope.listAudit.length / $scope.pageSize) > 10) fin = 10;
+				else fin = Math.ceil($scope.listAudit.length / $scope.pageSize);
+			} else {
+				if (ini >= Math.ceil($scope.listAudit.length / $scope.pageSize) - 10) {
+					ini = Math.ceil($scope.listAudit.length / $scope.pageSize) - 10;
+					fin = Math.ceil($scope.listAudit.length / $scope.pageSize);
+				}
+			}
+			if (ini < 1) ini = 1;
+			for (var i = ini; i <= fin; i++) {
+				$scope.pages.push({
+					no: i
+				});
+			}
+			if ($scope.currentPage >= $scope.pages.length)
+				$scope.currentPage = $scope.pages.length - 1;
+		};
+		$scope.setPage = function(index) {
+			$scope.currentPage = index - 1;
+		};
 
         // Funcion que se encarga de consultar los detalles de la auditoria del cargue.
         $scope.getDetailById = function (objDatail) {
@@ -427,7 +464,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
             	$scope.listDetailAudit = auditUploadExcelFact.getDetailById(objDatail.id,table);            	
             	if ($scope.listDetailAudit.length === 0) {
             		alert($scope.message);
-            	} else {
+            	} else {            		   			
             		ngDialog.open({
                     template: urlTemplate,
                     className: 'ngdialog-theme-default',
@@ -439,6 +476,7 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
              	if ($scope.listDetailAudit.length === 0) {
              		alert($scope.message);
              	} else {
+             		    		
              		ngDialog.open({
              		template: urlTemplate,
                     className: 'ngdialog-theme-default',
@@ -446,8 +484,15 @@ app.controller('auditUploadExcelController', ['$scope', '$cookies', 'auth', 'aud
              		});
              	}            	
             }
-        };
-
+        };        
+        
+        $scope.inicializarVariablesModal = function() {
+			$scope.currentPage1 = 0;
+			$scope.pageSize = 15; // Esta la cantidad de registros que deseamos mostrar por página
+			$scope.pages = [];
+		}      
+		
+ 
         // Funcion que se encarga de obtener la fecha actual.
         function actualDate() {
             var fecha = new Date();

@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.DataException;
@@ -80,8 +81,9 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.ge("fecha", fecha1));
 			crit.add(Restrictions.lt("fecha", fecha2));
-			crit.add(Restrictions.eq("id", idAuditoria));
+			crit.add(Restrictions.eq("id", idAuditoria));			
 			result = crit.list();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -101,7 +103,8 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 			fecha2 = addDays(fecha2, 1);
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.ge("fecha", fecha1));
-			crit.add(Restrictions.lt("fecha", fecha2));		
+			crit.add(Restrictions.lt("fecha", fecha2));	
+			crit.addOrder(Order.asc("id"));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();

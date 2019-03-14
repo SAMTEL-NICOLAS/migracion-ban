@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
@@ -35,7 +36,7 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.eq("idAudit", Long.valueOf(idDatail)));
-
+			crit.addOrder(Order.asc("id"));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,6 +59,7 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.eq("idAudit", Long.valueOf(idDatail)));
 			crit.add(Restrictions.eq("tabla", table));
+			crit.addOrder(Order.asc("id"));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();
