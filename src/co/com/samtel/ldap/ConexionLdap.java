@@ -1,23 +1,23 @@
 package co.com.samtel.ldap;
 
-import javax.ejb.Stateless;
-import com.novell.ldap.LDAPConnection;
-import com.novell.ldap.LDAPException;
 import java.io.UnsupportedEncodingException;
-import com.novell.ldap.LDAPSearchResults;
-import co.com.samtel.enumeraciones.TypeErrors;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.Hashtable;  
+import java.util.Enumeration;
+import java.util.Iterator;
 
-import javax.naming.Context;  
-import javax.naming.NamingException;  
-import javax.naming.directory.DirContext;  
-import javax.naming.directory.InitialDirContext; 
+import javax.ejb.Stateless;
+
+import com.novell.ldap.LDAPAttribute;
+import com.novell.ldap.LDAPAttributeSet;
+import com.novell.ldap.LDAPConnection;
+import com.novell.ldap.LDAPEntry;
+import com.novell.ldap.LDAPException;
+import com.novell.ldap.LDAPSearchResults;
+
+import co.com.samtel.enumeraciones.TypeErrors;
 
 @Stateless(name = "conexionLdap")
 public class ConexionLdap implements ILdap {
-	
+
 	private int ldapPort;
 	private int ldapVersion;
 	private LDAPConnection lc;
@@ -25,9 +25,6 @@ public class ConexionLdap implements ILdap {
 	private String password;
 	private String ldapHost;
 	private String ldapIp;
-	private String url = "192.168.0.83";
-    private String contexto = "com.sun.jndi.ldap.LdapCtxFactory";
-    private String tipoAuth = "simple";
 
 	private ErrorDto errorLdap;
 
@@ -36,73 +33,97 @@ public class ConexionLdap implements ILdap {
 	}
 
 	@Override
-	public Boolean generateConnection(String user, String password) {
-		Boolean ldapOk = Boolean.FALSE;
-		try {
-		//	conn(user,password);
-			connecta(user,password);
-		//	ldapOk = Boolean.TRUE;
-		} catch (Exception e) {
-			System.out.println("err" + e);
-//			ldapOk = Boolean.FALSE;
-//			setErrorLdap(ErrorDto.of(user, TypeErrors.CONNECTION_DATA_BASE, e.getMessage()));
-		}
-		return ldapOk;
+	public Boolean generateConnection(String user, String password) throws UnsupportedEncodingException, LDAPException {
+		return connectionManager(user, password);
 	}
-	public void connecta(String user , String password) throws NamingException {
-		Hashtable<String, String> env = new Hashtable<String, String>(11);  
-		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");  
-		env.put(Context.PROVIDER_URL, "ldap://192.168.0.83:389"); // replace  
-		env.put(Context.SECURITY_AUTHENTICATION, "simple"); // No other SALS  
-		env.put(Context.SECURITY_PRINCIPAL, new String("uid=trc_alexander.gabel@bancompartir.co,CN=G_CRM_eIBS_BIGDATA,OU=Grupos,OU=Bancompartir,DC=bancompartir,DC=local"));
-		env.put(Context.SECURITY_CREDENTIALS, "Tihara2041");  
-		
-		// Si al inicializar estos valores no se levanta una excepción 
-		// entonces la autenticación es OK
-		DirContext ctx = new InitialDirContext(env);
-		ctx.close();
-		// Sólo si todo va bien el resultado es correcto.
-		
-	}
-	public void conn(String user , String password) throws LDAPException, UnsupportedEncodingException {
-		String u = "trc_alexander.gabel@bancompartir.co";
-		login = "uid=" + u + ",CN=G_CRM_eIBS_BIGDATA,OU=Grupos,OU=Bancompartir,DC=bancompartir,DC=local";	
-		System.out.println("" + login);
-		ldapPort = LDAPConnection.DEFAULT_PORT;
-		System.out.println("puerto: " + ldapPort);
-		ldapVersion = LDAPConnection.LDAP_V3;
-		System.out.println("Vesion: " + ldapVersion);
-		System.out.println("HOST: " + getLdapHost());
+
+	@SuppressWarnings("deprecation")
+	public Boolean connectionManager(String user, String password) throws LDAPException {
+		Boolean continuar = Boolean.FALSE;
+
+		setLogin(user.concat("@bancompartir.local"));
+		setPassword(password);
+		System.out.println("Usuario: ".concat(getLogin()));
+		System.out.println("Clave: ".concat(getPassword()));
+
 		try {
 			lc = new LDAPConnection();
-			lc.connect(getLdapHost(), ldapPort);
-			System.out.println("====Conectado al Servidor LDAP====");
-			lc.bind(ldapVersion, login, password.getBytes("UTF8"));
-			System.out.println("Autenticado en el servidor....");
-		} catch (UnsupportedEncodingException ex) {
-			Logger.getLogger(ConexionLdap.class.getName()).log(Level.SEVERE, null, ex);
+			lc.connect(getLdapHost(), getLdapPort());// Realiza conexion al LDAP.
+			lc.bind(getLdapVersion(), getLogin(), getPassword());// Valida las credenciales del usuario.
+			continuar = busquedaUsuario(user);
 		} catch (LDAPException ex) {
-			Logger.getLogger(ConexionLdap.class.getName()).log(Level.SEVERE, null, ex);
+			System.out.println("Se genero error LDAP :".concat(ex.getMessage()));
+			setErrorLdap(ErrorDto.of(getLogin(), TypeErrors.LDAP, ex.getMessage()));
+			ex.printStackTrace();
 		}
-	}
-	public void connectionManager(String user) throws LDAPException, UnsupportedEncodingException {
 
+		return continuar;
+	}
+
+	public Boolean busquedaUsuario(String usuarioFiltro) throws LDAPException {
 		LDAPSearchResults searchResults;
-		int searchScope = LDAPConnection.SCOPE_SUB;
-		try {
-			lc = new LDAPConnection();
-			lc.connect(getLdapHost(), LDAPConnection.DEFAULT_PORT);// Realiza conexion al LDAP
-			System.out.println("====Conectado al Servidor LDAP====");
-			lc.bind(getLdapVersion(), getLogin(), getPassword());// Valida las credenciales del usuario Administrador
-			System.out.println("Autenticado en el servidor....");
-			String filtro = "(uid=" + user + ")";// Realiza el filtro en el LDAP por el atributo uid el cual es el
-													// nombre
-													// del usuario
-			String raiz = "o=unal.edu.co";
+		Boolean continuar = Boolean.FALSE;
 
-		} catch (LDAPException ex) {
-			Logger.getLogger(ConexionLdap.class.getName()).log(Level.SEVERE, null, ex);
+		int searchScope = LDAPConnection.SCOPE_SUB;
+		String filtro = "(sAMAccountName=" + usuarioFiltro + ")";
+
+		String raiz = "OU=Bancompartir,DC=bancompartir,DC=local";
+		// Realizara la busqueda en todo el Directorio Activof
+		searchResults = lc.search(raiz, searchScope, filtro, null, false);
+
+		if (existeUsuario(searchResults)) {
+			System.out.println("Existe el usuario");
+			continuar = Boolean.TRUE;
+		} else {
+			System.out.println("No existe el usuario");
+			continuar = Boolean.FALSE;
 		}
+
+		return continuar;
+	}
+
+	public Boolean existeUsuario(LDAPSearchResults searchResults) {
+
+		String baseGrupo = "CN=G_CRM_eIBS_BIGDATA,OU=Grupos,OU=Bancompartir,DC=bancompartir,DC=local";
+		// Recorre Todos los Usuarios de la Base
+		Boolean exiteUsuarioFiltro = Boolean.FALSE;
+
+		while (searchResults.hasMore()) {
+			LDAPEntry nextEntry = null;
+			try {
+				nextEntry = searchResults.next();
+			} catch (LDAPException e) {
+				e.printStackTrace();
+				continue;
+			}
+
+			LDAPAttributeSet attributeSet = nextEntry.getAttributeSet();// Traera todos los atributos que tenga el
+																		// usuario a consultar
+			Iterator allAttributes = attributeSet.iterator();
+
+			while (allAttributes.hasNext()) {// Recore los atributos del usuario
+				LDAPAttribute attribute = (LDAPAttribute) allAttributes.next();
+				Enumeration allValues = attribute.getStringValues();
+				System.out.println("Clave: " + attribute.getName());
+
+				if (allValues != null) {
+					if ("memberOf".equalsIgnoreCase(attribute.getName())) {
+						while (allValues.hasMoreElements()) {
+							String value = (String) allValues.nextElement();// Obtiene los valores del atributo
+							System.out.println("Valor: " + value);
+							if (baseGrupo.equalsIgnoreCase(value)) {
+								exiteUsuarioFiltro = Boolean.TRUE;
+								System.out.println("Si existe el usuario en el grupo");
+							}
+						}
+					}
+				}
+			}
+
+			exiteUsuarioFiltro = Boolean.TRUE;
+		}
+
+		return exiteUsuarioFiltro;
 	}
 
 	/**
@@ -111,7 +132,7 @@ public class ConexionLdap implements ILdap {
 	 */
 	public void initializeData() {
 		setLdapIp(ldapIp);
-		setLdapPort(ldapPort);
+		setLdapPort(389);
 		setLdapVersion(LDAPConnection.LDAP_V3);
 		setLogin(login);
 		setPassword(password);
@@ -183,14 +204,15 @@ public class ConexionLdap implements ILdap {
 	}
 
 	@Override
-	public ErrorDto getMessageError() {
+	public LdapDto getLdapDto() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public LdapDto getLdapDto() {
+	public ErrorDto getMessageError() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

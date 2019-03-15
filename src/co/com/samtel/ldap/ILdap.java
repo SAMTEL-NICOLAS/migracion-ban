@@ -1,6 +1,10 @@
 package co.com.samtel.ldap;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.ejb.Local;
+
+import com.novell.ldap.LDAPException;
 
 import co.com.samtel.ldap.ErrorDto;
 
@@ -13,21 +17,23 @@ public interface ILdap {
 	 * @param user
 	 * @param password
 	 * @return
+	 * @throws LDAPException
+	 * @throws UnsupportedEncodingException
 	 */
-	Boolean generateConnection(String user, String password);
-   
+	public Boolean generateConnection(String user, String password) throws UnsupportedEncodingException, LDAPException;
+
 	/**
 	 * Metodo con el cual obtendre el error que se genero al realizar la conexion
 	 * con el LDAP.
 	 * 
 	 * @return
 	 */
-	ErrorDto getMessageError();
+	public ErrorDto getMessageError();
 
 	/**
 	 * Metodo con el cual obtendre el objeto del LDAP del usuario.
 	 * 
 	 * @return
 	 */
-	LdapDto getLdapDto();
+	public LdapDto getLdapDto();
 }

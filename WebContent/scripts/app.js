@@ -41,15 +41,23 @@ app.factory(
                     login: function (username, password) {
                         // creamos la cookie con el nombre que nos
                         // han pasado
-                        $cookies.put('username', username);
-                        $cookies.put('password', password);
                         $.ajax({
                             url: "resources/v.1/ldap/" + username + "/" +password,
                             method: 'GET',
                             dataType: 'json',
                             async: false,
                             success: function (result) {
-                            	objeto = result;                    	
+                            	alert(result);   
+                            	console.log(result);
+                            	if(result.response === 'Ok'){
+                            		  $location.path("/home");
+                            		  $cookies.put('username', username);
+                                      $cookies.put('password', password);
+                            	}else{
+                            		  $cookies.put('username', 'undefined');
+                                      $cookies.put('password', 'undefined');
+                            	}
+                              
                             }
                         });
 //                        if(username=="admin" && password=="admin"){
