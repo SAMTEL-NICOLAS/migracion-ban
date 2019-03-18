@@ -14,14 +14,14 @@ app.config(function ($routeProvider) {
     }).when("/cargue", {
         templateUrl: "template/modules/cargue/views/cargueManual.html"
     }).when("/auditoriaAs400", {
-    	templateUrl: "template/modules/audit/views/auditoriaAs400.html",
-    	controller: "auditAs400Controller"
+        templateUrl: "template/modules/audit/views/auditoriaAs400.html",
+        controller: "auditAs400Controller"
     }).when("/auditoriaMigracion", {
-    	templateUrl: "template/modules/audit/views/auditoriaMigracion.html",
-    	controller: "auditMigrationController"
+        templateUrl: "template/modules/audit/views/auditoriaMigracion.html",
+        controller: "auditMigrationController"
     }).when("/auditoriaCargueExcel", {
-    	templateUrl: "template/modules/audit/views/auditoriaCargueExcel.html",
-    		controller: "auditUploadExcelController"
+        templateUrl: "template/modules/audit/views/auditoriaCargueExcel.html",
+        controller: "auditUploadExcelController"
     }).otherwise({
         reditrectTo: "/"
     });
@@ -42,29 +42,25 @@ app.factory(
                         // creamos la cookie con el nombre que nos
                         // han pasado
                         $.ajax({
-                            url: "resources/v.1/ldap/" + username + "/" +password,
+                            url: "resources/v.1/ldap/" + username + "/" + password,
                             method: 'GET',
                             dataType: 'json',
                             async: false,
                             success: function (result) {
-                            	alert(result);   
-                            	console.log(result);
-                            	if(result.response === 'Ok'){
-                            		  $location.path("/home");
-                            		  $cookies.put('username', username);
-                                      $cookies.put('password', password);
-                            	}else{
-                            		  $cookies.put('username', 'undefined');
-                                      $cookies.put('password', 'undefined');
-                            	}
-                              
+                                console.log(result);
+                                if (result.message === 'OK') {
+                                	alert("Usuario Correcto");
+                                    $cookies.put('username', username);
+                                    $cookies.put('password', password);
+                                    $location.path("/home");
+                                } else {
+                                	alert("Usuario Incorrecto");
+                                    $cookies.put('username', null);
+                                    $cookies.put('password', null);
+                                }
                             }
                         });
-//                        if(username=="admin" && password=="admin"){
-//                        	 // mandamos a la home
-//                            $location.path("/home");
-//                        }
-                       
+
                     },
                     logout: function () {
                         // al hacer logout eliminamos la cookie con
@@ -102,7 +98,7 @@ app.factory(
                         }
                         return false;
                     }
-                }
+                };
             }]);
 
 // mientras corre la aplicación, comprobamos si el usuario tiene acceso a la
@@ -113,5 +109,5 @@ app.run(function ($rootScope, auth) {
         // llamamos a checkStatus, el cual lo hemos definido en la factoria auth
         // la cuál hemos inyectado en la acción run de la aplicación
         auth.checkStatus();
-    })
+    });
 });

@@ -1,8 +1,11 @@
 package co.com.samtel.ldap;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Properties;
 
 import javax.ejb.Stateless;
 
@@ -25,6 +28,10 @@ public class ConexionLdap implements ILdap {
 	private String password;
 	private String ldapHost;
 	private String ldapIp;
+	private String baseUsuario;
+	private String atributoNombre;
+	private String raiz;
+	private String baseGrupo;
 
 	private ErrorDto errorLdap;
 
@@ -41,11 +48,8 @@ public class ConexionLdap implements ILdap {
 	public Boolean connectionManager(String user, String password) throws LDAPException {
 		Boolean continuar = Boolean.FALSE;
 
-		setLogin(user.concat("@bancompartir.local"));
+		setLogin(user.concat(getBaseUsuario()));
 		setPassword(password);
-		System.out.println("Usuario: ".concat(getLogin()));
-		System.out.println("Clave: ".concat(getPassword()));
-
 		try {
 			lc = new LDAPConnection();
 			lc.connect(getLdapHost(), getLdapPort());// Realiza conexion al LDAP.
@@ -62,30 +66,16 @@ public class ConexionLdap implements ILdap {
 
 	public Boolean busquedaUsuario(String usuarioFiltro) throws LDAPException {
 		LDAPSearchResults searchResults;
-		Boolean continuar = Boolean.FALSE;
 
 		int searchScope = LDAPConnection.SCOPE_SUB;
-		String filtro = "(sAMAccountName=" + usuarioFiltro + ")";
+		String filtro = "(".concat(getAtributoNombre()).concat("=").concat(usuarioFiltro).concat(")");
+		// Realizara la busqueda en todo el Directorio Activo
+		searchResults = lc.search(getRaiz(), searchScope, filtro, null, false);
 
-		String raiz = "OU=Bancompartir,DC=bancompartir,DC=local";
-		// Realizara la busqueda en todo el Directorio Activof
-		searchResults = lc.search(raiz, searchScope, filtro, null, false);
-
-		if (existeUsuario(searchResults)) {
-			System.out.println("Existe el usuario");
-			continuar = Boolean.TRUE;
-		} else {
-			System.out.println("No existe el usuario");
-			continuar = Boolean.FALSE;
-		}
-
-		return continuar;
+		return existeUsuario(searchResults);
 	}
 
 	public Boolean existeUsuario(LDAPSearchResults searchResults) {
-
-		String baseGrupo = "CN=G_CRM_eIBS_BIGDATA,OU=Grupos,OU=Bancompartir,DC=bancompartir,DC=local";
-		// Recorre Todos los Usuarios de la Base
 		Boolean exiteUsuarioFiltro = Boolean.FALSE;
 
 		while (searchResults.hasMore()) {
@@ -104,23 +94,19 @@ public class ConexionLdap implements ILdap {
 			while (allAttributes.hasNext()) {// Recore los atributos del usuario
 				LDAPAttribute attribute = (LDAPAttribute) allAttributes.next();
 				Enumeration allValues = attribute.getStringValues();
-				System.out.println("Clave: " + attribute.getName());
-
 				if (allValues != null) {
 					if ("memberOf".equalsIgnoreCase(attribute.getName())) {
 						while (allValues.hasMoreElements()) {
 							String value = (String) allValues.nextElement();// Obtiene los valores del atributo
 							System.out.println("Valor: " + value);
-							if (baseGrupo.equalsIgnoreCase(value)) {
+							if (getBaseGrupo().equalsIgnoreCase(value)) {
 								exiteUsuarioFiltro = Boolean.TRUE;
-								System.out.println("Si existe el usuario en el grupo");
 							}
 						}
 					}
 				}
 			}
 
-			exiteUsuarioFiltro = Boolean.TRUE;
 		}
 
 		return exiteUsuarioFiltro;
@@ -131,12 +117,33 @@ public class ConexionLdap implements ILdap {
 	 * LDAP.
 	 */
 	public void initializeData() {
-		setLdapIp(ldapIp);
-		setLdapPort(389);
 		setLdapVersion(LDAPConnection.LDAP_V3);
-		setLogin(login);
-		setPassword(password);
-		setLdapHost("192.168.0.83");
+		cargaDatosIniciales();
+	}
+
+	private void cargaDatosIniciales() {
+		InputStream inputStream = null;
+		Properties prop = new Properties();
+		String propFileName = "general.properties";
+
+		try {
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+			setLdapHost(prop.getProperty("host"));
+			setLdapPort(Integer.valueOf(prop.getProperty("puerto")));
+			setBaseUsuario(prop.getProperty("baseUsuario"));
+			setAtributoNombre(prop.getProperty("atributoNombre"));
+			setRaiz(prop.getProperty("raiz"));
+			setBaseGrupo(prop.getProperty("baseGrupo"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public int getLdapPort() {
@@ -203,16 +210,46 @@ public class ConexionLdap implements ILdap {
 		this.ldapIp = ldapIp;
 	}
 
+	public String getBaseUsuario() {
+		return baseUsuario;
+	}
+
+	public void setBaseUsuario(String baseUsuario) {
+		this.baseUsuario = baseUsuario;
+	}
+
+	public String getAtributoNombre() {
+		return atributoNombre;
+	}
+
+	public void setAtributoNombre(String atributoNombre) {
+		this.atributoNombre = atributoNombre;
+	}
+
+	public String getRaiz() {
+		return raiz;
+	}
+
+	public void setRaiz(String raiz) {
+		this.raiz = raiz;
+	}
+
+	public String getBaseGrupo() {
+		return baseGrupo;
+	}
+
+	public void setBaseGrupo(String baseGrupo) {
+		this.baseGrupo = baseGrupo;
+	}
+
 	@Override
 	public LdapDto getLdapDto() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ErrorDto getMessageError() {
-		// TODO Auto-generated method stub
-		return null;
+		return getErrorLdap();
 	}
 
 }
