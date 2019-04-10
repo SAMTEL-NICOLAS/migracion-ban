@@ -30,7 +30,7 @@ public class BigClienteEstadosMigrateHiloCuatro extends MigrateAbs<BigClienteEst
 
 	@PostConstruct
 	public void init() {
-		setStrPrimaryKey(" nui ASC");
+		setStrPrimaryKey(" nui ");
 		setTableToMigrate(TableMigration.BIG_CLIENTE_ESTADOS);
 	}
 

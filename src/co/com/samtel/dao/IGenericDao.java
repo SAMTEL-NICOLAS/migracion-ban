@@ -125,4 +125,14 @@ public interface IGenericDao<T, PK, ENTITYAS extends IConsecutivo> {
 	 * @return
 	 */
 	Boolean nativeUpdateBlock(TableMigration tableName, Integer ini, Integer fin);
+	/**
+	 * Metodo con el cual se eliminan todos los registros de una tabla
+	 * @return
+	 */
+	Boolean deleteAllRecords(TableMigration tableName);
+	/**
+	 * Metodo con el cual se realiza el conteo de los registros que se deben migrar realizando un distinct por medio de su llave primaria
+	 * @return
+	 */
+	Long distinctRecordsToMigrate(String primaryKey,TableMigration tableName);
 }

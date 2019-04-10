@@ -26,7 +26,7 @@ public enum TableMigration {
 	BIG_PASIVOS_CONSOLIDADO("CRM1418F","BIG_PASIVOS_CONSOLIDADO"),
 	BIG_ACTIVOS("CRM1413F","BIG_ACTIVOS"),
 	BIG_ACTUALIZA_DATOS("CRM1480F","BIG_ACTUALIZA_DATOS"),
-	BIG_CLIENTE_ESTADOS("CRM1421FNC","BIG_CLIENTE_ESTADOS"),
+	BIG_CLIENTE_ESTADOS("CRM1421FNC","BIG_CLIENTE_ESTADOS","BigClienteEstados"),
 	BIG_NOTA_INTERNA("CRM1422F","BIG_NOTA_INTERNA"),
 	BIG_INFO_ADICIONAL_CLIENTE("CRM1423F","BIG_INFOADICIONALCLIENTES"),
 	BIG_CONS_CENTRALES("CRM1424F","BIG_CONS_CENTRALES"),
@@ -38,11 +38,21 @@ public enum TableMigration {
 	
 	private String nameAs;
 	private String nameSql;
+	private String nameEntitySql;
 	
 	private TableMigration(String nameAs, String nameSql) {
 		this.nameAs = nameAs;
 		this.nameSql = nameSql;
 	}
+	
+	
+	private TableMigration(String nameAs, String nameSql, String nameEntitySql) {
+		this.nameAs = nameAs;
+		this.nameSql = nameSql;
+		this.nameEntitySql = nameEntitySql;
+	}
+
+
 	public String getNameAs() {
 		return nameAs;
 	}
@@ -55,5 +65,12 @@ public enum TableMigration {
 	public void setNameSql(String nameSql) {
 		this.nameSql = nameSql;
 	}
+	public String getNameEntitySql() {
+		return nameEntitySql;
+	}
+	public void setNameEntitySql(String nameEntitySql) {
+		this.nameEntitySql = nameEntitySql;
+	}
+	
 	
 }

@@ -7,6 +7,7 @@ import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.enumeraciones.TypeConections;
+import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.exception.MapperException;
 
 public abstract class MigrateAbs<T, U> {
@@ -16,6 +17,8 @@ public abstract class MigrateAbs<T, U> {
 
 	private Long iniProcess;
 	private Long finProcess;
+
+	private String deleteRecords;
 
 	private List<T> listOrigen;
 	private List<U> listDestino;
@@ -54,8 +57,26 @@ public abstract class MigrateAbs<T, U> {
 	public void initializeMigration() {
 		getOrigen().setTypeConection(TypeConections.AS400);
 		getDestino().setTypeConection(TypeConections.SQLSERVER);
-		// Obtengo el numero de registros origen
-		getOrigen().countRecordsTable();
+	}
+
+	/**
+	 * Metodo con el cual realiza las validaciones previas a la migracion - Realiza
+	 * un distinct a la tabla a migrar por su id y compara el resultado con los
+	 * datos a migrar y deben ser iguales - En el caso de que en el archivo de
+	 * configutacion lo indique debe borrar los datos de la tabla
+	 * @throws ControlledExeption 
+	 */
+	public void validateData(String valida) throws ControlledExeption {
+		if ("Y".equalsIgnoreCase(valida) && "Y".equalsIgnoreCase(getDeleteRecords()) ) {
+			getDestino().deleteAllRecords(getTableToMigrate());
+		}
+		if("Y".equalsIgnoreCase(valida)) {
+			Long registrosDistinct = getOrigen().distinctRecordsToMigrate(getStrPrimaryKey() ,getTableToMigrate());
+			if(!getRegistrosOrigen().equals(registrosDistinct)) {
+				throw new ControlledExeption("Datos duplicados en la base de datos origen");
+			}
+			System.out.println(".:: Registros con distinct "+registrosDistinct+" ::.");
+		}
 	}
 
 	/**
@@ -77,7 +98,7 @@ public abstract class MigrateAbs<T, U> {
 	 */
 	@SuppressWarnings("unchecked")
 	public void extractInformation() {
-		setListOrigen(getOrigen().findBlockData(getTypeOrder(), getIniProcess(), getIniProcess()  + getNumRecBlock() ));
+		setListOrigen(getOrigen().findBlockData(getTypeOrder(), getIniProcess(), getIniProcess() + getNumRecBlock()));
 	}
 
 	/**
@@ -86,8 +107,8 @@ public abstract class MigrateAbs<T, U> {
 	 */
 	public void iterateSource() {
 		try {
-			System.out.println(".::Numero de registros a Migrar:" + getListOrigen().size()+"::.");
-			for(T item : getListOrigen()) {
+			System.out.println(".::Numero de registros a Migrar:" + getListOrigen().size() + "::.");
+			for (T item : getListOrigen()) {
 				process(item, mappearOrigen(item));
 			}
 			getOrigen().nativeUpdateBlock(getTableToMigrate(), 0, getNumRecBlock().intValue());
@@ -213,9 +234,17 @@ public abstract class MigrateAbs<T, U> {
 	public void setTypeOrder(String typeOrder) {
 		this.typeOrder = typeOrder;
 	}
-	
+
 	public void ejecutarHilo() {
 		System.out.println(".::No aplica multihilos::.");
+	}
+
+	public String getDeleteRecords() {
+		return deleteRecords;
+	}
+
+	public void setDeleteRecords(String deleteRecords) {
+		this.deleteRecords = deleteRecords;
 	}
 
 }

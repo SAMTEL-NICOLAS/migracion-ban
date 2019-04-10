@@ -37,37 +37,47 @@ public class BigClientesEstadoFacade extends MigrateAbs<BigClienteEstadosAs, Big
 	
 	@Override
 	public Boolean generateMigration() {
-		//Seteamos los ordenamientos
-		bigClienteEstadosMigrateUno.setTypeOrder("ASC");
-		bigClienteEstadosMigrateDos.setTypeOrder("DESC");
-		
-		bigClienteEstadosMigrateUno.setLogActivador(getLogActivador());
-		bigClienteEstadosMigrateUno.numRecordsSourceAndDestination();
-		bigClienteEstadosMigrateUno.setNumRecBlock( getNumRecBlock() );
-		bigClienteEstadosMigrateUno.setIniProcess(Long.valueOf("0"));
-		
-		
-		bigClienteEstadosMigrateDos.setLogActivador(getLogActivador());
-		bigClienteEstadosMigrateDos.numRecordsSourceAndDestination();
-		bigClienteEstadosMigrateDos.setNumRecBlock( getNumRecBlock() );
-		bigClienteEstadosMigrateDos.setIniProcess(Long.valueOf("2500"));
-		
-		bigClienteEstadosMigrateTres.setLogActivador(getLogActivador());
-		bigClienteEstadosMigrateTres.numRecordsSourceAndDestination();
-		bigClienteEstadosMigrateTres.setNumRecBlock( getNumRecBlock() );
-		bigClienteEstadosMigrateTres.setIniProcess(Long.valueOf("5000"));
-		
-		
-		bigClienteEstadosMigrateCuatro.setLogActivador(getLogActivador());
-		bigClienteEstadosMigrateCuatro.numRecordsSourceAndDestination();
-		bigClienteEstadosMigrateCuatro.setNumRecBlock( getNumRecBlock() );
-		bigClienteEstadosMigrateCuatro.setIniProcess(Long.valueOf("7500"));
-		
-		
-		//Ejecutamos las migraciones
-		bigClienteEstadosMigrateUno.ejecutarHilo();
-		bigClienteEstadosMigrateDos.ejecutarHilo();
-		
+		try {
+			
+			//Seteamos los ordenamientos
+			bigClienteEstadosMigrateUno.setTypeOrder("ASC");
+			bigClienteEstadosMigrateDos.setTypeOrder("DESC");
+			
+			bigClienteEstadosMigrateUno.setLogActivador(getLogActivador());
+			bigClienteEstadosMigrateUno.numRecordsSourceAndDestination();
+			//Calculo para cada hilo
+			Long reg = bigClienteEstadosMigrateUno.getRegistrosOrigen();
+			reg = reg / 4;
+			
+			
+			bigClienteEstadosMigrateUno.setNumRecBlock( getNumRecBlock() );
+			bigClienteEstadosMigrateUno.setIniProcess(Long.valueOf("0"));
+			bigClienteEstadosMigrateUno.setDeleteRecords(getDeleteRecords());
+			bigClienteEstadosMigrateUno.validateData("Y");
+			
+			bigClienteEstadosMigrateDos.setLogActivador(getLogActivador());
+			bigClienteEstadosMigrateDos.numRecordsSourceAndDestination();
+			bigClienteEstadosMigrateDos.setNumRecBlock( getNumRecBlock() );
+			bigClienteEstadosMigrateDos.setIniProcess(reg);
+			
+			bigClienteEstadosMigrateTres.setLogActivador(getLogActivador());
+			bigClienteEstadosMigrateTres.numRecordsSourceAndDestination();
+			bigClienteEstadosMigrateTres.setNumRecBlock( getNumRecBlock() );
+			bigClienteEstadosMigrateTres.setIniProcess(reg * 2);
+			
+			
+			bigClienteEstadosMigrateCuatro.setLogActivador(getLogActivador());
+			bigClienteEstadosMigrateCuatro.numRecordsSourceAndDestination();
+			bigClienteEstadosMigrateCuatro.setNumRecBlock( getNumRecBlock() );
+			bigClienteEstadosMigrateCuatro.setIniProcess(reg * 3);
+			
+			
+			//Ejecutamos las migraciones
+			bigClienteEstadosMigrateUno.ejecutarHilo();
+			bigClienteEstadosMigrateDos.ejecutarHilo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return Boolean.TRUE;
 	}
 

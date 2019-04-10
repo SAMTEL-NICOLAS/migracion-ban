@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
@@ -385,6 +386,37 @@ public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IG
 			factorySessionHibernate.close(session, null);
 		}
 		return maxRecords;
+	}
+	@Override
+	public Boolean deleteAllRecords( TableMigration tableName) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			tx = session.beginTransaction();
+			String hql = "delete from ".concat(tableName.getNameEntitySql());
+			int records = session.createQuery(hql).executeUpdate();
+			System.out.println(".:: Numero de registros eliminados"+ records +" ::.");
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;			
+		}
+		return Boolean.TRUE;
+	}
+	
+	@Override
+	public Long distinctRecordsToMigrate(String primaryKey,TableMigration tableName) {
+		Session session = null;
+		Integer valor = Integer.valueOf("0");
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			String sql = "SELECT count(*) FROM (SELECT distinct " + primaryKey + " FROM DAMCYFILES." + tableName.getNameAs() + " ent WHERE ent.migrar = ' '   )";
+			valor = (Integer) session.createSQLQuery(sql).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Long.valueOf(valor);
 	}
 
 	public Class<T> getDomainClass() {

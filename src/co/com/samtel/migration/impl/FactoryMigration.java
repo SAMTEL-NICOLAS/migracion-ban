@@ -158,6 +158,7 @@ public class FactoryMigration implements IFactoryMigration {
 						aux.numRecordsSourceAndDestination();
 						aux.setNumRecBlock(numeroRegistros);
 						aux.setTypeOrder("ASC");
+						aux.setDeleteRecords("Y");
 						listEjb.add(aux);
 
 					}
