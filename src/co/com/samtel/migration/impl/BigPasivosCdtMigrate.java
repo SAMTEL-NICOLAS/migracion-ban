@@ -70,4 +70,10 @@ public class BigPasivosCdtMigrate extends MigrateAbs< BigPasivosCdtAs,  BigPasiv
 		return BigPasivosCdtAs.class;
 	}
 
+	@Override
+	public BigPasivosCdt mappearOrigen(BigPasivosCdtAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

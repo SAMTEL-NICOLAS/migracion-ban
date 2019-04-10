@@ -36,7 +36,13 @@ public class AuditUploadExcelRest {
 		return Response.status(Response.Status.OK).entity(detailAuditCsvDao.getDetailById(idDatail,table))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
-
+	@GET
+	@Path("/updateStateAudit/{idAudit}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateStateAudit(@PathParam("idAudit") String idAudit) {
+		return Response.status(Response.Status.OK).entity(detailAuditCsvDao.updateStateAudit(idAudit))
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
 	/**
 	 * Servicio que se encarga de recuperar el id, la tabla y la envia a la consulta
 	 * para luego retornar la respuesta por medio de un objeto Json.

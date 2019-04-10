@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigGeneraIcsColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
 import co.com.samtel.entity.manual.sql.BigGeneraIcs;
@@ -29,7 +30,7 @@ public class BigGeneraIcsMapper extends AbsStrategyMapper<BigGeneraIcsCsv, TypeB
 		implements IStrategyMapper<BigGeneraIcsCsv> {
 
 	@EJB(beanName = "bigGeneraIcsDao")
-	IGenericDao<BigGeneraIcs, BigGeneraIcsId> objDao;
+	IGenericDao<BigGeneraIcs, BigGeneraIcsId,DummyConsecutivo> objDao;
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;

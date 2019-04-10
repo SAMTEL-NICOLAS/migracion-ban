@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigTipoTransaccionAs;
 import co.com.samtel.entity.sql.BigTipoTransaccion;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -63,6 +64,12 @@ public class BigTipoTransaccionMigrate extends MigrateAbs<BigTipoTransaccionAs, 
 	public Class<BigTipoTransaccionAs> getClassOrigin() {
 		// TODO Auto-generated method stub
 		return BigTipoTransaccionAs.class;
+	}
+
+	@Override
+	public BigTipoTransaccion mappearOrigen(BigTipoTransaccionAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

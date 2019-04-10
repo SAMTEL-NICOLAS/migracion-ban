@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CRM1411FAP", schema = "DAMCYFILES")
-public class BigSubproductosAs implements Serializable  {
+public class BigSubproductosAs extends Consecutivo implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 

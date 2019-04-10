@@ -12,9 +12,11 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CRM1407F", schema = "DAMCYFILES")
-public class BigRecogidosAs implements Serializable {
+public class BigRecogidosAs extends Consecutivo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

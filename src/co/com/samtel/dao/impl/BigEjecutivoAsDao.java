@@ -6,6 +6,6 @@ import co.com.samtel.entity.as400.BigEjecutivoAs;
 import co.com.samtel.entity.as400.BigEjecutivoIdAs;
 
 @Stateless(name="bigEjecutivoAsDao")
-public class BigEjecutivoAsDao extends AbsDao<BigEjecutivoAs, BigEjecutivoIdAs> implements IBigEjecutivoAsDao {
+public class BigEjecutivoAsDao extends AbsDao<BigEjecutivoAs, BigEjecutivoIdAs, BigEjecutivoAs > implements IBigEjecutivoAsDao {
 
 }

@@ -69,4 +69,10 @@ public class BigConsCentralesMigrate extends MigrateAbs<BigConsCentralesAs, BigC
 		return BigConsCentralesAs.class;
 	}
 
+	@Override
+	public BigConsCentrales mappearOrigen(BigConsCentralesAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

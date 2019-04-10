@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigInfFinancieraColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigInfFinancieraCsv;
 import co.com.samtel.entity.manual.sql.BigInfFinanciera;
@@ -25,7 +26,7 @@ public class BigInfFinancieraMapper extends
 		implements IStrategyMapper<BigInfFinancieraCsv> {
 
 	@EJB(beanName = "bigInfFinancieraDao")
-	IGenericDao<BigInfFinanciera, BigInfFinancieraId> objDao;
+	IGenericDao<BigInfFinanciera, BigInfFinancieraId, DummyConsecutivo> objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigInfFinanciera> obj = new ArrayList<>();

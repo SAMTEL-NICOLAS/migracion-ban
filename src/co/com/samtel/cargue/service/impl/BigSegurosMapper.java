@@ -19,9 +19,9 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigSegurosColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.CnofcAs;
-import co.com.samtel.entity.manual.csv.BigGeneraIcsCsv;
 import co.com.samtel.entity.manual.csv.BigSegurosCsv;
 import co.com.samtel.entity.manual.sql.BigSeguros;
 import co.com.samtel.entity.manual.sql.BigSegurosId;
@@ -35,7 +35,7 @@ public class BigSegurosMapper extends AbsStrategyMapper<BigSegurosCsv, TypeBigSe
 		implements IStrategyMapper<BigSegurosCsv> {
 
 	@EJB(beanName = "bigSegurosDao")
-	IGenericDao<BigSeguros, BigSegurosId> objDao;
+	IGenericDao<BigSeguros, BigSegurosId,DummyConsecutivo> objDao;
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;

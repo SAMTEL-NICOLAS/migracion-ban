@@ -76,4 +76,10 @@ public class BigPasivosAhMigrate extends MigrateAbs< BigPasivosAhAs,  BigPasivos
 		// TODO Auto-generated method stub
 		return BigPasivosAhAs.class;
 	}
+
+	@Override
+	public BigPasivosAh mappearOrigen(BigPasivosAhAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

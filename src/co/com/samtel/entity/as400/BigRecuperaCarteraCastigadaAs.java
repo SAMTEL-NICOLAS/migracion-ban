@@ -8,10 +8,13 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import co.com.samtel.dao.Consecutivo;
+
 import java.math.BigDecimal;
 @Entity
 @Table(name = "CRM1408F", schema = "DAMCYFILES")
-public class BigRecuperaCarteraCastigadaAs implements Serializable {
+public class BigRecuperaCarteraCastigadaAs extends Consecutivo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

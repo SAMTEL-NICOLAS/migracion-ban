@@ -20,5 +20,7 @@ public interface IDetailAudit {
 	
 	List<DetailAudit> getDetailById(String idDatail);
 	
+	Boolean updateStateAudit(String idAudit);
+	
 	
 }

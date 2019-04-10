@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigCalificacionCarteraClienteColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.sql.BigCalificacionCarteraCliente;
@@ -25,7 +26,7 @@ public class BigCalificacionCarteraClienteMapper
 		implements IStrategyMapper<BigCalificacionCarteraClienteCsv> {
 	
 	@EJB(beanName="bigCalificacionCarteraClienteDao")
-	IGenericDao<BigCalificacionCarteraCliente,BigCalificacionCarteraClienteId > objDao;
+	IGenericDao<BigCalificacionCarteraCliente,BigCalificacionCarteraClienteId, DummyConsecutivo  > objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigCalificacionCarteraCliente> obj = new ArrayList<>();

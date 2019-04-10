@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.JDBCConnectionException;
 
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.bussines.IAuditDao;
 import co.com.samtel.dao.impl.AbsDao;
 import co.com.samtel.entity.business.Auditoria;
@@ -23,7 +24,7 @@ import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
 
 @Stateless(name = "auditDao")
-public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
+public class AuditDao extends AbsDao<Auditoria, Long, DummyConsecutivo> implements IAuditDao {
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
@@ -71,6 +72,7 @@ public class AuditDao extends AbsDao<Auditoria, Long> implements IAuditDao {
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.ge("fecha", fecha1));
 			crit.add(Restrictions.lt("fecha", fecha2));
+			crit.add(Restrictions.eq("estadoActividad", "A"));
 			result = crit.list();
 		} catch (Exception e) {
 			e.printStackTrace();

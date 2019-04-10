@@ -1,6 +1,5 @@
 package co.com.samtel.service.impl;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,20 +18,33 @@ public class ParametrosService implements IParametrosService{
 	private Properties props;
 	
 	@PostConstruct
-	private void init() {
+	private void init() {		
 		props = new Properties();
-		try {
-			inputS = new FileInputStream("/properties/configuration.properties");
+		String propFileName = "configuration.properties";	
+		
+		try {			
+			inputS = getClass().getClassLoader().getResourceAsStream(propFileName);
 			props.load(inputS);
 			setNumRecordsToProcess(Long.valueOf(props.getProperty("NUMBER_RECORD_PROCESS")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
+//	@PostConstruct
+//	private void init() {
+//		props = new Properties();
+//		try {
+//			inputS = new FileInputStream("/properties/configuration.properties");
+//			props.load(inputS);
+//			setNumRecordsToProcess(Long.valueOf(props.getProperty("NUMBER_RECORD_PROCESS")));
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}		
+//	}
 
 	public Long getNumRecordsToProcess() {
 		return numRecordsToProcess;
@@ -57,7 +69,4 @@ public class ParametrosService implements IParametrosService{
 	public void setProps(Properties props) {
 		this.props = props;
 	}
-	
-	
-
 }

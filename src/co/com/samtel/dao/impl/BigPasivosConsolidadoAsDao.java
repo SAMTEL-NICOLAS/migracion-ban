@@ -6,6 +6,6 @@ import co.com.samtel.entity.as400.BigPasivosConsolidadoAs;
 import co.com.samtel.entity.as400.BigPasivosConsolidadoIdAs;
 
 @Stateless(name="bigPasivosConsolidadoAsDao")
-public class BigPasivosConsolidadoAsDao extends AbsDao<BigPasivosConsolidadoAs, BigPasivosConsolidadoIdAs> implements IBigPasivosConsolidadoAsDao {
+public class BigPasivosConsolidadoAsDao extends AbsDao<BigPasivosConsolidadoAs, BigPasivosConsolidadoIdAs, BigPasivosConsolidadoAs > implements IBigPasivosConsolidadoAsDao {
 
 }

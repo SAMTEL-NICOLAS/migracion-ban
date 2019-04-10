@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigActivosAs;
 import co.com.samtel.entity.sql.BigActivos;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -78,6 +79,12 @@ public class BigActivosMigrate extends MigrateAbs<BigActivosAs, BigActivos> impl
 	@Override
 	public Class<BigActivosAs> getClassOrigin() {
 		return BigActivosAs.class;
+	}
+
+	@Override
+	public BigActivos mappearOrigen(BigActivosAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

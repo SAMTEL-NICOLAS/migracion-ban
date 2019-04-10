@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "auditoriaCsv", schema = "dbo")
-public class AuditoriaCsv {
+public class AuditoriaCsv{
 	
 	@Id
 	private Long id;
@@ -24,19 +24,24 @@ public class AuditoriaCsv {
 	private Date fecha;
 	
 	@Column
+	private String estadoActividad;
+	
+	@Column
 	private String estado;
 
-	public AuditoriaCsv() {
-		super();
-	}
 
-	public AuditoriaCsv(Long id, String usuario, Date fecha, String estado) {
+	public AuditoriaCsv(Long id, String usuario, Date fecha, String estadoActividad, String estado) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;
+		this.estadoActividad = estadoActividad;
 		this.estado = estado;
 	}
+
+	public AuditoriaCsv() {
+		super();
+	}	
 
 	public Long getId() {
 		return id;
@@ -68,6 +73,14 @@ public class AuditoriaCsv {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getEstadoActividad() {
+		return estadoActividad;
+	}
+
+	public void setEstadoActividad(String estadoActividad) {
+		this.estadoActividad = estadoActividad;
 	}
 
 }

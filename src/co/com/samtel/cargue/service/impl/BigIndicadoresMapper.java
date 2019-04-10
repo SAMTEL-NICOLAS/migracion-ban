@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigIndicadoresColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigIndicadoresCsv;
 import co.com.samtel.entity.manual.sql.BigIndicadores;
@@ -24,7 +25,7 @@ public class BigIndicadoresMapper extends AbsStrategyMapper<BigIndicadoresCsv, T
 		implements IStrategyMapper<BigIndicadoresCsv> {
 	
 	@EJB(beanName="bigIndicadoresDao")
-	IGenericDao<BigIndicadores,BigIndicadoresId > objDao;
+	IGenericDao<BigIndicadores,BigIndicadoresId, DummyConsecutivo > objDao;
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigIndicadores> obj = new ArrayList<>();
 	

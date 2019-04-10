@@ -61,6 +61,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	private Long idAudit;
 	private Long idDetailAudit;
 	private String estado;
+	private String estadoActividad;
 
 	private ErrorDto errorMig;
 
@@ -99,8 +100,9 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			Long idTable = auditCsvDao.getMaxValue();
 
 			setEstado("En proceso");
+			setEstadoActividad("A");
 			Date fecha = new Date();
-			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, fecha, getEstado()));
+			Long id = auditCsvDao.insertAudit(new AuditoriaCsv(idTable + Long.valueOf(1), user, fecha,getEstadoActividad(), getEstado()));
 			setIdAudit(id);
 			setUsuario(user);
 			setFechaEjecucion(fecha);
@@ -139,7 +141,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 			generateAuditMigration(detail);			
 			iterador++;
 		}
-		auditCsvDao.updateEntity(new AuditoriaCsv(getIdAudit(), getUsuario(), getFechaEjecucion(), "Finalizado"));
+		auditCsvDao.updateEntity(new AuditoriaCsv(getIdAudit(), getUsuario(), getFechaEjecucion(), getEstadoActividad(),"Finalizado"));
 	}
 
 	/**
@@ -303,7 +305,7 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 	 * 
 	 * @throws IOException
 	 */
-	public String backupFile() throws IOException {
+	public String backupFile() throws IOException {		
 		setUrlFinal("\\AuditoriaArchivosCargados\\");
 		existdirectory(getUrlFinal());
 		setUrlFinal(getUrlFinal().concat(getIdDetailAudit().toString()).concat(getExtention()));
@@ -563,6 +565,14 @@ public class ExecuteUpload implements IUploadMigration, Runnable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getEstadoActividad() {
+		return estadoActividad;
+	}
+
+	public void setEstadoActividad(String estadoActividad) {
+		this.estadoActividad = estadoActividad;
 	}
 
 }

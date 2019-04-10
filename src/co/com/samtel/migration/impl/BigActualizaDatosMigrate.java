@@ -67,4 +67,10 @@ public class BigActualizaDatosMigrate extends MigrateAbs<BigActualizaDatosAs, Bi
 	public Class<BigActualizaDatosAs> getClassOrigin() {
 		return BigActualizaDatosAs.class;
 	}
+
+	@Override
+	public BigActualizaDatos mappearOrigen(BigActualizaDatosAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

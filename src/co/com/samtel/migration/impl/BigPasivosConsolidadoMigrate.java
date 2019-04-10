@@ -65,4 +65,10 @@ public class BigPasivosConsolidadoMigrate extends MigrateAbs<  BigPasivosConsoli
 		// TODO Auto-generated method stub
 		return BigPasivosConsolidadoAs.class;
 	}
+
+	@Override
+	public BigPasivosConsolidado mappearOrigen(BigPasivosConsolidadoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

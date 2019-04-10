@@ -64,4 +64,10 @@ public class BigLocalidadMigrate extends MigrateAbs<BigLocalidadAs, BigLocalidad
 		// TODO Auto-generated method stub
 		return BigLocalidadAs.class;
 	}
+
+	@Override
+	public BigLocalidad mappearOrigen(BigLocalidadAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

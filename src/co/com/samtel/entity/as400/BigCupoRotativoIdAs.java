@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Embeddable
-public class BigCupoRotativoIdAs implements Serializable {
+public class BigCupoRotativoIdAs extends Consecutivo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;	
 	

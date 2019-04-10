@@ -5,6 +5,6 @@ import co.com.samtel.dao.IBigClientesAsDao;
 import co.com.samtel.entity.as400.BigClientesAs;
 
 @Stateless(name="bigClientesAsDao")
-public class BigClientesAsDao extends AbsDao<BigClientesAs, Long> implements IBigClientesAsDao {
+public class BigClientesAsDao extends AbsDao<BigClientesAs, Long, BigClientesAs> implements IBigClientesAsDao {
 
 }

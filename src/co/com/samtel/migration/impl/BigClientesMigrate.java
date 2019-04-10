@@ -64,7 +64,17 @@ public class BigClientesMigrate extends MigrateAbs< BigClientesAs,  BigClientes>
 
 	@Override
 	public Class<BigClientesAs> getClassOrigin() {
-		// TODO Auto-generated method stub
 		return BigClientesAs.class;
+	}
+
+	@Override
+	public BigClientes mappearOrigen(BigClientesAs origen) throws MapperException {
+		ModelMapper modelMapper = new ModelMapper();
+		origen.setFechaexdoc(transformDate(origen.getFechaexdocAux()));
+		origen.setFechcrecli(transformDate(origen.getFechcrecliAux()));
+		origen.setFechconsem(transformDate(origen.getFechconsemAux()));
+		origen.setFechanacim(transformDate(origen.getFechanacimAux()));
+		origen.setFechaultac(transformDate(origen.getFechaultacAux()));
+		return modelMapper.map(origen, BigClientes.class);
 	}
 }

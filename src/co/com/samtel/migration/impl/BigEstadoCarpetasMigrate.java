@@ -62,5 +62,10 @@ public class BigEstadoCarpetasMigrate extends MigrateAbs<BigEstadoCarpetasAs, Bi
 		// TODO Auto-generated method stub
 		return BigEstadoCarpetasAs.class;
 	}
+	@Override
+	public BigEstadoCarpetas mappearOrigen(BigEstadoCarpetasAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

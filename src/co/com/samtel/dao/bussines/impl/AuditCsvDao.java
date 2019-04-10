@@ -14,21 +14,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.exception.DataException;
 import org.hibernate.exception.JDBCConnectionException;
 
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.bussines.IAuditDaoCsv;
 import co.com.samtel.dao.impl.AbsDao;
-import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.AuditoriaCsv;
 import co.com.samtel.enumeraciones.TypeConections;
-import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
 
 @Stateless(name = "auditCsvDao")
-public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDaoCsv {
+public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long, DummyConsecutivo> implements IAuditDaoCsv {
 
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
@@ -103,7 +100,8 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 			fecha2 = addDays(fecha2, 1);
 			Criteria crit = session.createCriteria(getDomainClass());
 			crit.add(Restrictions.ge("fecha", fecha1));
-			crit.add(Restrictions.lt("fecha", fecha2));	
+			crit.add(Restrictions.lt("fecha", fecha2));
+			crit.add(Restrictions.eq("estadoActividad", "A"));	
 			crit.addOrder(Order.asc("id"));
 			result = crit.list();
 		} catch (Exception e) {
@@ -152,29 +150,4 @@ public class AuditCsvDao extends AbsDao<AuditoriaCsv, Long> implements IAuditDao
 		calendar.add(Calendar.DAY_OF_YEAR, day);
 		return calendar.getTime();
 	}
-	
-//	@Override
-//	public Boolean updateEntity(AuditoriaCsv entity) {
-//		Session session = null;
-//		Transaction tx = null;
-//		setError(null);		
-//		try {
-//			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
-//			tx = session.beginTransaction();
-//			session.save(entity);
-//			tx.commit();
-//			System.out.println("Todo ok");
-//		} catch (ConstraintViolationException e) {
-//			System.out.println("Error controlado debe actualizar");
-//			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
-//			return Boolean.FALSE;
-//		
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		} finally {
-//			factorySessionHibernate.close(session, tx);
-//		}
-//		return Boolean.TRUE;
-//	}
-
 }

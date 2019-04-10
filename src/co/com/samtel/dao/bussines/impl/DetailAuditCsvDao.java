@@ -6,18 +6,20 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
 import co.com.samtel.dao.impl.AbsDao;
-import co.com.samtel.entity.business.DetailAudit;
 import co.com.samtel.entity.business.DetailAuditCsv;
 import co.com.samtel.enumeraciones.TypeConections;
 
 @Stateless(name = "detailAuditCsvDao")
-public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements IDetailAuditCsvDao {
+public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long, DummyConsecutivo> implements IDetailAuditCsvDao {
 
 	@PostConstruct
 	public void init() {
@@ -86,4 +88,27 @@ public class DetailAuditCsvDao extends AbsDao<DetailAuditCsv, Long> implements I
 		return result;
 	}
 
+	@Override
+	public Boolean updateStateAudit(String idAudit) {
+		Session session = null;
+		Boolean UpdateOk = Boolean.FALSE;
+
+		try {
+			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.createQuery("UPDATE AuditoriaCsv SET estadoActividad = :status WHERE id = :idAudit");
+
+			query.setParameter("status", "I");
+			query.setParameter("idAudit", Long.parseLong(idAudit));
+			int updateCount = query.executeUpdate();
+			System.out.println(updateCount);
+			tx.commit();
+			session.close();
+			UpdateOk = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return UpdateOk;
+	}
 }

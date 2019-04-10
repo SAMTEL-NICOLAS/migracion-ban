@@ -74,4 +74,10 @@ public class BigCupoRotativoMigrate extends MigrateAbs<BigCupoRotativoAs, BigCup
 		// TODO Auto-generated method stub
 		return BigCupoRotativoAs.class;
 	}
+
+	@Override
+	public BigCupoRotativo mappearOrigen(BigCupoRotativoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

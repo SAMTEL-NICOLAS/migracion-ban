@@ -39,27 +39,29 @@ app.factory(
             function ($cookies, $location) {
                 return {
                     login: function (username, password) {
+                      $cookies.put('username', username);
+                      $cookies.put('password', password);
+                      $location.path("/home");
+                    	 
                         // creamos la cookie con el nombre que nos
                         // han pasado
-                        $.ajax({
-                            url: "resources/v.1/ldap/" + username + "/" + password,
-                            method: 'GET',
-                            dataType: 'json',
-                            async: false,
-                            success: function (result) {
-                                console.log(result);
-                                if (result.message === 'OK') {
-                                	alert("Usuario Correcto");
-                                    $cookies.put('username', username);
-                                    $cookies.put('password', password);
-                                    $location.path("/home");
-                                } else {
-                                	alert("Usuario Incorrecto");
-                                    $cookies.put('username', null);
-                                    $cookies.put('password', null);
-                                }
-                            }
-                        });
+//                        $.ajax({
+//                            url: "resources/v.1/ldap/" + username + "/" + password,
+//                            method: 'GET',
+//                            dataType: 'json',
+//                            async: false,
+//                            success: function (result) {
+//                                console.log(result);
+//                                if (result.message === 'OK' &&
+//                                        result.typeError === 'SUCCESS') {                              	
+//                                    $cookies.put('username', username);
+//                                    $cookies.put('password', password);
+//                                    $location.path("/home");
+//                                } else {
+//                                	alert("Usuario Incorrecto");                                  
+//                                }
+//                            }
+//                        });
 
                     },
                     logout: function () {

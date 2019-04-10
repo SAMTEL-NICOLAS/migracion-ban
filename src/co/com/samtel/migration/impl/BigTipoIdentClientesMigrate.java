@@ -14,6 +14,7 @@ import co.com.samtel.entity.as400.BigTipoIdentClientesAs;
 import co.com.samtel.entity.sql.BigCiudades;
 import co.com.samtel.entity.sql.BigTipoIdentClientes;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -67,5 +68,11 @@ public class BigTipoIdentClientesMigrate extends MigrateAbs<BigTipoIdentClientes
 	public Class<BigTipoIdentClientesAs> getClassOrigin() {
 		// TODO Auto-generated method stub
 		return BigTipoIdentClientesAs.class;
+	}
+
+	@Override
+	public BigTipoIdentClientes mappearOrigen(BigTipoIdentClientesAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

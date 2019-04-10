@@ -66,4 +66,10 @@ public class BigNotaInternaMigrate extends MigrateAbs<BigNotaInternaAs, BigNotaI
 		return BigNotaInternaAs.class;
 	}
 
+	@Override
+	public BigNotaInterna mappearOrigen(BigNotaInternaAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

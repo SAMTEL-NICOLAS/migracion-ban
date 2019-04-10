@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigCodigosAbogadoAs;
 import co.com.samtel.entity.sql.BigCodigosAbogado;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -65,6 +66,12 @@ public class BigCodigosAbogadoMigrate extends MigrateAbs<BigCodigosAbogadoAs, Bi
 	@Override
 	public Class<BigCodigosAbogadoAs> getClassOrigin() {
 		return BigCodigosAbogadoAs.class;
+	}
+
+	@Override
+	public BigCodigosAbogado mappearOrigen(BigCodigosAbogadoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

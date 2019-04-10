@@ -188,6 +188,22 @@ app.factory(
                             }
                         });
                         return listData;
+                    },updateStateAudit: function (idAudit) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditMigration/updateStateAudit/" + idAudit,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
                     }
                 };
             }
@@ -265,7 +281,24 @@ app.factory(
                             }
                         });
                         return listData;
-                    }                     
+                    }
+                    ,updateStateAudit: function (idAudit) {
+                        var listData = [];
+                        $.ajax({
+                            url: "resources/v.1/auditUploadExcelRest/updateStateAudit/" + idAudit,
+                            method: 'get',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            async: false,
+                            success: function (result) {
+                                listData = result;
+                                console.log(listData);
+                            }
+                        });
+                        return listData;
+                    }
                 };
             }
         ]);

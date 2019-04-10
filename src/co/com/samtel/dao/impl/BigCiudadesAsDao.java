@@ -6,6 +6,6 @@ import co.com.samtel.dao.IBigCiudadesAsDao;
 import co.com.samtel.entity.as400.BigCiudadesAs;
 
 @Stateless(name="bigCiudadesAsDao")
-public class BigCiudadesAsDao extends AbsDao<BigCiudadesAs, String> implements IBigCiudadesAsDao {
+public class BigCiudadesAsDao extends AbsDao<BigCiudadesAs, String, BigCiudadesAs> implements IBigCiudadesAsDao {
 
 }

@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigRecuperaCarteraCastigadaAs;
 import co.com.samtel.entity.sql.BigRecuperaCarteraCastigada;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -68,6 +69,12 @@ public class BigRecuperaCarteraCastigadaMigrate extends MigrateAbs<BigRecuperaCa
 	public Class<BigRecuperaCarteraCastigadaAs> getClassOrigin() {
 		// TODO Auto-generated method stub
 		return BigRecuperaCarteraCastigadaAs.class;
+	}
+
+	@Override
+	public BigRecuperaCarteraCastigada mappearOrigen(BigRecuperaCarteraCastigadaAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

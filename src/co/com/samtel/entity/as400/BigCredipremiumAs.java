@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CRM1481F", schema = "DAMCYFILES")
-public class BigCredipremiumAs implements Serializable  {
+public class BigCredipremiumAs extends Consecutivo implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 

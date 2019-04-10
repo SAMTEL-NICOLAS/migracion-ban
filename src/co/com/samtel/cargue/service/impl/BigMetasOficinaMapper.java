@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigMetasOficinaColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigMetasOficinaCsv;
 import co.com.samtel.entity.manual.sql.BigMetasOficina;
@@ -24,7 +25,7 @@ public class BigMetasOficinaMapper extends AbsStrategyMapper<BigMetasOficinaCsv,
 		implements IStrategyMapper<BigMetasOficinaCsv> {
 
 	@EJB(beanName="bigMetasOficinaDao")
-	IGenericDao<BigMetasOficina, BigMetasOficinaId> objDao;	
+	IGenericDao<BigMetasOficina, BigMetasOficinaId, DummyConsecutivo> objDao;	
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigMetasOficina> obj = new ArrayList<>();

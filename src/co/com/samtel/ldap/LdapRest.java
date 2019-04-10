@@ -1,7 +1,5 @@
 package co.com.samtel.ldap;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
@@ -10,8 +8,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.novell.ldap.LDAPException;
 
 import co.com.samtel.dto.ResponseRest;
 import co.com.samtel.enumeraciones.TypeErrors;
@@ -27,7 +23,7 @@ public class LdapRest {
 	@Path("/{user}/{password}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response generateUpload(@PathParam("user") String user, @PathParam("password") String password)
-			throws UnsupportedEncodingException, LDAPException {
+			throws Exception{
 		Boolean result = conexionLdap.generateConnection(user, password);
 
 		if (result) {
@@ -35,7 +31,7 @@ public class LdapRest {
 					.entity(new ResponseRest<Long>(TypeErrors.SUCCESS, "OK", conexionLdap.getLdapDto()))
 					.type(MediaType.APPLICATION_JSON_TYPE).build();
 		} else {
-			return Response.status(Response.Status.BAD_REQUEST)
+			return Response.status(Response.Status.OK)
 					.entity(new ResponseRest<Long>(conexionLdap.getMessageError().getTypeError(),
 							conexionLdap.getMessageError().getMessage(), Long.valueOf("-1")))
 					.type(MediaType.APPLICATION_JSON_TYPE).build();

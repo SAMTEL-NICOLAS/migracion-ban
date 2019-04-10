@@ -8,9 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CRM1480F", schema = "DAMCYFILES")
-public class BigActualizaDatosAs implements Serializable{
+public class BigActualizaDatosAs extends Consecutivo implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

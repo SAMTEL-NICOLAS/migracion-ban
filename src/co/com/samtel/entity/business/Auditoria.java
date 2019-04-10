@@ -23,16 +23,20 @@ public class Auditoria {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false)
 	private Date fecha;
+	
+	@Column
+	private String estadoActividad;
 
 	public Auditoria() {
 		super();
-	}
+	}	
 
-	public Auditoria(Long id, String usuario, Date fecha) {
+	public Auditoria(Long id, String usuario, Date fecha, String estadoActividad) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;
+		this.estadoActividad = estadoActividad;
 	}
 
 	public Long getId() {

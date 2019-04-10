@@ -68,4 +68,10 @@ public class BigCanalesMigrate extends MigrateAbs<BigCanalesAs, BigCanales>
 		return BigCanalesAs.class;
 	}
 
+	@Override
+	public BigCanales mappearOrigen(BigCanalesAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

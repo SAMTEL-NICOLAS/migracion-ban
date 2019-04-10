@@ -6,6 +6,6 @@ import co.com.samtel.entity.as400.BigDireccionAs;
 import co.com.samtel.entity.as400.BigDireccionIdAs;
 
 @Stateless(name="bigDireccionAsDao")
-public class BigDireccionAsDao extends AbsDao<BigDireccionAs, BigDireccionIdAs> implements IBigDireccionAsDao {
+public class BigDireccionAsDao extends AbsDao<BigDireccionAs, BigDireccionIdAs, BigDireccionAs> implements IBigDireccionAsDao {
 
 }

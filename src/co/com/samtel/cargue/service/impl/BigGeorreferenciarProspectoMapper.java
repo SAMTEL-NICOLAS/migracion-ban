@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigGeoreferenciarProspectoColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigGeoReferenciarProspectoCsv;
 import co.com.samtel.entity.manual.sql.BigGeoReferenciarProspecto;
@@ -25,7 +26,7 @@ public class BigGeorreferenciarProspectoMapper extends
 		implements IStrategyMapper<BigGeoReferenciarProspectoCsv> {
 
 	@EJB(beanName = "bigGeoreferenciarProspectoDao")
-	IGenericDao<BigGeoReferenciarProspecto, BigGeoReferenciarProspectoId> objDao;
+	IGenericDao<BigGeoReferenciarProspecto, BigGeoReferenciarProspectoId, DummyConsecutivo> objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigGeoReferenciarProspecto> obj = new ArrayList<>();

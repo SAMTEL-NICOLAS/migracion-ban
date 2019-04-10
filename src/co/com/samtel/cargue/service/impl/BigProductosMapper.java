@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigProductosColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigProductosCsv;
 import co.com.samtel.entity.manual.sql.BigProductos;
@@ -24,7 +25,7 @@ public class BigProductosMapper extends AbsStrategyMapper<BigProductosCsv, TypeB
 		implements IStrategyMapper<BigProductosCsv> {
 
 	@EJB(beanName = "bigProductosDao")
-	IGenericDao<BigProductos, BigProductosId> objDao;
+	IGenericDao<BigProductos, BigProductosId, DummyConsecutivo> objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigProductos> obj = new ArrayList<>();

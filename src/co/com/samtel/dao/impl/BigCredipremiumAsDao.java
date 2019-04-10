@@ -6,6 +6,6 @@ import co.com.samtel.dao.IBigCredipremiumAsDao;
 import co.com.samtel.entity.as400.BigCredipremiumAs;
 
 @Stateless(name="bigCredipremiumAsDao")
-public class BigCredipremiumAsDao extends AbsDao<BigCredipremiumAs, Long> implements  IBigCredipremiumAsDao  {
+public class BigCredipremiumAsDao extends AbsDao<BigCredipremiumAs, Long, BigCredipremiumAs> implements  IBigCredipremiumAsDao  {
 
 }

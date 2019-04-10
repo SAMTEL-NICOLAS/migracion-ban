@@ -1,15 +1,14 @@
 package co.com.samtel.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 
 import org.hibernate.Criteria;
-import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
@@ -21,32 +20,36 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dao.bussines.IDetailAuditCsvDao;
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.DetailAuditCsv;
+import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.enumeraciones.TypeConections;
 import co.com.samtel.enumeraciones.TypeErrors;
 import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.hibernate.IFactorySessionHibernate;
+import co.com.samtel.migration.IConsecutivo;
 import co.com.samtel.migration.IUploadMigration;
 
-public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
+public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IGenericDao<T, PK, ENTITYAS> {
 
 	private Class<T> domainClass = initDomainClass();
+
+	private ENTITYAS entityAs;
 
 	private TypeConections typeConection;
 
 	private Long numRecordsTable;
-	
+
 	private Long numRecordsTableAll;
 
 	private ErrorDto error;
-	
-	private Integer row;	
-	
+
+	private Integer row;
+
 	@EJB
 	IDetailAuditCsvDao detailAuditCsvDao;
-	
+
 	@EJB
 	IUploadMigration executeUpload;
-	
+
 	@EJB
 	IFactorySessionHibernate factorySessionHibernate;
 
@@ -72,39 +75,44 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount())
 					.add(Restrictions.eq("migrado", " ")).uniqueResult());
-//			setNumRecordsTable((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount()).uniqueResult());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, null);
 		}
 	}
+
 	@Override
 	public void countRecordsTableAll() {
 		Session session = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
-			setNumRecordsTableAll((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount()).uniqueResult());
+			setNumRecordsTableAll((Long) session.createCriteria(getDomainClass()).setProjection(Projections.rowCount())
+					.uniqueResult());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			factorySessionHibernate.close(session, null);
 		}
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findBlockData(String idColum, Integer offset) {
+	public List<T> findBlockData(String order, Long ini, Long fin) {
 		Session session = null;
 		List<T> result = null;
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					// .add(Restrictions.isNull("migrado"))
-					.add(Restrictions.eq("migrado", " "))
-					.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY " + idColum + " OFFSET 0 ROWS "))
-					.setMaxResults(offset);
+						.add(Restrictions.eq("migrado", " "))
+						.add(Restrictions.between("secuencia", ini, fin));
+			if("ASC".equals(order)) {
+				crit.addOrder(Order.asc("secuencia"));
+			}else {
+				crit.addOrder(Order.desc("secuencia"));
+			}
+					//.add(Restrictions.sqlRestriction(" 1 = 1 ORDER BY CONSECUTI " + order + " OFFSET 0 ROWS "))
+					//.setMaxResults(offset);
 
 			result = crit.list();
 		} catch (Exception e) {
@@ -128,8 +136,8 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 
 	@Override
 	public Boolean saveEntity2(List<T> entity, String nameFile) {
-		int fila = 0;		
-		for (T item : entity) {	
+		int fila = 0;
+		for (T item : entity) {
 			Session session = null;
 			Transaction tx = null;
 			setError(null);
@@ -142,29 +150,32 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			} catch (ConstraintViolationException e) {
 				System.out.println("Error controlado debe actualizar");
 				setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
-				validarError(fila, nameFile);				
+				validarError(fila, nameFile);
 			} catch (DataException e) {
 				e.printStackTrace();
 				setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
 				System.out.println("Error" + e.getMessage());
-				validarError(fila,nameFile);	
+				validarError(fila, nameFile);
 			} catch (Exception e) {
 				setError(ErrorDto.of(null, TypeErrors.MAPPER_EROR, e.toString() + e.getMessage()));
+				validarError(fila, nameFile);
 			} finally {
 				factorySessionHibernate.close(session, tx);
 			}
 			fila++;
-			System.out.println("Filas Insertadas: "+ fila);
+			System.out.println("Filas Insertadas: " + fila);
 		}
 		return Boolean.TRUE;
 	}
+
 	public void validarError(int fila, String nameFile) {
 		setRow(fila);
-		UploadMapperExpetion error = new UploadMapperExpetion(nameFile, "",
-				Long.valueOf(getRow()) + 1, null, getError().getMessage());
+		UploadMapperExpetion error = new UploadMapperExpetion(nameFile, "", Long.valueOf(getRow()) + 1, null,
+				getError().getMessage());
 
 		insertDetailAudit(error);
 	}
+
 	public void insertDetailAudit(UploadMapperExpetion error) {
 
 		Long idTable = null;
@@ -192,11 +203,12 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		detail.setMessage(error.getMessage());
 		detailAuditCsvDao.saveEntity(detail);
 	}
+
 	@Override
 	public Boolean saveEntity(T entity) {
 		Session session = null;
 		Transaction tx = null;
-		setError(null);		
+		setError(null);
 		try {
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
@@ -210,10 +222,10 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		} catch (DataException e) {
 			e.printStackTrace();
 			setError(ErrorDto.of(null, TypeErrors.DATAEXCEPTION, e.toString() + e.getSQLException()));
-			System.out.println("Error"+ e.getMessage());
-			return Boolean.FALSE;	
+			System.out.println("Error" + e.getMessage());
+			return Boolean.FALSE;
 		} catch (Exception e) {
-			setError(ErrorDto.of(null,TypeErrors.MAPPER_EROR,e.toString() + e.getMessage()));
+			setError(ErrorDto.of(null, TypeErrors.MAPPER_EROR, e.toString() + e.getMessage()));
 		} finally {
 			factorySessionHibernate.close(session, tx);
 		}
@@ -229,6 +241,85 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 			tx = session.beginTransaction();
 			session.update(entity);
 			tx.commit();
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		} finally {
+			factorySessionHibernate.close(session, tx);
+		}
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public Boolean nativeUpdate(List<ENTITYAS> listEntity, TableMigration tableName) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			for (ENTITYAS item : listEntity) {
+				tx = session.beginTransaction();
+				String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
+						.concat(" SET migrar = 'S' WHERE consecuti = :secu");
+				session.createSQLQuery(query).setLong("secu", item.getSecuencia()).executeUpdate();
+				tx.commit();
+			}
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		} finally {
+			factorySessionHibernate.close(session, tx);
+		}
+		return Boolean.TRUE;
+	}
+
+	public Boolean nativeUpdateBlock(TableMigration tableName, Integer ini, Integer fin) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+			tx = session.beginTransaction();
+			String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
+					.concat(" SET migrar = 'S' WHERE consecuti between :ini and :fin");
+			session.createSQLQuery(query)
+			.setInteger("ini", ini)
+			.setInteger("fin", fin)
+			.executeUpdate();
+			tx.commit();
+
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		} finally {
+			factorySessionHibernate.close(session, tx);
+		}
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public Boolean nativeUpdateSingle(ENTITYAS entity, TableMigration tableName) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
+
+			tx = session.beginTransaction();
+			String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
+					.concat(" SET migrar = 'S' WHERE consecuti = :secu");
+			session.createSQLQuery(query).setLong("secu", entity.getSecuencia()).executeUpdate();
+			tx.commit();
+
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
 			setError(ErrorDto.of(null, TypeErrors.CONSTRAINT_VIOLATION, e.toString() + e.getSQLException()));
@@ -265,6 +356,13 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		}
 		return Boolean.TRUE;
 	}
+
+	/**
+	 * Metodo con el cual ejecuto update sobre la tabla por medio de un sql nativo
+	 * 
+	 * @param list
+	 * @return
+	 */
 
 	@Override
 	public Long getMaxValue() throws ControlledExeption {
@@ -345,4 +443,11 @@ public abstract class AbsDao<T, PK> implements IGenericDao<T, PK> {
 		this.row = row;
 	}
 
+	public ENTITYAS getEntityAs() {
+		return entityAs;
+	}
+
+	public void setEntityAs(ENTITYAS entityAs) {
+		this.entityAs = entityAs;
+	}
 }

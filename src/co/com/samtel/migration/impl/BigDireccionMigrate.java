@@ -61,4 +61,10 @@ public class BigDireccionMigrate extends MigrateAbs< BigDireccionAs,  BigDirecci
 		// TODO Auto-generated method stub
 		return BigDireccionAs.class;
 	}
+
+	@Override
+	public BigDireccion mappearOrigen(BigDireccionAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

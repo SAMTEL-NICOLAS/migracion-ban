@@ -7,6 +7,6 @@ import co.com.samtel.entity.as400.BigNotaInternaAs;
 import co.com.samtel.entity.as400.BigNotaInternaIdAs;
 
 @Stateless(name="bigNotaInternaAsDao")
-public class BigNotaInternaAsDao extends AbsDao<BigNotaInternaAs, BigNotaInternaIdAs> implements  IBigNotaInternaAsDao {
+public class BigNotaInternaAsDao extends AbsDao<BigNotaInternaAs, BigNotaInternaIdAs, BigNotaInternaAs> implements  IBigNotaInternaAsDao {
 
 }

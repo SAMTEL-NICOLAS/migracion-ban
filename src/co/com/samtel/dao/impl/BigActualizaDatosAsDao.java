@@ -7,6 +7,6 @@ import co.com.samtel.entity.as400.BigActualizaDatosAs;
 import co.com.samtel.entity.as400.BigActualizaDatosIdAs;
 
 @Stateless(name="bigActualizaDatosAsDao")
-public class BigActualizaDatosAsDao extends AbsDao<BigActualizaDatosAs, BigActualizaDatosIdAs> implements IBigActualizaDatosAsDao {
+public class BigActualizaDatosAsDao extends AbsDao<BigActualizaDatosAs, BigActualizaDatosIdAs, BigActualizaDatosAs> implements IBigActualizaDatosAsDao {
 
 }

@@ -6,6 +6,6 @@ import co.com.samtel.dao.IBigCalificacionCarteraAsDao;
 import co.com.samtel.entity.as400.BigCalificacionCarteraAs;
 
 @Stateless(name="bigCalificacionCarteraAsDao")
-public class BigCalificacionCarteraAsDao extends AbsDao<BigCalificacionCarteraAs, Long> implements IBigCalificacionCarteraAsDao {
+public class BigCalificacionCarteraAsDao extends AbsDao<BigCalificacionCarteraAs, Long, BigCalificacionCarteraAs> implements IBigCalificacionCarteraAsDao {
 
 }

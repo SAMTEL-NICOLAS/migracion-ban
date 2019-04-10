@@ -1,13 +1,17 @@
 package co.com.samtel.entity.as400;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CRM1411FNI", schema = "DAMCYFILES")
-public class BigSubsegmentoClienteAs {
+public class BigSubsegmentoClienteAs extends Consecutivo implements Serializable {
 	
 	@EmbeddedId
 	private BigSubsegmentoClienteIdAs id;

@@ -5,6 +5,6 @@ import co.com.samtel.dao.IBigRangoMoraAsDao;
 import co.com.samtel.entity.as400.BigRangoMoraAs;
 
 @Stateless(name="bigRangoMoraAsDao")
-public class BigRangoMoraAsDao extends AbsDao<BigRangoMoraAs, Short> implements IBigRangoMoraAsDao  {
+public class BigRangoMoraAsDao extends AbsDao<BigRangoMoraAs, Short, BigRangoMoraAs> implements IBigRangoMoraAsDao  {
 
 }

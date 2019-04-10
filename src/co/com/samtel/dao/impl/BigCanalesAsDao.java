@@ -6,6 +6,6 @@ import co.com.samtel.entity.as400.BigCanalesAs;
 import co.com.samtel.entity.as400.BigCanalesIdAs;
 
 @Stateless(name="bigCanalesAsDao")
-public class BigCanalesAsDao extends AbsDao<BigCanalesAs, BigCanalesIdAs> implements IBigCanalesAsDao{
+public class BigCanalesAsDao extends AbsDao<BigCanalesAs, BigCanalesIdAs, BigCanalesAs> implements IBigCanalesAsDao{
 
 }

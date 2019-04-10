@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigCifinBureauColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.manual.csv.BigCifinBureauCsv;
 import co.com.samtel.entity.manual.sql.BigCifinBureau;
@@ -24,7 +25,7 @@ public class BigCifinBureauMapper extends AbsStrategyMapper<BigCifinBureauCsv, T
 		implements IStrategyMapper<BigCifinBureauCsv> {
 
 	@EJB(beanName = "bigCifinBureauDao")
-	IGenericDao<BigCifinBureau, BigCifinBureauId> objDao;
+	IGenericDao<BigCifinBureau, BigCifinBureauId, DummyConsecutivo> objDao;
     ArrayList<BigCifinBureau> n = new ArrayList<>(); 
     ModelMapper modelMapper = new ModelMapper();
     

@@ -36,6 +36,14 @@ public class AuditMigrationRest {
 		return Response.status(Response.Status.OK).entity(detailAuditDao.getDetailById(idDatail))
 				.type(MediaType.APPLICATION_JSON_TYPE).build();
 	}
+	
+	@GET
+	@Path("/updateStateAudit/{idAudit}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateStateAudit(@PathParam("idAudit") String idAudit) {
+		return Response.status(Response.Status.OK).entity(detailAuditDao.updateStateAudit(idAudit))
+				.type(MediaType.APPLICATION_JSON_TYPE).build();
+	}
 
 	/**
 	 * Servicio que se encarga de recuperar la fecha de la vista y la envia a la

@@ -61,4 +61,10 @@ public class BigOficinaMigrate extends MigrateAbs<BigOficinaAs, BigOficina> impl
 		// TODO Auto-generated method stub
 		return BigOficinaAs.class;
 	}
+
+	@Override
+	public BigOficina mappearOrigen(BigOficinaAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

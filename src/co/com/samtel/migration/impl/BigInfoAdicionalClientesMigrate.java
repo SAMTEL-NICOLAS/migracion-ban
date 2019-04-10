@@ -75,4 +75,10 @@ public class BigInfoAdicionalClientesMigrate extends MigrateAbs<BigInfoAdicional
 		return BigInfoAdicionalClientesAs.class;
 	}
 
+	@Override
+	public BigInfoAdicionalClientes mappearOrigen(BigInfoAdicionalClientesAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

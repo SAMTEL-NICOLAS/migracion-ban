@@ -7,15 +7,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import org.modelmapper.ModelMapper;
+
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigProspectosColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.csv.BigPropectosCsv;
-import co.com.samtel.entity.manual.sql.BigCalificacionCarteraCliente;
-import co.com.samtel.entity.manual.sql.BigCalificacionCarteraClienteId;
 import co.com.samtel.entity.manual.sql.BigProspectos;
 import co.com.samtel.entity.manual.sql.BigProspectosId;
 import co.com.samtel.enumeraciones.TypeConections;
@@ -25,7 +25,7 @@ public class BigProspectosMapper extends AbsStrategyMapper<BigPropectosCsv, Type
 		implements IStrategyMapper<BigPropectosCsv> {
 
 	@EJB(beanName="bigProspectosDao")
-	IGenericDao<BigProspectos,BigProspectosId > objDao;
+	IGenericDao<BigProspectos,BigProspectosId,DummyConsecutivo > objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();	
 	ArrayList<BigProspectos> obj = new ArrayList<>();

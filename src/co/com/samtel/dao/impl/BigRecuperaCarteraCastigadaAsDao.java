@@ -7,6 +7,6 @@ import co.com.samtel.entity.as400.BigRecuperaCarteraCastigadaAs;
 import co.com.samtel.entity.as400.BigRecuperaCarteraCastigadaIdAs;
 
 @Stateless(name="bigRecuperaCarteraCastigadaAsDao")
-public class BigRecuperaCarteraCastigadaAsDao extends AbsDao<BigRecuperaCarteraCastigadaAs, BigRecuperaCarteraCastigadaIdAs> implements IBigRecuperaCarteraCastigadaAsDao {
+public class BigRecuperaCarteraCastigadaAsDao extends AbsDao<BigRecuperaCarteraCastigadaAs, BigRecuperaCarteraCastigadaIdAs, BigRecuperaCarteraCastigadaAs> implements IBigRecuperaCarteraCastigadaAsDao {
 
 }

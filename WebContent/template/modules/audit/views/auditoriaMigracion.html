@@ -41,12 +41,14 @@
                     <td class="queryTd">Usuario</td>  
                     <td class="queryTd">Fecha</td>
                     <td class="queryTd">Detalle</td>
+                    <td class="queryTd">Eliminar Auditoria</td>
                 </tr>
                 <tr ng-repeat="obj in listAudit | startFromGrid: currentPage * pageSize | limitTo: pageSize">
                     <td class="answerTd">{{obj.id}}</td>
                     <td class="answerTd">{{obj.usuario}}</td>
-                    <td class="answerTd">{{obj.fecha}}</td>
+                    <td class="answerTd">{{obj.fecha  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td class="answerTd"><u ng-click="getDetailById(obj)"  style="cursor: pointer;">Ver detalles...</u></td>
+                    <td class="answerTd"><img alt="" src="recursos/Imagenes/close.png" ng-click="deleteAudit(obj.id)"></td>
                 </tr>
                 <!--Paginador-->
                 <tr> 

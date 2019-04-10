@@ -65,4 +65,10 @@ public class BigCalificacionCarteraMigrate extends MigrateAbs<BigCalificacionCar
 		return BigCalificacionCarteraAs.class;
 	}
 
+	@Override
+	public BigCalificacionCartera mappearOrigen(BigCalificacionCarteraAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

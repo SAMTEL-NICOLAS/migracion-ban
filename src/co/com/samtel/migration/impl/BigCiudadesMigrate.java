@@ -68,4 +68,10 @@ public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades>
 	public Class<BigCiudadesAs> getClassOrigin() {
 		return BigCiudadesAs.class;
 	}
+
+	@Override
+	public BigCiudades mappearOrigen(BigCiudadesAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Embeddable
-public class BigTipoIdentClientesIdAs  implements Serializable {
+public class BigTipoIdentClientesIdAs extends Consecutivo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

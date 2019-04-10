@@ -13,6 +13,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigBarriosAs;
 import co.com.samtel.entity.sql.BigBarrios;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -66,6 +67,13 @@ public class BigBarriosMigrate  extends MigrateAbs<BigBarriosAs, BigBarrios> imp
 	public Class<BigBarriosAs> getClassOrigin() {
 		// TODO Auto-generated method stub
 		return BigBarriosAs.class;
+	}
+
+
+	@Override
+	public BigBarrios mappearOrigen(BigBarriosAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

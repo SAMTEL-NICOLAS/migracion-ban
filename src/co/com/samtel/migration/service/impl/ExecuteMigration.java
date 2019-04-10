@@ -1,6 +1,5 @@
 package co.com.samtel.migration.service.impl;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +43,8 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 
 	private Thread hilo;
 
+	private String estadoActividad;
+
 	@Override
 	public Boolean generateMigration(TypeMigration typeMigration, String user) {
 		setTypeMigration(typeMigration);
@@ -51,7 +52,9 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		try {
 			// Genero el registro padre de la uditoria
 			Long idTable = auditDao.getMaxValue();
-			Long id = auditDao.insertAudit(new Auditoria(idTable + Long.valueOf(1), user, new Date()));
+			setEstadoActividad("A");
+			Long id = auditDao
+					.insertAudit(new Auditoria(idTable + Long.valueOf(1), user, new Date(), getEstadoActividad()));
 			setIdAudit(id);
 			System.out.println("Este es el id de la auditoria ".concat(id.toString()));
 
@@ -94,17 +97,16 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 	 * @param migrados
 	 */
 	public void executeMigration(IGenerateMigration item, Long migrados) {
-		// Seteamos el numero de registros que ha migrado
-		item.setNumRecMig(migrados);
 		item.generateMigration();
 
 		// Extrae el error de la migracion
-		if(null != item.getError()) {
-			setErrorMig(item.getError());	
+		if (null != item.getError()) {
+			setErrorMig(item.getError());
 			if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
-				executeMigration(item, item.getNumRecMig());
+//				executeMigration(item, item.getNumRecMig());
+				executeMigration(item, Long.valueOf("0"));
 			}
-		}	
+		}
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 			e.printStackTrace();
 		}
 		if (idTable == null) {
-			new Exception("Imposible insertar detalle de auditoria");
+			new Exception("Imposible insertar detalle de auditoria ya que no tiene id para el mismo");
 		} else {
 			idTable += 1;
 		}
@@ -129,58 +131,60 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 		detail.setRegOrigen(Long.valueOf(0));
 		detail.setTabla(table.getTableToMigrate().toString());
 		detail.setTraza("Sin Traza");
-
 		detailAuditDao.saveEntity(detail);
 		return detail;
 	}
 
 	public void generateAuditMigration(IGenerateMigration table, DetailAudit detail) {
-		detail.setRegDestino(table.getNumRecordsAll());
-		detail.setRegOrigen(table.getNumRecMig());
-		if (!getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
-			detail.setTraza("Tipo Error: " + getErrorMig().getTypeError() + " Mensaje: " + getErrorMig().getMessage());
-		} else {
-			detail.setTraza("FINALIZADO");
+//		detail.setRegDestino(table.getNumRecordsAll());
+//		detail.setRegOrigen(table.getNumRecMig());
+		if (getErrorMig() != null) {
+			if (!getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
+				detail.setTraza(
+						"Tipo Error: " + getErrorMig().getTypeError() + " Mensaje: " + getErrorMig().getMessage());
+			} else {
+				detail.setTraza("FINALIZADO");
+			}
+			detailAuditDao.updateEntity(detail);
 		}
-		detailAuditDao.updateEntity(detail);
 		// Actualizo el disparador
 	}
 
 	public void changeLogActivador(IGenerateMigration table) {
 		// Date nowDate = new Date();
-		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
-			// Quiere decir que la tabla se migro correctamente
-			table.getLogActivador().setEstado("1");
-			table.getLogActivador().setRegMig(table.getNumRecordsAll());
-		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
-			table.getLogActivador().setEstado("-3");		
-		} else {
-			table.getLogActivador().setEstado("-2");
-		}
+//		if (getErrorMig().getTypeError().equals(TypeErrors.SUCCESS)) {
+//			// Quiere decir que la tabla se migro correctamente
+//			table.getLogActivador().setEstado("1");
+//			table.getLogActivador().setRegMig(table.getNumRecordsAll());
+//		} else if (getErrorMig().getTypeError().equals(TypeErrors.TIME_OUT_CUSTOM)) {
+//			table.getLogActivador().setEstado("-3");		
+//		} else {
+//			table.getLogActivador().setEstado("-2");
+//		}
 
-		Calendar fecha = Calendar.getInstance();
-		int anio = fecha.get(Calendar.YEAR);
-		int mes = fecha.get(Calendar.MONTH) + 1;
-		int dia = fecha.get(Calendar.DAY_OF_MONTH);
-		int hora = fecha.get(Calendar.HOUR_OF_DAY);
-		int minutos = fecha.get(Calendar.MINUTE);
-		int segundos = fecha.get(Calendar.SECOND);
-
-		table.getLogActivador().setAnio(Long.valueOf(anio));
-		table.getLogActivador().setMes(Long.valueOf(mes));
-		table.getLogActivador().setDia(Long.valueOf(dia));
-		// table.getLogActivador().setHora(Long.valueOf(hora+ ":" + minutos + ":" +
-		// segundos));
-		table.getLogActivador().setHora(Long.valueOf(hora));
-
-		/*
-		 * table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
-		 * table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));
-		 * table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
-		 * table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
-		 */
-
-		logActivadorDao.updateEntity(table.getLogActivador());
+//		Calendar fecha = Calendar.getInstance();
+//		int anio = fecha.get(Calendar.YEAR);
+//		int mes = fecha.get(Calendar.MONTH) + 1;
+//		int dia = fecha.get(Calendar.DAY_OF_MONTH);
+//		int hora = fecha.get(Calendar.HOUR_OF_DAY);
+//		int minutos = fecha.get(Calendar.MINUTE);
+//		int segundos = fecha.get(Calendar.SECOND);
+//
+//		table.getLogActivador().setAnio(Long.valueOf(anio));
+//		table.getLogActivador().setMes(Long.valueOf(mes));
+//		table.getLogActivador().setDia(Long.valueOf(dia));
+//		// table.getLogActivador().setHora(Long.valueOf(hora+ ":" + minutos + ":" +
+//		// segundos));
+//		table.getLogActivador().setHora(Long.valueOf(hora));
+//
+//		/*
+//		 * table.getLogActivador().setAnio(Long.valueOf(nowDate.getYear() + 1900));
+//		 * table.getLogActivador().setMes(Long.valueOf(nowDate.getMonth()+1));
+//		 * table.getLogActivador().setDia(Long.valueOf(nowDate.getDay()));
+//		 * table.getLogActivador().setHora(Long.valueOf(nowDate.getHours()));
+//		 */
+//
+//		logActivadorDao.updateEntity(table.getLogActivador());
 
 	}
 
@@ -219,6 +223,14 @@ public class ExecuteMigration implements IExecuteMigration, Runnable {
 
 	public void setIdAudit(Long idAudit) {
 		this.idAudit = idAudit;
+	}
+
+	public String getEstadoActividad() {
+		return estadoActividad;
+	}
+
+	public void setEstadoActividad(String estadoActividad) {
+		this.estadoActividad = estadoActividad;
 	}
 
 }

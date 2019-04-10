@@ -10,7 +10,9 @@ import javax.ejb.Stateless;
 import org.modelmapper.ModelMapper;
 
 import co.com.samtel.dao.IGenericDao;
+import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.as400.BigActivoConsolidadoAs;
+import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.entity.sql.BigActivoConsolidado;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.exception.MapperException;
@@ -68,5 +70,65 @@ public class BigActivoConsolidadoMigrate extends MigrateAbs< BigActivoConsolidad
 	@Override
 	public Class<BigActivoConsolidadoAs> getClassOrigin() {
 		return BigActivoConsolidadoAs.class;
+	}
+
+	@Override
+	public Boolean generateMigration() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ErrorDto getError() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TableMigration getTableToMigrate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLogActivador(LogActivador logActivador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void numRecordsSourceAndDestination() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTypeOrder(String typeOrder) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setNumRecBlock(Long numRecBlock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ejecutarHilo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setIniProcess(Long iniProcess) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BigActivoConsolidado mappearOrigen(BigActivoConsolidadoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

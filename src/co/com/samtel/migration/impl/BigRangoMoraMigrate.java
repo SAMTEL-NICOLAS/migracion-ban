@@ -64,4 +64,10 @@ public class BigRangoMoraMigrate extends MigrateAbs<BigRangoMoraAs, BigRangoMora
 		return BigRangoMoraAs.class;
 	}
 
+	@Override
+	public BigRangoMora mappearOrigen(BigRangoMoraAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

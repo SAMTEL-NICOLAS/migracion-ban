@@ -13,11 +13,9 @@ import org.modelmapper.ModelMapper;
 import co.com.samtel.cargue.enumeraciones.TypeFile;
 import co.com.samtel.cargue.enumeraciones.tables.TypeBigDesendeudeseColumn;
 import co.com.samtel.cargue.service.IStrategyMapper;
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.IGenericDao;
-import co.com.samtel.entity.manual.csv.BigCalificacionCarteraClienteCsv;
 import co.com.samtel.entity.manual.csv.BigDesendeudeseCsv;
-import co.com.samtel.entity.manual.sql.BigCalificacionCarteraCliente;
-import co.com.samtel.entity.manual.sql.BigCalificacionCarteraClienteId;
 import co.com.samtel.entity.manual.sql.BigDesendeudese;
 import co.com.samtel.entity.manual.sql.BigDesendeudeseId;
 import co.com.samtel.enumeraciones.TypeConections;
@@ -27,7 +25,7 @@ public class BigDesendeudeseMapper extends AbsStrategyMapper<BigDesendeudeseCsv,
 		implements IStrategyMapper<BigDesendeudeseCsv> {
 	
 	@EJB(beanName="bigDesendeudeseDao")
-	IGenericDao<BigDesendeudese,BigDesendeudeseId > objDao;
+	IGenericDao<BigDesendeudese,BigDesendeudeseId, DummyConsecutivo > objDao;
 	
 	ModelMapper modelMapper = new ModelMapper();
 	

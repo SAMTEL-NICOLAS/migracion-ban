@@ -2,10 +2,13 @@ package co.com.samtel.migration.impl;
 
 import java.util.Arrays;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import org.modelmapper.ModelMapper;
+
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigEjecutivoAs;
 import co.com.samtel.entity.sql.BigEjecutivo;
@@ -61,6 +64,12 @@ public class BigEjecutivoMigrate extends MigrateAbs<BigEjecutivoAs, BigEjecutivo
 	public Class<BigEjecutivoAs> getClassOrigin() {
 		// TODO Auto-generated method stub
 		return BigEjecutivoAs.class;
+	}
+
+	@Override
+	public BigEjecutivo mappearOrigen(BigEjecutivoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

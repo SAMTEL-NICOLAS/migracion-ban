@@ -3,4 +3,5 @@
 /OrigenPostgresHibernate.cfg.xml
 /SqlServerHibernate.cfg.xml
 /co/
+/configuration.properties
 /general.properties

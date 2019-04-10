@@ -9,13 +9,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import co.com.samtel.dao.DummyConsecutivo;
 import co.com.samtel.dao.bussines.ILogActivadorDao;
 import co.com.samtel.dao.impl.AbsDao;
 import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TypeConections;
 
 @Stateless(name = "logActivadorDao")
-public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogActivadorDao {
+public class LogActivadorDao extends AbsDao<LogActivador, Long, DummyConsecutivo> implements ILogActivadorDao {
 
 	@PostConstruct
 	public void init() {
@@ -29,7 +30,7 @@ public class LogActivadorDao extends AbsDao<LogActivador, Long> implements ILogA
 		try {
 			session = getFactorySessionHibernate().generateSesion(getTypeConection()).openSession();
 			Criteria crit = session.createCriteria(getDomainClass())
-					.add(Restrictions.in("estado", new String[] { "0", "-3" }));
+					.add(Restrictions.in("estado", new String[] { "0", "-2" }));
 
 			result = crit.list();
 		} catch (Exception e) {

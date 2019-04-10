@@ -20,4 +20,6 @@ public interface IDetailAuditCsvDao {
 	List<DetailAuditCsv> getDetailById(String idDatail,String table);
 	
 	List<DetailAuditCsv> getDetailByIdAndTable(String idDatail,String table);
+	
+	Boolean updateStateAudit(String idAudit);
 }

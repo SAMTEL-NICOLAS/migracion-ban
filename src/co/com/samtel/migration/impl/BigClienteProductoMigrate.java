@@ -71,4 +71,10 @@ public class BigClienteProductoMigrate extends MigrateAbs<BigClienteProductoAs, 
 		return BigClienteProductoAs.class;
 	}
 
+	@Override
+	public BigClienteProducto mappearOrigen(BigClienteProductoAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

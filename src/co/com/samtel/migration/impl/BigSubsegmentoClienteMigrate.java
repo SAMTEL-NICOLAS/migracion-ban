@@ -65,4 +65,10 @@ public class BigSubsegmentoClienteMigrate extends MigrateAbs<BigSubsegmentoClien
 		// TODO Auto-generated method stub
 		return BigSubsegmentoClienteAs.class;
 	}
+
+	@Override
+	public BigSubsegmentoCliente mappearOrigen(BigSubsegmentoClienteAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

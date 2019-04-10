@@ -65,4 +65,10 @@ public class BigSubproductosMigrate extends MigrateAbs< BigSubproductosAs,  BigS
 		// TODO Auto-generated method stub
 		return BigSubproductosAs.class;
 	}
+
+	@Override
+	public BigSubproductos mappearOrigen(BigSubproductosAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

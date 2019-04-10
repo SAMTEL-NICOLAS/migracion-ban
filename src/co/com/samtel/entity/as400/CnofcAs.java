@@ -6,9 +6,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import co.com.samtel.dao.Consecutivo;
+
 @Entity
 @Table(name = "CNOFC", schema = "DAMCYFILES")
-public class CnofcAs implements Serializable {
+public class CnofcAs extends Consecutivo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

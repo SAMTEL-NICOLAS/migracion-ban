@@ -1,44 +1,33 @@
 package co.com.samtel.migration.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
-
-import javax.ejb.EJB;
 
 import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.dto.ErrorDto;
 import co.com.samtel.entity.business.LogActivador;
 import co.com.samtel.enumeraciones.TableMigration;
 import co.com.samtel.enumeraciones.TypeConections;
-import co.com.samtel.enumeraciones.TypeErrors;
-import co.com.samtel.exception.ControlledExeption;
 import co.com.samtel.exception.MapperException;
-import co.com.samtel.exception.NoRecordsFoundException;
-import co.com.samtel.exception.TimeOutCustomException;
-import co.com.samtel.service.IParametrosService;
 
 public abstract class MigrateAbs<T, U> {
 
-	private Class<T> typeOrigin;
-	private T origin;
+	private Long registrosOrigen;
+	private Long registrosDestino;
 
-	@EJB
-	IParametrosService parametrosService;
-	// Numero de registros a migrar
-	private Long numRecords;
-	
-	private Long numRecordsAll;
-	
-	// Numero de registros migrados
-	private Long numRecMig;
+	private Long iniProcess;
+	private Long finProcess;
+
+	private List<T> listOrigen;
+	private List<U> listDestino;
+
 	// Numero de registros que se migrarar (bloque de información)
 	private Long numRecBlock;
 
 	private String strPrimaryKey;
+	private String typeOrder; // Me indica si el orden es ascendente o descendente
+
 	private TableMigration tableToMigrate;
-	private List<T> listOrigen;
-	private List<U> listDestino;
+
 	private ErrorDto error;
 
 	// Objeto con el cual se actualizara el log de As400 al culminar el proceso de
@@ -55,15 +44,9 @@ public abstract class MigrateAbs<T, U> {
 
 	abstract public List<U> mappearOrigen(List<T> origen) throws MapperException;
 
+	abstract public U mappearOrigen(T origen) throws MapperException;
+
 	abstract public Class<T> getClassOrigin();
-
-	public String getStrPrimaryKey() {
-		return strPrimaryKey;
-	}
-
-	public void setStrPrimaryKey(String strPrimaryKey) {
-		this.strPrimaryKey = strPrimaryKey;
-	}
 
 	/**
 	 * Metodo con el cual inicializo la migracion
@@ -73,9 +56,6 @@ public abstract class MigrateAbs<T, U> {
 		getDestino().setTypeConection(TypeConections.SQLSERVER);
 		// Obtengo el numero de registros origen
 		getOrigen().countRecordsTable();
-		setNumRecords(getOrigen().getNumRecordsTable());
-		// Obtengo el numero de registros que se desean por bloque
-		setNumRecBlock(parametrosService.getNumRecordsToProcess());
 	}
 
 	/**
@@ -84,44 +64,8 @@ public abstract class MigrateAbs<T, U> {
 	 * @return
 	 */
 	public Boolean generateMigration() {
-		initializeMigration();
-		System.out.println(
-				".:: Inicio de la migracion, Numero de registros a migrar: ".concat(getNumRecords().toString()));
-		// Inicio contador para medir tiempo de la transacción
-
-		long startTime = System.currentTimeMillis();
-		try {
-			// Itero las veces que sea necesario
-			for (int i = 0; i <= getNumRecords(); i += getNumRecBlock()) {
-				// Calculo tiempo que lleva la operación de migración
-				long endTime = System.currentTimeMillis() - startTime;
-				// Superior a un minuto
-				if (endTime > 60000) {
-					throw new TimeOutCustomException("Time Out Superado: 60000 ms");
-				}
-				extractInformation(getStrPrimaryKey(), getNumRecBlock().intValue());
-				setListDestino(mappearOrigen(getListOrigen()));
-				persistInformation();
-				updateMigrateOrigin();				
-				System.out.println(".:: Registros Migrados: ".concat(String.valueOf(i)).concat(" ::."));
-
-			}
-		} catch (MapperException e) {
-			e.printStackTrace();
-			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.MAPPER_EROR, e.getMessage()));
-			return Boolean.FALSE;
-		} catch (NoRecordsFoundException e) {
-			e.printStackTrace();
-			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.NO_RECORDSFOUND, e.getMessage()));
-			return Boolean.FALSE;
-		} catch (ControlledExeption e) {
-			e.printStackTrace();
-			getError().setTable(getTableToMigrate());
-			return Boolean.FALSE;
-		} catch (TimeOutCustomException e) {
-			e.printStackTrace();
-			setError(ErrorDto.of(getTableToMigrate(), TypeErrors.TIME_OUT_CUSTOM, e.getMessage()));
-		}
+		extractInformation();
+		iterateSource();
 		return Boolean.TRUE;
 	}
 
@@ -132,117 +76,86 @@ public abstract class MigrateAbs<T, U> {
 	 * @param fin
 	 */
 	@SuppressWarnings("unchecked")
-	public void extractInformation(String idColum, Integer offset) {
-		setListOrigen(getOrigen().findBlockData(idColum, offset));
+	public void extractInformation() {
+		setListOrigen(getOrigen().findBlockData(getTypeOrder(), getIniProcess(), getIniProcess()  + getNumRecBlock() ));
 	}
 
 	/**
-	 * Metodo con el cual persisto la informacion
-	 * 
-	 * @throws NoRecordsFoundException
-	 * 
-	 * @throws MapperException
+	 * Metodo con el cual itero la lista origen e inserto los registros en la base
+	 * de datos destino
 	 */
-	@SuppressWarnings("unchecked")
-	public void persistInformation() throws NoRecordsFoundException, ControlledExeption {
-		if (getListDestino() != null && !getListDestino().isEmpty()) {
-			for (U item : getListDestino()) {
-				if (!getDestino().saveEntity(item)) {
-					if (!getDestino().getError().getTypeError().equals(TypeErrors.CONSTRAINT_VIOLATION)
-							|| (getDestino().getError().getTypeError().equals(TypeErrors.CONSTRAINT_VIOLATION)
-									&& !getDestino().updateEntity(item))) {
-						setError(getDestino().getError());
-						throw new ControlledExeption("Error al persistir");
-					}
-				} else {
-					setNumRecMig(getNumRecMig() + 1);
-				}
-			}
-			cantidadRegistrosMigrados();
-		}
-		
-		else {
-			throw new NoRecordsFoundException("Sin Registros de origen");
-		}
-		
-	}
-	
-	public void cantidadRegistrosMigrados () {
-		getOrigen().countRecordsTableAll();
-		setNumRecordsAll(getOrigen().getNumRecordsTableAll());		
-	
-		if (getNumRecordsAll().equals(numRecMig)) {
-		setError(ErrorDto.of(getTableToMigrate(), TypeErrors.SUCCESS, "Ok"));			
-	} 
-	}
-
-	/**
-	 * Metodo con el cual marco los registros migrados
-	 * 
-	 * @throws ControlledExeption
-	 */
-	@SuppressWarnings("all")
-	public void updateMigrateOrigin() throws ControlledExeption {
-		if (getListOrigen() != null && !getListOrigen().isEmpty()) {
-			for (T item : getListOrigen()) {
-				item = adicionoParametroMigrate(item);
-			}
-			if (!getOrigen().updateListEntity(getListOrigen())) {
-				setError(getDestino().getError());
-				throw new ControlledExeption("Error al actualizar a migrado el origen");
-			}
-		}
-	}
-
-	/**
-	 * Metodo con el cual cambio el estado del registro
-	 */
-	public T adicionoParametroMigrate(T item) {
+	public void iterateSource() {
 		try {
-			Method method = getClassOrigin().getMethod("setMigrado", String.class);
-			method.invoke(item, "S");
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException | SecurityException e) {
+			System.out.println(".::Numero de registros a Migrar:" + getListOrigen().size()+"::.");
+			for(T item : getListOrigen()) {
+				process(item, mappearOrigen(item));
+			}
+			getOrigen().nativeUpdateBlock(getTableToMigrate(), 0, getNumRecBlock().intValue());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return item;
+
 	}
 
-	public IParametrosService getParametrosService() {
-		return parametrosService;
+	/**
+	 * Genero el proceso de migracion item a item
+	 */
+	public void process(T origenItem, U destinoItem) {
+		getDestino().saveEntity(destinoItem);
 	}
 
-	public void setParametrosService(IParametrosService parametrosService) {
-		this.parametrosService = parametrosService;
+	/**
+	 * Metodo con el cual cuento el numero de registros que se deben migrar de as400
+	 * y el numero de registros migrados en sql
+	 * 
+	 */
+	public void numRecordsSourceAndDestination() {
+		initializeMigration();
+		getOrigen().countRecordsTable();
+		setRegistrosOrigen(getOrigen().getNumRecordsTable());
+
+		getDestino().countRecordsTableAll();
+		setRegistrosDestino(getDestino().getNumRecordsTableAll());
 	}
 
-	public Long getNumRecords() {
-		return numRecords;
+	public Long getRegistrosOrigen() {
+		return registrosOrigen;
 	}
 
-	public void setNumRecords(Long numRecords) {
-		this.numRecords = numRecords;
+	public void setRegistrosOrigen(Long registrosOrigen) {
+		this.registrosOrigen = registrosOrigen;
 	}
 
-	public Long getNumRecBlock() {
-		return numRecBlock;
+	public Long getRegistrosDestino() {
+		return registrosDestino;
 	}
 
-	public void setNumRecBlock(Long numRecBlock) {
-		this.numRecBlock = numRecBlock;
+	public void setRegistrosDestino(Long registrosDestino) {
+		this.registrosDestino = registrosDestino;
 	}
 
-	public TableMigration getTableToMigrate() {
-		return tableToMigrate;
+	public Long getIniProcess() {
+		return iniProcess;
 	}
 
-	public void setTableToMigrate(TableMigration tableToMigrate) {
-		this.tableToMigrate = tableToMigrate;
+	public void setIniProcess(Long iniProcess) {
+		this.iniProcess = iniProcess;
+	}
+
+	public Long getFinProcess() {
+		return finProcess;
+	}
+
+	public void setFinProcess(Long finProcess) {
+		this.finProcess = finProcess;
+	}
+
+	public String getStrPrimaryKey() {
+		return strPrimaryKey;
+	}
+
+	public void setStrPrimaryKey(String strPrimaryKey) {
+		this.strPrimaryKey = strPrimaryKey;
 	}
 
 	public List<T> getListOrigen() {
@@ -261,20 +174,28 @@ public abstract class MigrateAbs<T, U> {
 		this.listDestino = listDestino;
 	}
 
+	public Long getNumRecBlock() {
+		return numRecBlock;
+	}
+
+	public void setNumRecBlock(Long numRecBlock) {
+		this.numRecBlock = numRecBlock;
+	}
+
+	public TableMigration getTableToMigrate() {
+		return tableToMigrate;
+	}
+
+	public void setTableToMigrate(TableMigration tableToMigrate) {
+		this.tableToMigrate = tableToMigrate;
+	}
+
 	public ErrorDto getError() {
 		return error;
 	}
 
 	public void setError(ErrorDto error) {
 		this.error = error;
-	}
-
-	public Long getNumRecMig() {
-		return numRecMig;
-	}
-
-	public void setNumRecMig(Long numRecMig) {
-		this.numRecMig = numRecMig;
 	}
 
 	public LogActivador getLogActivador() {
@@ -285,12 +206,16 @@ public abstract class MigrateAbs<T, U> {
 		this.logActivador = logActivador;
 	}
 
-	public Long getNumRecordsAll() {
-		return numRecordsAll;
+	public String getTypeOrder() {
+		return typeOrder;
 	}
 
-	public void setNumRecordsAll(Long numRecordsAll) {
-		this.numRecordsAll = numRecordsAll;
+	public void setTypeOrder(String typeOrder) {
+		this.typeOrder = typeOrder;
+	}
+	
+	public void ejecutarHilo() {
+		System.out.println(".::No aplica multihilos::.");
 	}
 
 }

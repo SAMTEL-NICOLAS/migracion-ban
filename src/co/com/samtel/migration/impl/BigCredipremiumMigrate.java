@@ -68,4 +68,10 @@ public class BigCredipremiumMigrate extends MigrateAbs<BigCredipremiumAs, BigCre
 	public Class<BigCredipremiumAs> getClassOrigin() {		
 		return BigCredipremiumAs.class;
 	}
+
+	@Override
+	public BigCredipremium mappearOrigen(BigCredipremiumAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

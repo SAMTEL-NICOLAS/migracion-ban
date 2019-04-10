@@ -10,6 +10,7 @@ import co.com.samtel.dao.IGenericDao;
 import co.com.samtel.entity.as400.BigEstGeneralListaAs;
 import co.com.samtel.entity.sql.BigEstGeneralLista;
 import co.com.samtel.enumeraciones.TableMigration;
+import co.com.samtel.exception.MapperException;
 import co.com.samtel.migration.IGenerateMigration;
 import co.com.samtel.migration.ITransformation;
 
@@ -58,5 +59,11 @@ public class BigEstGeneralListaMigrate extends MigrateAbs< BigEstGeneralListaAs,
 	@Override
 	public Class<BigEstGeneralListaAs> getClassOrigin() {
 		return BigEstGeneralListaAs.class;
+	}
+
+	@Override
+	public BigEstGeneralLista mappearOrigen(BigEstGeneralListaAs origen) throws MapperException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

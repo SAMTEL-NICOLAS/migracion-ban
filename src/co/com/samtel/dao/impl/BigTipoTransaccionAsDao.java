@@ -7,6 +7,6 @@ import co.com.samtel.entity.as400.BigTipoTransaccionAs;
 import co.com.samtel.entity.as400.BigTipoTransaccionIdAs;
 
 @Stateless(name="bigTipoTransaccionAsDao")
-public class BigTipoTransaccionAsDao extends AbsDao<BigTipoTransaccionAs, BigTipoTransaccionIdAs> implements IBigTipoTransaccionAsDao {
+public class BigTipoTransaccionAsDao extends AbsDao<BigTipoTransaccionAs, BigTipoTransaccionIdAs, BigTipoTransaccionAs> implements IBigTipoTransaccionAsDao {
 
 }
