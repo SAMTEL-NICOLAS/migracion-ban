@@ -11,4 +11,5 @@ import co.com.samtel.entity.manual.sql.BigCalificacionCarteraClienteId;
 @Stateless(name="bigCalificacionCarteraClienteDao")
 public class BigCalificacionCarteraClienteDao extends AbsDao<BigCalificacionCarteraCliente, BigCalificacionCarteraClienteId, DummyConsecutivo> implements IGenericDao<BigCalificacionCarteraCliente, BigCalificacionCarteraClienteId, DummyConsecutivo> {
 
+
 }
