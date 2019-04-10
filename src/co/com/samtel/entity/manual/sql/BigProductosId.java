@@ -8,10 +8,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class BigProductosId implements Serializable {
 	
+	
 	private static final long serialVersionUID = 1L;
 
 	@Column		
-	private Integer i_cod_sub_producto;
+	private String i_cod_sub_producto;	
+	
+	@Column
+	private String s_des_sub_producto;
 	
 	@Column
 	private Date d_fecha_corte;
@@ -21,11 +25,14 @@ public class BigProductosId implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BigProductosId(Integer i_cod_sub_producto, Date d_fecha_corte) {
+
+	public BigProductosId(String i_cod_sub_producto, String s_des_sub_producto, Date d_fecha_corte) {
 		super();
 		this.i_cod_sub_producto = i_cod_sub_producto;
+		this.s_des_sub_producto = s_des_sub_producto;
 		this.d_fecha_corte = d_fecha_corte;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -58,11 +65,11 @@ public class BigProductosId implements Serializable {
 		return true;
 	}
 
-	public Integer getI_cod_sub_producto() {
+	public String getI_cod_sub_producto() {
 		return i_cod_sub_producto;
 	}
 
-	public void setI_cod_sub_producto(Integer i_cod_sub_producto) {
+	public void setI_cod_sub_producto(String i_cod_sub_producto) {
 		this.i_cod_sub_producto = i_cod_sub_producto;
 	}
 
@@ -73,7 +80,14 @@ public class BigProductosId implements Serializable {
 	public void setD_fecha_corte(Date d_fecha_corte) {
 		this.d_fecha_corte = d_fecha_corte;
 	}
-	
-	
 
+
+	public String getS_des_sub_producto() {
+		return s_des_sub_producto;
+	}
+
+
+	public void setS_des_sub_producto(String s_des_sub_producto) {
+		this.s_des_sub_producto = s_des_sub_producto;
+	}
 }

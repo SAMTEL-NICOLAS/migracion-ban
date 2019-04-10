@@ -58,6 +58,7 @@ public class BigCredipremiumMigrate extends MigrateAbs<BigCredipremiumAs, BigCre
 		item.setCrcfvc(transformDate(item.getCrcfvcAux()));		
 		item.setCrcfpc(transformDate(item.getCrcfpcAux()));
 		item.setCrcfcr(transformDate(item.getCrcfcrAux()));
+		item.setCrcfdc(transformDate(item.getCrcfdcAux()));
 		
 		}
 		BigCredipremium [] listaDestino = 	modelMapper.map(origen, BigCredipremium[].class);

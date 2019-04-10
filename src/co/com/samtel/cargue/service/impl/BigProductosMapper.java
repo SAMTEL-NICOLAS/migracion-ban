@@ -48,7 +48,7 @@ public class BigProductosMapper extends AbsStrategyMapper<BigProductosCsv, TypeB
 	public BigProductos getCustomMapper(BigProductosCsv dto) {
 		ModelMapper modelMapper = new ModelMapper();
 		BigProductos destinoSql = modelMapper.map(dto, BigProductos.class);
-		BigProductosId id= new BigProductosId(dto.getI_cod_sub_producto(),dto.getD_fecha_corte());
+		BigProductosId id= new BigProductosId(dto.getI_cod_sub_producto(),dto.getS_des_sub_producto(),dto.getD_fecha_corte());
 		destinoSql.setId(id);
 		return destinoSql;
 	}
@@ -57,7 +57,7 @@ public class BigProductosMapper extends AbsStrategyMapper<BigProductosCsv, TypeB
 	public List<BigProductos> getCustomMapper2(List<BigProductosCsv> dto) {
 		for (BigProductosCsv item : dto) {
 			BigProductos destinoSql = modelMapper.map(item, BigProductos.class);
-			BigProductosId id= new BigProductosId(item.getI_cod_sub_producto(),item.getD_fecha_corte());
+			BigProductosId id= new BigProductosId(item.getI_cod_sub_producto(),item.getS_des_sub_producto(),item.getD_fecha_corte());
 			destinoSql.setId(id);
 			obj.add(destinoSql);
 		}

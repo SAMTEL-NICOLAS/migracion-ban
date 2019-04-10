@@ -7,8 +7,8 @@ public class BigProductosCsv {
 	
 	private Integer i_cod_tipo_producto;	
 	private String s_des_tipo_producto;		
-	private Integer i_cod_producto;	
-	private Integer i_cod_sub_producto;	
+	private String i_cod_producto;	
+	private String i_cod_sub_producto;	
 	private String s_des_producto;	
 	private String s_des_sub_producto;	
 	private String s_des_segmento_producto;		
@@ -30,10 +30,10 @@ public class BigProductosCsv {
 	public void setS_des_tipo_producto(String s_des_tipo_producto) {
 		this.s_des_tipo_producto = s_des_tipo_producto;
 	}
-	public Integer getI_cod_producto() {
+	public String getI_cod_producto() {
 		return i_cod_producto;
 	}
-	public void setI_cod_producto(Integer i_cod_producto) {
+	public void setI_cod_producto(String i_cod_producto) {
 		this.i_cod_producto = i_cod_producto;
 	}
 	public String getS_des_producto() {
@@ -78,10 +78,10 @@ public class BigProductosCsv {
 	public void setM_tasa_referencia(BigDecimal m_tasa_referencia) {
 		this.m_tasa_referencia = m_tasa_referencia;
 	}
-	public Integer getI_cod_sub_producto() {
+	public String getI_cod_sub_producto() {
 		return i_cod_sub_producto;
 	}
-	public void setI_cod_sub_producto(Integer i_cod_sub_producto) {
+	public void setI_cod_sub_producto(String i_cod_sub_producto) {
 		this.i_cod_sub_producto = i_cod_sub_producto;
 	}
 	public Date getD_fecha_corte() {
