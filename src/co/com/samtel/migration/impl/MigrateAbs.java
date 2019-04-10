@@ -85,6 +85,9 @@ public abstract class MigrateAbs<T, U> {
 	 * @return
 	 */
 	public Boolean generateMigration() {
+		if(getIniProcess() == null) {
+			setIniProcess(Long.valueOf(0));
+		} 
 		extractInformation();
 		iterateSource();
 		return Boolean.TRUE;

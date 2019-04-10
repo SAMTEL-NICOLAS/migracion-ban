@@ -264,7 +264,7 @@ public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IG
 			for (ENTITYAS item : listEntity) {
 				tx = session.beginTransaction();
 				String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
-						.concat(" SET migrar = 'S' WHERE consecuti = :secu");
+						.concat(" SET migrar = 'S' WHERE consecutiv = :secu");
 				session.createSQLQuery(query).setLong("secu", item.getSecuencia()).executeUpdate();
 				tx.commit();
 			}
@@ -288,7 +288,7 @@ public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IG
 			session = factorySessionHibernate.generateSesion(getTypeConection()).openSession();
 			tx = session.beginTransaction();
 			String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
-					.concat(" SET migrar = 'S' WHERE consecuti between :ini and :fin");
+					.concat(" SET migrar = 'S' WHERE consecutiv between :ini and :fin");
 			session.createSQLQuery(query)
 			.setInteger("ini", ini)
 			.setInteger("fin", fin)
@@ -317,7 +317,7 @@ public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IG
 
 			tx = session.beginTransaction();
 			String query = "UPDATE DAMCYFILES.".concat(tableName.getNameAs())
-					.concat(" SET migrar = 'S' WHERE consecuti = :secu");
+					.concat(" SET migrar = 'S' WHERE consecutiv = :secu");
 			session.createSQLQuery(query).setLong("secu", entity.getSecuencia()).executeUpdate();
 			tx.commit();
 
@@ -396,7 +396,7 @@ public abstract class AbsDao<T, PK, ENTITYAS extends IConsecutivo> implements IG
 			tx = session.beginTransaction();
 			String hql = "delete from ".concat(tableName.getNameEntitySql());
 			int records = session.createQuery(hql).executeUpdate();
-			System.out.println(".:: Numero de registros eliminados"+ records +" ::.");
+			System.out.println(".:: Numero de registros eliminados "+ records +" ::.");
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

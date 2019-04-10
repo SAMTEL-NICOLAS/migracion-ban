@@ -71,7 +71,7 @@ public class BigCiudadesMigrate extends MigrateAbs<BigCiudadesAs, BigCiudades>
 
 	@Override
 	public BigCiudades mappearOrigen(BigCiudadesAs origen) throws MapperException {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper modelMapper = new ModelMapper();	
+		return modelMapper.map(origen, BigCiudades.class);
 	}
 }

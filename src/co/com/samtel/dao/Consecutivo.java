@@ -8,7 +8,7 @@ import co.com.samtel.migration.IConsecutivo;
 @MappedSuperclass
 public class Consecutivo implements IConsecutivo{
 
-	@Column(name = "consecuti")
+	@Column(name = "consecutiv")
 	private Long secuencia;
 
 	public Long getSecuencia() {
